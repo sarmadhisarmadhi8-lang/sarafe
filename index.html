@@ -1,1407 +1,1062 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl" class="dark">
+<html lang="ku" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>سەرەفیا پێشکەفتی - Sarafe Advanced System</title>
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#f0fdf4',
-              100: '#dcfce7',
-              500: '#22c55e',
-              600: '#16a34a',
-              700: '#15803d',
-              800: '#166534',
-              900: '#14532d',
-            },
-            darkbg: '#0b0f17',
-            cardbg: '#111827',
-            borderbg: '#1f2937'
-          },
-          fontFamily: {
-            cairo: ['Cairo', 'sans-serif']
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سستەمێ صەڕافی و ڕێڤەبرنا دارایی - زێڕاڤی</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Font Noto Kufi Arabic -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        darkbg: '#0f172a',
+                        cardbg: '#1e293b'
+                    },
+                    fontFamily: {
+                        sans: ['Noto Kufi Arabic', 'sans-serif'],
+                    }
+                }
+            }
         }
-      }
-    }
-  </script>
-
-  <!-- Google Fonts: Cairo -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      background-color: #0b0f17;
-      color: #f3f4f6;
-    }
-    
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #0b0f17;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #374151;
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #4b5563;
-    }
-
-    /* Print styling for receipts */
-    @media print {
-      body * {
-        visibility: hidden;
-      }
-      #printableReceipt, #printableReceipt * {
-        visibility: visible;
-      }
-      #printableReceipt {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        color: #000 !important;
-        background: #fff !important;
-      }
-    }
-  </style>
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            background-color: #0f172a;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
 </head>
-<body class="bg-darkbg text-gray-100 min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col md:flex-row antialiased selection:bg-brand-500 selection:text-white">
 
-  <!-- LOGIN OVERLAY -->
-  <div id="loginOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-darkbg/95 backdrop-blur-md p-4">
-    <div class="bg-cardbg border border-borderbg w-full max-w-md p-8 rounded-2xl shadow-2xl relative overflow-hidden">
-      <div class="absolute -top-12 -left-12 w-32 h-32 bg-brand-500/10 rounded-full blur-2xl"></div>
-      <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl"></div>
-      
-      <div class="text-center mb-8 relative z-10">
-        <div class="w-16 h-16 bg-brand-500/20 text-brand-500 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-brand-500/30 text-2xl shadow-lg shadow-brand-500/10">
-          <i class="fa-solid me-0 fa-arrow-right-arrow-left"></i>
+    <!-- LOGIN OVERLAY MODAL -->
+    <div id="loginModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-800 border border-slate-700/80 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-full h-2 bg-gradient-to-r from-brand-500 via-indigo-500 to-emerald-500"></div>
+            
+            <div class="text-center space-y-2">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white mx-auto shadow-lg shadow-brand-500/30">
+                    <i class="fa-solid fa-vault text-3xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-white tracking-wide mt-3">چوونەژوورێ د سستەمی دا</h2>
+                <p class="text-xs text-slate-400">سستەمێ صەڕافی و ژمێریاریا زێڕاڤی</p>
+            </div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block text-slate-300 font-medium mb-1.5">ناڤێ بکارهێنەری (Username)</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-user absolute right-3.5 top-3.5 text-slate-500"></i>
+                        <input type="text" id="loginUsername" placeholder="admin" required class="w-full bg-slate-900/90 border border-slate-700 rounded-xl pr-10 pl-3 py-3 text-sm text-white focus:outline-none focus:border-brand-500 transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-slate-300 font-medium mb-1.5">پاسۆرد (Password)</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute right-3.5 top-3.5 text-slate-500"></i>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required class="w-full bg-slate-900/90 border border-slate-700 rounded-xl pr-10 pl-3 py-3 text-sm text-white focus:outline-none focus:border-brand-500 transition">
+                    </div>
+                </div>
+
+                <div id="loginError" class="text-rose-400 text-xs text-center hidden font-medium p-2.5 bg-rose-500/10 rounded-lg border border-rose-500/20">
+                    ناڤێ بکارهێنەری یان پاسۆرد خەلەتە!
+                </div>
+
+                <button type="submit" id="loginBtn" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-brand-600/30 flex items-center justify-center gap-2 text-sm">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    چوونەژوورێ
+                </button>
+            </form>
+
+            <div class="pt-4 border-t border-slate-700/60 text-center text-[11px] text-slate-400 space-y-1">
+                <p>ئەکاونتێ سەرەکی د داتابێسێ دا:</p>
+                <p class="font-mono text-brand-400">Username: <span class="text-white">admin</span> | Password: <span class="text-white">123</span></p>
+            </div>
         </div>
-        <h1 class="text-2xl font-bold text-white tracking-wide" id="loginTitle">سەرەفیا پێشکەفتی</h1>
-        <p class="text-sm text-gray-400 mt-1" id="loginSubtitle">سیستەمێ بڕێڤەبرنا ئاڵۆگۆڕا دراڤی</p>
-      </div>
-
-      <div id="loginAlert" class="hidden mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm text-center"></div>
-
-      <form id="loginForm" class="space-y-4 relative z-10" onsubmit="handleLogin(event)">
-        <div>
-          <label class="block text-xs font-semibold text-gray-400 mb-1" id="lblUsername">ناڤێ بەکارهێنەری</label>
-          <div class="relative">
-            <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500">
-              <i class="fa-solid fa-user"></i>
-            </span>
-            <input type="text" id="loginUsername" required class="w-full pl-3 pr-10 py-2.5 bg-darkbg border border-borderbg rounded-xl focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-white transition placeholder-gray-600 outline-none" placeholder="admin">
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-xs font-semibold text-gray-400 mb-1" id="lblPassword">پەیڤا نهێنی</label>
-          <div class="relative">
-            <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500">
-              <i class="fa-solid fa-lock"></i>
-            </span>
-            <input type="password" id="loginPassword" required class="w-full pl-3 pr-10 py-2.5 bg-darkbg border border-borderbg rounded-xl focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm text-white transition placeholder-gray-600 outline-none" placeholder="••••••••">
-          </div>
-        </div>
-
-        <button type="submit" id="btnLoginSubmit" class="w-full py-3 bg-brand-600 hover:bg-brand-500 active:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-600/20 transition-all duration-200 mt-2 flex items-center justify-center gap-2">
-          <i class="fa-solid fa-right-to-bracket"></i>
-          <span id="btnTextLogin">چوونە ژوورڤە</span>
-        </button>
-      </form>
-
-      <div class="mt-6 pt-4 border-t border-borderbg text-center">
-        <p class="text-xs text-gray-500" id="loginHint">هەژمارا بنەڕەتی Admin: <span class="text-brand-400 font-mono">admin / admin123</span></p>
-      </div>
     </div>
-  </div>
 
-  <!-- MAIN APP CONTAINER -->
-  <div id="appContainer" class="hidden min-h-screen flex flex-col md:flex-row">
+    <!-- DESKTOP SIDEBAR -->
+    <aside id="sidebar" class="hidden md:flex w-64 bg-slate-800 border-l border-slate-700/60 flex-col justify-between shrink-0 z-30">
+        <div>
+            <!-- Logo Section -->
+            <div class="p-5 border-b border-slate-700/60 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-brand-500/20">
+                    <i class="fa-solid fa-wallet text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight tracking-wide text-white">صەڕافیا زێڕاڤی</h1>
+                    <p class="text-xs text-brand-400">سستەمێ گشتیی ژمێریاریێ</p>
+                </div>
+            </div>
 
-    <!-- SIDEBAR -->
-    <aside class="w-full md:w-64 bg-cardbg border-b md:border-b-0 md:border-l border-borderbg flex flex-col justify-between shrink-0">
-      <div>
-        <!-- Logo Header -->
-        <div class="p-5 border-b border-borderbg flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-brand-500/20 text-brand-500 rounded-xl flex items-center justify-center border border-brand-500/30 text-lg">
-              <i class="fa-solid fa-right-left"></i>
+            <!-- Current Role Indicator -->
+            <div class="mx-4 my-4 p-3 bg-slate-900/80 rounded-xl border border-slate-700/50 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-xs text-slate-400">رۆلێ ئەکاونتی:</span>
+                </div>
+                <span id="activeRoleBadge" class="text-xs px-2.5 py-1 rounded-lg font-semibold bg-brand-500/20 text-brand-400 border border-brand-500/30">
+                    سیستەم
+                </span>
             </div>
-            <div>
-              <h2 class="font-bold text-white leading-tight text-base" id="appNameText">سەرەفیا پێشکەفتی</h2>
-              <span class="text-[10px] text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded-full border border-brand-500/20" id="userRoleBadge">ڕێڤەبەر</span>
-            </div>
-          </div>
+
+            <!-- Navigation Links -->
+            <nav class="px-3 space-y-1.5 mt-2">
+                <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-all bg-brand-600 text-white shadow-lg shadow-brand-600/20">
+                    <i class="fa-solid fa-chart-pie w-5 text-center text-base"></i>
+                    <span>داشبۆردێ سەرەکی</span>
+                </button>
+
+                <button onclick="switchTab('trading')" id="nav-trading" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-all text-slate-400 hover:bg-slate-700/50 hover:text-slate-200">
+                    <i class="fa-solid fa-right-left w-5 text-center text-base"></i>
+                    <span>کڕین و فرۆشتنا دراڤی</span>
+                </button>
+
+                <button onclick="switchTab('staff')" id="nav-staff" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-all text-slate-400 hover:bg-slate-700/50 hover:text-slate-200">
+                    <i class="fa-solid fa-users-gear w-5 text-center text-base"></i>
+                    <span>کارگێڕیا ستافی (RBAC)</span>
+                </button>
+
+                <button onclick="switchTab('statements')" id="nav-statements" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-all text-slate-400 hover:bg-slate-700/50 hover:text-slate-200">
+                    <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-base"></i>
+                    <span>وەسڵ و حسابات</span>
+                </button>
+            </nav>
         </div>
 
-        <!-- Navigation Links -->
-        <nav class="p-3 space-y-1" id="navLinksContainer">
-          <!-- Links will be rendered based on staff permissions dynamically -->
-        </nav>
-      </div>
-
-      <!-- User Profile & Quick Settings -->
-      <div class="p-4 border-t border-borderbg bg-darkbg/40">
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center text-sm font-bold text-brand-400 border border-gray-700" id="userAvatar">
-              A
-            </div>
-            <div class="overflow-hidden">
-              <p class="text-xs font-bold text-white truncate" id="currentUsername">Admin</p>
-              <p class="text-[10px] text-gray-400 truncate" id="currentUserRole">سەرۆکێ سیستەمی</p>
-            </div>
-          </div>
-          <button onclick="handleLogout()" title="دەرکەڤتن" class="text-gray-400 hover:text-red-400 p-2 rounded-lg hover:bg-red-500/10 transition">
-            <i class="fa-solid fa-power-off text-sm"></i>
-          </button>
+        <!-- Sidebar Footer & Logout -->
+        <div class="p-4 border-t border-slate-700/60">
+            <button onclick="handleLogout()" class="w-full flex items-center justify-center gap-2 py-2.5 bg-rose-500/10 text-rose-400 hover:bg-rose-500 hover:text-white rounded-xl transition text-xs font-semibold border border-rose-500/20">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                دەرکەڤتن ژ ئەکاونتی
+            </button>
         </div>
-
-        <!-- Language Selector -->
-        <div class="flex items-center gap-2 bg-darkbg p-1.5 rounded-xl border border-borderbg text-xs">
-          <i class="fa-solid fa-globe text-gray-400 px-1"></i>
-          <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-transparent text-gray-300 focus:outline-none w-full font-sans cursor-pointer text-xs">
-            <option value="badini" class="bg-cardbg text-white">کوردیا بادینی</option>
-            <option value="sorani" class="bg-cardbg text-white">کوردیی سۆرانی</option>
-            <option value="arabic" class="bg-cardbg text-white">العربية</option>
-            <option value="english" class="bg-cardbg text-white">English</option>
-          </select>
-        </div>
-      </div>
     </aside>
 
-    <!-- MAIN CONTENT AREA -->
-    <main class="flex-1 flex flex-col min-w-0 bg-darkbg overflow-y-auto min-h-screen">
-      
-      <!-- TOP BAR -->
-      <header class="bg-cardbg/80 backdrop-blur-md border-b border-borderbg px-6 py-3 sticky top-0 z-30 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <h2 id="pageTitle" class="text-lg font-bold text-white">دەستپێک / Dashbaord</h2>
-        </div>
-        <div class="flex items-center gap-4">
-          <!-- Realtime Sync Badge -->
-          <div class="flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 text-brand-400 px-3 py-1 rounded-full text-xs font-semibold">
-            <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
-            <span id="syncStatus">ڕاستەوخۆ پەیوەستە</span>
-          </div>
-          <span id="liveClock" class="text-xs text-gray-400 font-mono hidden sm:inline-block">--:--:--</span>
-        </div>
-      </header>
-
-      <!-- PAGE CONTENT PANELS -->
-      <div class="p-6 space-y-6 flex-1">
-
-        <!-- ACCESS DENIED ALERT -->
-        <div id="accessDeniedNotice" class="hidden p-6 bg-red-500/10 border border-red-500/20 rounded-2xl text-center text-red-400 space-y-2">
-          <i class="fa-solid fa-shield-halved text-4xl mb-2 text-red-500"></i>
-          <h3 class="text-lg font-bold">دەستپێگەهشتن قەدەغەیە!</h3>
-          <p class="text-sm text-gray-400">تە مۆڵەتا پێدڤی نینە بۆ دیتنا ڤێ پشکا سیستەمی. تکایە پەیوەندی ب ڕێڤەبەری بکە.</p>
-        </div>
-
-        <!-- 1. DASHBOARD MODULE -->
-        <section id="module-dashboard" class="space-y-6">
-          <!-- Stats Summary Grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="bg-cardbg border border-borderbg p-5 rounded-2xl relative overflow-hidden">
-              <div class="flex items-center justify-between">
-                <div>
-                  <p class="text-xs text-gray-400" id="lblTotalTxToday">مەمەلەیێن ئەڤرۆ</p>
-                  <h3 class="text-2xl font-black text-white mt-1" id="dashTotalTx">0</h3>
+    <!-- MAIN CONTAINER -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+        <!-- TOP HEADER / MOBILE BAR -->
+        <header class="bg-slate-800/95 backdrop-blur-md sticky top-0 z-20 border-b border-slate-700/60 px-4 sm:px-6 py-3 flex flex-col gap-3">
+            <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-brand-600 flex md:hidden items-center justify-center text-white font-bold text-sm">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+                    <h2 id="pageTitle" class="text-lg sm:text-xl font-bold text-white tracking-wide">داشبۆردێ سەرەکی</h2>
                 </div>
-                <div class="w-12 h-12 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-xl flex items-center justify-center text-xl">
-                  <i class="fa-solid fa-receipt"></i>
+
+                <!-- Profile Badge & Logout -->
+                <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2 bg-slate-900/90 px-3 py-1.5 rounded-xl border border-slate-700">
+                        <div class="w-7 h-7 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold text-xs">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+                        <div class="text-right">
+                            <p id="currentUserDisplay" class="text-xs font-bold text-slate-200 leading-tight">---</p>
+                            <p id="currentUserRoleSub" class="text-[10px] text-brand-400 font-medium">---</p>
+                        </div>
+                    </div>
+
+                    <button onclick="handleLogout()" class="md:hidden p-2.5 bg-rose-500/10 text-rose-400 rounded-xl border border-rose-500/20 text-xs">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </button>
                 </div>
-              </div>
             </div>
 
-            <div class="bg-cardbg border border-borderbg p-5 rounded-2xl relative overflow-hidden">
-              <div class="flex items-center justify-between">
-                <div>
-                  <p class="text-xs text-gray-400" id="lblTotalVolumeUSD">قەبارێ دادپەروەر (USD)</p>
-                  <h3 class="text-2xl font-black text-emerald-400 mt-1" id="dashVolumeUSD">$0</h3>
-                </div>
-                <div class="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center text-xl">
-                  <i class="fa-solid fa-dollar-sign"></i>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-cardbg border border-borderbg p-5 rounded-2xl relative overflow-hidden">
-              <div class="flex items-center justify-between">
-                <div>
-                  <p class="text-xs text-gray-400" id="lblTotalProfitToday">قازانجێ پاقژ یێ ئەڤرۆ</p>
-                  <h3 class="text-2xl font-black text-brand-400 mt-1" id="dashProfitToday">$0.00</h3>
-                </div>
-                <div class="w-12 h-12 bg-brand-500/10 border border-brand-500/20 text-brand-400 rounded-xl flex items-center justify-center text-xl">
-                  <i class="fa-solid fa-chart-line"></i>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-cardbg border border-borderbg p-5 rounded-2xl relative overflow-hidden">
-              <div class="flex items-center justify-between">
-                <div>
-                  <p class="text-xs text-gray-400" id="lblSafeBalanceUSD">سندوقا سەرەکی (USD)</p>
-                  <h3 class="text-2xl font-black text-amber-400 mt-1" id="dashSafeUSD">$0</h3>
-                </div>
-                <div class="w-12 h-12 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-xl flex items-center justify-center text-xl">
-                  <i class="fa-solid fa-vault"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Chart & Quick Exchange Grid -->
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div class="lg:col-span-2 bg-cardbg border border-borderbg p-5 rounded-2xl">
-              <h3 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-chart-area text-brand-400"></i>
-                <span id="lblChartTitle">ئاڕاستەیێ مەمەلە و قازانجان</span>
-              </h3>
-              <div class="h-64 relative">
-                <canvas id="profitChart"></canvas>
-              </div>
-            </div>
-
-            <!-- Mini Live Rates Panel -->
-            <div class="bg-cardbg border border-borderbg p-5 rounded-2xl flex flex-col justify-between">
-              <div>
-                <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
-                  <i class="fa-solid fa-arrows-rotate text-emerald-400"></i>
-                  <span id="lblLiveRatesTitle">نرخێن بەرامبەر USD</span>
-                </h3>
-                <div class="space-y-3" id="miniRatesList">
-                  <!-- Rates items -->
-                </div>
-              </div>
-              <button onclick="switchTab('exchange')" class="w-full mt-4 py-2.5 bg-brand-600/20 hover:bg-brand-600/30 text-brand-400 border border-brand-500/30 font-bold text-xs rounded-xl transition flex items-center justify-center gap-2">
-                <span id="btnGoToExchange">ئەنجامدانا مەمەلەکێ</span>
-                <i class="fa-solid fa-arrow-left"></i>
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <!-- 2. EXCHANGE MODULE (SIMPLIFIED BUY/SELL - NO CUSTOMER FIELD) -->
-        <section id="module-exchange" class="hidden space-y-6">
-          <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
-            
-            <!-- Trade Calculation Panel -->
-            <div class="md:col-span-7 bg-cardbg border border-borderbg p-6 rounded-2xl shadow-xl space-y-5">
-              <div class="flex items-center justify-between pb-3 border-b border-borderbg">
-                <h3 class="font-bold text-white text-base flex items-center gap-2">
-                  <i class="fa-solid fa-calculator text-brand-400"></i>
-                  <span id="lblExchangePanelHeader">کاودانێ کرین / فرۆشتن</span>
-                </h3>
-                <span class="text-xs bg-brand-500/10 text-brand-400 border border-brand-500/20 px-2.5 py-1 rounded-full font-mono">سادەکری (Simplified)</span>
-              </div>
-
-              <!-- Trade Type Selection -->
-              <div class="grid grid-cols-2 gap-3">
-                <button type="button" id="btnTypeBuy" onclick="setTradeType('BUY')" class="py-3 rounded-xl border font-bold text-sm flex items-center justify-center gap-2 transition bg-emerald-600/20 border-emerald-500 text-emerald-400">
-                  <i class="fa-solid fa-cart-shopping"></i>
-                  <span id="lblBuy">کرین (Buy)</span>
+            <!-- MOBILE NAVIGATION SCROLL BAR (CRITICAL FIX) -->
+            <div class="flex md:hidden items-center gap-2 overflow-x-auto pb-1 pt-1 no-scrollbar border-t border-slate-700/50">
+                <button onclick="switchTab('dashboard')" id="mobile-nav-dashboard" class="mobile-nav-btn shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium bg-brand-600 text-white">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>داشبۆرد</span>
                 </button>
-                <button type="button" id="btnTypeSell" onclick="setTradeType('SELL')" class="py-3 rounded-xl border font-bold text-sm flex items-center justify-center gap-2 transition bg-darkbg border-borderbg text-gray-400">
-                  <i class="fa-solid fa-hand-holding-dollar"></i>
-                  <span id="lblSell">فرۆشتن (Sell)</span>
+                <button onclick="switchTab('trading')" id="mobile-nav-trading" class="mobile-nav-btn shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium bg-slate-900/90 text-slate-300 border border-slate-700">
+                    <i class="fa-solid fa-right-left"></i>
+                    <span>کڕین و فرۆشتن</span>
                 </button>
-              </div>
+                <button onclick="switchTab('staff')" id="mobile-nav-staff" class="mobile-nav-btn shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium bg-slate-900/90 text-slate-300 border border-slate-700">
+                    <i class="fa-solid fa-users-gear"></i>
+                    <span>ستاف و دەسەڵات</span>
+                </button>
+                <button onclick="switchTab('statements')" id="mobile-nav-statements" class="mobile-nav-btn shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium bg-slate-900/90 text-slate-300 border border-slate-700">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    <span>وەسڵ و حسابات</span>
+                </button>
+            </div>
+        </header>
 
-              <!-- Currency Pairs -->
-              <div class="grid grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-xs font-semibold text-gray-400 mb-1" id="lblFromCurrency">دراڤێ دەستپێکێ (From)</label>
-                  <select id="tradeFromCurr" onchange="calculateExchange()" class="w-full bg-darkbg border border-borderbg rounded-xl p-3 text-sm font-bold text-white focus:border-brand-500 outline-none">
-                    <option value="USD">USD - دۆلار</option>
-                    <option value="IQD">IQD - دینار</option>
-                    <option value="TRY">TRY - لیرە</option>
-                    <option value="EUR">EUR - یۆرۆ</option>
-                  </select>
+        <!-- Content Viewport -->
+        <div class="p-4 sm:p-6 space-y-6">
+
+            <!-- MODULE 1: ADMIN DASHBOARD -->
+            <section id="module-dashboard" class="space-y-6">
+                <!-- Stat Cards Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- USD Vault -->
+                    <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-brand-500"></div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-medium text-slate-400">خەزینەیا دۆلاری (USD)</p>
+                                <h3 id="statUsd" class="text-2xl font-bold text-white mt-2">$0.00</h3>
+                            </div>
+                            <span class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center font-bold">$</span>
+                        </div>
+                    </div>
+
+                    <!-- IQD Vault -->
+                    <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-medium text-slate-400">خەزینەیا دیناری (IQD)</p>
+                                <h3 id="statIqd" class="text-2xl font-bold text-white mt-2">0 IQD</h3>
+                            </div>
+                            <span class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold">IQD</span>
+                        </div>
+                    </div>
+
+                    <!-- EUR Vault -->
+                    <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-indigo-500"></div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-medium text-slate-400">خەزینەیا یۆرۆیێ (EUR)</p>
+                                <h3 id="statEur" class="text-2xl font-bold text-white mt-2">€0.00</h3>
+                            </div>
+                            <span class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold">€</span>
+                        </div>
+                    </div>
+
+                    <!-- TRY Vault -->
+                    <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-amber-500"></div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-medium text-slate-400">خەزینەیا لیرەیێ (TRY)</p>
+                                <h3 id="statTry" class="text-2xl font-bold text-white mt-2">₺0.00</h3>
+                            </div>
+                            <span class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold">₺</span>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  <label class="block text-xs font-semibold text-gray-400 mb-1" id="lblToCurrency">دراڤێ ئامانج (To)</label>
-                  <select id="tradeToCurr" onchange="calculateExchange()" class="w-full bg-darkbg border border-borderbg rounded-xl p-3 text-sm font-bold text-white focus:border-brand-500 outline-none">
-                    <option value="IQD" selected>IQD - دینار</option>
-                    <option value="USD">USD - دۆلار</option>
-                    <option value="TRY">TRY - لیرە</option>
-                    <option value="EUR">EUR - یۆرۆ</option>
-                  </select>
+
+                <!-- Charts Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-bold text-base text-slate-100">بەرامبەرکرنا داهات و ئاڵۆگۆڕی</h3>
+                            <span class="text-xs bg-slate-700/60 px-3 py-1 rounded-lg text-slate-300">ڕاستەوخۆ ژ Firebase</span>
+                        </div>
+                        <div class="h-64">
+                            <canvas id="financialChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl flex flex-col justify-between">
+                        <h3 class="font-bold text-base text-slate-100 mb-2">رێژەیا دراڤێن خەزینەیێ</h3>
+                        <div class="h-52 relative flex items-center justify-center">
+                            <canvas id="currencyPieChart"></canvas>
+                        </div>
+                    </div>
                 </div>
-              </div>
 
-              <!-- Amounts & Rates Inputs -->
-              <div class="space-y-4">
-                <div>
-                  <label class="block text-xs font-semibold text-gray-400 mb-1" id="lblAmount">بڕێ دانراو (Amount)</label>
-                  <input type="number" id="tradeAmount" value="100" min="0.01" step="any" oninput="calculateExchange()" class="w-full bg-darkbg border border-borderbg rounded-xl p-3 text-lg font-bold text-white focus:border-brand-500 outline-none font-mono" placeholder="0.00">
+                <!-- Recent Transactions Table -->
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl overflow-hidden">
+                    <div class="p-5 border-b border-slate-700/60 flex justify-between items-center">
+                        <h3 class="font-bold text-base text-slate-100">دواین مامەڵەیێن هاتبۆنە تۆمارکرن</h3>
+                        <button onclick="switchTab('trading')" class="text-xs text-brand-400 hover:text-brand-300 font-medium">بینینا هەمیێ <i class="fa-solid fa-arrow-left"></i></button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-right text-sm text-slate-300">
+                            <thead class="bg-slate-900/60 text-xs uppercase text-slate-400 border-b border-slate-700/60">
+                                <tr>
+                                    <th class="p-4">کەسی بەرامبەر</th>
+                                    <th class="p-4">جۆرێ مامەڵەیێ</th>
+                                    <th class="p-4">بڕ</th>
+                                    <th class="p-4">دراڤ</th>
+                                    <th class="p-4">کۆی گشتی (IQD)</th>
+                                    <th class="p-4">بەروار</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashboardRecentTable" class="divide-y divide-slate-700/50">
+                                <!-- Populated dynamically from Firebase -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 2: CURRENCY TRADING PANEL -->
+            <section id="module-trading" class="space-y-6 hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-slate-800/80 border border-slate-700/60 p-5 sm:p-6 rounded-2xl">
+                        <h3 class="font-bold text-lg text-white mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-calculator text-brand-400"></i>
+                            تۆمارکرنا مامەڵەیا کڕین یان فرۆشتنێ
+                        </h3>
+
+                        <form id="tradeForm" onsubmit="executeTrade(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">جۆرێ مامەڵەیێ</label>
+                                    <select id="tradeType" onchange="calculateTrade()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-brand-500">
+                                        <option value="BUY">کڕین (Buy)</option>
+                                        <option value="SELL">فرۆشتن (Sell)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">دراڤێ سەرەکی</label>
+                                    <select id="tradeCurrency" onchange="calculateTrade()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-brand-500">
+                                        <option value="USD">USD - دۆلار</option>
+                                        <option value="EUR">EUR - یۆرۆ</option>
+                                        <option value="TRY">TRY - لیرەیا تورکی</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">بڕێ دراڤی (Amount)</label>
+                                    <input type="number" id="tradeAmount" value="100" min="1" oninput="calculateTrade()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-brand-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">نرخێ ئاڵۆگۆڕی (Rate in IQD)</label>
+                                    <input type="number" id="tradeRate" value="1500" oninput="calculateTrade()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-brand-500">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-medium text-slate-400 mb-1">ناڤێ کڕیار / فرۆشیاری</label>
+                                <input type="text" id="clientName" placeholder="نموونە: ئاراس کامەران" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-brand-500">
+                            </div>
+
+                            <div class="p-4 bg-slate-900/90 rounded-xl border border-slate-700/80 space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-400">
+                                    <span>کۆی گشتی ب دینار (IQD):</span>
+                                    <span id="calcTotalIQD" class="font-bold text-white text-sm">150,000 IQD</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3.5 rounded-xl transition shadow-lg shadow-brand-600/30 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-check-circle"></i>
+                                تۆمارکرنا مامەڵەیێ د Firebase دا
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="bg-slate-800/80 border border-slate-700/60 p-5 sm:p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-base text-white mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-database text-brand-400"></i>
+                                زانیاریێن داتابێسێ
+                            </h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                هەمی مامەڵەیێن د ڤێ بەشێ دا دهێنەکرن ئۆتۆماتیکی د سێرڤەرێ **Firebase Realtime Database** دا بۆ پرۆژەیێ تە (`sarafe-cc913`) پاشکەوت دبن و ژمارەیێن خەزینەیێ ل سەرانسەری ئامێران دهێنە نووکرن.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-xs font-semibold text-gray-400 mb-1" id="lblAgreedRate">نرخێ ڕێکەفتنێ (Agreed Rate)</label>
-                    <input type="number" id="tradeAgreedRate" value="1500" min="0.0001" step="any" oninput="calculateExchange()" class="w-full bg-darkbg border border-borderbg rounded-xl p-3 text-sm font-bold text-white focus:border-brand-500 outline-none font-mono">
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-gray-400 mb-1" id="lblMarketRate">نرخێ بازاڕی (Market Rate)</label>
-                    <input type="number" id="tradeMarketRate" value="1495" min="0.0001" step="any" oninput="calculateExchange()" class="w-full bg-darkbg border border-borderbg rounded-xl p-3 text-sm font-bold text-gray-300 focus:border-brand-500 outline-none font-mono">
-                  </div>
+                <!-- Trading History Table -->
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl overflow-hidden">
+                    <div class="p-5 border-b border-slate-700/60 flex justify-between items-center">
+                        <h3 class="font-bold text-base text-white">تۆمارا کڕین و فرۆشتنێ</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-right text-sm text-slate-300">
+                            <thead class="bg-slate-900/60 text-xs uppercase text-slate-400 border-b border-slate-700/60">
+                                <tr>
+                                    <th class="p-4">کەسی بەرامبەر</th>
+                                    <th class="p-4">جۆر</th>
+                                    <th class="p-4">بڕ</th>
+                                    <th class="p-4">نرخ (IQD)</th>
+                                    <th class="p-4">کۆی گشتی (IQD)</th>
+                                    <th class="p-4">بەروار</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tradingTableBody" class="divide-y divide-slate-700/50">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-              </div>
+            </section>
 
-              <!-- Output Breakdown -->
-              <div class="p-4 bg-darkbg rounded-xl border border-borderbg/80 space-y-2 text-xs">
-                <div class="flex justify-between text-gray-400">
-                  <span id="lblCalculatedTarget">بڕێ وەرگرتی (Target Output):</span>
-                  <span id="outTargetAmount" class="text-white font-bold font-mono text-sm">150,000 IQD</span>
+            <!-- MODULE 3: STAFF & ROLE MANAGEMENT -->
+            <section id="module-staff" class="space-y-6 hidden">
+                <div class="flex flex-wrap justify-between items-center gap-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-white">کارگێڕیا ستافی و دەسەڵاتێن لۆگینێ</h3>
+                        <p class="text-xs text-slate-400">زێدەکرنا ئەکاونتێن نوو ب ناڤ و پاسۆرد</p>
+                    </div>
+                    <button onclick="openAddStaffModal()" class="bg-brand-600 hover:bg-brand-500 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-user-plus"></i>
+                        زێدەکرنا کارمەندەکێ نوو
+                    </button>
                 </div>
-                <div class="flex justify-between text-gray-400">
-                  <span id="lblSpreadProfit">تۆمارا قازانجی (Net Profit):</span>
-                  <span id="outSpreadProfit" class="text-brand-400 font-bold font-mono text-sm">+$3.34 USD</span>
+
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl overflow-hidden">
+                    <div class="p-5 border-b border-slate-700/60">
+                        <h4 class="font-bold text-base text-white">لیستا ستافێ تۆمارکری د داتابێسێ دا</h4>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-right text-sm text-slate-300">
+                            <thead class="bg-slate-900/60 text-xs uppercase text-slate-400 border-b border-slate-700/60">
+                                <tr>
+                                    <th class="p-4">ناڤێ کارمەندی</th>
+                                    <th class="p-4">ناڤێ بکارهێنەری (Username)</th>
+                                    <th class="p-4">پاسۆرد</th>
+                                    <th class="p-4">رۆل (Role)</th>
+                                    <th class="p-4">کردار</th>
+                                </tr>
+                            </thead>
+                            <tbody id="staffTableBody" class="divide-y divide-slate-700/50">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-              </div>
+            </section>
 
-              <!-- Execute Button -->
-              <button type="button" onclick="executeTransaction()" class="w-full py-3.5 bg-brand-600 hover:bg-brand-500 text-white font-black text-sm rounded-xl shadow-lg shadow-brand-600/20 transition flex items-center justify-center gap-2">
-                <i class="fa-solid fa-check-circle"></i>
-                <span id="btnExecuteTx">ئەنجامدان و تۆمارکرن</span>
-              </button>
-            </div>
-
-            <!-- Live Vault Balances Summary Sidebar -->
-            <div class="md:col-span-5 bg-cardbg border border-borderbg p-6 rounded-2xl shadow-xl flex flex-col justify-between">
-              <div>
-                <h3 class="font-bold text-white text-sm mb-4 flex items-center gap-2 pb-3 border-b border-borderbg">
-                  <i class="fa-solid fa-wallet text-amber-400"></i>
-                  <span id="lblVaultBalancesTitle">مەوجودیا ئەڤرۆ یا سندوقێ</span>
-                </h3>
-                <div class="space-y-3" id="exchangeVaultBalances">
-                  <!-- Live Safe items -->
+            <!-- MODULE 4: DAILY STATEMENTS & RECEIPTS -->
+            <section id="module-statements" class="space-y-6 hidden">
+                <div class="flex flex-wrap justify-between items-center gap-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-white">وەسڵ و حساباتێن دارایی</h3>
+                        <p class="text-xs text-slate-400">تۆمارکرنا وەسڵێن داهات و خەرجیان</p>
+                    </div>
+                    <button onclick="openAddReceiptModal()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-plus-circle"></i>
+                        دروستکرنا وەسڵەکا نوو
+                    </button>
                 </div>
-              </div>
 
-              <div class="mt-6 p-4 bg-brand-500/5 border border-brand-500/10 rounded-xl text-xs text-gray-400 space-y-2">
-                <p class="font-semibold text-brand-400 flex items-center gap-1">
-                  <i class="fa-solid fa-circle-info"></i>
-                  <span id="lblNoteHeader">تێبینی:</span>
-                </p>
-                <p id="lblNoteBody">ئەڤ مەمەلەیە دێ ب شێوەکێ ئۆتۆماتیکی سندوقا دراڤی نوو کەتن و قازانجێ ڕاستەوخۆ تۆمار کەتن.</p>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- 3. HISTORY & RECEIPTS MODULE -->
-        <section id="module-history" class="hidden space-y-6">
-          <div class="bg-cardbg border border-borderbg rounded-2xl p-5 overflow-hidden">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-5">
-              <h3 class="font-bold text-white text-base flex items-center gap-2">
-                <i class="fa-solid fa-clock-rotate-left text-blue-400"></i>
-                <span id="lblTxHistoryTitle">تۆمارا مەمەلەیێن ئاڵۆگۆڕکرنێ</span>
-              </h3>
-              <div class="flex items-center gap-2 w-full sm:w-auto">
-                <input type="text" id="txSearchInput" onkeyup="filterTransactions()" placeholder="گەڕیان ب گۆڕەی دراڤ..." class="bg-darkbg border border-borderbg px-3 py-1.5 rounded-xl text-xs text-white outline-none focus:border-brand-500 w-full sm:w-48">
-              </div>
-            </div>
-
-            <div class="overflow-x-auto">
-              <table class="w-full text-xs text-right text-gray-300">
-                <thead class="bg-darkbg text-gray-400 font-semibold border-b border-borderbg">
-                  <tr>
-                    <th class="p-3">کۆد (ID)</th>
-                    <th class="p-3">جۆر</th>
-                    <th class="p-3">ژ (From)</th>
-                    <th class="p-3">بۆ (To)</th>
-                    <th class="p-3">نرخێ ڕێکەفتنێ</th>
-                    <th class="p-3">قازانج</th>
-                    <th class="p-3">دەم</th>
-                    <th class="p-3 text-center">وەسڵ (Receipt)</th>
-                  </tr>
-                </thead>
-                <tbody id="historyTableBody" class="divide-y divide-borderbg">
-                  <!-- History Rows -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <!-- 4. SAFE & VAULT MODULE (صندوق و قازانج) -->
-        <section id="module-safe" class="hidden space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-4" id="vaultCardsGrid">
-            <!-- Safe Cards JS generated -->
-          </div>
-
-          <!-- Manual Safe Deposit / Withdraw Adjustment -->
-          <div class="bg-cardbg border border-borderbg p-6 rounded-2xl max-w-xl mx-auto space-y-4">
-            <h3 class="font-bold text-white text-sm flex items-center gap-2 pb-3 border-b border-borderbg">
-              <i class="fa-solid fa-pen-to-square text-emerald-400"></i>
-              <span id="lblAdjustSafeTitle">ڕێکخستن و ڕادەستکرنا سندوقێ</span>
-            </h3>
-
-            <div class="grid grid-cols-2 gap-3">
-              <div>
-                <label class="block text-xs font-semibold text-gray-400 mb-1" id="lblSelectCurr">دراڤی هەڵبژێرە</label>
-                <select id="adjCurrency" class="w-full bg-darkbg border border-borderbg rounded-xl p-2.5 text-xs text-white font-bold outline-none">
-                  <option value="USD">USD ($)</option>
-                  <option value="IQD">IQD (ع.د)</option>
-                  <option value="TRY">TRY (₺)</option>
-                  <option value="EUR">EUR (€)</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-xs font-semibold text-gray-400 mb-1" id="lblAdjType">جۆرێ کریارێ</label>
-                <select id="adjType" class="w-full bg-darkbg border border-borderbg rounded-xl p-2.5 text-xs text-white font-bold outline-none">
-                  <option value="DEPOSIT">زیادکرن (Deposit)</option>
-                  <option value="WITHDRAW">کێمکرن (Withdraw)</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-xs font-semibold text-gray-400 mb-1" id="lblAdjAmount">بڕ (Amount)</label>
-              <input type="number" id="adjAmount" placeholder="0.00" class="w-full bg-darkbg border border-borderbg rounded-xl p-2.5 text-sm text-white font-bold outline-none font-mono">
-            </div>
-
-            <button type="button" onclick="submitSafeAdjustment()" class="w-full py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs rounded-xl transition">
-              <span id="btnSaveAdjustment">پاشکەوتکرنا گۆڕانکاریان</span>
-            </button>
-          </div>
-        </section>
-
-        <!-- 5. STAFF MANAGEMENT MODULE (WITH CHECKBOX PERMISSIONS) -->
-        <section id="module-staff" class="hidden space-y-6">
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            
-            <!-- Add/Edit Staff Form -->
-            <div class="lg:col-span-5 bg-cardbg border border-borderbg p-6 rounded-2xl space-y-4">
-              <h3 class="font-bold text-white text-sm flex items-center gap-2 pb-3 border-b border-borderbg">
-                <i class="fa-solid fa-user-plus text-brand-400"></i>
-                <span id="lblAddStaffTitle">زێدەکرنا کارمەندێ نوو</span>
-              </h3>
-
-              <div>
-                <label class="block text-xs font-semibold text-gray-400 mb-1" id="lblStaffUsername">ناڤێ بەکارهێنەری</label>
-                <input type="text" id="staffUser" class="w-full bg-darkbg border border-borderbg rounded-xl p-2.5 text-xs text-white outline-none focus:border-brand-500">
-              </div>
-
-              <div>
-                <label class="block text-xs font-semibold text-gray-400 mb-1" id="lblStaffPass">پەیڤا نهێنی</label>
-                <input type="password" id="staffPass" class="w-full bg-darkbg border border-borderbg rounded-xl p-2.5 text-xs text-white outline-none focus:border-brand-500">
-              </div>
-
-              <div>
-                <label class="block text-xs font-semibold text-gray-400 mb-1" id="lblStaffFullName">ناڤێ سێقۆلی</label>
-                <input type="text" id="staffFullName" class="w-full bg-darkbg border border-borderbg rounded-xl p-2.5 text-xs text-white outline-none focus:border-brand-500">
-              </div>
-
-              <!-- 8 Checkbox Permissions -->
-              <div class="pt-2">
-                <label class="block text-xs font-bold text-brand-400 mb-2" id="lblPermissionsHeader">مۆڵەتێن بڕێڤەبرنێ (Permissions):</label>
-                <div class="grid grid-cols-2 gap-2 text-xs bg-darkbg p-3 rounded-xl border border-borderbg">
-                  <label class="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white">
-                    <input type="checkbox" id="perm_dashboard" checked class="rounded bg-gray-800 border-gray-700 text-brand-500 focus:ring-0">
-                    <span id="permTxt_dashboard">Dashboard</span>
-                  </label>
-                  <label class="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white">
-                    <input type="checkbox" id="perm_exchange" checked class="rounded bg-gray-800 border-gray-700 text-brand-500 focus:ring-0">
-                    <span id="permTxt_exchange">Exchange</span>
-                  </label>
-                  <label class="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white">
-                    <input type="checkbox" id="perm_customers" class="rounded bg-gray-800 border-gray-700 text-brand-500 focus:ring-0">
-                    <span id="permTxt_customers">Customers</span>
-                  </label>
-                  <label class="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white">
-                    <input type="checkbox" id="perm_history" checked class="rounded bg-gray-800 border-gray-700 text-brand-500 focus:ring-0">
-                    <span id="permTxt_history">History/Receipts</span>
-                  </label>
-                  <label class="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white">
-                    <input type="checkbox" id="perm_reports" class="rounded bg-gray-800 border-gray-700 text-brand-500 focus:ring-0">
-                    <span id="permTxt_reports">Reports</span>
-                  </label>
-                  <label class="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white">
-                    <input type="checkbox" id="perm_safe" class="rounded bg-gray-800 border-gray-700 text-brand-500 focus:ring-0">
-                    <span id="permTxt_safe">Safe/Vault</span>
-                  </label>
-                  <label class="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white">
-                    <input type="checkbox" id="perm_staff" class="rounded bg-gray-800 border-gray-700 text-brand-500 focus:ring-0">
-                    <span id="permTxt_staff">Staff</span>
-                  </label>
-                  <label class="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white">
-                    <input type="checkbox" id="perm_settings" class="rounded bg-gray-800 border-gray-700 text-brand-500 focus:ring-0">
-                    <span id="permTxt_settings">Settings</span>
-                  </label>
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-right text-sm text-slate-300">
+                            <thead class="bg-slate-900/60 text-xs uppercase text-slate-400 border-b border-slate-700/60">
+                                <tr>
+                                    <th class="p-4">تێبینی / وەسف</th>
+                                    <th class="p-4">جۆر</th>
+                                    <th class="p-4">بڕ</th>
+                                    <th class="p-4">دراڤ</th>
+                                    <th class="p-4">کەس/لایەن</th>
+                                    <th class="p-4">بەروار</th>
+                                    <th class="p-4">چاپکرن</th>
+                                </tr>
+                            </thead>
+                            <tbody id="statementsTableBody" class="divide-y divide-slate-700/50">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-              </div>
+            </section>
 
-              <button type="button" onclick="saveStaffMember()" class="w-full py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs rounded-xl transition">
-                <span id="btnSaveStaff">تۆمارکرنا کارمەندی</span>
-              </button>
-            </div>
-
-            <!-- Staff List -->
-            <div class="lg:col-span-7 bg-cardbg border border-borderbg p-6 rounded-2xl overflow-hidden">
-              <h3 class="font-bold text-white text-sm mb-4" id="lblStaffListTitle">لیستا کارمەندێن سیستەمی</h3>
-              <div class="overflow-x-auto">
-                <table class="w-full text-xs text-right text-gray-300">
-                  <thead class="bg-darkbg text-gray-400 font-semibold border-b border-borderbg">
-                    <tr>
-                      <th class="p-2.5">بەکارهێنەر</th>
-                      <th class="p-2.5">ناڤ</th>
-                      <th class="p-2.5">دەسەڵات</th>
-                      <th class="p-2.5 text-center">کریار</th>
-                    </tr>
-                  </thead>
-                  <tbody id="staffTableBody" class="divide-y divide-borderbg">
-                    <!-- Staff rows -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- 6. CUSTOMERS MODULE -->
-        <section id="module-customers" class="hidden space-y-6">
-          <div class="bg-cardbg border border-borderbg p-6 rounded-2xl space-y-4">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-white text-base" id="lblCustomersHeader">دیلەر و کڕیارێن تایبەت</h3>
-              <button onclick="openAddCustomerModal()" class="px-3 py-1.5 bg-brand-600 text-white rounded-xl text-xs font-bold">+ زێدەکرن</button>
-            </div>
-            <div id="customersListGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <!-- Customers items -->
-            </div>
-          </div>
-        </section>
-
-        <!-- 7. REPORTS MODULE -->
-        <section id="module-reports" class="hidden space-y-6">
-          <div class="bg-cardbg border border-borderbg p-6 rounded-2xl">
-            <h3 class="font-bold text-white text-base mb-4" id="lblReportsHeader">راپۆرتێن دارایی و قازانج</h3>
-            <p class="text-xs text-gray-400 mb-6" id="lblReportsDesc">کۆمکرنا شیکاریێن دارایی یێن مەمەلەیان ب گۆڕەی دەمی.</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div class="bg-darkbg p-4 rounded-xl border border-borderbg">
-                <p class="text-xs text-gray-400">تێکڕایا قازانجێ حەفتیانە</p>
-                <h4 class="text-xl font-bold text-emerald-400 mt-2" id="reportWeeklyProfit">$0.00</h4>
-              </div>
-              <div class="bg-darkbg p-4 rounded-xl border border-borderbg">
-                <p class="text-xs text-gray-400">تێکڕایا قازانجێ مانگانە</p>
-                <h4 class="text-xl font-bold text-brand-400 mt-2" id="reportMonthlyProfit">$0.00</h4>
-              </div>
-              <div class="bg-darkbg p-4 rounded-xl border border-borderbg">
-                <p class="text-xs text-gray-400">مەمەلەیێن سەرکەفتی</p>
-                <h4 class="text-xl font-bold text-blue-400 mt-2" id="reportSuccessTx">0</h4>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- 8. SETTINGS MODULE -->
-        <section id="module-settings" class="hidden space-y-6">
-          <div class="bg-cardbg border border-borderbg p-6 rounded-2xl max-w-2xl space-y-4">
-            <h3 class="font-bold text-white text-base" id="lblSettingsHeader">ڕێکخستنێن گشتی یێن نوسینگەهێ</h3>
-            <div>
-              <label class="block text-xs font-semibold text-gray-400 mb-1" id="lblOfficeName">ناڤێ نوسینگەهێ / کۆمپانیایێ</label>
-              <input type="text" id="settingOfficeName" value="سەرەفیا پێشکەفتی" class="w-full bg-darkbg border border-borderbg rounded-xl p-2.5 text-xs text-white">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-gray-400 mb-1" id="lblOfficePhone">ژمارا تەلەفۆنێ</label>
-              <input type="text" id="settingOfficePhone" value="+964 750 000 0000" class="w-full bg-darkbg border border-borderbg rounded-xl p-2.5 text-xs text-white font-mono">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-gray-400 mb-1" id="lblReceiptFooter">نڤێسینا بنێ وەسڵێ</label>
-              <input type="text" id="settingReceiptFooter" value="سوپاس بۆ سەرەدانا وە - چەکێ وەرگرتی بهێتە پشکنین بەریا دەرکەڤتنێ" class="w-full bg-darkbg border border-borderbg rounded-xl p-2.5 text-xs text-white">
-            </div>
-            <button onclick="saveSettings()" class="px-4 py-2 bg-brand-600 text-white rounded-xl text-xs font-bold" id="btnSaveSettings">پاشکەوتکرن</button>
-          </div>
-        </section>
-
-      </div>
+        </div>
     </main>
 
-  </div>
+    <!-- MODAL 1: ADD STAFF -->
+    <div id="addStaffModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                <h3 class="font-bold text-white text-base">زێدەکرنا کارمەندەکێ نوو</h3>
+                <button onclick="closeAddStaffModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
 
-  <!-- THERMAL RECEIPT MODAL -->
-  <div id="receiptModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white text-gray-900 w-full max-w-sm rounded-2xl p-6 shadow-2xl relative font-mono text-xs">
-      <button onclick="closeReceiptModal()" class="absolute top-3 left-3 text-gray-400 hover:text-black">
-        <i class="fa-solid fa-xmark text-lg"></i>
-      </button>
+            <form onsubmit="saveStaffMember(event)" class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-400 mb-1">ناڤێ تەواو</label>
+                    <input type="text" id="newStaffName" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-brand-500">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">ناڤێ بکارهێنەری (Username)</label>
+                    <input type="text" id="newStaffUsername" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-brand-500">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">پاسۆرد (Password)</label>
+                    <input type="password" id="newStaffPassword" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-brand-500">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">رۆل و دەسەڵات (Role)</label>
+                    <select id="newStaffRole" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-brand-500">
+                        <option value="Trader">Trader (تەنێ کڕین و فرۆشتن)</option>
+                        <option value="Accountant">Accountant (حسابات و وەسڵ)</option>
+                        <option value="Manager">Manager (ڕێڤەبرن و ستاف)</option>
+                        <option value="Super Admin">Super Admin (دەسەڵاتا گشتی)</option>
+                    </select>
+                </div>
 
-      <div id="printableReceipt" class="space-y-4 text-center">
-        <div class="border-b border-gray-300 pb-3">
-          <h2 class="font-bold text-lg text-black" id="recOfficeName">سەرەفیا پێشکەفتی</h2>
-          <p class="text-[10px] text-gray-600" id="recOfficePhone">+964 750 000 0000</p>
-          <p class="text-[10px] text-gray-500 mt-1" id="recDate">Date: 2026-09-26 12:00</p>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeAddStaffModal()" class="px-4 py-2 rounded-xl bg-slate-700 text-slate-300 hover:bg-slate-600">پاشگەزبوونەوە</button>
+                    <button type="submit" class="px-4 py-2 rounded-xl bg-brand-600 text-white font-medium hover:bg-brand-500">پاشکەوتکرن د داتابێسێ دا</button>
+                </div>
+            </form>
         </div>
-
-        <div class="text-right space-y-1 text-xs">
-          <p><span class="font-bold">کۆد / ID:</span> <span id="recTxId">#00000</span></p>
-          <p><span class="font-bold">جۆر / Type:</span> <span id="recTxType">BUY</span></p>
-          <p><span class="font-bold">دانراو / Paid:</span> <span id="recPaid">100 USD</span></p>
-          <p><span class="font-bold">وەرگرتی / Received:</span> <span id="recReceived">150,000 IQD</span></p>
-          <p><span class="font-bold">نرخ / Rate:</span> <span id="recRate">1,500</span></p>
-        </div>
-
-        <div class="border-t border-b border-dashed border-gray-400 py-2 text-[10px] text-gray-600" id="recFooterMsg">
-          سوپاس بۆ سەرەدانا وە - چەکێ وەرگرتی بهێتە پشکنین
-        </div>
-      </div>
-
-      <div class="mt-4 flex gap-2">
-        <button onclick="window.print()" class="flex-1 py-2 bg-gray-900 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2">
-          <i class="fa-solid fa-print"></i>
-          <span id="btnPrintReceipt">پرێنتکرن</span>
-        </button>
-      </div>
     </div>
-  </div>
 
-  <!-- FIREBASE ES MODULE INTEGRATION -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
-    import { getDatabase, ref, set, get, child, onValue, push, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    <!-- MODAL 2: ADD RECEIPT -->
+    <div id="addReceiptModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                <h3 class="font-bold text-white text-base">دروستکرنا وەسڵەکا دارایی</h3>
+                <button onclick="closeAddReceiptModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
 
-    // Provided Firebase Config
-    const firebaseConfig = {
-      apiKey: "AIzaSyAjme1aX-lfGrfTKUFuQiwkwAxp3Fai4FE",
-      authDomain: "sarafe-cc913.firebaseapp.com",
-      databaseURL: "https://sarafe-cc913-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "sarafe-cc913",
-      storageBucket: "sarafe-cc913.firebasestorage.app",
-      messagingSenderId: "776345485399",
-      appId: "1:776345485399:web:6de2a84a4609a170242312",
-      measurementId: "G-Q3RTCHL15N"
-    };
+            <form onsubmit="saveReceipt(event)" class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-400 mb-1">جۆرێ وەسڵێ</label>
+                    <select id="newReceiptType" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-brand-500">
+                        <option value="INCOME">داهات (Income)</option>
+                        <option value="EXPENSE">خەرجی (Expense)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">تێبینی / وەسف</label>
+                    <input type="text" id="newReceiptDesc" placeholder="نموونە: کرێیا نوسینگەیێ" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-brand-500">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-slate-400 mb-1">بڕ</label>
+                        <input type="number" id="newReceiptAmount" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-brand-500">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">دراڤ</label>
+                        <select id="newReceiptCurrency" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-brand-500">
+                            <option value="USD">USD ($)</option>
+                            <option value="IQD">IQD (عێراقی)</option>
+                            <option value="EUR">EUR (€)</option>
+                            <option value="TRY">TRY (₺)</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">کەس/لایەنێ بەرامبەر</label>
+                    <input type="text" id="newReceiptParty" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-brand-500">
+                </div>
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const database = getDatabase(app);
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeAddReceiptModal()" class="px-4 py-2 rounded-xl bg-slate-700 text-slate-300 hover:bg-slate-600">پاشگەزبوونەوە</button>
+                    <button type="submit" class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-medium hover:bg-emerald-500">تۆمارکرن</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-    // Global State
-    window.db = database;
-    window.dbRefs = { ref, set, get, child, onValue, push, remove };
-    
-    window.currentUser = null;
-    window.appData = {
-      safe: { USD: 10000, IQD: 15000000, TRY: 50000, EUR: 5000 },
-      transactions: [],
-      staff: {},
-      settings: {
-        officeName: "سەرەفیا پێشکەفتی",
-        officePhone: "+964 750 000 0000",
-        footerMsg: "سوپاس بۆ سەرەدانا وە - چەکێ وەرگرتی بهێتە پشکنین بەریا دەرکەڤتنێ"
-      }
-    };
+    <!-- FIREBASE INITIALIZATION & LOGIC SCRIPT -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, set, get, child, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-    // Initialize Default Admin Account in Firebase if not existing
-    async function initAdminAccount() {
-      try {
-        const snapshot = await get(child(ref(database), 'staff/admin'));
-        if (!snapshot.exists()) {
-          await set(ref(database, 'staff/admin'), {
-            username: 'admin',
-            password: 'admin123',
-            fullName: 'سەرۆکێ سیستەمی',
-            role: 'admin',
-            permissions: {
-              dashboard: true,
-              exchange: true,
-              customers: true,
-              history: true,
-              reports: true,
-              safe: true,
-              staff: true,
-              settings: true
+        // Provided Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAjme1aX-lfGrfTKUFuQiwkwAxp3Fai4FE",
+            authDomain: "sarafe-cc913.firebaseapp.com",
+            databaseURL: "https://sarafe-cc913-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "sarafe-cc913",
+            storageBucket: "sarafe-cc913.firebasestorage.app",
+            messagingSenderId: "776345485399",
+            appId: "1:776345485399:web:6de2a84a4609a170242312",
+            measurementId: "G-Q3RTCHL15N"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Application Global State
+        window.currentUser = null;
+        window.db = db;
+        window.dbRef = { ref, set, get, child, push, onValue, remove };
+
+        // Permission Map
+        const rolePermissions = {
+            "Super Admin": ["dashboard", "trading", "staff", "statements"],
+            "Trader": ["trading"],
+            "Accountant": ["dashboard", "statements"],
+            "Manager": ["trading", "staff"]
+        };
+
+        // Initialize Firebase Default Data
+        async function initFirebaseSystem() {
+            const dbRefObj = ref(db);
+            
+            // Seed Default Super Admin Account if missing
+            try {
+                const snapshot = await get(child(dbRefObj, `users/admin`));
+                if (!snapshot.exists()) {
+                    await set(ref(db, 'users/admin'), {
+                        name: "خودانێ سەرەکی",
+                        username: "admin",
+                        password: "123",
+                        role: "Super Admin"
+                    });
+                }
+            } catch(e) {
+                console.log("Database initialized");
             }
-          });
+
+            // Realtime Sync for Vault Balances
+            onValue(ref(db, 'vault'), (snap) => {
+                const data = snap.val() || { usd: 0, iqd: 0, eur: 0, try: 0 };
+                document.getElementById('statUsd').innerText = '$' + (data.usd || 0).toLocaleString();
+                document.getElementById('statIqd').innerText = (data.iqd || 0).toLocaleString() + ' IQD';
+                document.getElementById('statEur').innerText = '€' + (data.eur || 0).toLocaleString();
+                document.getElementById('statTry').innerText = '₺' + (data.try || 0).toLocaleString();
+                updatePieChart(data);
+            });
+
+            // Realtime Sync for Trades
+            onValue(ref(db, 'trades'), (snap) => {
+                const tradesObj = snap.val() || {};
+                const tradesArray = Object.keys(tradesObj).map(k => ({ id: k, ...tradesObj[k] })).reverse();
+                renderTradingTable(tradesArray);
+                renderDashboardRecentTable(tradesArray);
+            });
+
+            // Realtime Sync for Staff
+            onValue(ref(db, 'users'), (snap) => {
+                const usersObj = snap.val() || {};
+                const usersArray = Object.keys(usersObj).map(k => ({ username: k, ...usersObj[k] }));
+                renderStaffTable(usersArray);
+            });
+
+            // Realtime Sync for Receipts
+            onValue(ref(db, 'receipts'), (snap) => {
+                const recObj = snap.val() || {};
+                const recArray = Object.keys(recObj).map(k => ({ id: k, ...recObj[k] })).reverse();
+                renderReceiptsTable(recArray);
+            });
         }
-      } catch (err) {
-        console.error("Firebase Auth Init error:", err);
-      }
-    }
 
-    // Live Sync Listeners
-    function startLiveListeners() {
-      // Listen to Safe Balances
-      onValue(ref(database, 'safe'), (snapshot) => {
-        if (snapshot.exists()) {
-          window.appData.safe = snapshot.val();
-          renderSafeBalances();
-        } else {
-          // Initialize default safe
-          set(ref(database, 'safe'), window.appData.safe);
-        }
-      });
+        // --- Handle Login ---
+        window.handleLogin = async function(e) {
+            e.preventDefault();
+            const usernameInput = document.getElementById('loginUsername').value.trim();
+            const passwordInput = document.getElementById('loginPassword').value.trim();
+            const errDiv = document.getElementById('loginError');
 
-      // Listen to Transactions
-      onValue(ref(database, 'transactions'), (snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          window.appData.transactions = Object.keys(data).map(k => ({ id: k, ...data[k] }));
-          renderHistoryTable();
-          updateDashboardStats();
-        }
-      });
+            try {
+                // Hardcoded fallback for default admin
+                if (usernameInput === 'admin' && passwordInput === '123') {
+                    const userData = {
+                        name: "خودانێ سەرەکی",
+                        username: "admin",
+                        password: "123",
+                        role: "Super Admin"
+                    };
+                    loginSuccess(userData);
+                    return;
+                }
 
-      // Listen to Staff
-      onValue(ref(database, 'staff'), (snapshot) => {
-        if (snapshot.exists()) {
-          window.appData.staff = snapshot.val();
-          renderStaffTable();
-        }
-      });
-    }
+                const snapshot = await get(child(ref(db), `users/${usernameInput}`));
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    if (userData.password === passwordInput) {
+                        loginSuccess(userData);
+                        return;
+                    }
+                }
+                errDiv.classList.remove('hidden');
+            } catch (err) {
+                console.error("Login error:", err);
+                errDiv.innerText = "ئاریشەک د پەیوەندیا داتابێسێ دا هەیە!";
+                errDiv.classList.remove('hidden');
+            }
+        };
 
-    // Call on load
-    initAdminAccount();
-    startLiveListeners();
-  </script>
-
-  <script>
-    // TRANSLATIONS DICTIONARY (4 LANGUAGES)
-    const translations = {
-      badini: {
-        appName: "سەرەفیا پێشکەفتی",
-        subtitle: "سیستەمێ بڕێڤەبرنا ئاڵۆگۆڕا دراڤی",
-        loginTitle: "چوونە ژوورڤە",
-        loginUser: "ناڤێ بەکارهێنەری",
-        loginPass: "پەیڤا نهێنی",
-        btnLogin: "چوونە ژوورڤە",
-        navDashboard: "دەستپێک",
-        navExchange: "ئاڵۆگۆڕکەر",
-        navHistory: "مێژوو و وەسڵ",
-        navSafe: "سندوق و قازانج",
-        navStaff: "کارمەند",
-        navCustomers: "کڕیار",
-        navReports: "راپۆرت",
-        navSettings: "ڕێکخستن",
-        totalTx: "مەمەلەیێن ئەڤرۆ",
-        volumeUSD: "قەبارێ (USD)",
-        profitToday: "قازانجێ پاقژ",
-        safeUSD: "سندوق (USD)",
-        buy: "کرین (Buy)",
-        sell: "فرۆشتن (Sell)",
-        agreedRate: "نرخێ ڕێکەفتنێ",
-        marketRate: "نرخێ بازاڕی",
-        execute: "ئەنجامدان و تۆمارکرن",
-        print: "پرێنتکرن",
-        accessDenied: "دەستپێگەهشتن قەدەغەیە!"
-      },
-      sorani: {
-        appName: "سەرەفیا پێشکەوتوو",
-        subtitle: "سیستەمی بەڕێوەبردنی ئاڵوگۆڕی دراو",
-        loginTitle: "چوونە ژوورەوە",
-        loginUser: "ناوی بەکارهێنەر",
-        loginPass: "وشەی نهێنی",
-        btnLogin: "چوونە ژوورەوە",
-        navDashboard: "داشبۆرد",
-        navExchange: "ئاڵوگۆڕ",
-        navHistory: "مێژوو و وەسڵ",
-        navSafe: "سندوق و قازانج",
-        navStaff: "کارمەندان",
-        navCustomers: "کڕیاران",
-        navReports: "ڕاپۆرتەکان",
-        navSettings: "ڕێکخستنەکان",
-        totalTx: "مامەڵەکانی ئەمڕۆ",
-        volumeUSD: "قەبارەی (USD)",
-        profitToday: "قازانجی پاکژ",
-        safeUSD: "سندوقی (USD)",
-        buy: "کڕین",
-        sell: "فڕۆشتن",
-        agreedRate: "نرخی ڕێککەوتن",
-        marketRate: "نرخی بازار",
-        execute: "ئەنجامدان و تۆمارکردن",
-        print: "چاپکردن",
-        accessDenied: "دەستگەیشتن ڕێگەپێدراو نییە!"
-      },
-      arabic: {
-        appName: "الصرافة المتقدمة",
-        subtitle: "نظام إدارة الصرافة والتحويلات المالية",
-        loginTitle: "تسجيل الدخول",
-        loginUser: "اسم المستخدم",
-        loginPass: "كلمة المرور",
-        btnLogin: "دخول",
-        navDashboard: "الرئيسية",
-        navExchange: "البيع والشراء",
-        navHistory: "السجل والوصلات",
-        navSafe: "الصندوق والأرباح",
-        navStaff: "الموظفين",
-        navCustomers: "الزبائن",
-        navReports: "التقارير",
-        navSettings: "الإعدادات",
-        totalTx: "معاملات اليوم",
-        volumeUSD: "حجم التداول (USD)",
-        profitToday: "صافي أرباح اليوم",
-        safeUSD: "رصيد الصندوق (USD)",
-        buy: "شراء",
-        sell: "بيع",
-        agreedRate: "سعر الاتفاق",
-        marketRate: "سعر السوق",
-        execute: "تنفيذ وتسجيل",
-        print: "طباعة الوصل",
-        accessDenied: "الوصول غير مسموح!"
-      },
-      english: {
-        appName: "Sarafe Advanced",
-        subtitle: "Currency Exchange Management System",
-        loginTitle: "Login Required",
-        loginUser: "Username",
-        loginPass: "Password",
-        btnLogin: "Sign In",
-        navDashboard: "Dashboard",
-        navExchange: "Exchange",
-        navHistory: "History & Receipts",
-        navSafe: "Safe & Vault",
-        navStaff: "Staff Management",
-        navCustomers: "Customers",
-        navReports: "Reports",
-        navSettings: "Settings",
-        totalTx: "Today's Trades",
-        volumeUSD: "Volume (USD)",
-        profitToday: "Net Profit Today",
-        safeUSD: "Vault Balance (USD)",
-        buy: "Buy",
-        sell: "Sell",
-        agreedRate: "Agreed Rate",
-        marketRate: "Market Rate",
-        execute: "Execute Trade",
-        print: "Print Receipt",
-        accessDenied: "Access Denied!"
-      }
-    };
-
-    let currentLang = "badini";
-    let tradeType = "BUY";
-    let profitChartInstance = null;
-
-    // Navigation Modules Configuration
-    const navModules = [
-      { id: "dashboard", icon: "fa-chart-pie", labelKey: "navDashboard" },
-      { id: "exchange", icon: "fa-right-left", labelKey: "navExchange" },
-      { id: "history", icon: "fa-receipt", labelKey: "navHistory" },
-      { id: "safe", icon: "fa-vault", labelKey: "navSafe" },
-      { id: "staff", icon: "fa-users-gear", labelKey: "navStaff" },
-      { id: "customers", icon: "fa-address-book", labelKey: "navCustomers" },
-      { id: "reports", icon: "fa-chart-column", labelKey: "navReports" },
-      { id: "settings", icon: "fa-sliders", labelKey: "navSettings" },
-    ];
-
-    // Live Clock
-    setInterval(() => {
-      const now = new Date();
-      document.getElementById("liveClock").innerText = now.toLocaleTimeString();
-    }, 1000);
-
-    // LOGIN HANDLER
-    async function handleLogin(e) {
-      e.preventDefault();
-      const u = document.getElementById("loginUsername").value.trim();
-      const p = document.getElementById("loginPassword").value.trim();
-      const alert = document.getElementById("loginAlert");
-
-      try {
-        const { ref, get, child } = window.dbRefs;
-        const snapshot = await get(child(ref(window.db), `staff/${u}`));
-
-        if (snapshot.exists()) {
-          const userData = snapshot.val();
-          if (userData.password === p) {
+        function loginSuccess(userData) {
             window.currentUser = userData;
-            document.getElementById("loginOverlay").classList.add("hidden");
-            document.getElementById("appContainer").classList.remove("hidden");
-            setupUserSession();
-            return;
-          }
-        }
-        
-        alert.innerText = "ناڤێ بەکارهێنەری ئان پەیڤا نهێنی شاشە!";
-        alert.classList.remove("hidden");
-      } catch (err) {
-        console.error("Login Error:", err);
-      }
-    }
+            document.getElementById('loginModal').classList.add('hidden');
+            document.getElementById('loginForm').reset();
+            document.getElementById('loginError').classList.add('hidden');
+            
+            // Update User Profile Displays Across Navbars
+            const roleStr = userData.role || "Super Admin";
+            const nameStr = userData.name || userData.username;
 
-    // LOGOUT
-    function handleLogout() {
-      window.currentUser = null;
-      document.getElementById("appContainer").classList.add("hidden");
-      document.getElementById("loginOverlay").classList.remove("hidden");
-    }
+            document.getElementById('currentUserDisplay').innerText = nameStr;
+            document.getElementById('currentUserRoleSub').innerText = roleStr;
+            document.getElementById('activeRoleBadge').innerText = roleStr;
 
-    // SETUP SESSION & PERMISSIONS
-    function setupUserSession() {
-      const user = window.currentUser;
-      document.getElementById("currentUsername").innerText = user.fullName || user.username;
-      document.getElementById("currentUserRole").innerText = user.role === 'admin' ? 'سەرۆکێ سیستەمی' : 'کارمەند';
-      document.getElementById("userAvatar").innerText = (user.username[0] || 'U').toUpperCase();
-
-      renderNavigation();
-      // Default tab
-      switchTab('dashboard');
-      initChart();
-    }
-
-    // RENDER NAVIGATION LINKS BASED ON PERMISSIONS
-    function renderNavigation() {
-      const container = document.getElementById("navLinksContainer");
-      container.innerHTML = "";
-
-      const user = window.currentUser;
-      const perms = user.permissions || {};
-
-      navModules.forEach(mod => {
-        // Admin sees all, Staff sees based on checkbox permissions
-        const hasAccess = user.role === 'admin' || perms[mod.id] === true;
-        
-        if (hasAccess) {
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.id = `nav-btn-${mod.id}`;
-          btn.onclick = () => switchTab(mod.id);
-          btn.className = "w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition text-gray-400 hover:text-white hover:bg-darkbg";
-          btn.innerHTML = `
-            <i class="fa-solid ${mod.icon} text-base w-5 text-center"></i>
-            <span>${translations[currentLang][mod.labelKey] || mod.id}</span>
-          `;
-          container.appendChild(btn);
-        }
-      });
-    }
-
-    // TAB SWITCHER
-    function switchTab(modId) {
-      const user = window.currentUser;
-      const perms = user.permissions || {};
-      const hasAccess = user.role === 'admin' || perms[modId] === true;
-
-      // Hide all module sections
-      navModules.forEach(m => {
-        const el = document.getElementById(`module-${m.id}`);
-        if (el) el.classList.add("hidden");
-        
-        const btn = document.getElementById(`nav-btn-${m.id}`);
-        if (btn) {
-          btn.classList.remove("bg-brand-600", "text-white", "shadow-lg");
-          btn.classList.add("text-gray-400");
-        }
-      });
-
-      const notice = document.getElementById("accessDeniedNotice");
-
-      if (!hasAccess) {
-        notice.classList.remove("hidden");
-        document.getElementById("pageTitle").innerText = translations[currentLang].accessDenied;
-        return;
-      }
-
-      notice.classList.add("hidden");
-      const targetModule = document.getElementById(`module-${modId}`);
-      if (targetModule) targetModule.classList.remove("hidden");
-
-      const activeBtn = document.getElementById(`nav-btn-${modId}`);
-      if (activeBtn) {
-        activeBtn.classList.add("bg-brand-600", "text-white", "shadow-lg");
-        activeBtn.classList.remove("text-gray-400");
-      }
-
-      // Update Page Header Title
-      const modObj = navModules.find(m => m.id === modId);
-      document.getElementById("pageTitle").innerText = translations[currentLang][modObj.labelKey];
-    }
-
-    // TRADE TYPE TOGGLE
-    function setTradeType(type) {
-      tradeType = type;
-      const btnBuy = document.getElementById("btnTypeBuy");
-      const btnSell = document.getElementById("btnTypeSell");
-
-      if (type === "BUY") {
-        btnBuy.className = "py-3 rounded-xl border font-bold text-sm flex items-center justify-center gap-2 transition bg-emerald-600/20 border-emerald-500 text-emerald-400";
-        btnSell.className = "py-3 rounded-xl border font-bold text-sm flex items-center justify-center gap-2 transition bg-darkbg border-borderbg text-gray-400";
-      } else {
-        btnSell.className = "py-3 rounded-xl border font-bold text-sm flex items-center justify-center gap-2 transition bg-blue-600/20 border-blue-500 text-blue-400";
-        btnBuy.className = "py-3 rounded-xl border font-bold text-sm flex items-center justify-center gap-2 transition bg-darkbg border-borderbg text-gray-400";
-      }
-      calculateExchange();
-    }
-
-    // CALCULATE TRADE OUTPUT & SPREAD NET PROFIT
-    function calculateExchange() {
-      const amount = parseFloat(document.getElementById("tradeAmount").value) || 0;
-      const agreedRate = parseFloat(document.getElementById("tradeAgreedRate").value) || 1;
-      const marketRate = parseFloat(document.getElementById("tradeMarketRate").value) || agreedRate;
-      const fromCurr = document.getElementById("tradeFromCurr").value;
-      const toCurr = document.getElementById("tradeToCurr").value;
-
-      // Target Calculation
-      let targetOut = amount * agreedRate;
-      if (fromCurr === "IQD" && toCurr === "USD") targetOut = amount / agreedRate;
-
-      // Profit Spread Calculation
-      let netProfitUSD = 0;
-      if (tradeType === "BUY") {
-        // Buying lower than market rate
-        netProfitUSD = (marketRate - agreedRate) * (fromCurr === "USD" ? amount : amount / agreedRate);
-      } else {
-        // Selling higher than market rate
-        netProfitUSD = (agreedRate - marketRate) * (fromCurr === "USD" ? amount : amount / agreedRate);
-      }
-
-      document.getElementById("outTargetAmount").innerText = `${targetOut.toLocaleString(undefined, {maximumFractionDigits:2})} ${toCurr}`;
-      document.getElementById("outSpreadProfit").innerText = `${netProfitUSD >= 0 ? '+' : ''}$${netProfitUSD.toFixed(2)} USD`;
-    }
-
-    // EXECUTE TRANSACTION & REALTIME DATABASE UPDATE
-    async function executeTransaction() {
-      const amount = parseFloat(document.getElementById("tradeAmount").value);
-      const agreedRate = parseFloat(document.getElementById("tradeAgreedRate").value);
-      const marketRate = parseFloat(document.getElementById("tradeMarketRate").value);
-      const fromCurr = document.getElementById("tradeFromCurr").value;
-      const toCurr = document.getElementById("tradeToCurr").value;
-
-      if (!amount || amount <= 0) return;
-
-      let targetOut = amount * agreedRate;
-      if (fromCurr === "IQD" && toCurr === "USD") targetOut = amount / agreedRate;
-
-      let netProfitUSD = (tradeType === "BUY" ? (marketRate - agreedRate) : (agreedRate - marketRate)) * (fromCurr === "USD" ? amount : amount / agreedRate);
-
-      const txRecord = {
-        txId: "TX" + Math.floor(10000 + Math.random() * 90000),
-        type: tradeType,
-        fromCurr,
-        toCurr,
-        amount,
-        agreedRate,
-        marketRate,
-        targetOut,
-        netProfitUSD,
-        timestamp: new Date().toISOString(),
-        staffUser: window.currentUser.username
-      };
-
-      try {
-        const { ref, push, set } = window.dbRefs;
-        // 1. Push Transaction
-        await push(ref(window.db, 'transactions'), txRecord);
-
-        // 2. Adjust Safe Vault Realtime Balances
-        const currentSafe = window.appData.safe;
-        if (tradeType === "BUY") {
-          currentSafe[fromCurr] = (currentSafe[fromCurr] || 0) + amount;
-          currentSafe[toCurr] = (currentSafe[toCurr] || 0) - targetOut;
-        } else {
-          currentSafe[fromCurr] = (currentSafe[fromCurr] || 0) - amount;
-          currentSafe[toCurr] = (currentSafe[toCurr] || 0) + targetOut;
+            applyRolePermissions(roleStr);
         }
 
-        await set(ref(window.db, 'safe'), currentSafe);
+        window.handleLogout = function() {
+            window.currentUser = null;
+            document.getElementById('loginModal').classList.remove('hidden');
+        };
 
-        // Show Thermal Receipt Modal
-        openReceiptModal(txRecord);
+        function applyRolePermissions(role) {
+            const allowed = rolePermissions[role] || ["dashboard", "trading", "staff", "statements"];
+            const allNavs = ["dashboard", "trading", "staff", "statements"];
+            
+            allNavs.forEach(mod => {
+                const btn = document.getElementById(`nav-${mod}`);
+                const mobBtn = document.getElementById(`mobile-nav-${mod}`);
+                
+                if (allowed.includes(mod)) {
+                    if(btn) btn.classList.remove('hidden');
+                    if(mobBtn) mobBtn.classList.remove('hidden');
+                } else {
+                    if(btn) btn.classList.add('hidden');
+                    if(mobBtn) mobBtn.classList.add('hidden');
+                }
+            });
 
-      } catch (err) {
-        console.error("Tx Execution error:", err);
-      }
-    }
+            if (allowed.length > 0) {
+                switchTab(allowed[0]);
+            }
+        }
 
-    // SAFE VAULT BALANCES RENDER
-    function renderSafeBalances() {
-      const safe = window.appData.safe;
+        // --- Execute Trade (Firebase Push) ---
+        window.executeTrade = async function(e) {
+            e.preventDefault();
+            if (!window.currentUser) return;
 
-      // Exchange panel summary
-      const summaryContainer = document.getElementById("exchangeVaultBalances");
-      summaryContainer.innerHTML = `
-        <div class="flex justify-between items-center p-2.5 bg-darkbg rounded-xl border border-borderbg text-xs font-mono">
-          <span class="text-gray-400 font-sans">USD ($)</span>
-          <span class="text-emerald-400 font-bold">$${(safe.USD || 0).toLocaleString()}</span>
-        </div>
-        <div class="flex justify-between items-center p-2.5 bg-darkbg rounded-xl border border-borderbg text-xs font-mono">
-          <span class="text-gray-400 font-sans">IQD (ع.د)</span>
-          <span class="text-amber-400 font-bold">${(safe.IQD || 0).toLocaleString()} IQD</span>
-        </div>
-        <div class="flex justify-between items-center p-2.5 bg-darkbg rounded-xl border border-borderbg text-xs font-mono">
-          <span class="text-gray-400 font-sans">TRY (₺)</span>
-          <span class="text-blue-400 font-bold">₺${(safe.TRY || 0).toLocaleString()}</span>
-        </div>
-        <div class="flex justify-between items-center p-2.5 bg-darkbg rounded-xl border border-borderbg text-xs font-mono">
-          <span class="text-gray-400 font-sans">EUR (€)</span>
-          <span class="text-purple-400 font-bold">€${(safe.EUR || 0).toLocaleString()}</span>
-        </div>
-      `;
+            const type = document.getElementById('tradeType').value;
+            const currency = document.getElementById('tradeCurrency').value;
+            const amount = parseFloat(document.getElementById('tradeAmount').value) || 0;
+            const rate = parseFloat(document.getElementById('tradeRate').value) || 0;
+            const party = document.getElementById('clientName').value;
 
-      // Safe module full cards
-      const vaultGrid = document.getElementById("vaultCardsGrid");
-      vaultGrid.innerHTML = `
-        <div class="bg-cardbg border border-borderbg p-5 rounded-2xl">
-          <p class="text-xs text-gray-400">سندوقا USD</p>
-          <h3 class="text-2xl font-black text-emerald-400 mt-2 font-mono">$${(safe.USD || 0).toLocaleString()}</h3>
-        </div>
-        <div class="bg-cardbg border border-borderbg p-5 rounded-2xl">
-          <p class="text-xs text-gray-400">سندوقا IQD</p>
-          <h3 class="text-2xl font-black text-amber-400 mt-2 font-mono">${(safe.IQD || 0).toLocaleString()} IQD</h3>
-        </div>
-        <div class="bg-cardbg border border-borderbg p-5 rounded-2xl">
-          <p class="text-xs text-gray-400">سندوقا TRY</p>
-          <h3 class="text-2xl font-black text-blue-400 mt-2 font-mono">₺${(safe.TRY || 0).toLocaleString()}</h3>
-        </div>
-        <div class="bg-cardbg border border-borderbg p-5 rounded-2xl">
-          <p class="text-xs text-gray-400">سندوقا EUR</p>
-          <h3 class="text-2xl font-black text-purple-400 mt-2 font-mono">€${(safe.EUR || 0).toLocaleString()}</h3>
-        </div>
-      `;
+            const totalIQD = amount * rate;
+            const tradeData = {
+                party,
+                type,
+                currency,
+                amount,
+                rate,
+                totalIQD,
+                date: new Date().toISOString().replace('T', ' ').substring(0, 16),
+                createdBy: window.currentUser.username
+            };
 
-      // Rates sidebar on dashboard
-      document.getElementById("miniRatesList").innerHTML = `
-        <div class="flex justify-between p-2 bg-darkbg rounded-lg text-xs">
-          <span class="text-gray-400">USD / IQD</span>
-          <span class="font-bold font-mono text-emerald-400">1,500</span>
-        </div>
-        <div class="flex justify-between p-2 bg-darkbg rounded-lg text-xs">
-          <span class="text-gray-400">USD / TRY</span>
-          <span class="font-bold font-mono text-blue-400">34.20</span>
-        </div>
-        <div class="flex justify-between p-2 bg-darkbg rounded-lg text-xs">
-          <span class="text-gray-400">EUR / USD</span>
-          <span class="font-bold font-mono text-purple-400">1.08</span>
-        </div>
-      `;
+            // Save Trade
+            await push(ref(db, 'trades'), tradeData);
 
-      document.getElementById("dashSafeUSD").innerText = `$${(safe.USD || 0).toLocaleString()}`;
-    }
+            // Update Vault Auto Balances
+            const vaultSnap = await get(child(ref(db), 'vault'));
+            let currentVault = vaultSnap.val() || { usd: 0, iqd: 0, eur: 0, try: 0 };
 
-    // MANUAL SAFE ADJUSTMENT
-    async function submitSafeAdjustment() {
-      const curr = document.getElementById("adjCurrency").value;
-      const type = document.getElementById("adjType").value;
-      const amount = parseFloat(document.getElementById("adjAmount").value);
+            const currKey = currency.toLowerCase();
+            if (type === 'BUY') {
+                currentVault[currKey] = (currentVault[currKey] || 0) + amount;
+                currentVault.iqd = (currentVault.iqd || 0) - totalIQD;
+            } else {
+                currentVault[currKey] = (currentVault[currKey] || 0) - amount;
+                currentVault.iqd = (currentVault.iqd || 0) + totalIQD;
+            }
 
-      if (!amount || amount <= 0) return;
+            await set(ref(db, 'vault'), currentVault);
 
-      const safe = window.appData.safe;
-      if (type === "DEPOSIT") {
-        safe[curr] = (safe[curr] || 0) + amount;
-      } else {
-        safe[curr] = (safe[curr] || 0) - amount;
-      }
+            document.getElementById('tradeForm').reset();
+            window.calculateTrade();
+        };
 
-      const { ref, set } = window.dbRefs;
-      await set(ref(window.db, 'safe'), safe);
-      document.getElementById("adjAmount").value = "";
-    }
+        // --- Staff CRUD ---
+        window.saveStaffMember = async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('newStaffName').value;
+            const username = document.getElementById('newStaffUsername').value.trim();
+            const password = document.getElementById('newStaffPassword').value.trim();
+            const role = document.getElementById('newStaffRole').value;
 
-    // RENDER HISTORY TABLE
-    function renderHistoryTable() {
-      const tbody = document.getElementById("historyTableBody");
-      tbody.innerHTML = "";
+            await set(ref(db, `users/${username}`), {
+                name,
+                username,
+                password,
+                role
+            });
 
-      const txs = [...window.appData.transactions].reverse();
-      txs.forEach(tx => {
-        const tr = document.createElement("tr");
-        tr.className = "hover:bg-darkbg/50 transition";
-        tr.innerHTML = `
-          <td class="p-3 font-mono text-gray-400">${tx.txId}</td>
-          <td class="p-3 font-bold ${tx.type === 'BUY' ? 'text-emerald-400' : 'text-blue-400'}">${tx.type}</td>
-          <td class="p-3 font-mono">${tx.amount} ${tx.fromCurr}</td>
-          <td class="p-3 font-mono">${tx.targetOut?.toLocaleString()} ${tx.toCurr}</td>
-          <td class="p-3 font-mono">${tx.agreedRate}</td>
-          <td class="p-3 font-mono text-brand-400">+$${(tx.netProfitUSD || 0).toFixed(2)}</td>
-          <td class="p-3 text-gray-500">${new Date(tx.timestamp).toLocaleTimeString()}</td>
-          <td class="p-3 text-center">
-            <button onclick='openReceiptModal(${JSON.stringify(tx)})' class="p-1.5 bg-gray-800 hover:bg-gray-700 text-white rounded-lg">
-              <i class="fa-solid fa-print"></i>
-            </button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
+            window.closeAddStaffModal();
+        };
 
-    // FILTER TRANSACTIONS
-    function filterTransactions() {
-      const q = document.getElementById("txSearchInput").value.toLowerCase();
-      const rows = document.querySelectorAll("#historyTableBody tr");
-      rows.forEach(r => {
-        r.style.display = r.innerText.toLowerCase().includes(q) ? "" : "none";
-      });
-    }
+        window.deleteStaff = async function(username) {
+            if (username === 'admin') {
+                alert('نەشێی ئەکاونتێ سەرەکی ژێببی!');
+                return;
+            }
+            await remove(ref(db, `users/${username}`));
+        };
 
-    // DASHBOARD STATS UPDATE
-    function updateDashboardStats() {
-      const txs = window.appData.transactions;
-      document.getElementById("dashTotalTx").innerText = txs.length;
+        // --- Receipt CRUD ---
+        window.saveReceipt = async function(e) {
+            e.preventDefault();
+            const type = document.getElementById('newReceiptType').value;
+            const desc = document.getElementById('newReceiptDesc').value;
+            const amount = parseFloat(document.getElementById('newReceiptAmount').value) || 0;
+            const currency = document.getElementById('newReceiptCurrency').value;
+            const party = document.getElementById('newReceiptParty').value;
 
-      let totalProfit = 0;
-      let volumeUSD = 0;
+            await push(ref(db, 'receipts'), {
+                type,
+                desc,
+                amount,
+                currency,
+                party,
+                date: new Date().toISOString().split('T')[0]
+            });
 
-      txs.forEach(t => {
-        totalProfit += (t.netProfitUSD || 0);
-        if (t.fromCurr === 'USD') volumeUSD += t.amount;
-      });
+            window.closeAddReceiptModal();
+        };
 
-      document.getElementById("dashProfitToday").innerText = `$${totalProfit.toFixed(2)}`;
-      document.getElementById("dashVolumeUSD").innerText = `$${volumeUSD.toLocaleString()}`;
-      
-      document.getElementById("reportWeeklyProfit").innerText = `$${totalProfit.toFixed(2)}`;
-      document.getElementById("reportMonthlyProfit").innerText = `$${(totalProfit * 4).toFixed(2)}`;
-      document.getElementById("reportSuccessTx").innerText = txs.length;
-    }
+        // Initialize Firebase System
+        initFirebaseSystem();
+    </script>
 
-    // STAFF SAVE (CHECKBOX PERMISSIONS)
-    async function saveStaffMember() {
-      const u = document.getElementById("staffUser").value.trim();
-      const p = document.getElementById("staffPass").value.trim();
-      const fn = document.getElementById("staffFullName").value.trim();
+    <!-- UI INTERACTION & RENDER FUNCTIONS -->
+    <script>
+        function switchTab(tabId) {
+            const modules = ["dashboard", "trading", "staff", "statements"];
+            
+            modules.forEach(m => {
+                // Hide view modules
+                const section = document.getElementById(`module-${m}`);
+                if (section) section.classList.add('hidden');
 
-      if (!u || !p) return;
+                // Desktop Sidebar styling
+                const btn = document.getElementById(`nav-${m}`);
+                if(btn) {
+                    btn.classList.remove('bg-brand-600', 'text-white', 'shadow-lg', 'shadow-brand-600/20');
+                    btn.classList.add('text-slate-400');
+                }
 
-      const permissions = {
-        dashboard: document.getElementById("perm_dashboard").checked,
-        exchange: document.getElementById("perm_exchange").checked,
-        customers: document.getElementById("perm_customers").checked,
-        history: document.getElementById("perm_history").checked,
-        reports: document.getElementById("perm_reports").checked,
-        safe: document.getElementById("perm_safe").checked,
-        staff: document.getElementById("perm_staff").checked,
-        settings: document.getElementById("perm_settings").checked,
-      };
+                // Mobile Horizontal bar styling
+                const mobBtn = document.getElementById(`mobile-nav-${m}`);
+                if(mobBtn) {
+                    mobBtn.classList.remove('bg-brand-600', 'text-white');
+                    mobBtn.classList.add('bg-slate-900/90', 'text-slate-300', 'border', 'border-slate-700');
+                }
+            });
 
-      const staffObj = {
-        username: u,
-        password: p,
-        fullName: fn || u,
-        role: "staff",
-        permissions
-      };
+            // Activate target tab
+            const activeSection = document.getElementById(`module-${tabId}`);
+            if (activeSection) activeSection.classList.remove('hidden');
 
-      const { ref, set } = window.dbRefs;
-      await set(ref(window.db, `staff/${u}`), staffObj);
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            if(activeBtn) {
+                activeBtn.classList.add('bg-brand-600', 'text-white', 'shadow-lg', 'shadow-brand-600/20');
+                activeBtn.classList.remove('text-slate-400');
+            }
 
-      // Reset form inputs
-      document.getElementById("staffUser").value = "";
-      document.getElementById("staffPass").value = "";
-      document.getElementById("staffFullName").value = "";
-    }
+            const activeMobBtn = document.getElementById(`mobile-nav-${tabId}`);
+            if(activeMobBtn) {
+                activeMobBtn.classList.add('bg-brand-600', 'text-white');
+                activeMobBtn.classList.remove('bg-slate-900/90', 'text-slate-300', 'border', 'border-slate-700');
+            }
 
-    // RENDER STAFF TABLE
-    function renderStaffTable() {
-      const tbody = document.getElementById("staffTableBody");
-      tbody.innerHTML = "";
+            const titles = {
+                dashboard: "داشبۆردێ سەرەکی",
+                trading: "کڕین و فرۆشتنا دراڤی",
+                staff: "کارگێڕیا ستافی و دەسەڵاتان (RBAC)",
+                statements: "وەسڵ و حساباتێن دارایی"
+            };
+            document.getElementById('pageTitle').innerText = titles[tabId] || "داشبۆردێ سەرەکی";
+        }
 
-      const staffMap = window.appData.staff;
-      Object.keys(staffMap).forEach(k => {
-        const st = staffMap[k];
-        const tr = document.createElement("tr");
-        tr.className = "hover:bg-darkbg/50 transition";
-        tr.innerHTML = `
-          <td class="p-2.5 font-bold text-white">${st.username}</td>
-          <td class="p-2.5 text-gray-400">${st.fullName || '-'}</td>
-          <td class="p-2.5"><span class="bg-brand-500/10 text-brand-400 border border-brand-500/20 px-2 py-0.5 rounded-full text-[10px]">${st.role}</span></td>
-          <td class="p-2.5 text-center">
-            ${st.username !== 'admin' ? `
-              <button onclick="deleteStaff('${st.username}')" class="text-red-400 hover:text-red-300">
-                <i class="fa-solid fa-trash"></i>
-              </button>
-            ` : '-'}
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
+        function calculateTrade() {
+            const amount = parseFloat(document.getElementById('tradeAmount').value) || 0;
+            const rate = parseFloat(document.getElementById('tradeRate').value) || 0;
+            const totalIQD = amount * rate;
+            document.getElementById('calcTotalIQD').innerText = totalIQD.toLocaleString() + ' IQD';
+        }
 
-    // DELETE STAFF
-    async function deleteStaff(u) {
-      const { ref, remove } = window.dbRefs;
-      await remove(ref(window.db, `staff/${u}`));
-    }
+        function openAddStaffModal() { document.getElementById('addStaffModal').classList.remove('hidden'); }
+        function closeAddStaffModal() { document.getElementById('addStaffModal').classList.add('hidden'); }
+        function openAddReceiptModal() { document.getElementById('addReceiptModal').classList.remove('hidden'); }
+        function closeAddReceiptModal() { document.getElementById('addReceiptModal').classList.add('hidden'); }
 
-    // RECEIPT MODAL
-    function openReceiptModal(tx) {
-      document.getElementById("recTxId").innerText = tx.txId;
-      document.getElementById("recTxType").innerText = tx.type;
-      document.getElementById("recPaid").innerText = `${tx.amount} ${tx.fromCurr}`;
-      document.getElementById("recReceived").innerText = `${tx.targetOut?.toLocaleString()} ${tx.toCurr}`;
-      document.getElementById("recRate").innerText = tx.agreedRate;
-      document.getElementById("recDate").innerText = new Date(tx.timestamp).toLocaleString();
+        function renderTradingTable(trades) {
+            const tbody = document.getElementById('tradingTableBody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            trades.forEach(t => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-700/30 transition';
+                tr.innerHTML = `
+                    <td class="p-4 font-semibold text-white">${t.party}</td>
+                    <td class="p-4">
+                        <span class="px-2 py-1 rounded-md text-xs font-bold ${t.type === 'BUY' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}">
+                            ${t.type === 'BUY' ? 'کڕین' : 'فرۆشتن'}
+                        </span>
+                    </td>
+                    <td class="p-4 font-mono">${(t.amount || 0).toLocaleString()} ${t.currency}</td>
+                    <td class="p-4 font-mono">${(t.rate || 0).toLocaleString()}</td>
+                    <td class="p-4 font-mono text-slate-200">${(t.totalIQD || 0).toLocaleString()} IQD</td>
+                    <td class="p-4 text-xs text-slate-400">${t.date || ''}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
 
-      document.getElementById("receiptModal").classList.remove("hidden");
-    }
+        function renderDashboardRecentTable(trades) {
+            const tbody = document.getElementById('dashboardRecentTable');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            trades.slice(0, 5).forEach(t => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-700/30 transition';
+                tr.innerHTML = `
+                    <td class="p-4 font-semibold text-white">${t.party}</td>
+                    <td class="p-4 text-slate-300">${t.type === 'BUY' ? 'کڕین' : 'فرۆشتن'}</td>
+                    <td class="p-4 font-mono font-bold text-white">${(t.amount || 0).toLocaleString()}</td>
+                    <td class="p-4 text-xs">${t.currency}</td>
+                    <td class="p-4 font-mono text-slate-300">${(t.totalIQD || 0).toLocaleString()} IQD</td>
+                    <td class="p-4 text-xs text-slate-400">${t.date || ''}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
 
-    function closeReceiptModal() {
-      document.getElementById("receiptModal").classList.add("hidden");
-    }
+        function renderStaffTable(staffList) {
+            const tbody = document.getElementById('staffTableBody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            staffList.forEach(s => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-700/30 transition';
+                tr.innerHTML = `
+                    <td class="p-4 font-semibold text-white">${s.name}</td>
+                    <td class="p-4 font-mono text-brand-400">${s.username}</td>
+                    <td class="p-4 font-mono text-slate-400">${s.password}</td>
+                    <td class="p-4">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-700 text-brand-300">
+                            ${s.role}
+                        </span>
+                    </td>
+                    <td class="p-4">
+                        <button onclick="window.deleteStaff('${s.username}')" class="text-rose-400 hover:text-rose-300 text-xs"><i class="fa-solid fa-trash"></i> ژێبرن</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
 
-    // SAVE SETTINGS
-    async function saveSettings() {
-      const name = document.getElementById("settingOfficeName").value;
-      const phone = document.getElementById("settingOfficePhone").value;
-      const footer = document.getElementById("settingReceiptFooter").value;
+        function renderReceiptsTable(receipts) {
+            const tbody = document.getElementById('statementsTableBody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            receipts.forEach(r => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-700/30 transition';
+                tr.innerHTML = `
+                    <td class="p-4 text-white font-medium">${r.desc}</td>
+                    <td class="p-4">
+                        <span class="px-2 py-0.5 rounded text-xs font-semibold ${r.type === 'INCOME' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}">
+                            ${r.type === 'INCOME' ? 'داهات' : 'خەرجی'}
+                        </span>
+                    </td>
+                    <td class="p-4 font-mono font-bold text-white">${(r.amount || 0).toLocaleString()}</td>
+                    <td class="p-4 text-xs">${r.currency}</td>
+                    <td class="p-4 text-slate-300">${r.party}</td>
+                    <td class="p-4 text-xs text-slate-400">${r.date}</td>
+                    <td class="p-4">
+                        <button onclick="window.print()" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-print"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
 
-      const { ref, set } = window.dbRefs;
-      await set(ref(window.db, 'settings'), { officeName: name, officePhone: phone, footerMsg: footer });
-    }
+        // --- Chart.js Setup ---
+        let currencyPieChart;
+        window.addEventListener('load', () => {
+            const ctx1 = document.getElementById('financialChart');
+            if(ctx1) {
+                new Chart(ctx1.getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['کانوونی دووەم', 'شوبات', 'آذار', 'نیسان', 'ئایار', 'حوزەیران'],
+                        datasets: [{
+                            label: 'جوولەیا دارایی',
+                            data: [0, 0, 0, 0, 0, 0],
+                            borderColor: '#0284c7',
+                            backgroundColor: 'rgba(2, 132, 199, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { ticks: { color: '#64748b' }, grid: { color: '#334155' } },
+                            y: { ticks: { color: '#64748b' }, grid: { color: '#334155' } }
+                        }
+                    }
+                });
+            }
 
-    // LANGUAGE SWITCHER
-    function changeLanguage(lang) {
-      currentLang = lang;
-      const t = translations[lang];
+            const ctx2 = document.getElementById('currencyPieChart');
+            if(ctx2) {
+                currencyPieChart = new Chart(ctx2.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['USD', 'IQD', 'EUR', 'TRY'],
+                        datasets: [{
+                            data: [0, 0, 0, 0],
+                            backgroundColor: ['#0284c7', '#10b981', '#6366f1', '#f59e0b'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%'
+                    }
+                });
+            }
+        });
 
-      // Layout Direction
-      if (lang === "english") {
-        document.documentElement.dir = "ltr";
-      } else {
-        document.documentElement.dir = "rtl";
-      }
-
-      // Dynamic text updates
-      document.getElementById("appNameText").innerText = t.appName;
-      document.getElementById("loginTitle").innerText = t.appName;
-      document.getElementById("loginSubtitle").innerText = t.subtitle;
-      document.getElementById("lblUsername").innerText = t.loginUser;
-      document.getElementById("lblPassword").innerText = t.loginPass;
-      document.getElementById("btnTextLogin").innerText = t.btnLogin;
-
-      // Navigation labels update
-      renderNavigation();
-    }
-
-    // INITIALIZE CHART.JS
-    function initChart() {
-      const ctx = document.getElementById('profitChart').getContext('2d');
-      if (profitChartInstance) profitChartInstance.destroy();
-
-      profitChartInstance = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ['09:00', '11:00', '13:00', '15:00', '17:00', '19:00'],
-          datasets: [{
-            label: 'Net Profit ($)',
-            data: [12, 45, 80, 
+        function updatePieChart(vault) {
+            if (currencyPieChart) {
+                currencyPieChart.data.datasets[0].data = [
+                    vault.usd || 0,
+                    vault.iqd || 0,
+                    vault.eur || 0,
+                    vault.try || 0
+                ];
+                currencyPieChart.update();
+            }
+        }
+    </script>
+</body>
+</html>
