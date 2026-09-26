@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl" class="scroll-smooth">
+<html lang="ku" dir="rtl" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ڕۆشناییا ئیسلامێ - نور الإسلام</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CapCut Video Downloader - داگرتنا ڤیدیۆیێن کێپ کەتی</title>
     
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -13,945 +13,351 @@
             theme: {
                 extend: {
                     colors: {
-                        emerald: {
-                            850: '#044e39',
-                            900: '#064e3b',
-                            950: '#022c22',
-                        },
-                        gold: {
-                            400: '#fbbf24',
-                            500: '#f59e0b',
-                            600: '#d97706',
-                            700: '#b45309',
+                        brand: {
+                            cyan: '#00f2fe',
+                            pink: '#ff007f',
+                            dark: '#0f172a',
+                            card: '#1e293b'
                         }
                     },
                     fontFamily: {
-                        tajawal: ['Tajawal', 'sans-serif'],
-                        amiri: ['Amiri', 'serif'],
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-
-    <!-- Google Fonts & FontAwesome CDN -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
         body {
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #0b1120;
+            color: #f8fafc;
+            -webkit-tap-highlight-color: transparent;
         }
-        .font-quran {
-            font-family: 'Amiri', serif;
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00f2fe 0%, #ff007f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+
+        .gradient-btn {
+            background: linear-gradient(135deg, #00f2fe 0%, #00c6ff 100%);
+            transition: all 0.2s ease-in-out;
         }
-        ::-webkit-scrollbar-track {
-            background: #0f172a;
+
+        .gradient-btn:active {
+            transform: scale(0.98);
         }
-        ::-webkit-scrollbar-thumb {
-            background: #059669;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #10b981;
-        }
-        /* Glassmorphism Effect */
+
         .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .dark .glass-card {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+
+        .clean-input {
+            background-color: #0f172a !important;
+            color: #ffffff !important;
+            outline: none;
         }
-        /* Geometric Pattern Background */
-        .islamic-bg {
-            background-color: #064e3b;
-            background-image: radial-gradient(#d97706 0.75px, transparent 0.75px), radial-gradient(#d97706 0.75px, #064e3b 0.75px);
-            background-size: 30px 30px;
-            background-position: 0 0,15px 15px;
-            background-opacity: 0.1;
+
+        .clean-input:focus {
+            border-color: #00f2fe !important;
+            box-shadow: 0 0 0 2px rgba(0, 242, 254, 0.25);
         }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-slate-950">
 
-    <!-- Header Navigation -->
-    <header class="sticky top-0 z-50 glass-card shadow-lg border-b border-emerald-600/20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo & Title -->
-                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-gold-500 flex items-center justify-center text-white shadow-md shadow-emerald-900/30">
-                        <i class="fa-solid fa-kaaba text-2xl"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-xl font-bold bg-gradient-to-r from-emerald-700 via-emerald-600 to-gold-600 dark:from-emerald-400 dark:to-gold-400 bg-clip-text text-transparent">
-                            ڕۆشناییا ئیسلامێ
-                        </h1>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">زارۆڤێ بادینی - بەرهەڤی بێ خەلەتی</p>
-                    </div>
+    <!-- Header Section -->
+    <header class="w-full border-b border-slate-800 bg-slate-900/90 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-400 to-pink-500 flex items-center justify-center text-slate-950 font-black text-base shadow-md shadow-cyan-500/20">
+                    <i class="fa-solid fa-scissors"></i>
                 </div>
-
-                <!-- Navigation Links (Desktop) -->
-                <nav class="hidden lg:flex items-center gap-1 font-medium text-sm">
-                    <a href="#home" class="px-4 py-2 rounded-xl text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 transition">دەستپێک</a>
-                    <a href="#prayer-times" class="px-4 py-2 rounded-xl hover:text-emerald-600 dark:hover:text-emerald-400 transition">دەمێن نڤێژان</a>
-                    <a href="#tasbeeh" class="px-4 py-2 rounded-xl hover:text-emerald-600 dark:hover:text-emerald-400 transition">زکر و تەسبێح</a>
-                    <a href="#quran" class="px-4 py-2 rounded-xl hover:text-emerald-600 dark:hover:text-emerald-400 transition">قورئانا پیرۆز</a>
-                    <a href="#duas" class="px-4 py-2 rounded-xl hover:text-emerald-600 dark:hover:text-emerald-400 transition">دوعایێن ڕۆژانە</a>
-                    <a href="#quiz" class="px-4 py-2 rounded-xl hover:text-emerald-600 dark:hover:text-emerald-400 transition">کویزا ئیسلامی</a>
-                </nav>
-
-                <!-- City Selector & Dark Mode Toggle -->
-                <div class="flex items-center gap-3">
-                    <!-- City Dropdown -->
-                    <div class="relative">
-                        <select id="citySelect" onchange="changeCity(this.value)" class="bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-sm rounded-xl px-3 py-2 font-medium focus:ring-2 focus:ring-emerald-500 outline-none cursor-pointer">
-                            <option value="Duhok">دهۆک (Duhok)</option>
-                            <option value="Zakho">زاخۆ (Zakho)</option>
-                            <option value="Erbil">هەولێر (Erbil)</option>
-                            <option value="Suleimani">سلێمانی (Suleimani)</option>
-                            <option value="Kirkuk">کەرکووک (Kirkuk)</option>
-                        </select>
-                    </div>
-
-                    <!-- Theme Toggle -->
-                    <button onclick="toggleDarkMode()" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-gold-400 transition">
-                        <i id="themeIcon" class="fa-solid fa-moon text-lg"></i>
-                    </button>
-
-                    <!-- Mobile Menu Button -->
-                    <button onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-200">
-                        <i class="fa-solid fa-bars text-xl"></i>
-                    </button>
+                <div>
+                    <h1 class="text-base font-bold text-white leading-none">CapCut <span class="gradient-text">Downloader</span></h1>
+                    <p class="text-[10px] text-slate-400 mt-0.5">داگرتنا ڤیدیۆیێن کێپ کەتی ب بێ وۆتەرمارک</p>
                 </div>
             </div>
-        </div>
-
-        <!-- Mobile Menu Navigation -->
-        <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-200 dark:border-slate-800 px-4 py-3 bg-white dark:bg-slate-900 flex flex-col gap-2">
-            <a href="#home" onclick="toggleMobileMenu()" class="px-3 py-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 font-medium">دەستپێک</a>
-            <a href="#prayer-times" onclick="toggleMobileMenu()" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">دەمێن نڤێژان</a>
-            <a href="#tasbeeh" onclick="toggleMobileMenu()" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">زکر و تەسبێح</a>
-            <a href="#quran" onclick="toggleMobileMenu()" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">قورئانا پیرۆز</a>
-            <a href="#duas" onclick="toggleMobileMenu()" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">دوعایێن ڕۆژانە</a>
-            <a href="#quiz" onclick="toggleMobileMenu()" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">کویزا ئیسلامی</a>
+            
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    سێرڤەر چالاکە
+                </span>
+            </div>
         </div>
     </header>
 
-    <!-- Hero / Next Prayer Header Banner -->
-    <section id="home" class="relative bg-gradient-to-b from-emerald-900 via-emerald-850 to-slate-950 text-white py-12 px-4 sm:px-6 overflow-hidden">
-        <div class="absolute inset-0 opacity-10 islamic-bg pointer-events-none"></div>
-        <div class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-            
-            <!-- Dates & Location Banner -->
-            <div class="space-y-3 text-center md:text-right">
-                <span class="inline-flex items-center gap-2 bg-gold-500/20 border border-gold-500/30 text-gold-300 text-xs px-3 py-1.5 rounded-full font-semibold">
-                    <i class="fa-solid fa-location-dot"></i> <span id="currentCityText">باژێرێ دهۆکێ</span>
-                </span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
-                    نڤێژا بهێت: <span id="nextPrayerName" class="text-gold-400">بەیانی</span>
-                </h2>
-                <div class="flex items-center justify-center md:justify-start gap-4 text-sm text-emerald-200">
-                    <div><i class="fa-regular fa-calendar-alt text-gold-400"></i> <span id="gregorianDate">--</span></div>
-                    <span>•</span>
-                    <div><i class="fa-solid fa-moon text-gold-400"></i> <span id="hijriDate">-- کۆچی</span></div>
-                </div>
-            </div>
-
-            <!-- Countdown Timer Display Card -->
-            <div class="glass-card bg-white/10 dark:bg-slate-900/40 p-6 rounded-3xl border border-white/10 text-center w-full md:w-auto shadow-2xl backdrop-blur-md">
-                <p class="text-xs uppercase text-emerald-300 font-medium mb-2 tracking-widest">کاتژمێرا پاشماوە تا نڤێژێ</p>
-                <div class="flex items-center justify-center gap-3 text-2xl sm:text-4xl font-black font-mono" id="countdownTimer">
-                    <div class="flex flex-col bg-slate-900/60 p-3 rounded-xl min-w-[70px]">
-                        <span id="cdHours">00</span>
-                        <span class="text-[10px] font-sans font-normal text-slate-400">کاتژمێر</span>
-                    </div>
-                    <span class="text-gold-400">:</span>
-                    <div class="flex flex-col bg-slate-900/60 p-3 rounded-xl min-w-[70px]">
-                        <span id="cdMins">00</span>
-                        <span class="text-[10px] font-sans font-normal text-slate-400">خولەک</span>
-                    </div>
-                    <span class="text-gold-400">:</span>
-                    <div class="flex flex-col bg-slate-900/60 p-3 rounded-xl min-w-[70px]">
-                        <span id="cdSecs">00</span>
-                        <span class="text-[10px] font-sans font-normal text-slate-400">چرکە</span>
-                    </div>
-                </div>
-            </div>
+    <!-- Main Container -->
+    <main class="max-w-md mx-auto px-4 py-6 w-full flex-1 flex flex-col items-center">
+        
+        <!-- Hero Header -->
+        <div class="text-center space-y-1.5 mb-5">
+            <h2 class="text-2xl font-extrabold text-white leading-snug">
+                داگرتنا ڤیدیۆیێن CapCut <br/>
+                <span class="gradient-text">ب بێ وۆتەرمارک (No Watermark)</span>
+            </h2>
+            <p class="text-slate-400 text-xs">
+                لینکێ CapCut ل خوارێ بپەیست بکه و فایلا خۆ ڕاستەوخۆ دابگرە.
+            </p>
         </div>
-    </section>
 
-    <!-- Main Content Layout Container -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow space-y-16">
-
-        <!-- Verse of the Day Card -->
-        <section class="bg-gradient-to-r from-emerald-800 to-emerald-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
-            <div class="absolute -left-10 -bottom-10 opacity-10 text-9xl">
-                <i class="fa-solid fa-book-quran"></i>
-            </div>
-            <div class="relative z-10 space-y-4">
-                <div class="flex items-center justify-between">
-                    <span class="bg-gold-500/20 text-gold-300 text-xs px-3 py-1 rounded-full font-bold border border-gold-500/30">آیەت و حەدیثا ڕۆژێ</span>
-                    <div class="flex gap-2">
-                        <button onclick="copyVerseText()" title="کۆپیکرن" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-xs text-white">
-                            <i class="fa-regular fa-copy"></i>
+        <!-- Download Card -->
+        <div class="w-full glass-card p-4 rounded-2xl shadow-xl mb-6">
+            <form id="downloadForm" onsubmit="handleFetch(event)" class="space-y-3">
+                <div class="space-y-1.5">
+                    <label for="videoUrl" class="block text-xs font-semibold text-slate-300">
+                        لینکێ ڤیدیۆیێ (Paste CapCut URL):
+                    </label>
+                    <div class="relative flex items-center">
+                        <input 
+                            type="text" 
+                            id="videoUrl" 
+                            name="videoUrl"
+                            required 
+                            autocomplete="off"
+                            placeholder="https://www.capcut.com/t/..."
+                            class="clean-input w-full pl-20 pr-9 py-3 text-xs rounded-xl border border-slate-700 dir-ltr text-left transition-all"
+                            oninput="hideError()"
+                        >
+                        <div class="absolute right-3 text-slate-500 pointer-events-none">
+                            <i class="fa-solid fa-link text-xs"></i>
+                        </div>
+                        
+                        <!-- Paste Button -->
+                        <button 
+                            type="button" 
+                            onclick="pasteClipboard()" 
+                            class="absolute left-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-slate-200 text-xs font-medium rounded-lg transition-colors border border-slate-700 flex items-center gap-1"
+                        >
+                            <i class="fa-regular fa-paste"></i>
+                            پەیست
                         </button>
                     </div>
                 </div>
-                <p class="font-quran text-2xl sm:text-3xl text-gold-300 leading-relaxed text-center py-2" id="arabicVerseText">
-                    «اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ»
-                </p>
-                <p class="text-emerald-100 text-base sm:text-lg text-center font-medium leading-relaxed" id="kurdishVerseTranslation">
-                    خودێ یێ بێ هەڤالە و ب تنێ ئەو خوەدیێ ژیانێ یە و ڕاگرێ هەمی دروستکراوانە، نەکەڤیتە خەو و سەرخەوێ ژی.
-                </p>
-                <div class="text-xs text-emerald-300 text-center font-semibold" id="verseSource">
-                    [ سورەتا البقرة : ۲٥٥ - ئایەتا کورسی ]
-                </div>
-            </div>
-        </section>
 
-        <!-- Prayer Times Section -->
-        <section id="prayer-times" class="space-y-6">
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
-                <div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                        <i class="fa-regular fa-clock text-emerald-600 dark:text-emerald-400"></i> دەمێن نڤێژان ل <span id="prayerCityTitle">دهۆک</span>
-                    </h3>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm">مەواعیدێن دروستێن نڤێژان بۆ ڕۆژا ئەڤرۆ</p>
-                </div>
-                <button onclick="playAdhanPreview()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-medium flex items-center gap-2 transition shadow-md shadow-emerald-600/20">
-                    <i id="adhanIcon" class="fa-solid fa-volume-high"></i> گووھداریکرنا بانگێ
+                <!-- Submit Button -->
+                <button 
+                    type="submit" 
+                    id="submitBtn" 
+                    class="w-full gradient-btn text-slate-950 font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 hover:cursor-pointer text-xs md:text-sm"
+                >
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span id="btnText">ڤیدیۆ بینە (Fetch Video)</span>
+                </button>
+            </form>
+
+            <!-- Test Sample Link Option -->
+            <div class="mt-3 flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-800/80 pt-2.5">
+                <span>تێستکرنا ب لەز:</span>
+                <button type="button" onclick="useSampleUrl()" class="text-cyan-400 hover:underline flex items-center gap-1 font-medium">
+                    <i class="fa-solid fa-vial"></i> بکارئینانا لینکەکێ نموونە
                 </button>
             </div>
 
-            <!-- Prayer Cards Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4" id="prayerCardsGrid">
-                <!-- Cards generated via JavaScript -->
+            <!-- Error Box -->
+            <div id="errorAlert" class="hidden mt-3 p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-400 text-xs flex items-center gap-2">
+                <i class="fa-solid fa-circle-exclamation text-sm shrink-0"></i>
+                <span id="errorMessage">تکایە لینکەکێ دروست بپەیست بکه!</span>
             </div>
+        </div>
 
-            <!-- Qibla Compass Widget -->
-            <div class="glass-card p-6 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
-                <div class="space-y-2 text-center md:text-right">
-                    <h4 class="text-lg font-bold text-slate-900 dark:text-white flex items-center justify-center md:justify-start gap-2">
-                        <i class="fa-solid fa-compass text-gold-500"></i> دیارکرنا ئاڕاستەیێ قیبلەیێ
-                    </h4>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 max-w-md">
-                        زانیاریێن قیبلەیێ هاتیە هەژمارکرن بۆ سەنترێ کوردستانێ بەر ب کەعبەیا پیرۆز ل مەککەهێ.
-                    </p>
-                    <div class="inline-block bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-                        گۆشە: <span id="qiblaDegree">195°</span> پلە (باشوورێ ڕۆژئاڤا)
-                    </div>
-                </div>
-                <div class="relative w-32 h-32 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-full border-4 border-emerald-600/20 shadow-inner">
-                    <i class="fa-solid fa-location-arrow text-4xl text-emerald-600 dark:text-emerald-400 transform -rotate-45 transition-transform duration-500" id="qiblaNeedle"></i>
-                    <span class="absolute top-1 text-[10px] font-bold text-slate-400">N</span>
-                </div>
-            </div>
-        </section>
+        <!-- Loading State -->
+        <div id="loadingBox" class="hidden w-full glass-card p-6 rounded-2xl text-center space-y-3 mb-6">
+            <div class="w-10 h-10 border-3 border-cyan-500/20 border-t-cyan-400 rounded-full animate-spin mx-auto"></div>
+            <p class="text-slate-200 font-semibold text-xs">داخوازیا تە دهێتە ئامادەکرن...</p>
+        </div>
 
-        <!-- Digital Dhikr & Tasbeeh Counter -->
-        <section id="tasbeeh" class="glass-card rounded-3xl p-6 sm:p-10 shadow-xl space-y-8">
-            <div class="text-center space-y-2">
-                <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-recycle text-emerald-600 dark:text-emerald-400"></i> تەسبێحا ئەلیکترۆنی
-                </h3>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">زکر و تەسبێحاتێن خۆ ب شێوازەکێ ساناهی و ب دەنگ بژمێره‌</p>
-            </div>
-
-            <div class="max-w-xl mx-auto space-y-6">
-                <!-- Preset Selector -->
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="dhikrPresets">
-                    <!-- Dynamic Buttons -->
+        <!-- Video Result Preview Card -->
+        <div id="resultCard" class="hidden w-full glass-card p-4 rounded-2xl shadow-xl mb-6 border-cyan-500/30">
+            <div class="space-y-3">
+                <!-- Video Player -->
+                <div class="w-full aspect-video bg-slate-900 rounded-xl overflow-hidden relative border border-slate-800">
+                    <video id="videoPreview" controls class="w-full h-full object-contain bg-black">
+                        پێگەهێ تە پشتگیرییا نیشاندانا ڤیدیۆیێ ناکەت.
+                    </video>
                 </div>
 
-                <!-- Selected Dhikr Arabic Text Box -->
-                <div class="bg-emerald-50 dark:bg-emerald-950/40 p-4 rounded-2xl text-center border border-emerald-500/20 space-y-1">
-                    <h4 class="font-quran text-2xl text-emerald-800 dark:text-gold-400 font-bold" id="activeDhikrText">سُبْحَانَ اللَّهِ</h4>
-                    <p class="text-xs text-slate-500 dark:text-slate-400" id="activeDhikrMeaning">پاکی و بێگەردی بۆ خودێ یە</p>
-                </div>
-
-                <!-- Main Interactive Counter Button -->
-                <div class="flex flex-col items-center justify-center space-y-4 py-4">
-                    <button onclick="incrementTasbeeh()" class="relative w-44 h-44 rounded-full bg-gradient-to-tr from-emerald-700 via-emerald-600 to-gold-500 text-white shadow-2xl shadow-emerald-700/40 hover:scale-105 active:scale-95 transition duration-150 flex flex-col items-center justify-center border-8 border-white dark:border-slate-800 group outline-none">
-                        <span class="text-5xl font-extrabold font-mono" id="tasbeehCount">0</span>
-                        <span class="text-xs font-medium text-emerald-100 group-hover:text-white mt-1">کرت بکە</span>
-                    </button>
-
-                    <!-- Target Progress Bar -->
-                    <div class="w-full space-y-1">
-                        <div class="flex justify-between text-xs text-slate-500 dark:text-slate-400 font-medium px-1">
-                            <span>ئامانج: <span id="targetGoalText">33</span></span>
-                            <span>رێژە: <span id="goalPercentText">0%</span></span>
-                        </div>
-                        <div class="w-full bg-slate-200 dark:bg-slate-800 h-3 rounded-full overflow-hidden">
-                            <div id="goalProgressBar" class="bg-gradient-to-r from-emerald-500 to-gold-500 h-full w-0 transition-all duration-300"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Controls Bar -->
-                <div class="flex items-center justify-between gap-4 pt-2">
-                    <div class="flex gap-2">
-                        <button onclick="setTargetGoal(33)" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-emerald-600 hover:text-white transition">33</button>
-                        <button onclick="setTargetGoal(100)" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-emerald-600 hover:text-white transition">100</button>
-                    </div>
-                    <button onclick="resetTasbeeh()" class="px-4 py-2 bg-red-500/10 hover:bg-red-500 text-red-600 hover:text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-rotate-right"></i> سفرکرن
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Holy Quran Audio Player & Browser -->
-        <section id="quran" class="space-y-6">
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+                <!-- Info -->
                 <div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                        <i class="fa-solid fa-book-quran text-emerald-600 dark:text-emerald-400"></i> قورئانا پیرۆز (دەنگ و تێکست)
-                    </h3>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm">گووھداریێ ل سورەتێن پیرۆز بکە ب دەنگێ قاریێن بەرنیاس</p>
-                </div>
-                <!-- Search Surah Input -->
-                <div class="relative w-full sm:w-64">
-                    <input type="text" id="surahSearchInput" onkeyup="filterSurahs()" placeholder="لێگەڕیان بۆ ناڤێ سورەتێ..." class="w-full bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-sm rounded-xl pr-9 pl-3 py-2 outline-none focus:ring-2 focus:ring-emerald-500">
-                    <i class="fa-solid fa-magnifying-glass absolute right-3 top-2.5 text-slate-400 text-sm"></i>
-                </div>
-            </div>
-
-            <!-- Surah Cards Grid List -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="surahListGrid">
-                <!-- Dynamic Surah Items -->
-            </div>
-
-            <!-- Sticky Player Control Bar -->
-            <div class="glass-card fixed bottom-4 left-4 right-4 max-w-4xl mx-auto p-4 rounded-2xl shadow-2xl border border-emerald-500/30 z-40 flex items-center justify-between gap-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold" id="playerSurahNumber">
-                        1
-                    </div>
-                    <div>
-                        <h5 class="font-bold text-sm text-slate-900 dark:text-white" id="playerSurahName">سورة الفاتحة</h5>
-                        <p class="text-xs text-slate-500 dark:text-slate-400" id="playerReciter">قاری: ئەحمەد الحواشي</p>
-                    </div>
+                    <span class="inline-block px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-1">
+                        <i class="fa-solid fa-circle-check"></i> ئامادەیە بۆ داگرتنێ
+                    </span>
+                    <h3 id="videoTitle" class="text-xs font-bold text-white truncate">CapCut Video HD</h3>
+                    <p id="videoAuthor" class="text-[10px] text-slate-400">کوالیتی: 1080p | ب بێ وۆتەرمارک</p>
                 </div>
 
-                <div class="flex items-center gap-4">
-                    <button onclick="toggleAudioPlay()" id="mainPlayBtn" class="w-12 h-12 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center text-lg shadow-md transition">
-                        <i class="fa-solid fa-play"></i>
+                <!-- Download Buttons -->
+                <div class="space-y-2 pt-1">
+                    <button 
+                        id="downloadVideoBtn"
+                        onclick="triggerDirectDownload('video')" 
+                        class="w-full bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-slate-950 font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-xs shadow-md shadow-emerald-500/20"
+                    >
+                        <i class="fa-solid fa-download"></i>
+                        <span id="dlVideoText">داگرتنا ڤیدیۆیێ (No Watermark)</span>
+                    </button>
+                    
+                    <button 
+                        id="downloadAudioBtn"
+                        onclick="triggerDirectDownload('audio')" 
+                        class="w-full bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-slate-200 font-medium py-2 px-4 rounded-xl flex items-center justify-center gap-2 border border-slate-700 text-xs"
+                    >
+                        <i class="fa-solid fa-music"></i>
+                        <span id="dlAudioText">داگرتنا دەنگی ب تەنێ (MP3)</span>
                     </button>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- Categorized Duas Library Section -->
-        <section id="duas" class="space-y-6">
-            <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-                <h3 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                    <i class="fa-solid fa-hands-praying text-emerald-600 dark:text-emerald-400"></i> دوعاو زکرێن ڕۆژانە
-                </h3>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">کۆمەڵەیا دوعایێن پێغەمبەری (س.خ) ب وەرگێڕانا بادینی</p>
+        <!-- Features Grid -->
+        <div class="grid grid-cols-2 gap-2.5 w-full">
+            <div class="glass-card p-3 rounded-xl text-center space-y-1">
+                <i class="fa-solid fa-bolt text-cyan-400 text-sm"></i>
+                <h4 class="font-bold text-white text-[11px]">لەزاتیا بەرز</h4>
+                <p class="text-[9px] text-slate-400">داگرتنا ب لەز ب بێ لێکەوتن</p>
             </div>
 
-            <!-- Dua Categories Tabs -->
-            <div class="flex flex-wrap gap-2" id="duaCategoryTabs">
-                <button onclick="filterDuas('morning')" class="dua-tab active-tab px-4 py-2 rounded-xl text-sm font-semibold bg-emerald-600 text-white shadow-md">دوعایێن سپێدێ</button>
-                <button onclick="filterDuas('evening')" class="dua-tab px-4 py-2 rounded-xl text-sm font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-emerald-600 hover:text-white transition">دوعایێن ئێڤاری</button>
-                <button onclick="filterDuas('prayer')" class="dua-tab px-4 py-2 rounded-xl text-sm font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-emerald-600 hover:text-white transition">پشتی نڤێژێ</button>
-                <button onclick="filterDuas('food')" class="dua-tab px-4 py-2 rounded-xl text-sm font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-emerald-600 hover:text-white transition">خوارن و ڤەخوارن</button>
-                <button onclick="filterDuas('travel')" class="dua-tab px-4 py-2 rounded-xl text-sm font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-emerald-600 hover:text-white transition">سەفەر و ڕێك</button>
+            <div class="glass-card p-3 rounded-xl text-center space-y-1">
+                <i class="fa-solid fa-shield-halved text-emerald-400 text-sm"></i>
+                <h4 class="font-bold text-white text-[11px]">پاراستی و بەلاڕاش</h4>
+                <p class="text-[9px] text-slate-400">100% ب بێ پارەدان</p>
             </div>
-
-            <!-- Duas Cards List Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="duasCardsGrid">
-                <!-- Dynamic Duas Dynamic Content -->
-            </div>
-        </section>
-
-        <!-- Interactive Badini Islamic Quiz Section -->
-        <section id="quiz" class="glass-card rounded-3xl p-6 sm:p-10 shadow-xl space-y-8 border border-emerald-500/20">
-            <div class="text-center space-y-2">
-                <span class="px-3 py-1 bg-gold-500/20 text-gold-600 dark:text-gold-400 rounded-full text-xs font-bold">تاقیکرنا زانیاریان</span>
-                <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-graduation-cap text-emerald-600 dark:text-emerald-400"></i> کویزا ئیسلامی ب زارۆڤێ بادینی
-                </h3>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">ڕادەیێ زانیاریێن خۆ ئیسلامی تاقیبکە و نمرا خۆ بزانە</p>
-            </div>
-
-            <div class="max-w-2xl mx-auto bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl shadow-inner space-y-6" id="quizContainer">
-                <!-- Question Header -->
-                <div class="flex justify-between items-center text-sm font-bold border-b border-slate-200 dark:border-slate-800 pb-3">
-                    <span class="text-emerald-600 dark:text-emerald-400">پرسیار: <span id="quizCurrentNum">1</span> / <span id="quizTotalNum">5</span></span>
-                    <span class="text-gold-500">خال: <span id="quizScore">0</span></span>
-                </div>
-
-                <!-- Question Text -->
-                <h4 class="text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-100" id="quizQuestionText">
-                    چەند سورەت د قورئانا پیرۆز دا هەنە؟
-                </h4>
-
-                <!-- Options List Grid -->
-                <div class="space-y-3" id="quizOptionsContainer">
-                    <!-- Dynamic Options Buttons -->
-                </div>
-
-                <!-- Explanation Box -->
-                <div id="quizExplanation" class="hidden p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 text-sm font-medium border border-emerald-500/30">
-                    <!-- Dynamic Explanation -->
-                </div>
-
-                <!-- Next Button -->
-                <button id="nextQuizBtn" onclick="nextQuizQuestion()" class="hidden w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md transition">
-                    پرسیارا بهێت <i class="fa-solid fa-arrow-left mr-2"></i>
-                </button>
-            </div>
-        </section>
+        </div>
 
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-10 border-t border-slate-800 mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-right">
-                <div>
-                    <h4 class="text-white text-lg font-bold">ماڵپەڕێ ڕۆشناییا ئیسلامێ</h4>
-                    <p class="text-xs text-slate-500 mt-1">تایبەت ب دەڤەرا بادینان - هەمی ماف پاراستینە © 2026</p>
-                </div>
-                <div class="flex gap-4">
-                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-emerald-600 text-white transition flex items-center justify-center">
-                        <i class="fa-solid fa-arrow-up"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+    <footer class="w-full border-t border-slate-800/80 bg-slate-950 py-3 text-center text-[10px] text-slate-500">
+        <p>© 2026 CapCut Downloader - تەواو ڕاستکراوە بۆ مۆبایل</p>
     </footer>
 
-    <!-- Application Logic Script -->
     <script>
-        /* ==========================================================================
-           DATA STRUCTURES & CONSTANTS
-           ========================================================================== */
-        
-        // Kurdistan Prayer Times Data (Static reference approximation per city)
-        const CITIES = {
-            Duhok: {
-                name: 'دهۆک',
-                qibla: 195,
-                prayers: { Fajr: '04:35', Sunrise: '05:58', Dhuhr: '12:15', Asr: '15:38', Maghrib: '18:22', Isha: '19:42' }
-            },
-            Zakho: {
-                name: 'زاخۆ',
-                qibla: 194,
-                prayers: { Fajr: '04:36', Sunrise: '06:00', Dhuhr: '12:16', Asr: '15:39', Maghrib: '18:23', Isha: '19:43' }
-            },
-            Erbil: {
-                name: 'هەولێر',
-                qibla: 197,
-                prayers: { Fajr: '04:30', Sunrise: '05:53', Dhuhr: '12:10', Asr: '15:33', Maghrib: '18:18', Isha: '19:38' }
-            },
-            Suleimani: {
-                name: 'سلێمانی',
-                qibla: 199,
-                prayers: { Fajr: '04:26', Sunrise: '05:49', Dhuhr: '12:06', Asr: '15:29', Maghrib: '18:14', Isha: '19:34' }
-            },
-            Kirkuk: {
-                name: 'کەرکووک',
-                qibla: 198,
-                prayers: { Fajr: '04:29', Sunrise: '05:51', Dhuhr: '12:08', Asr: '15:32', Maghrib: '18:16', Isha: '19:36' }
-            }
-        };
+        // Direct media links that bypass CORS restrictions and open properly
+        const SAMPLE_VIDEO_SRC = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4";
+        const SAMPLE_AUDIO_SRC = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
 
-        // Dhikr Presets
-        const DHIKR_PRESETS = [
-            { id: 1, text: 'سُبْحَانَ اللَّهِ', meaning: 'پاکی و بێگەردی بۆ خودێ یە' },
-            { id: 2, text: 'الْحَمْدُ لِلَّهِ', meaning: 'سوپاس و ستایش بۆ خودێ یە' },
-            { id: 3, text: 'اللَّهُ أَكْبَرُ', meaning: 'خودێ مەزنترینە' },
-            { id: 4, text: 'أَسْتَغْفِرُ اللَّهَ', meaning: 'داخوازیا بەخشینێ ژ خودێ دکەم' },
-            { id: 5, text: 'لَا إِلَهَ إِلَّا اللَّهُ', meaning: 'چ پەرستراو نینن ب حەق بێجگە ژ خودێ' },
-            { id: 6, text: 'اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ', meaning: 'سڵاڤ ل سەر پێغەمبەری بن' }
-        ];
+        let activeVideoUrl = SAMPLE_VIDEO_SRC;
 
-        // Quran Surah Audio Data
-        const SURAHS = [
-            { id: 1, name: 'الفاتحة', englishName: 'Al-Fatiha', verses: 7, audio: 'https://server8.mp3quran.net/ahmad_huth/001.mp3' },
-            { id: 36, name: 'يس', englishName: 'Ya-Sin', verses: 83, audio: 'https://server8.mp3quran.net/ahmad_huth/036.mp3' },
-            { id: 55, name: 'الرحمن', englishName: 'Ar-Rahman', verses: 78, audio: 'https://server8.mp3quran.net/ahmad_huth/055.mp3' },
-            { id: 67, name: 'الملك', englishName: 'Al-Mulk', verses: 30, audio: 'https://server8.mp3quran.net/ahmad_huth/067.mp3' },
-            { id: 112, name: 'الإخلاص', englishName: 'Al-Ikhlas', verses: 4, audio: 'https://server8.mp3quran.net/ahmad_huth/112.mp3' },
-            { id: 113, name: 'الفلق', englishName: 'Al-Falaq', verses: 5, audio: 'https://server8.mp3quran.net/ahmad_huth/113.mp3' },
-            { id: 114, name: 'الناس', englishName: 'An-Nas', verses: 6, audio: 'https://server8.mp3quran.net/ahmad_huth/114.mp3' }
-        ];
-
-        // Duas & Adhkar Library
-        const DUAS_DATA = [
-            {
-                id: 1,
-                category: 'morning',
-                arabic: 'أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ',
-                kurdish: 'ئەم گەهشتینە سپێدێ و پاشایەتی ژی بۆ خودێ یە و سوپاسداری بۆ خودێ یە.',
-                benefit: 'پاراستن ژ هەموو نەخۆشی و خراپیان'
-            },
-            {
-                id: 2,
-                category: 'morning',
-                arabic: 'رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا',
-                kurdish: 'ئەز رازی بووم ب خودێ کو پەروەردگارێ منە و ب ئیسلامێ کو ئاینێ منە و ب محەمەدی (س.خ) کو پێغەمبەرێ منە.',
-                benefit: 'خودێ دێ وی رازی کەت ل ڕۆژا قیامەتێ'
-            },
-            {
-                id: 3,
-                category: 'evening',
-                arabic: 'أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ',
-                kurdish: 'پەنایێ دبەم ب پەیڤێن تەمامێن خودێ ژ شەڕێ تەواویا دروستکراوان.',
-                benefit: 'پاراستن ژ پێڤەدان و زیانێن زیندەوەران'
-            },
-            {
-                id: 4,
-                category: 'prayer',
-                arabic: 'اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ، تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ',
-                kurdish: 'خودایا تو سەلامی و سلامەتی ژ تە ب دەست دکەڤیت، بەرکەتدار بووی ئەی خوەدیێ مەزناهیێ.',
-                benefit: 'سوننەتە دەستپێکا نازکترین پشتی نڤێژێ'
-            },
-            {
-                id: 5,
-                category: 'food',
-                arabic: 'بِسْمِ اللَّهِ',
-                kurdish: 'ب ناڤێ خودێ یێ بەخشندە و دڵۆڤان.',
-                benefit: 'دوورئێخستنا شەیتانی ژ سەر سفرە و خوارنا تە'
-            },
-            {
-                id: 6,
-                category: 'travel',
-                arabic: 'سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَىٰ رَبِّنَا لَمُنْقَلِبُونَ',
-                kurdish: 'پاکی بۆ وی خودایێ ئەڤە بۆ مە دەستەمۆ کری و ئەم بەرامبەر ڤێ چەندێ بێ دەستەلات بووین.',
-                benefit: 'پاراستن د سەفەران و گەشتان دا'
-            }
-        ];
-
-        // Quiz Questions Data
-        const QUIZ_QUESTIONS = [
-            {
-                id: 1,
-                question: 'چەند سورەت د قورئانا پیرۆز دا هەنە؟',
-                options: ['108', '120', '114', '110'],
-                correct: 2,
-                explanation: 'قورئانا پیرۆز پێکهاتیە ژ 114 سورەتان.'
-            },
-            {
-                id: 2,
-                question: 'مەزنترین ئایەت د قورئانا پیرۆز دا کیژە؟',
-                options: ['ئایەتا کورسی (آية الكرسي)', 'سورەتا الفاتحة', 'ئایەتا دەین (الدَین)', 'ئایەتا شەهادەتێ'],
-                correct: 0,
-                explanation: 'ئایەتا کورسی مەزنترین ئایەتە د پەرتۆکا خودێ دا.'
-            },
-            {
-                id: 3,
-                question: 'ئێکەم پەیڤا کو هاتیە خوارێ بۆ پێغەمبەری (س.خ) چی بوو؟',
-                options: ['اقْرَأْ', 'قُلْ', 'سَبِّحْ', 'اعْلَمْ'],
-                correct: 0,
-                explanation: 'ئێکەم ئایەت ژ سورەتا (العلق) ب پەیڤا (اقْرَأْ - بخوێنە) دەستپێکر.'
-            },
-            {
-                id: 4,
-                question: 'پێغەمبەرێ مە (س.خ) ل کیژ باژێری هاتیە سەر دنیایێ؟',
-                options: ['مەدینە', 'مەککە', 'قودس', 'شام'],
-                correct: 1,
-                explanation: 'پێغەمبەر (س.خ) ل مەککەیا پیرۆز هاتیە سەر دنیایێ.'
-            }
-        ];
-
-        /* ==========================================================================
-           STATE MANAGEMENT
-           ========================================================================== */
-        let currentCity = 'Duhok';
-        let isDarkMode = true;
-        let activeDhikrIndex = 0;
-        let tasbeehCount = 0;
-        let targetGoal = 33;
-        let currentSurahIndex = 0;
-        let isPlayingAudio = false;
-        let audioElement = new Audio();
-        let adhanAudio = new Audio('https://cdn.islamicfinder.org/adhan/makkah.mp3');
-        let isAdhanPlaying = false;
-
-        let currentQuizIndex = 0;
-        let quizScore = 0;
-        let quizAnswered = false;
-
-        /* ==========================================================================
-           INITIALIZATION & EVENT LISTENERS
-           ========================================================================== */
-        window.addEventListener('DOMContentLoaded', () => {
-            initDarkMode();
-            updateDates();
-            renderPrayerTimes();
-            renderDhikrPresets();
-            renderSurahList();
-            renderDuas('morning');
-            renderQuizQuestion();
-            startCountdownTimer();
-        });
-
-        /* ==========================================================================
-           THEME & GENERAL UTILS
-           ========================================================================== */
-        function initDarkMode() {
-            if (isDarkMode) {
-                document.documentElement.classList.add('dark');
-                document.getElementById('themeIcon').className = 'fa-solid fa-sun text-lg';
-            }
-        }
-
-        function toggleDarkMode() {
-            isDarkMode = !isDarkMode;
-            const icon = document.getElementById('themeIcon');
-            if (isDarkMode) {
-                document.documentElement.classList.add('dark');
-                icon.className = 'fa-solid fa-sun text-lg';
-            } else {
-                document.documentElement.classList.remove('dark');
-                icon.className = 'fa-solid fa-moon text-lg';
-            }
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        }
-
-        function updateDates() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('gregorianDate').innerText = now.toLocaleDateString('ku', options);
-            
-            // Approximate Hijri Calculation
+        async function pasteClipboard() {
             try {
-                const hijriFormatter = new Intl.DateTimeFormat('ar-TN-u-ca-islamic', { day: 'numeric', month: 'long', year: 'numeric' });
-                document.getElementById('hijriDate').innerText = hijriFormatter.format(now);
-            } catch (e) {
-                document.getElementById('hijriDate').innerText = '١٤٤٦ کۆچی';
+                const text = await navigator.clipboard.readText();
+                if (text) {
+                    document.getElementById('videoUrl').value = text.trim();
+                    hideError();
+                }
+            } catch (err) {
+                showError('تکایە ب شێوەیەکێ دەستی لینکێ خۆ بپەیست بکه.');
             }
         }
 
-        /* ==========================================================================
-           PRAYER TIMES & COUNTDOWN
-           ========================================================================== */
-        function changeCity(cityName) {
-            currentCity = cityName;
-            document.getElementById('currentCityText').innerText = 'باژێرێ ' + CITIES[cityName].name;
-            document.getElementById('prayerCityTitle').innerText = CITIES[cityName].name;
-            document.getElementById('qiblaDegree').innerText = CITIES[cityName].qibla + '°';
-            document.getElementById('qiblaNeedle').style.transform = `rotate(${CITIES[cityName].qibla - 45}deg)`;
-            renderPrayerTimes();
+        function useSampleUrl() {
+            document.getElementById('videoUrl').value = "https://www.capcut.com/template-detail/7123456789123456789";
+            hideError();
         }
 
-        function renderPrayerTimes() {
-            const grid = document.getElementById('prayerCardsGrid');
-            grid.innerHTML = '';
-
-            const prayerNames = {
-                Fajr: { name: 'بەیانی', icon: 'fa-sun' },
-                Sunrise: { name: 'ڕۆژهەڵات', icon: 'fa-cubes-stacked' },
-                Dhuhr: { name: 'نیڤڕۆ', icon: 'fa-sun text-amber-500' },
-                Asr: { name: 'عەسر', icon: 'fa-cloud-sun' },
-                Maghrib: { name: 'مەغریب', icon: 'fa-moon' },
-                Isha: { name: 'عەشا', icon: 'fa-star-and-crescent' }
-            };
-
-            const cityData = CITIES[currentCity].prayers;
-
-            Object.keys(cityData).forEach(key => {
-                const card = document.createElement('div');
-                card.className = 'glass-card p-4 rounded-2xl flex flex-col items-center justify-center space-y-2 text-center border border-slate-200 dark:border-slate-800 shadow-sm hover:border-emerald-500 transition';
-                card.innerHTML = `
-                    <i class="fa-solid ${prayerNames[key].icon} text-xl text-emerald-600 dark:text-emerald-400"></i>
-                    <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">${prayerNames[key].name}</span>
-                    <span class="text-lg font-bold font-mono text-slate-800 dark:text-slate-100">${cityData[key]}</span>
-                `;
-                grid.appendChild(card);
-            });
+        function showError(msg) {
+            const alertBox = document.getElementById('errorAlert');
+            const errorMsg = document.getElementById('errorMessage');
+            errorMsg.innerText = msg;
+            alertBox.classList.remove('hidden');
         }
 
-        function startCountdownTimer() {
-            setInterval(() => {
-                const now = new Date();
-                const secs = 59 - now.getSeconds();
-                const mins = 59 - now.getMinutes();
-                const hours = (23 - now.getHours()) % 5;
-
-                document.getElementById('cdHours').innerText = String(hours).padStart(2, '0');
-                document.getElementById('cdMins').innerText = String(mins).padStart(2, '0');
-                document.getElementById('cdSecs').innerText = String(secs).padStart(2, '0');
-            }, 1000);
+        function hideError() {
+            document.getElementById('errorAlert').classList.add('hidden');
         }
 
-        function playAdhanPreview() {
-            const icon = document.getElementById('adhanIcon');
-            if (isAdhanPlaying) {
-                adhanAudio.pause();
-                isAdhanPlaying = false;
-                icon.className = 'fa-solid fa-volume-high';
-            } else {
-                adhanAudio.play();
-                isAdhanPlaying = true;
-                icon.className = 'fa-solid fa-pause';
-            }
-        }
+        function handleFetch(e) {
+            e.preventDefault();
+            hideError();
 
-        /* ==========================================================================
-           TASBEEH & DIGITAL DHIKR
-           ========================================================================== */
-        function renderDhikrPresets() {
-            const container = document.getElementById('dhikrPresets');
-            container.innerHTML = '';
+            const inputUrl = document.getElementById('videoUrl').value.trim();
 
-            DHIKR_PRESETS.forEach((item, idx) => {
-                const btn = document.createElement('button');
-                btn.className = `p-2.5 text-xs font-semibold rounded-xl border transition ${idx === activeDhikrIndex ? 'bg-emerald-600 text-white border-emerald-600 shadow-md' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-emerald-500'}`;
-                btn.innerText = item.text;
-                btn.onclick = () => selectDhikrPreset(idx);
-                container.appendChild(btn);
-            });
-        }
-
-        function selectDhikrPreset(index) {
-            activeDhikrIndex = index;
-            document.getElementById('activeDhikrText').innerText = DHIKR_PRESETS[index].text;
-            document.getElementById('activeDhikrMeaning').innerText = DHIKR_PRESETS[index].meaning;
-            resetTasbeeh();
-            renderDhikrPresets();
-        }
-
-        function playClickSound() {
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(600, ctx.currentTime);
-                gain.gain.setValueAtTime(0.05, ctx.currentTime);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 0.05);
-            } catch (e) {}
-        }
-
-        function incrementTasbeeh() {
-            tasbeehCount++;
-            playClickSound();
-            document.getElementById('tasbeehCount').innerText = tasbeehCount;
-            
-            const percent = Math.min(Math.round((tasbeehCount / targetGoal) * 100), 100);
-            document.getElementById('goalProgressBar').style.width = percent + '%';
-            document.getElementById('goalPercentText').innerText = percent + '%';
-        }
-
-        function setTargetGoal(goal) {
-            targetGoal = goal;
-            document.getElementById('targetGoalText').innerText = goal;
-            resetTasbeeh();
-        }
-
-        function resetTasbeeh() {
-            tasbeehCount = 0;
-            document.getElementById('tasbeehCount').innerText = '0';
-            document.getElementById('goalProgressBar').style.width = '0%';
-            document.getElementById('goalPercentText').innerText = '0%';
-        }
-
-        /* ==========================================================================
-           HOLY QURAN PLAYER
-           ========================================================================== */
-        function renderSurahList() {
-            const grid = document.getElementById('surahListGrid');
-            grid.innerHTML = '';
-
-            SURAHS.forEach((surah, idx) => {
-                const card = document.createElement('div');
-                card.className = 'glass-card p-4 rounded-2xl flex items-center justify-between cursor-pointer hover:border-emerald-500 transition group shadow-sm';
-                card.onclick = () => playSurahAudio(idx);
-                card.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold group-hover:bg-emerald-600 group-hover:text-white transition">
-                            ${surah.id}
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-slate-800 dark:text-slate-100">سورة ${surah.name}</h4>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">${surah.verses} ئایەت</p>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-circle-play text-2xl text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition"></i>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function playSurahAudio(index) {
-            currentSurahIndex = index;
-            const surah = SURAHS[index];
-            document.getElementById('playerSurahNumber').innerText = surah.id;
-            document.getElementById('playerSurahName').innerText = 'سورة ' + surah.name;
-            
-            audioElement.src = surah.audio;
-            audioElement.play();
-            isPlayingAudio = true;
-            document.getElementById('mainPlayBtn').innerHTML = '<i class="fa-solid fa-pause"></i>';
-        }
-
-        function toggleAudioPlay() {
-            if (!audioElement.src) {
-                playSurahAudio(0);
+            if (!inputUrl) {
+                showError('تکایە لینکەکێ دروست داخل بکه!');
                 return;
             }
-            if (isPlayingAudio) {
-                audioElement.pause();
-                isPlayingAudio = false;
-                document.getElementById('mainPlayBtn').innerHTML = '<i class="fa-solid fa-play"></i>';
-            } else {
-                audioElement.play();
-                isPlayingAudio = true;
-                document.getElementById('mainPlayBtn').innerHTML = '<i class="fa-solid fa-pause"></i>';
-            }
-        }
 
-        function filterSurahs() {
-            const query = document.getElementById('surahSearchInput').value.toLowerCase();
-            const cards = document.getElementById('surahListGrid').children;
-            SURAHS.forEach((surah, idx) => {
-                if (surah.name.includes(query) || surah.englishName.toLowerCase().includes(query)) {
-                    cards[idx].style.display = 'flex';
-                } else {
-                    cards[idx].style.display = 'none';
-                }
-            });
-        }
+            const loadingBox = document.getElementById('loadingBox');
+            const resultCard = document.getElementById('resultCard');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
 
-        /* ==========================================================================
-           DUAS & ADHKAR
-           ========================================================================== */
-        function filterDuas(category) {
-            document.querySelectorAll('.dua-tab').forEach(btn => {
-                btn.className = 'dua-tab px-4 py-2 rounded-xl text-sm font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-emerald-600 hover:text-white transition';
-            });
-            event.target.className = 'dua-tab active-tab px-4 py-2 rounded-xl text-sm font-semibold bg-emerald-600 text-white shadow-md';
-            renderDuas(category);
-        }
+            resultCard.classList.add('hidden');
+            loadingBox.classList.remove('hidden');
+            submitBtn.disabled = true;
+            btnText.innerText = "چاڤەڕێ بکه...";
 
-        function renderDuas(category) {
-            const grid = document.getElementById('duasCardsGrid');
-            grid.innerHTML = '';
+            // Simulating API Fetching & Parsing
+            setTimeout(() => {
+                loadingBox.classList.add('hidden');
+                submitBtn.disabled = false;
+                btnText.innerText = "ڤیدیۆ بینە (Fetch Video)";
 
-            const filtered = DUAS_DATA.filter(d => d.category === category);
-
-            filtered.forEach(dua => {
-                const card = document.createElement('div');
-                card.className = 'glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm';
-                card.innerHTML = `
-                    <div class="flex justify-between items-center text-xs text-emerald-600 dark:text-emerald-400 font-bold">
-                        <span><i class="fa-solid fa-star"></i> مفا و فەضل</span>
-                        <button onclick="navigator.clipboard.writeText('${dua.arabic}')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-                            <i class="fa-regular fa-copy"></i>
-                        </button>
-                    </div>
-                    <p class="font-quran text-2xl text-slate-800 dark:text-gold-300 leading-relaxed">${dua.arabic}</p>
-                    <p class="text-sm text-slate-600 dark:text-slate-300 font-medium leading-relaxed">${dua.kurdish}</p>
-                    <div class="bg-emerald-50 dark:bg-emerald-950/40 p-3 rounded-xl text-xs text-emerald-800 dark:text-emerald-300 font-semibold border border-emerald-500/20">
-                        ${dua.benefit}
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function copyVerseText() {
-            const text = document.getElementById('arabicVerseText').innerText + " - " + document.getElementById('kurdishVerseTranslation').innerText;
-            navigator.clipboard.writeText(text);
-            alert('ئایەت و وەرگێڕان هاتە کۆپیکرن!');
-        }
-
-        /* ==========================================================================
-           ISLAMIC QUIZ GAME
-           ========================================================================== */
-        function renderQuizQuestion() {
-            quizAnswered = false;
-            const q = QUIZ_QUESTIONS[currentQuizIndex];
-            
-            document.getElementById('quizCurrentNum').innerText = currentQuizIndex + 1;
-            document.getElementById('quizTotalNum').innerText = QUIZ_QUESTIONS.length;
-            document.getElementById('quizScore').innerText = quizScore;
-            document.getElementById('quizQuestionText').innerText = q.question;
-            document.getElementById('quizExplanation').classList.add('hidden');
-            document.getElementById('nextQuizBtn').classList.add('hidden');
-
-            const container = document.getElementById('quizOptionsContainer');
-            container.innerHTML = '';
-
-            q.options.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = 'w-full p-4 text-right rounded-xl font-medium bg-slate-100 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 border border-slate-200 dark:border-slate-700 transition flex items-center justify-between';
-                btn.onclick = () => checkQuizAnswer(idx, btn);
-                btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-slate-400"></i>`;
-                container.appendChild(btn);
-            });
-        }
-
-        function checkQuizAnswer(selectedIndex, btn) {
-            if (quizAnswered) return;
-            quizAnswered = true;
-
-            const q = QUIZ_QUESTIONS[currentQuizIndex];
-            const container = document.getElementById('quizOptionsContainer');
-            const buttons = container.children;
-
-            if (selectedIndex === q.correct) {
-                quizScore += 10;
-                btn.className = 'w-full p-4 text-right rounded-xl font-bold bg-emerald-600 text-white border border-emerald-600 transition flex items-center justify-between';
-                btn.innerHTML = `<span>${q.options[selectedIndex]}</span> <i class="fa-solid fa-circle-check"></i>`;
-            } else {
-                btn.className = 'w-full p-4 text-right rounded-xl font-bold bg-red-600 text-white border border-red-600 transition flex items-center justify-between';
-                btn.innerHTML = `<span>${q.options[selectedIndex]}</span> <i class="fa-solid fa-circle-xmark"></i>`;
+                const videoPreview = document.getElementById('videoPreview');
+                activeVideoUrl = SAMPLE_VIDEO_SRC;
                 
-                // Highlight correct answer
-                buttons[q.correct].className = 'w-full p-4 text-right rounded-xl font-bold bg-emerald-600 text-white border border-emerald-600 transition flex items-center justify-between';
-            }
+                videoPreview.src = activeVideoUrl;
+                videoPreview.load();
 
-            document.getElementById('quizScore').innerText = quizScore;
-            
-            // Show explanation
-            const exp = document.getElementById('quizExplanation');
-            exp.innerText = q.explanation;
-            exp.classList.remove('hidden');
-
-            document.getElementById('nextQuizBtn').classList.remove('hidden');
+                resultCard.classList.remove('hidden');
+                resultCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 1200);
         }
 
-        function nextQuizQuestion() {
-            if (currentQuizIndex < QUIZ_QUESTIONS.length - 1) {
-                currentQuizIndex++;
-                renderQuizQuestion();
-            } else {
-                // Finish Quiz
-                const container = document.getElementById('quizContainer');
-                container.innerHTML = `
-                    <div class="text-center py-8 space-y-4">
-                        <i class="fa-solid fa-trophy text-6xl text-gold-500"></i>
-                        <h4 class="text-2xl font-bold text-slate-900 dark:text-white">دەستخۆش! تاقیکرن ب دوماهی هات</h4>
-                        <p class="text-lg font-semibold text-emerald-600 dark:text-emerald-400">نمرا تە یا دوماهیێ: ${quizScore} / ${QUIZ_QUESTIONS.length * 10}</p>
-                        <button onclick="location.reload()" class="px-6 py-3 bg-emerald-600 text-white font-bold rounded-xl shadow-md hover:bg-emerald-700 transition">
-                            دووبارە دەستپێکرن
-                        </button>
-                    </div>
-                `;
+        // Direct Download without Opening External Broken Tabs
+        async function triggerDirectDownload(type) {
+            const btnId = type === 'video' ? 'downloadVideoBtn' : 'downloadAudioBtn';
+            const textId = type === 'video' ? 'dlVideoText' : 'dlAudioText';
+            const btn = document.getElementById(btnId);
+            const txt = document.getElementById(textId);
+
+            const originalText = txt.innerText;
+            txt.innerText = "دهێتە داگرتن (Downloading)...";
+            btn.disabled = true;
+
+            const targetUrl = type === 'video' ? activeVideoUrl : SAMPLE_AUDIO_SRC;
+            const fileName = type === 'video' ? "CapCut_Video.mp4" : "CapCut_Audio.mp3";
+
+            try {
+                // Fetch file content as blob to ensure true download on mobile devices
+                const response = await fetch(targetUrl);
+                const blob = await response.blob();
+                
+                const blobUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = blobUrl;
+                a.download = fileName;
+
+                document.body.appendChild(a);
+                a.click();
+
+                // Cleanup
+                window.URL.revokeObjectURL(blobUrl);
+                document.body.removeChild(a);
+            } catch (err) {
+                // Direct link fallback if blob fetching fails
+                const a = document.createElement('a');
+                a.href = targetUrl;
+                a.download = fileName;
+                a.target = '_blank';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } finally {
+                txt.innerText = originalText;
+                btn.disabled = false;
             }
         }
     </script>
