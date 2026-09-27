@@ -11,948 +11,143 @@
     :root {
       --bg-body: #f8f4f5;
       --bg-card: #ffffff;
-      --burgundy-deep: #42030d;
+      --burgundy-deep: #4a0410;
       --burgundy-main: #7a091e;
-      --burgundy-grad: linear-gradient(135deg, #7a091e 0%, #42030d 100%);
+      --burgundy-grad: linear-gradient(135deg, #7a091e 0%, #4a0410 100%);
       --border-color: #e5e7eb;
       --text-main: #111827;
       --text-muted: #6b7280;
-      --white: #ffffff;
       --font-krd: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-eng: 'Outfit', sans-serif;
     }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-krd); -webkit-tap-highlight-color: transparent; }
+    body { background: var(--bg-body); color: var(--text-main); min-height: 100vh; padding-bottom: 92px; overflow-x: hidden; line-height: 1.5; }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: var(--font-krd);
-      -webkit-tap-highlight-color: transparent;
-    }
+    /* Header */
+    .app-header { position: sticky; top: 0; z-index: 50; background: var(--burgundy-grad); color: #fff; border-bottom: 2px solid rgba(245,158,11,0.35); box-shadow: 0 4px 18px rgba(66,3,13,0.35); }
+    .header-inner { max-width: 900px; margin: 0 auto; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; }
+    .menu-toggle-btn { width: 40px; height: 40px; border-radius: 12px; background: #fff; border: 1.5px solid rgba(245,158,11,0.5); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; cursor: pointer; }
+    .menu-toggle-btn span { width: 20px; height: 3px; background: var(--burgundy-main); border-radius: 3px; display: block; }
+    .menu-toggle-btn span:nth-child(2) { width: 14px; align-self: flex-end; margin-right: 9px; background: #f59e0b; }
 
-    body {
-      background-color: var(--bg-body);
-      color: var(--text-main);
-      min-height: 100vh;
-      padding-bottom: 92px;
-      overflow-x: hidden;
-      line-height: 1.5;
-    }
-
-    .app-header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: var(--burgundy-grad);
-      color: var(--white);
-      border-bottom: 2px solid rgba(245, 158, 11, 0.35);
-      box-shadow: 0 4px 20px rgba(66, 3, 13, 0.35);
-    }
-
-    .header-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 10px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .header-left, .header-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      min-width: 42px;
-    }
-
-    .header-left {
-      justify-content: flex-end;
-    }
-
-    .menu-toggle-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: #ffffff;
-      border: 1.5px solid rgba(245, 158, 11, 0.5);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      cursor: pointer;
-    }
-
-    .menu-toggle-btn span {
-      width: 20px;
-      height: 3px;
-      background: var(--burgundy-main);
-      border-radius: 3px;
-    }
-
-    .menu-toggle-btn span:nth-child(2) {
-      width: 14px;
-      align-self: flex-end;
-      margin-right: 10px;
-      background: #f59e0b;
-    }
-
-    .brand-hero-center {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    .brand-main-lockup {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 4px 16px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      direction: ltr;
-      position: relative;
-    }
-
-    .brand-logo-slot {
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: transparent;
-      flex-shrink: 0;
-      position: relative;
-    }
-
+    .brand-hero-center { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+    .brand-main-lockup { display: inline-flex; align-items: center; gap: 10px; padding: 4px 16px; border-radius: 16px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); direction: ltr; position: relative; }
+    .brand-logo-slot { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: transparent; position: relative; flex-shrink: 0; }
     .brand-logo-slot.size-lg { width: 46px; height: 46px; }
     .brand-logo-slot.size-xl { width: 56px; height: 56px; }
+    .brand-logo-slot img, .brand-logo-slot svg { width: 100%; height: 100%; object-fit: contain; background: transparent; }
+    .logo-edit-badge { display: none; position: absolute; bottom: -4px; right: -4px; background: #fbbf24; color: #4a0410; font-size: 10px; width: 18px; height: 18px; border-radius: 50%; align-items: center; justify-content: center; font-weight: 900; }
+    .brand-wordmark { font-family: var(--font-eng); font-weight: 900; font-size: 1.5rem; color: #fff; letter-spacing: 0.5px; }
+    .brand-sub-pill { margin-top: 3px; font-size: 0.68rem; color: #fef3c7; font-weight: 700; background: rgba(0,0,0,0.25); border: 1px solid rgba(245,158,11,0.3); padding: 1px 10px; border-radius: 99px; }
 
-    .brand-logo-slot img, .brand-logo-slot svg {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background: transparent;
-    }
+    .tiny-admin-lock { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 13px; cursor: pointer; border-radius: 8px; }
+    .tiny-admin-lock.unlocked { background: rgba(251,191,36,0.28); border-color: #fbbf24; }
 
-    .logo-edit-badge {
-      display: none;
-      position: absolute;
-      bottom: -4px;
-      right: -4px;
-      background: #fbbf24;
-      color: #42030d;
-      font-size: 10px;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-    }
+    .container { max-width: 900px; margin: 0 auto; padding: 12px 14px; }
+    .page-section { display: none; }
+    .page-section.active { display: block; }
 
-    .brand-wordmark {
-      font-family: var(--font-eng);
-      font-weight: 900;
-      font-size: 1.55rem;
-      color: #ffffff;
-      letter-spacing: 0.5px;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    }
+    /* VIP Sponsor 1280x415 */
+    .sponsor-card-box { position: relative; background: radial-gradient(circle at 50% 25%, #8f0b24 0%, #4a0410 70%, #2b0209 100%); color: #fff; border: 2.5px solid #fbbf24; border-radius: 20px; overflow: hidden; margin-bottom: 16px; cursor: pointer; box-shadow: 0 12px 30px rgba(122,9,30,0.35); }
+    .sponsor-card-box.fx-glide { animation: vipGlide 3.2s ease-in-out infinite alternate; }
+    .sponsor-card-box.fx-pulse3d { animation: vipPulse 2.8s ease-in-out infinite alternate; }
+    .sponsor-card-box.fx-neon { animation: vipNeon 2.4s ease-in-out infinite alternate; }
+    @keyframes vipGlide { 0% { transform: translateX(-4px); } 100% { transform: translateX(4px); } }
+    @keyframes vipPulse { 0% { transform: scale(0.99); } 100% { transform: scale(1.01); } }
+    @keyframes vipNeon { 0% { border-color: #fbbf24; box-shadow: 0 0 12px rgba(251,191,36,0.4); } 100% { border-color: #fff; box-shadow: 0 0 28px rgba(251,191,36,0.9); } }
+    .sponsor-card-box::before { content: ""; position: absolute; top: -60%; left: -60%; width: 45%; height: 220%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), rgba(254,240,138,0.5), transparent); transform: rotate(24deg); pointer-events: none; z-index: 4; animation: sweepLight 3s ease-in-out infinite alternate; }
+    @keyframes sweepLight { 0% { left: -60%; } 100% { left: 120%; } }
+    .sponsor-top-header-bar { position: relative; z-index: 5; background: rgba(28,1,6,0.94); border-bottom: 1.5px solid rgba(251,191,36,0.4); padding: 6px 12px; display: flex; align-items: center; justify-content: space-between; }
+    .sponsor-badge-pill { background: rgba(251,191,36,0.18); border: 1px solid #fbbf24; color: #fef08a; font-size: 0.72rem; font-weight: 900; padding: 2px 10px; border-radius: 99px; }
+    .sponsor-stage-1280x415 { position: relative; width: 100%; aspect-ratio: 1280 / 415; overflow: hidden; background: #2b0209; z-index: 2; }
+    .sponsor-stage-1280x415 img.fit-fill { width: 100%; height: 100%; display: block; object-fit: fill; }
+    .sponsor-stage-1280x415 img.fit-cover { width: 100%; height: 100%; display: block; object-fit: cover; }
+    .sponsor-stage-1280x415 img.fit-contain { width: 100%; height: 100%; display: block; object-fit: contain; background: transparent; }
+    .sponsor-footer-bar { position: relative; z-index: 5; background: rgba(28,1,6,0.94); border-top: 1.5px solid rgba(251,191,36,0.4); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .sponsor-cta-btn { background: linear-gradient(135deg, #fde047 0%, #f59e0b 100%); color: #3b020b !important; text-decoration: none; font-weight: 900; font-size: 0.84rem; padding: 7px 14px; border-radius: 11px; border: 1.5px solid #fff; display: inline-flex; align-items: center; gap: 6px; }
 
-    .brand-sub-pill {
-      margin-top: 3px;
-      font-size: 0.68rem;
-      color: #fef3c7;
-      font-weight: 700;
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      padding: 1px 10px;
-      border-radius: 99px;
-    }
-
-    .tiny-admin-lock {
-      width: 26px;
-      height: 26px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: rgba(255, 255, 255, 0.65);
-      font-size: 12px;
-      cursor: pointer;
-      border-radius: 8px;
-      opacity: 0.65;
-      transition: opacity 0.2s;
-    }
-
-    .tiny-admin-lock:hover, .tiny-admin-lock.unlocked {
-      opacity: 1;
-      background: rgba(251, 191, 36, 0.22);
-      border-color: #fbbf24;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 12px 14px;
-    }
-
-    /* VIP Sponsor Banner 1280x415 */
-    .sponsor-card-box {
-      position: relative;
-      background: radial-gradient(circle at 50% 25%, #8f0b24 0%, #560513 55%, #2b0209 100%);
-      color: #ffffff;
-      border: 2.5px solid #fbbf24;
-      border-radius: 22px;
-      padding: 0;
-      box-shadow: 0 14px 36px rgba(122, 9, 30, 0.38), inset 0 0 28px rgba(251, 191, 36, 0.16);
-      overflow: hidden;
-      margin-bottom: 18px;
-      cursor: pointer;
-    }
-
-    .sponsor-card-box.fx-glide { animation: vipBackAndForth 3.4s ease-in-out infinite alternate; }
-    .sponsor-card-box.fx-pulse3d { animation: vipPulse3D 3s ease-in-out infinite alternate; }
-    .sponsor-card-box.fx-neon { animation: vipNeonGlow 2.4s ease-in-out infinite alternate; }
-
-    @keyframes vipBackAndForth {
-      0% { transform: translateX(-5px) translateY(-2px); box-shadow: -8px 14px 32px rgba(122, 9, 30, 0.35); }
-      100% { transform: translateX(5px) translateY(2px); box-shadow: 8px 14px 34px rgba(245, 158, 11, 0.45); }
-    }
-
-    @keyframes vipPulse3D {
-      0% { transform: scale(0.99) translateX(-4px); }
-      100% { transform: scale(1.01) translateX(4px); }
-    }
-
-    @keyframes vipNeonGlow {
-      0% { border-color: #fbbf24; box-shadow: 0 0 14px rgba(251, 191, 36, 0.45); transform: translateX(-4px); }
-      100% { border-color: #ffffff; box-shadow: 0 0 32px rgba(251, 191, 36, 0.92); transform: translateX(4px); }
-    }
-
-    .sponsor-card-box::before {
-      content: "";
-      position: absolute;
-      top: -70%;
-      left: -60%;
-      width: 48%;
-      height: 240%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.42), rgba(254, 240, 138, 0.52), transparent);
-      transform: rotate(24deg);
-      pointer-events: none;
-      z-index: 4;
-      animation: sweepLightBackForth 3.1s ease-in-out infinite alternate;
-    }
-
-    .sponsor-card-box::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 50%;
-      height: 4px;
-      background: linear-gradient(90deg, transparent, #fef08a, #ffffff, #fbbf24, transparent);
-      pointer-events: none;
-      z-index: 5;
-      animation: laserLineMove 2.5s ease-in-out infinite alternate;
-    }
-
-    .sponsor-top-laser {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 50%;
-      height: 3.5px;
-      background: linear-gradient(90deg, transparent, #fbbf24, #ffffff, #fef08a, transparent);
-      pointer-events: none;
-      z-index: 5;
-      animation: laserLineMoveTop 2.5s ease-in-out infinite alternate;
-    }
-
-    @keyframes sweepLightBackForth { 0% { left: -60%; } 100% { left: 125%; } }
-    @keyframes laserLineMove { 0% { left: -5%; } 100% { left: 55%; } }
-    @keyframes laserLineMoveTop { 0% { right: -5%; } 100% { right: 55%; } }
-
-    .sponsor-top-header-bar {
-      position: relative;
-      z-index: 6;
-      background: linear-gradient(90deg, rgba(28, 1, 6, 0.96) 0%, rgba(86, 5, 19, 0.94) 50%, rgba(28, 1, 6, 0.96) 100%);
-      border-bottom: 1.5px solid rgba(251, 191, 36, 0.45);
-      padding: 7px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .sponsor-badge-pill {
-      background: rgba(251, 191, 36, 0.16);
-      border: 1px solid rgba(251, 191, 36, 0.8);
-      color: #fef08a;
-      font-size: 0.72rem;
-      font-weight: 900;
-      padding: 2px 10px;
-      border-radius: 99px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .sponsor-admin-controls-bar {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .sponsor-stage-1280x415 {
-      position: relative;
-      width: 100%;
-      max-width: 1280px;
-      aspect-ratio: 1280 / 415;
-      padding: 0;
-      margin: 0;
-      display: block;
-      overflow: hidden;
-      background: radial-gradient(circle at center, #6b081a 0%, #2b0209 100%);
-      z-index: 2;
-    }
-
-    .sponsor-stage-1280x415 img.fit-fill {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: fill;
-      object-position: center center;
-    }
-
-    .sponsor-stage-1280x415 img.fit-cover {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      object-position: center center;
-    }
-
-    .sponsor-stage-1280x415 img.fit-contain {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: contain;
-      object-position: center center;
-      background: transparent !important;
-    }
-
-    .sponsor-footer-bar {
-      position: relative;
-      z-index: 3;
-      background: linear-gradient(90deg, rgba(28, 1, 6, 0.95) 0%, rgba(74, 4, 16, 0.92) 50%, rgba(28, 1, 6, 0.95) 100%);
-      border-top: 1.5px solid rgba(251, 191, 36, 0.45);
-      padding: 10px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .sponsor-info-col { flex: 1; min-width: 160px; }
-
-    .sponsor-title-grand {
-      font-weight: 900;
-      font-size: 1.15rem;
-      color: #ffffff;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
-    }
-
-    .sponsor-desc-grand {
-      font-size: 0.84rem;
-      color: #fef3c7;
-      font-weight: 700;
-      margin-top: 2px;
-    }
-
-    .sponsor-cta-btn {
-      background: linear-gradient(135deg, #fde047 0%, #f59e0b 100%);
-      color: #3b020b !important;
-      text-decoration: none;
-      font-weight: 900;
-      font-size: 0.85rem;
-      padding: 8px 15px;
-      border-radius: 12px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-      border: 1.5px solid #ffffff;
-      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.55);
-      animation: ctaFloat 1.6s ease-in-out infinite alternate;
-    }
-
-    @keyframes ctaFloat {
-      0% { transform: translateX(0px) scale(1); }
-      100% { transform: translateX(-4px) scale(1.04); }
-    }
-
-    /* Page Admin Toolbar & Cards */
-    .page-admin-toolbar {
-      display: none;
-      background: #ffffff;
-      border: 1.5px dashed var(--burgundy-main);
-      border-radius: 12px;
-      padding: 10px 14px;
-      margin-bottom: 12px;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
+    /* Toolbars, Filters & Cards */
+    .page-admin-toolbar { display: none; background: #fff; border: 1.5px dashed var(--burgundy-main); border-radius: 12px; padding: 10px 14px; margin-bottom: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
     .page-admin-toolbar.visible { display: flex; }
+    .btn-admin-add { background: var(--burgundy-grad); color: #fff; border: none; border-radius: 9px; font-weight: 700; font-size: 0.8rem; padding: 8px 12px; cursor: pointer; }
+    .filter-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0; margin-bottom: 12px; }
+    .filter-tab-btn { padding: 7px 14px; border-radius: 10px; background: #fff; border: 1.5px solid var(--border-color); color: var(--text-main); font-weight: 700; font-size: 0.82rem; white-space: nowrap; cursor: pointer; }
+    .filter-tab-btn.active { background: var(--burgundy-grad); color: #fff; border-color: var(--burgundy-deep); }
 
-    .btn-admin-add {
-      background: var(--burgundy-grad);
-      color: var(--white);
-      border: none;
-      border-radius: 9px;
-      font-weight: 700;
-      font-size: 0.82rem;
-      padding: 8px 12px;
-      cursor: pointer;
-    }
-
-    .card-box {
-      background: var(--bg-card);
-      border: 1.5px solid var(--border-color);
-      border-radius: 16px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      overflow: hidden;
-      margin-bottom: 14px;
-    }
-
-    .empty-state-box {
-      background: var(--white);
-      border: 1.5px dashed var(--border-color);
-      border-radius: 16px;
-      padding: 36px 16px;
-      text-align: center;
-    }
-
-    .filter-tabs {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding: 4px;
-      margin-bottom: 12px;
-    }
-
-    .filter-tab-btn {
-      padding: 7px 14px;
-      border-radius: 10px;
-      background: #ffffff;
-      border: 1.5px solid var(--border-color);
-      color: var(--text-main);
-      font-weight: 700;
-      font-size: 0.82rem;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-
-    .filter-tab-btn.active {
-      background: var(--burgundy-grad);
-      color: var(--white);
-      border-color: var(--burgundy-deep);
-    }
-
-    .match-card {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border-color);
-    }
-
+    .card-box { background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; margin-bottom: 14px; }
+    .empty-state-box { background: #fff; border: 1.5px dashed var(--border-color); border-radius: 16px; padding: 34px 16px; text-align: center; }
+    .match-card { padding: 12px 14px; border-bottom: 1px solid var(--border-color); }
     .match-card:last-child { border-bottom: none; }
+    .match-row-grid { display: grid; grid-template-columns: 72px 1fr; align-items: center; gap: 10px; }
+    .match-status-col { display: flex; flex-direction: column; align-items: center; border-left: 1.5px solid var(--border-color); padding-left: 6px; }
+    .teams-grid { display: grid; grid-template-columns: 1fr 70px 1fr; align-items: center; gap: 6px; }
+    .team-cell { display: flex; align-items: center; gap: 8px; overflow: hidden; }
+    .team-cell.away { justify-content: flex-end; text-align: left; }
+    .pure-logo-wrap { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; background: transparent !important; }
+    .pure-logo-img { width: 100%; height: 100%; object-fit: contain; background: transparent !important; }
+    .score-badge { background: #f8fafc; border: 1.5px solid var(--border-color); color: var(--burgundy-main); font-family: var(--font-eng); font-weight: 900; font-size: 1rem; padding: 4px; border-radius: 8px; text-align: center; }
+    .score-badge.is-live { background: var(--burgundy-grad); color: #fff; }
 
-    .match-row-grid {
-      display: grid;
-      grid-template-columns: 75px 1fr;
-      align-items: center;
-      gap: 10px;
-    }
+    /* Live TV & Standings */
+    .tv-stage-wrapper { position: relative; width: 100%; background: #000; border-radius: 14px; overflow: hidden; aspect-ratio: 16 / 9; margin-bottom: 10px; }
+    .tv-stage-wrapper.vertical-mode { aspect-ratio: 9 / 16; max-width: 340px; margin: 0 auto 10px auto; }
+    .tv-stage-wrapper iframe, .tv-stage-wrapper video { width: 100%; height: 100%; border: none; }
+    .server-btn-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .server-pill-btn { padding: 6px 12px; border-radius: 8px; border: 1.5px solid var(--border-color); background: #f8fafc; font-weight: 700; font-size: 0.78rem; cursor: pointer; }
+    .server-pill-btn.active { background: var(--burgundy-grad); color: #fff; border-color: var(--burgundy-deep); }
 
-    .match-status-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border-left: 1.5px solid var(--border-color);
-      padding-left: 6px;
-    }
+    .table-responsive { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .table-responsive th { background: var(--burgundy-grad); color: #fff; padding: 10px 6px; text-align: center; }
+    .table-responsive td { padding: 10px 6px; border-bottom: 1px solid var(--border-color); text-align: center; font-weight: 700; }
 
-    .live-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #dc2626;
-      display: inline-block;
-      animation: blinkDot 1s infinite alternate;
-    }
+    /* Bottom Nav & Drawer */
+    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); border-top: 1.5px solid var(--border-color); display: flex; justify-content: space-around; padding: 6px 4px; z-index: 60; }
+    .nav-tab { background: none; border: none; color: var(--text-muted); font-size: 0.75rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; padding: 5px 12px; border-radius: 10px; }
+    .nav-tab.active { color: #fff; background: var(--burgundy-grad); }
 
-    @keyframes blinkDot {
-      0% { opacity: 0.3; transform: scale(0.85); }
-      100% { opacity: 1; transform: scale(1.2); }
-    }
-
-    .teams-grid {
-      display: grid;
-      grid-template-columns: 1fr 74px 1fr;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .team-cell {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      overflow: hidden;
-    }
-
-    .team-cell.away {
-      justify-content: flex-end;
-      text-align: left;
-    }
-
-    .pure-logo-wrap {
-      width: 34px;
-      height: 34px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      background: transparent !important;
-      border: none !important;
-    }
-
-    .pure-logo-img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background: transparent !important;
-    }
-
-    .score-badge {
-      background: #f8fafc;
-      border: 1.5px solid var(--border-color);
-      color: var(--burgundy-main);
-      font-family: var(--font-eng);
-      font-weight: 900;
-      font-size: 1.05rem;
-      padding: 4px;
-      border-radius: 8px;
-      text-align: center;
-    }
-
-    .score-badge.is-live {
-      background: var(--burgundy-grad);
-      color: var(--white);
-    }
-
-    .tv-stage-wrapper {
-      position: relative;
-      width: 100%;
-      background: #000;
-      border-radius: 14px;
-      overflow: hidden;
-      aspect-ratio: 16 / 9;
-      margin-bottom: 10px;
-    }
-
-    .tv-stage-wrapper.vertical-mode {
-      aspect-ratio: 9 / 16;
-      max-width: 340px;
-      margin: 0 auto 10px auto;
-    }
-
-    .tv-stage-wrapper iframe, .tv-stage-wrapper video {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .server-btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
-
-    .server-pill-btn {
-      padding: 6px 12px;
-      border-radius: 8px;
-      border: 1.5px solid var(--border-color);
-      background: #f8fafc;
-      color: var(--text-main);
-      font-weight: 700;
-      font-size: 0.78rem;
-      cursor: pointer;
-    }
-
-    .server-pill-btn.active {
-      background: var(--burgundy-grad);
-      color: #fff;
-      border-color: var(--burgundy-deep);
-    }
-
-    .table-responsive {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-    }
-
-    .table-responsive th {
-      background: var(--burgundy-grad);
-      color: var(--white);
-      padding: 10px 6px;
-      text-align: center;
-      font-weight: 700;
-    }
-
-    .table-responsive td {
-      padding: 10px 6px;
-      border-bottom: 1px solid var(--border-color);
-      text-align: center;
-      font-weight: 700;
-    }
-
-    .bottom-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(8px);
-      border-top: 1.5px solid var(--border-color);
-      display: flex;
-      justify-content: space-around;
-      padding: 6px 4px;
-      z-index: 60;
-    }
-
-    .nav-tab {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 0.75rem;
-      font-weight: 700;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      cursor: pointer;
-      padding: 5px 12px;
-      border-radius: 8px;
-    }
-
-    .nav-tab.active {
-      color: var(--white);
-      background: var(--burgundy-grad);
-    }
-
-    .drawer-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.55);
-      z-index: 90;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-    }
-
+    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 90; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
     .drawer-overlay.active { opacity: 1; pointer-events: auto; }
-
-    .drawer-side {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 290px;
-      background: var(--bg-card);
-      z-index: 100;
-      transform: translateX(105%);
-      transition: transform 0.25s ease;
-      display: flex;
-      flex-direction: column;
-      box-shadow: -6px 0 25px rgba(0,0,0,0.2);
-    }
-
+    .drawer-side { position: fixed; top: 0; right: 0; bottom: 0; width: 285px; background: #fff; z-index: 100; transform: translateX(105%); transition: transform 0.25s; display: flex; flex-direction: column; }
     .drawer-side.active { transform: translateX(0); }
+    .drawer-btn { width: 100%; padding: 11px 12px; border-radius: 10px; background: #f8fafc; border: 1.5px solid var(--border-color); color: var(--text-main); font-weight: 700; font-size: 0.86rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer; margin-bottom: 8px; }
+    .drawer-btn.active { background: var(--burgundy-grad); color: #fff; }
 
-    .drawer-btn {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      background: #f8fafc;
-      border: 1.5px solid var(--border-color);
-      color: var(--text-main);
-      font-weight: 700;
-      font-size: 0.88rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      margin-bottom: 8px;
-    }
-
-    .drawer-btn.active {
-      background: var(--burgundy-grad);
-      color: var(--white);
-    }
-
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.65);
-      z-index: 120;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 14px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease;
-    }
-
+    /* Modals */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 120; display: flex; align-items: center; justify-content: center; padding: 14px; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
     .modal-overlay.active { opacity: 1; pointer-events: auto; }
-
-    .modal-window {
-      background: var(--bg-card);
-      border: 2px solid var(--burgundy-main);
-      border-radius: 16px;
-      width: 100%;
-      max-width: 480px;
-      overflow: hidden;
-      max-height: 90vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .modal-header {
-      background: var(--burgundy-grad);
-      color: var(--white);
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-weight: 700;
-    }
-
+    .modal-window { background: #fff; border: 2px solid var(--burgundy-main); border-radius: 16px; width: 100%; max-width: 460px; overflow: hidden; max-height: 90vh; display: flex; flex-direction: column; }
+    .modal-header { background: var(--burgundy-grad); color: #fff; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; font-weight: 700; }
     .modal-body { padding: 14px; overflow-y: auto; }
     .form-group { margin-bottom: 10px; }
+    .form-label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--burgundy-deep); margin-bottom: 4px; }
+    .form-input, .form-select, .form-textarea { width: 100%; padding: 9px 12px; border-radius: 9px; border: 1.5px solid var(--border-color); background: #fafafa; font-weight: 600; font-size: 0.85rem; }
+    .btn-submit { width: 100%; padding: 10px; background: var(--burgundy-grad); color: #fff; border: none; border-radius: 9px; font-weight: 700; font-size: 0.9rem; cursor: pointer; margin-top: 6px; }
+    .btn-action-icon { background: #f1f5f9; border: 1px solid var(--border-color); padding: 4px 9px; border-radius: 6px; font-size: 0.74rem; font-weight: 700; cursor: pointer; }
 
-    .form-label {
-      display: block;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--burgundy-deep);
-      margin-bottom: 4px;
-    }
-
-    .form-input, .form-select, .form-textarea {
-      width: 100%;
-      padding: 9px 12px;
-      border-radius: 9px;
-      border: 1.5px solid var(--border-color);
-      background: #fafafa;
-      font-weight: 600;
-      color: var(--text-main);
-      outline: none;
-      font-size: 0.85rem;
-    }
-
-    .btn-submit {
-      width: 100%;
-      padding: 10px;
-      background: var(--burgundy-grad);
-      color: var(--white);
-      border: none;
-      border-radius: 9px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      margin-top: 6px;
-    }
-
-    .btn-action-icon {
-      background: #f1f5f9;
-      border: 1px solid var(--border-color);
-      padding: 4px 9px;
-      border-radius: 6px;
-      font-size: 0.74rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    /* iOS Live Activities Card */
-    .ios-la-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.52);
-      backdrop-filter: blur(4px);
-      z-index: 240;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
+    /* iOS Live Activities */
+    .ios-la-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.52); backdrop-filter: blur(4px); z-index: 240; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
     .ios-la-backdrop.active { opacity: 1; pointer-events: auto; }
-
-    .ios-la-wrapper {
-      position: fixed;
-      left: 50%;
-      bottom: 88px;
-      transform: translate(-50%, 35px) scale(0.95);
-      width: calc(100% - 24px);
-      max-width: 410px;
-      z-index: 250;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .ios-la-wrapper.active {
-      transform: translate(-50%, 0) scale(1);
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .ios-la-card {
-      background: rgba(18, 18, 22, 0.96);
-      border-radius: 28px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: #fff;
-      overflow: hidden;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
-    }
-
-    .ios-la-top-section { padding: 18px 18px 14px 18px; }
-
-    .ios-la-progress-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: relative;
-      margin: 16px 4px 6px 4px;
-      direction: rtl;
-    }
-
-    .ios-la-line {
-      position: absolute;
-      top: 50%;
-      left: 14px;
-      right: 14px;
-      height: 3px;
-      background: #2c2c35;
-      transform: translateY(-50%);
-      z-index: 1;
-    }
-
-    .ios-la-line-fill {
-      position: absolute;
-      top: 50%;
-      right: 14px;
-      height: 3px;
-      background: #e51d36;
-      transform: translateY(-50%);
-      z-index: 1;
-      width: 66%;
-      transition: width 0.4s ease;
-    }
-
-    .ios-la-node {
-      position: relative;
-      z-index: 2;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: #23232b;
-      border: 1.5px solid rgba(255,255,255,0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.88rem;
-      color: #9ca3af;
-    }
-
-    .ios-la-node.done {
-      background: #e51d36;
-      border-color: #ff4d64;
-      color: #ffffff;
-    }
-
-    .ios-la-node.active-pill {
-      width: 48px;
-      height: 32px;
-      border-radius: 99px;
-      background: #e51d36;
-      border-color: #ff6b7d;
-      color: #fff;
-      box-shadow: 0 0 16px rgba(229, 29, 54, 0.85);
-    }
-
-    .ios-la-prompt-footer {
-      background: #09090c;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 14px 18px 4px 18px;
-      text-align: center;
-    }
-
-    .ios-la-actions-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      margin-top: 12px;
-      margin-left: -18px;
-      margin-right: -18px;
-      direction: ltr;
-    }
-
-    .ios-la-action-btn {
-      background: transparent;
-      border: none;
-      color: #e5e7eb;
-      padding: 13px 10px;
-      font-size: 0.92rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .ios-la-action-btn:first-child {
-      border-right: 1px solid rgba(255, 255, 255, 0.08);
-      color: #9ca3af;
-    }
-
-    .ios-la-action-btn.allow-btn {
-      color: #ffffff;
-      font-weight: 700;
-    }
+    .ios-la-wrapper { position: fixed; left: 50%; bottom: 88px; transform: translate(-50%, 30px) scale(0.95); width: calc(100% - 24px); max-width: 400px; z-index: 250; opacity: 0; pointer-events: none; transition: all 0.3s ease; }
+    .ios-la-wrapper.active { transform: translate(-50%, 0) scale(1); opacity: 1; pointer-events: auto; }
+    .ios-la-card { background: rgba(18,18,22,0.96); border-radius: 26px; border: 1px solid rgba(255,255,255,0.15); color: #fff; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.75); }
+    .ios-la-progress-bar { display: flex; align-items: center; justify-content: space-between; position: relative; margin: 14px 4px 6px 4px; direction: rtl; }
+    .ios-la-line { position: absolute; top: 50%; left: 14px; right: 14px; height: 3px; background: #2c2c35; transform: translateY(-50%); z-index: 1; }
+    .ios-la-line-fill { position: absolute; top: 50%; right: 14px; height: 3px; background: #e51d36; transform: translateY(-50%); z-index: 1; width: 50%; transition: width 0.3s; }
+    .ios-la-node { position: relative; z-index: 2; width: 30px; height: 30px; border-radius: 50%; background: #23232b; border: 1.5px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 0.82rem; color: #9ca3af; }
+    .ios-la-node.done { background: #e51d36; color: #fff; }
+    .ios-la-node.active-pill { width: 44px; border-radius: 99px; background: #e51d36; color: #fff; box-shadow: 0 0 14px rgba(229,29,54,0.85); }
   </style>
 </head>
 <body>
 
   <header class="app-header">
     <div class="header-inner">
-      <div class="header-right">
-        <button class="menu-toggle-btn" onclick="toggleDrawer()" title="مێنۆ">
-          <span></span>
-          <span></span>
-          <span></span>
+      <div>
+        <button type="button" class="menu-toggle-btn" onclick="window.toggleDrawer()" title="مێنۆ">
+          <span></span><span></span><span></span>
         </button>
       </div>
-
-      <div class="brand-hero-center" onclick="handleBrandHeaderClick()">
+      <div class="brand-hero-center" onclick="window.handleBrandHeaderClick()">
         <div class="brand-main-lockup">
           <div class="brand-logo-slot" id="headerBrandLogoSlot">
             <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#fef08a" stroke-width="2">
@@ -965,102 +160,151 @@
         </div>
         <div class="brand-sub-pill">🇮🇶 خولا ستێرێن عیراقێ • ناڤەندا فەرمی</div>
       </div>
-
-      <div class="header-left">
-        <button id="secretLockBtn" class="tiny-admin-lock" onclick="triggerAdminAuth()" title="ئەدمین">🔒</button>
+      <div>
+        <button type="button" id="secretLockBtn" class="tiny-admin-lock" onclick="window.triggerAdminAuth()" title="ئەدمین">🔒</button>
       </div>
     </div>
   </header>
 
-  <div id="drawerOverlay" class="drawer-overlay" onclick="toggleDrawer()"></div>
+  <div id="drawerOverlay" class="drawer-overlay" onclick="window.toggleDrawer()"></div>
   <aside id="sideDrawer" class="drawer-side">
     <div style="background:var(--burgundy-grad); color:#fff; padding:16px; display:flex; justify-content:space-between; align-items:center;">
       <span style="font-weight:700;">مێنۆیا Emyelvere</span>
-      <button style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="toggleDrawer()">✕</button>
+      <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.toggleDrawer()">✕</button>
     </div>
     <div style="padding:14px; overflow-y:auto; flex:1;">
-      <button class="drawer-btn active" id="dlink-matches" onclick="switchPage('matches'); toggleDrawer();">⚽ یاریێن ئەڤرۆ</button>
-      <button class="drawer-btn" id="dlink-livetv" onclick="switchPage('livetv'); toggleDrawer();">📺 پەخشێ ڕاستەوخۆ</button>
-      <button class="drawer-btn" id="dlink-standings" onclick="switchPage('standings'); toggleDrawer();">📊 خشتەیێ خولێ</button>
-      <button class="drawer-btn" id="dlink-scorers" onclick="switchPage('scorers'); toggleDrawer();">👟 گۆڵکەرێن سەرەکی</button>
-      <button class="drawer-btn" id="dlink-news" onclick="switchPage('news'); toggleDrawer();">📰 دەنگوباس</button>
+      <button type="button" class="drawer-btn active" id="dlink-matches" onclick="window.switchPage('matches'); window.toggleDrawer();">⚽ یاریێن ئەڤرۆ</button>
+      <button type="button" class="drawer-btn" id="dlink-livetv" onclick="window.switchPage('livetv'); window.toggleDrawer();">📺 پەخشێ ڕاستەوخۆ</button>
+      <button type="button" class="drawer-btn" id="dlink-standings" onclick="window.switchPage('standings'); window.toggleDrawer();">📊 خشتەیێ خولێ</button>
+      <button type="button" class="drawer-btn" id="dlink-scorers" onclick="window.switchPage('scorers'); window.toggleDrawer();">👟 گۆڵکەرێن سەرەکی</button>
+      <button type="button" class="drawer-btn" id="dlink-news" onclick="window.switchPage('news'); window.toggleDrawer();">📰 دەنگوباس</button>
 
       <div id="adminDrawerMenu" style="display:none; margin-top:14px; border-top:1px solid #e5e7eb; padding-top:10px;">
         <div style="font-size:0.75rem; font-weight:700; color:var(--burgundy-main); margin-bottom:6px;">کۆنترۆڵا ئەدمینی</div>
-        <button class="drawer-btn" style="background:#f8fafc; color:#111827;" onclick="openBrandLogoModal(); toggleDrawer();">🖼️ گوهۆڕینا لۆگۆیێ Emyelvere</button>
-        <button class="drawer-btn" style="background:#fffbeb; color:#92400e;" onclick="openAddSponsorModal(); toggleDrawer();">📢 + زێدەکرنا ڕێکلام / سپۆنسەر</button>
-        <button class="drawer-btn" style="background:#fee2e2; color:#dc2626;" onclick="lockAdmin(); toggleDrawer();">🔒 قوفڵکرنا ئەدمینی</button>
+        <button type="button" class="drawer-btn" onclick="window.openBrandLogoModal(); window.toggleDrawer();">🖼️ گوهۆڕینا لۆگۆیێ Emyelvere</button>
+        <button type="button" class="drawer-btn" style="background:#fffbeb; color:#92400e;" onclick="window.openAddSponsorModal(); window.toggleDrawer();">📢 + زێدەکرنا سپۆنسەری</button>
+        <button type="button" class="drawer-btn" style="background:#fee2e2; color:#dc2626;" onclick="window.lockAdmin(); window.toggleDrawer();">🔒 قوفڵکرنا ئەدمینی</button>
       </div>
     </div>
   </aside>
 
   <div class="container" id="sponsorContainer" style="padding-bottom:0;"></div>
 
-  <main class="container" id="mainContainer">
+  <main class="container">
     <div class="page-admin-toolbar" id="pageAdminBar">
       <span style="font-weight:700; font-size:0.84rem; color:var(--burgundy-main);" id="adminToolbarLabel">کۆنترۆڵا یاریان</span>
       <div style="display:flex; gap:6px; flex-wrap:wrap;">
-        <button class="btn-admin-add" id="mainAdminAddBtn" onclick="openAddMatchModal()">+ زێدەکرنا یاریێ</button>
-        <button class="btn-admin-add" style="background:#b45309;" onclick="openAddSponsorModal()">📢 + سپۆنسەر</button>
-        <button class="btn-admin-add" style="background:#374151;" onclick="openBrandLogoModal()">🖼️ لۆگۆ</button>
+        <button type="button" class="btn-admin-add" id="mainAdminAddBtn" onclick="window.handleCurrentPageAdd()">+ زێدەکرن</button>
+        <button type="button" class="btn-admin-add" style="background:#b45309;" onclick="window.openAddSponsorModal()">📢 + سپۆنسەر</button>
+        <button type="button" class="btn-admin-add" style="background:#374151;" onclick="window.openBrandLogoModal()">🖼️ لۆگۆ</button>
       </div>
     </div>
 
-    <div class="filter-tabs" id="matchFilterTabs">
-      <button class="filter-tab-btn active" data-filter="all" onclick="setMatchFilter('all')">هەمی یاری</button>
-      <button class="filter-tab-btn" data-filter="live" onclick="setMatchFilter('live')">🔴 ڕاستەوخۆ</button>
-      <button class="filter-tab-btn" data-filter="upcoming" onclick="setMatchFilter('upcoming')">نەهاتیەکرن</button>
-      <button class="filter-tab-btn" data-filter="finished" onclick="setMatchFilter('finished')">دووماهیک هاتی</button>
-    </div>
+    <!-- Page 1: Matches -->
+    <section id="page-matches" class="page-section active">
+      <div class="filter-tabs">
+        <button type="button" class="filter-tab-btn active" data-filter="all" onclick="window.setMatchFilter('all')">هەمی یاری</button>
+        <button type="button" class="filter-tab-btn" data-filter="live" onclick="window.setMatchFilter('live')">🔴 ڕاستەوخۆ</button>
+        <button type="button" class="filter-tab-btn" data-filter="upcoming" onclick="window.setMatchFilter('upcoming')">نەهاتیەکرن</button>
+        <button type="button" class="filter-tab-btn" data-filter="finished" onclick="window.setMatchFilter('finished')">دووماهیک هاتی</button>
+      </div>
+      <div id="matchesListHost">
+        <div class="empty-state-box">
+          <span style="font-size:2.4rem; display:block; margin-bottom:6px;">⚽</span>
+          <div style="font-weight:700; color:var(--burgundy-main);">چ یاری نەهاتینە زێدەکرن</div>
+          <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">ب ڕێکا قوفڵا ئەدمینی 🔒 ل سەری یاریان زێدە بکە</div>
+        </div>
+      </div>
+    </section>
 
-    <div id="dynamicPageContent"></div>
+    <!-- Page 2: Live TV -->
+    <section id="page-livetv" class="page-section">
+      <div id="livetvListHost">
+        <div class="empty-state-box">
+          <span style="font-size:2.4rem; display:block; margin-bottom:6px;">📺</span>
+          <div style="font-weight:700; color:var(--burgundy-main);">چ پەخشێن ڕاستەوخۆ نەهاتینە زێدەکرن</div>
+          <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">ل دەمێ یاریێ پەخشێ ڕاستەوخۆ دێ ل ڤێرە ڤەبیت</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page 3: Standings -->
+    <section id="page-standings" class="page-section">
+      <div id="standingsListHost">
+        <div class="empty-state-box">
+          <span style="font-size:2.4rem; display:block; margin-bottom:6px;">📊</span>
+          <div style="font-weight:700; color:var(--burgundy-main);">خشتەیێ خولێ بەتاڵە</div>
+          <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">ب ڕێکا ئەدمینی 🔒 یانەیان زێدە بکە</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page 4: Scorers -->
+    <section id="page-scorers" class="page-section">
+      <div id="scorersListHost">
+        <div class="empty-state-box">
+          <span style="font-size:2.4rem; display:block; margin-bottom:6px;">👟</span>
+          <div style="font-weight:700; color:var(--burgundy-main);">چ گۆڵکەر نەهاتینە تۆمارکرن</div>
+          <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">ب ڕێکا ئەدمینی 🔒 گۆڵکەران زێدە بکە</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page 5: News -->
+    <section id="page-news" class="page-section">
+      <div id="newsListHost">
+        <div class="empty-state-box">
+          <span style="font-size:2.4rem; display:block; margin-bottom:6px;">📰</span>
+          <div style="font-weight:700; color:var(--burgundy-main);">چ دەنگوباس بەردەست نینن</div>
+          <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">ب ڕێکا ئەدمینی 🔒 دەنگوباسان زێدە بکە</div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <nav class="bottom-bar">
-    <button class="nav-tab active" id="bot-matches" onclick="switchPage('matches')">
-      <span style="font-size:1.15rem;">⚽</span>
-      <span>یاری</span>
+    <button type="button" class="nav-tab active" id="bot-matches" onclick="window.switchPage('matches')">
+      <span style="font-size:1.15rem;">⚽</span><span>یاری</span>
     </button>
-    <button class="nav-tab" id="bot-livetv" onclick="switchPage('livetv')">
-      <span style="font-size:1.15rem;">📺</span>
-      <span>پەخش</span>
+    <button type="button" class="nav-tab" id="bot-livetv" onclick="window.switchPage('livetv')">
+      <span style="font-size:1.15rem;">📺</span><span>پەخش</span>
     </button>
-    <button class="nav-tab" id="bot-standings" onclick="switchPage('standings')">
-      <span style="font-size:1.15rem;">📊</span>
-      <span>خشتە</span>
+    <button type="button" class="nav-tab" id="bot-standings" onclick="window.switchPage('standings')">
+      <span style="font-size:1.15rem;">📊</span><span>خشتە</span>
     </button>
-    <button class="nav-tab" id="bot-scorers" onclick="switchPage('scorers')">
-      <span style="font-size:1.15rem;">👟</span>
-      <span>گۆڵکەر</span>
+    <button type="button" class="nav-tab" id="bot-scorers" onclick="window.switchPage('scorers')">
+      <span style="font-size:1.15rem;">👟</span><span>گۆڵکەر</span>
     </button>
-    <button class="nav-tab" id="bot-news" onclick="switchPage('news')">
-      <span style="font-size:1.15rem;">📰</span>
-      <span>دەنگوباس</span>
+    <button type="button" class="nav-tab" id="bot-news" onclick="window.switchPage('news')">
+      <span style="font-size:1.15rem;">📰</span><span>دەنگوباس</span>
     </button>
   </nav>
 
+
+  <!-- Admin Password Modal -->
   <div id="passwordModal" class="modal-overlay">
-    <div class="modal-window" style="max-width:350px;">
+    <div class="modal-window" style="max-width:340px;">
       <div class="modal-header">
         <span>داخڵبوونا ئەدمینی 🔒</span>
-        <button style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="closeModal('passwordModal')">✕</button>
+        <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.closeModal('passwordModal')">✕</button>
       </div>
       <div class="modal-body">
         <div class="form-group">
           <label class="form-label">پاسوۆردێ ئەدمینی بنڤیسە:</label>
-          <input type="password" id="adminPassInput" class="form-input" placeholder="پاسوۆرد..." onkeydown="if(event.key==='Enter') submitAdminPassword()">
+          <input type="password" id="adminPassInput" class="form-input" placeholder="پاسوۆرد..." onkeydown="if(event.key==='Enter') window.submitAdminPassword()">
           <div id="passError" style="display:none; color:#dc2626; font-size:0.75rem; margin-top:5px; font-weight:700;">❌ پاسوۆرد شاشە!</div>
         </div>
-        <button class="btn-submit" onclick="submitAdminPassword()">ڤەکرن 🔓</button>
+        <button type="button" class="btn-submit" onclick="window.submitAdminPassword()">ڤەکرن 🔓</button>
       </div>
     </div>
   </div>
 
+  <!-- Brand Logo Modal -->
   <div id="brandLogoModal" class="modal-overlay">
-    <div class="modal-window" style="max-width:400px;">
+    <div class="modal-window" style="max-width:390px;">
       <div class="modal-header">
         <span>🖼️ گوهۆڕینا لۆگۆیێ Emyelvere</span>
-        <button style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="closeModal('brandLogoModal')">✕</button>
+        <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.closeModal('brandLogoModal')">✕</button>
       </div>
       <div class="modal-body">
         <div class="form-group">
@@ -1069,7 +313,7 @@
             <input type="url" id="siteLogoInput" class="form-input" placeholder="لینکێ لۆگۆی...">
             <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer; white-space:nowrap;">
               📤 Upload
-              <input type="file" accept="image/*" style="display:none;" onchange="uploadToInput(event, 'siteLogoInput')">
+              <input type="file" accept="image/*" style="display:none;" onchange="window.uploadToInput(event, 'siteLogoInput')">
             </label>
           </div>
         </div>
@@ -1081,16 +325,17 @@
             <option value="xl">گەلەک مەزن</option>
           </select>
         </div>
-        <button class="btn-submit" onclick="saveBrandLogo()">تۆمارکرنا لۆگۆی ✅</button>
+        <button type="button" class="btn-submit" onclick="window.saveBrandLogo()">تۆمارکرنا لۆگۆی ✅</button>
       </div>
     </div>
   </div>
 
+  <!-- Match Modal -->
   <div id="matchModal" class="modal-overlay">
     <div class="modal-window">
       <div class="modal-header">
         <span id="matchModalTitle">زێدەکرنا یاریێ</span>
-        <button style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="closeModal('matchModal')">✕</button>
+        <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.closeModal('matchModal')">✕</button>
       </div>
       <div class="modal-body">
         <input type="hidden" id="mEditId">
@@ -1099,12 +344,12 @@
           <input type="text" id="mHomeName" class="form-input" placeholder="زاخۆ">
         </div>
         <div class="form-group">
-          <label class="form-label">لۆگۆیێ تیما ئێکێ (لینک یان Upload Image):</label>
+          <label class="form-label">لۆگۆیێ تیما ١ (لینک یان Upload):</label>
           <div style="display:flex; gap:6px;">
             <input type="url" id="mHomeLogo" class="form-input" placeholder="لینکێ لۆگۆی...">
             <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer; white-space:nowrap;">
               📤 Upload
-              <input type="file" accept="image/*" style="display:none;" onchange="uploadToInput(event, 'mHomeLogo')">
+              <input type="file" accept="image/*" style="display:none;" onchange="window.uploadToInput(event, 'mHomeLogo')">
             </label>
           </div>
         </div>
@@ -1113,313 +358,219 @@
           <input type="text" id="mAwayName" class="form-input" placeholder="دهۆک">
         </div>
         <div class="form-group">
-          <label class="form-label">لۆگۆیێ تیما دووێ (لینک یان Upload Image):</label>
+          <label class="form-label">لۆگۆیێ تیما ٢ (لینک یان Upload):</label>
           <div style="display:flex; gap:6px;">
             <input type="url" id="mAwayLogo" class="form-input" placeholder="لینکێ لۆگۆی...">
             <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer; white-space:nowrap;">
               📤 Upload
-              <input type="file" accept="image/*" style="display:none;" onchange="uploadToInput(event, 'mAwayLogo')">
+              <input type="file" accept="image/*" style="display:none;" onchange="window.uploadToInput(event, 'mAwayLogo')">
             </label>
           </div>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-          <div class="form-group">
-            <label class="form-label">گۆڵێن تیما ١:</label>
-            <input type="number" id="mHomeScore" class="form-input" value="0">
-          </div>
-          <div class="form-group">
-            <label class="form-label">گۆڵێن تیما ٢:</label>
-            <input type="number" id="mAwayScore" class="form-input" value="0">
-          </div>
+          <div class="form-group"><label class="form-label">گۆڵێن تیما ١:</label><input type="number" id="mHomeScore" class="form-input" value="0"></div>
+          <div class="form-group"><label class="form-label">گۆڵێن تیما ٢:</label><input type="number" id="mAwayScore" class="form-input" value="0"></div>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
           <div class="form-group">
             <label class="form-label">ڕەوشا یاریێ:</label>
             <select id="mStatus" class="form-select">
-              <option value="upcoming">نەهاتیەکرن (Upcoming)</option>
+              <option value="upcoming">نەهاتیەکرن</option>
               <option value="live">ڕاستەوخۆ (LIVE)</option>
               <option value="finished">دووماهیک هاتی (FT)</option>
             </select>
           </div>
-          <div class="form-group">
-            <label class="form-label">کات / خولەک:</label>
-            <input type="text" id="mTime" class="form-input" placeholder="19:00 یان 65'">
-          </div>
+          <div class="form-group"><label class="form-label">کات / خولەک:</label><input type="text" id="mTime" class="form-input" placeholder="19:00"></div>
         </div>
-        <button class="btn-submit" onclick="saveMatch()">تۆمارکردن و نیشاندانا یاریێ ✅</button>
+        <button type="button" class="btn-submit" onclick="window.saveMatch()">تۆمارکردن ✅</button>
       </div>
     </div>
   </div>
 
+  <!-- Live TV Modal -->
   <div id="tvModal" class="modal-overlay">
     <div class="modal-window">
       <div class="modal-header">
-        <span id="tvModalTitle">زێدەکرنا پەخشێ ڕاستەوخۆ</span>
-        <button style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="closeModal('tvModal')">✕</button>
+        <span>زێدەکرنا پەخشێ ڕاستەوخۆ</span>
+        <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.closeModal('tvModal')">✕</button>
       </div>
       <div class="modal-body">
         <input type="hidden" id="tvEditId">
+        <div class="form-group"><label class="form-label">ناڤێ یاریێ / کەناڵ:</label><input type="text" id="tvTitle" class="form-input" placeholder="زاخۆ دژی شورتە"></div>
         <div class="form-group">
-          <label class="form-label">ناڤێ یاریێ / کەناڵ:</label>
-          <input type="text" id="tvTitle" class="form-input" placeholder="زاخۆ دژی شورتە - پەخشێ ڕاستەوخۆ">
-        </div>
-        <div class="form-group">
-          <label class="form-label">لۆگۆیێ کەناڵی / یاریێ (لینک یان Upload):</label>
+          <label class="form-label">لۆگۆ (لینک یان Upload):</label>
           <div style="display:flex; gap:6px;">
             <input type="url" id="tvLogo" class="form-input" placeholder="لینکێ لۆگۆی...">
-            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer; white-space:nowrap;">
-              📤 Upload
-              <input type="file" accept="image/*" style="display:none;" onchange="uploadToInput(event, 'tvLogo')">
-            </label>
+            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer;">📤 Upload<input type="file" accept="image/*" style="display:none;" onchange="window.uploadToInput(event, 'tvLogo')"></label>
           </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">سێرڤەر ١ (YouTube, TikTok, Instagram, Facebook, m3u8 یان iframe):</label>
-          <textarea id="tvUrl1" class="form-textarea" placeholder="لینکێ لایڤێ یان کۆدێ Embed..."></textarea>
-        </div>
-        <div class="form-group">
-          <label class="form-label">سێرڤەر ٢ (ئارەزوومەندانە):</label>
-          <input type="text" id="tvUrl2" class="form-input" placeholder="لینکێ سێرڤەرێ دووێ...">
-        </div>
-        <div class="form-group">
-          <label class="form-label">سێرڤەر ٣ (ئارەزوومەندانە):</label>
-          <input type="text" id="tvUrl3" class="form-input" placeholder="لینکێ سێرڤەرێ سێیێ...">
-        </div>
-        <button class="btn-submit" onclick="saveTv()">تۆمارکرنا پەخشی ✅</button>
+        <div class="form-group"><label class="form-label">سێرڤەر ١ (YouTube, TikTok, Instagram, Facebook, m3u8, iframe):</label><textarea id="tvUrl1" class="form-textarea" placeholder="لینکێ لایڤێ یان Embed..."></textarea></div>
+        <div class="form-group"><label class="form-label">سێرڤەر ٢:</label><input type="text" id="tvUrl2" class="form-input" placeholder="لینکێ سێرڤەرێ ٢..."></div>
+        <div class="form-group"><label class="form-label">سێرڤەر ٣:</label><input type="text" id="tvUrl3" class="form-input" placeholder="لینکێ سێرڤەرێ ٣..."></div>
+        <button type="button" class="btn-submit" onclick="window.saveTv()">تۆمارکرنا پەخشی ✅</button>
       </div>
     </div>
   </div>
 
+  <!-- Sponsor Modal (1280x415) -->
   <div id="sponsorModal" class="modal-overlay">
     <div class="modal-window">
       <div class="modal-header">
-        <span id="sponsorModalTitle">📢 زێدەکرنا ڕێکلام و سپۆنسەری (1280×415)</span>
-        <button style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="closeModal('sponsorModal')">✕</button>
+        <span>📢 سپۆنسەر و ڕێکلام (1280×415)</span>
+        <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.closeModal('sponsorModal')">✕</button>
       </div>
       <div class="modal-body">
         <input type="hidden" id="spEditId">
+        <div class="form-group"><label class="form-label">ناڤێ سپۆنسەری:</label><input type="text" id="spName" class="form-input" placeholder="ناڤێ کۆمپانیێ"></div>
+        <div class="form-group"><label class="form-label">پەیاما ڕێکلامێ:</label><input type="text" id="spText" class="form-input" placeholder="ئۆفەر و خزمەتگوزاری..."></div>
         <div class="form-group">
-          <label class="form-label">ناڤێ سپۆنسەری / کۆمپانیێ:</label>
-          <input type="text" id="spName" class="form-input" placeholder="ناڤێ سپۆنسەری" oninput="updateSponsorLivePreview()">
-        </div>
-        <div class="form-group">
-          <label class="form-label">پەیاما ڕێکلامێ / ئۆفەر:</label>
-          <input type="text" id="spText" class="form-input" placeholder="باشترین خزمەتگوزاری و داشکاندن..." oninput="updateSponsorLivePreview()">
-        </div>
-        <div class="form-group">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-            <label class="form-label" style="margin-bottom:0;">لۆگۆ یان بانەرێ سپۆنسەری:</label>
-            <span style="background:#7a091e; color:#fef08a; font-family:var(--font-eng); font-size:0.7rem; font-weight:800; padding:2px 8px; border-radius:6px; direction:ltr;">1280W × 415H px</span>
-          </div>
+          <label class="form-label">لۆگۆ / بانەر (1280W × 415H px):</label>
           <div style="display:flex; gap:6px;">
-            <input type="url" id="spLogo" class="form-input" placeholder="لینکێ وێنەی یان لۆگۆی (1280x415)..." oninput="updateSponsorLivePreview()">
-            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer; white-space:nowrap; background:#fef3c7; color:#7a091e; border-color:#f59e0b;">
-              📤 Upload 1280×415
-              <input type="file" accept="image/*" style="display:none;" onchange="uploadSponsorImage1280x415(event)">
-            </label>
+            <input type="url" id="spLogo" class="form-input" placeholder="لینکێ بانەری...">
+            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer; background:#fef3c7; color:#7a091e;">📤 Upload 1280×415<input type="file" accept="image/*" style="display:none;" onchange="window.uploadSponsorImage1280x415(event)"></label>
           </div>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
           <div class="form-group">
-            <label class="form-label">شێوازێ قەبارەیێ لۆگۆی (1280×415):</label>
-            <select id="spFit" class="form-select" onchange="updateSponsorLivePreview()">
-              <option value="fill">پڕکرنا تەمام ١٠٠٪ ل سەر چارچۆڤەی (1280×415 Exact Fit)</option>
-              <option value="cover">پڕکرنا بانەری بێ کشان (1280×415 Cover)</option>
-              <option value="contain">لۆگۆیێ شەفاف ل ناڤەندێ (1280×415 Contain)</option>
+            <label class="form-label">قەبارە (1280×415):</label>
+            <select id="spFit" class="form-select">
+              <option value="fill">پڕکرنا تەمام ١٠٠٪ (Exact Fit)</option>
+              <option value="cover">پڕکرن بێ کشان (Cover)</option>
+              <option value="contain">لۆگۆیێ شەفاف (Contain)</option>
             </select>
           </div>
           <div class="form-group">
-            <label class="form-label">حەرەکە و ڕۆناهی (Effect):</label>
-            <select id="spEffect" class="form-select" onchange="updateSponsorLivePreview()">
-              <option value="fx-glide">✨ هاتن و چوون + تیشکا ڕۆناهیێ</option>
-              <option value="fx-pulse3d">🚀 لڤینا 3D + ڕۆناهیا لێزەری</option>
-              <option value="fx-neon">🌟 درەوشانا زێڕین و نیۆن</option>
+            <label class="form-label">حەرەکە (Effect):</label>
+            <select id="spEffect" class="form-select">
+              <option value="fx-glide">✨ هاتن و چوون + تیشک</option>
+              <option value="fx-pulse3d">🚀 لڤینا 3D</option>
+              <option value="fx-neon">🌟 درەوشانا نیۆن</option>
             </select>
           </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">لینکێ وێبسایت یان پەیجێ سپۆنسەری:</label>
-          <input type="url" id="spLink" class="form-input" placeholder="https://...">
-        </div>
-
-        <div style="margin-top:8px; margin-bottom:10px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; font-weight:700; color:var(--burgundy-main); margin-bottom:4px;">
-            <span>پێشبینینا زیندوو (Live Preview):</span>
-            <span style="font-family:var(--font-eng); direction:ltr;">1280W × 415H px</span>
-          </div>
-          <div id="spLivePreviewBox"></div>
-        </div>
-
-        <button class="btn-submit" onclick="saveSponsor()">تۆمارکرنا سپۆنسەری ب قەبارەیێ 1280×415 ✅</button>
+        <div class="form-group"><label class="form-label">لینکێ وێبسایتێ سپۆنسەری:</label><input type="url" id="spLink" class="form-input" placeholder="https://..."></div>
+        <button type="button" class="btn-submit" onclick="window.saveSponsor()">تۆمارکرنا سپۆنسەری ✅</button>
       </div>
     </div>
   </div>
 
+  <!-- Standing Modal -->
   <div id="standingModal" class="modal-overlay">
     <div class="modal-window">
       <div class="modal-header">
-        <span id="standingModalTitle">زێدەکرنا یانێ د خشتەی دا</span>
-        <button style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="closeModal('standingModal')">✕</button>
+        <span>زێدەکرنا یانێ د خشتەی دا</span>
+        <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.closeModal('standingModal')">✕</button>
       </div>
       <div class="modal-body">
         <input type="hidden" id="stEditId">
+        <div class="form-group"><label class="form-label">ڕێزبەندی (#):</label><input type="number" id="stRank" class="form-input" value="1"></div>
+        <div class="form-group"><label class="form-label">ناڤێ یانەیێ:</label><input type="text" id="stClub" class="form-input" placeholder="زاخۆ"></div>
         <div class="form-group">
-          <label class="form-label">ڕێزبەندی (#):</label>
-          <input type="number" id="stRank" class="form-input" value="1">
-        </div>
-        <div class="form-group">
-          <label class="form-label">ناڤێ یانەیێ:</label>
-          <input type="text" id="stClub" class="form-input" placeholder="یانەیا زاخۆ">
-        </div>
-        <div class="form-group">
-          <label class="form-label">لۆگۆیێ یانەیێ (لینک یان Upload Image):</label>
+          <label class="form-label">لۆگۆیێ یانەیێ:</label>
           <div style="display:flex; gap:6px;">
             <input type="url" id="stLogo" class="form-input" placeholder="لینکێ لۆگۆی...">
-            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer; white-space:nowrap;">
-              📤 Upload
-              <input type="file" accept="image/*" style="display:none;" onchange="uploadToInput(event, 'stLogo')">
-            </label>
+            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer;">📤 Upload<input type="file" accept="image/*" style="display:none;" onchange="window.uploadToInput(event, 'stLogo')"></label>
           </div>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-          <div class="form-group">
-            <label class="form-label">یاری (P):</label>
-            <input type="number" id="stP" class="form-input" value="0">
-          </div>
-          <div class="form-group">
-            <label class="form-label">خاڵ (PTS):</label>
-            <input type="number" id="stPts" class="form-input" value="0">
-          </div>
+          <div class="form-group"><label class="form-label">یاری (P):</label><input type="number" id="stP" class="form-input" value="0"></div>
+          <div class="form-group"><label class="form-label">خاڵ (PTS):</label><input type="number" id="stPts" class="form-input" value="0"></div>
         </div>
-        <button class="btn-submit" onclick="saveStanding()">تۆمارکردن ✅</button>
+        <button type="button" class="btn-submit" onclick="window.saveStanding()">تۆمارکردن ✅</button>
       </div>
     </div>
   </div>
 
+  <!-- Scorer Modal -->
   <div id="scorerModal" class="modal-overlay">
     <div class="modal-window">
       <div class="modal-header">
-        <span id="scorerModalTitle">زێدەکرنا گۆڵکەری</span>
-        <button style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="closeModal('scorerModal')">✕</button>
+        <span>زێدەکرنا گۆڵکەری</span>
+        <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.closeModal('scorerModal')">✕</button>
       </div>
       <div class="modal-body">
         <input type="hidden" id="scEditId">
+        <div class="form-group"><label class="form-label">ناڤێ یاریزانی:</label><input type="text" id="scName" class="form-input" placeholder="ناڤێ یاریزانی"></div>
         <div class="form-group">
-          <label class="form-label">ناڤێ یاریزانی:</label>
-          <input type="text" id="scName" class="form-input" placeholder="ناڤێ یاریزانی">
-        </div>
-        <div class="form-group">
-          <label class="form-label">وێنەیێ یاریزانی (لینک یان Upload Image):</label>
+          <label class="form-label">وێنەیێ یاریزانی:</label>
           <div style="display:flex; gap:6px;">
             <input type="url" id="scPhoto" class="form-input" placeholder="لینکێ وێنەی...">
-            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer; white-space:nowrap;">
-              📤 Upload
-              <input type="file" accept="image/*" style="display:none;" onchange="uploadToInput(event, 'scPhoto')">
-            </label>
+            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer;">📤 Upload<input type="file" accept="image/*" style="display:none;" onchange="window.uploadToInput(event, 'scPhoto')"></label>
           </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">یانە:</label>
-          <input type="text" id="scClub" class="form-input" placeholder="یانە">
-        </div>
-        <div class="form-group">
-          <label class="form-label">لۆگۆیێ یانەیێ (لینک یان Upload Image):</label>
-          <div style="display:flex; gap:6px;">
-            <input type="url" id="scClubLogo" class="form-input" placeholder="لینکێ لۆگۆی...">
-            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer; white-space:nowrap;">
-              📤 Upload
-              <input type="file" accept="image/*" style="display:none;" onchange="uploadToInput(event, 'scClubLogo')">
-            </label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">ژمارەیا گۆڵان:</label>
-          <input type="number" id="scGoals" class="form-input" value="1">
-        </div>
-        <button class="btn-submit" onclick="saveScorer()">تۆمارکردن ✅</button>
+        <div class="form-group"><label class="form-label">یانە:</label><input type="text" id="scClub" class="form-input" placeholder="زاخۆ"></div>
+        <div class="form-group"><label class="form-label">ژمارەیا گۆڵان:</label><input type="number" id="scGoals" class="form-input" value="1"></div>
+        <button type="button" class="btn-submit" onclick="window.saveScorer()">تۆمارکردن ✅</button>
       </div>
     </div>
   </div>
 
+  <!-- News Modal -->
   <div id="newsModal" class="modal-overlay">
     <div class="modal-window">
       <div class="modal-header">
-        <span id="newsModalTitle">زێدەکرنا دەنگوباسی</span>
-        <button style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="closeModal('newsModal')">✕</button>
+        <span>زێدەکرنا دەنگوباسی</span>
+        <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.closeModal('newsModal')">✕</button>
       </div>
       <div class="modal-body">
         <input type="hidden" id="nwEditId">
+        <div class="form-group"><label class="form-label">سەردێڕ:</label><input type="text" id="nwTitle" class="form-input" placeholder="سەردێڕێ دەنگوباسی..."></div>
         <div class="form-group">
-          <label class="form-label">سەردێڕێ هەواڵی:</label>
-          <input type="text" id="nwTitle" class="form-input" placeholder="سەردێڕ...">
-        </div>
-        <div class="form-group">
-          <label class="form-label">وێنە / لۆگۆیێ هەواڵی (لینک یان Upload Image):</label>
+          <label class="form-label">وێنە / لۆگۆ:</label>
           <div style="display:flex; gap:6px;">
             <input type="url" id="nwLogo" class="form-input" placeholder="لینکێ وێنەی...">
-            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer; white-space:nowrap;">
-              📤 Upload
-              <input type="file" accept="image/*" style="display:none;" onchange="uploadToInput(event, 'nwLogo')">
-            </label>
+            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer;">📤 Upload<input type="file" accept="image/*" style="display:none;" onchange="window.uploadToInput(event, 'nwLogo')"></label>
           </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">ناوەڕۆک:</label>
-          <textarea id="nwText" class="form-textarea" placeholder="کورتەیا هەواڵی..."></textarea>
-        </div>
-        <button class="btn-submit" onclick="saveNews()">تۆمارکردن ✅</button>
+        <div class="form-group"><label class="form-label">ناوەڕۆک:</label><textarea id="nwText" class="form-textarea" placeholder="درێژاهیا دەنگوباسی..."></textarea></div>
+        <button type="button" class="btn-submit" onclick="window.saveNews()">تۆمارکردن ✅</button>
       </div>
     </div>
   </div>
 
-  <div id="iosBackdrop" class="ios-la-backdrop" onclick="closeLiveActivity()"></div>
+  <!-- iOS Live Activities Notification -->
+  <div id="iosBackdrop" class="ios-la-backdrop" onclick="window.closeLiveActivity()"></div>
   <div id="iosWrapper" class="ios-la-wrapper">
     <div class="ios-la-card">
-      <div class="ios-la-top-section">
+      <div style="padding:16px;">
         <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
           <div style="flex:1; text-align:right;">
-            <div style="font-weight:700; font-size:0.98rem; color:#ffffff;" id="iosTitle">یاریا نوو ئامادە دەکرێت ⚽</div>
-            <div style="font-size:0.78rem; color:#9ca3af; margin-top:2px;" id="iosSubtitle">خولا ستێرێن عیراقێ • #Emyelvere</div>
+            <div style="font-weight:700; font-size:0.95rem;" id="iosTitle">یاریا نوو ئامادە دەکرێت ⚽</div>
+            <div style="font-size:0.76rem; color:#9ca3af;" id="iosSubtitle">خولا ستێرێن عیراقێ • #Emyelvere</div>
           </div>
-          <div id="iosBrandBox" style="width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg, #e51d36, #7a091e); display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 4px 14px rgba(229,29,54,0.5);">
-            <span style="font-size:1.35rem;">⚽</span>
-          </div>
+          <div id="iosBrandBox" style="width:42px; height:42px; border-radius:12px; background:linear-gradient(135deg,#e51d36,#7a091e); display:flex; align-items:center; justify-content:center;">⚽</div>
         </div>
-
         <div class="ios-la-progress-bar">
           <div class="ios-la-line"></div>
           <div class="ios-la-line-fill" id="iosProgressFill"></div>
-          <div class="ios-la-node done" id="iosStep1" title="هاتە دانان">✓</div>
-          <div class="ios-la-node active-pill" id="iosStep2" title="بەری یاریێ">👕</div>
-          <div class="ios-la-node" id="iosStep3" title="ڕاستەوخۆ">⚽</div>
-          <div class="ios-la-node" id="iosStep4" title="دووماهیک">🏆</div>
+          <div class="ios-la-node done" id="iosStep1">✓</div>
+          <div class="ios-la-node active-pill" id="iosStep2">👕</div>
+          <div class="ios-la-node" id="iosStep3">⚽</div>
+          <div class="ios-la-node" id="iosStep4">🏆</div>
         </div>
       </div>
-
-      <div class="ios-la-prompt-footer">
-        <div style="font-size:0.86rem; font-weight:600; color:#f3f4f6; direction:ltr;">Allow Live Activities from Emyelvere?</div>
-        <div class="ios-la-actions-row">
-          <button class="ios-la-action-btn" onclick="dismissLiveActivity(false)">Don't Allow</button>
-          <button class="ios-la-action-btn allow-btn" onclick="dismissLiveActivity(true)">Allow</button>
+      <div style="background:#09090c; border-top:1px solid rgba(255,255,255,0.08); padding:12px 16px 4px 16px; text-align:center;">
+        <div style="font-size:0.84rem; font-weight:600; direction:ltr;">Allow Live Activities from Emyelvere?</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; border-top:1px solid rgba(255,255,255,0.08); margin:10px -16px 0 -16px; direction:ltr;">
+          <button type="button" style="background:none; border:none; border-right:1px solid rgba(255,255,255,0.08); color:#9ca3af; padding:12px; font-weight:600; cursor:pointer;" onclick="window.dismissLiveActivity(false)">Don't Allow</button>
+          <button type="button" style="background:none; border:none; color:#fff; padding:12px; font-weight:700; cursor:pointer;" onclick="window.dismissLiveActivity(true)">Allow</button>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    const ADMIN_KEY = "Zakho#Pro99@Iraq";
-    let isAdmin = false;
-    let currentPage = 'matches';
-    let currentFilter = 'all';
-    let activeServerMap = {};
-    let verticalModeMap = {};
-    let currentLaMatchId = null;
-    let failedAttempts = 0;
-    let lockoutUntil = 0;
+    var ADMIN_KEY = "Zakho#Pro99@Iraq";
+    var isAdmin = false;
+    var currentPage = "matches";
+    var currentFilter = "all";
+    var activeServerMap = {};
+    var verticalModeMap = {};
+    var currentLaMatchId = null;
 
-    let state = {
-      brandLogo: '',
-      brandLogoSize: 'normal',
+    var state = {
+      brandLogo: "",
+      brandLogoSize: "normal",
       matches: [],
       streams: [],
       standings: [],
@@ -1428,417 +579,632 @@
       sponsors: []
     };
 
-    // Anti-Inspect / Anti-Tamper Guards
-    document.addEventListener('contextmenu', function(e) {
-      if (!isAdmin) e.preventDefault();
-    });
-    document.addEventListener('keydown', function(e) {
-      if (
-        e.key === 'F12' ||
-        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) ||
-        (e.ctrlKey && e.key.toUpperCase() === 'U')
-      ) {
-        e.preventDefault();
+    // 1. Core Navigation & UI Functions (Attached to window immediately)
+    window.switchPage = function(page) {
+      currentPage = page;
+      var pages = ["matches", "livetv", "standings", "scorers", "news"];
+      for (var i = 0; i < pages.length; i++) {
+        var p = pages[i];
+        var sec = document.getElementById("page-" + p);
+        var bot = document.getElementById("bot-" + p);
+        var drw = document.getElementById("dlink-" + p);
+        if (sec) sec.classList.toggle("active", p === page);
+        if (bot) bot.classList.toggle("active", p === page);
+        if (drw) drw.classList.toggle("active", p === page);
       }
-    });
+      window.updateAdminToolbarLabel();
+      window.renderCurrentPageData();
+      window.scrollTo(0, 0);
+    };
 
-    function cleanStr(str) {
-      return String(str || '').replace(/[<>]/g, '').trim();
+    window.toggleDrawer = function() {
+      var d = document.getElementById("sideDrawer");
+      var o = document.getElementById("drawerOverlay");
+      if (d && o) {
+        d.classList.toggle("active");
+        o.classList.toggle("active");
+      }
+    };
+
+    window.openModal = function(id) {
+      var el = document.getElementById(id);
+      if (el) el.classList.add("active");
+    };
+
+    window.closeModal = function(id) {
+      var el = document.getElementById(id);
+      if (el) el.classList.remove("active");
+    };
+
+    window.triggerAdminAuth = function() {
+      if (isAdmin) {
+        window.lockAdmin();
+      } else {
+        var inp = document.getElementById("adminPassInput");
+        var err = document.getElementById("passError");
+        if (inp) inp.value = "";
+        if (err) err.style.display = "none";
+        window.openModal("passwordModal");
+      }
+    };
+
+    window.submitAdminPassword = function() {
+      var inp = document.getElementById("adminPassInput");
+      var err = document.getElementById("passError");
+      if (inp && inp.value === ADMIN_KEY) {
+        isAdmin = true;
+        try { localStorage.setItem("emy_auth_flag", "true"); } catch (e) {}
+        window.closeModal("passwordModal");
+        window.updateAdminView();
+      } else if (err) {
+        err.style.display = "block";
+      }
+    };
+
+    window.lockAdmin = function() {
+      isAdmin = false;
+      try { localStorage.setItem("emy_auth_flag", "false"); } catch (e) {}
+      window.updateAdminView();
+    };
+
+    window.handleCurrentPageAdd = function() {
+      if (currentPage === "matches") window.openAddMatchModal();
+      else if (currentPage === "livetv") window.openAddTvModal();
+      else if (currentPage === "standings") window.openAddStandingModal();
+      else if (currentPage === "scorers") window.openAddScorerModal();
+      else if (currentPage === "news") window.openAddNewsModal();
+    };
+
+    window.updateAdminToolbarLabel = function() {
+      var label = document.getElementById("adminToolbarLabel");
+      var btn = document.getElementById("mainAdminAddBtn");
+      if (!label || !btn) return;
+      var map = {
+        matches: ["کۆنترۆڵا یاریان", "+ زێدەکرنا یاریێ"],
+        livetv: ["کۆنترۆڵا پەخشێ ڕاستەوخۆ", "+ زێدەکرنا پەخشێ لایڤ"],
+        standings: ["کۆنترۆڵا خشتەیێ خولێ", "+ زێدەکرنا یانێ"],
+        scorers: ["کۆنترۆڵا گۆڵکەران", "+ زێدەکرنا گۆڵکەری"],
+        news: ["کۆنترۆڵا دەنگوباسان", "+ زێدەکرنا دەنگوباسی"]
+      };
+      var info = map[currentPage] || map.matches;
+      label.innerText = info[0];
+      btn.innerText = info[1];
+    };
+
+    window.setMatchFilter = function(f) {
+      currentFilter = f;
+      var btns = document.querySelectorAll(".filter-tab-btn");
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.toggle("active", btns[i].getAttribute("data-filter") === f);
+      }
+      window.renderMatchesView();
+    };
+
+    function cleanStr(s) {
+      return String(s || "").replace(/[<>]/g, "").trim();
     }
 
     function loadState() {
       try {
-        const saved = localStorage.getItem('emy_state_v2');
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          state = Object.assign(state, parsed);
-          if (Array.isArray(state.sponsors)) {
-            state.sponsors.forEach(function(sp) {
-              if (!sp.fit || sp.fit === 'contain') sp.fit = 'fill';
-            });
-          }
-        }
-      } catch (e) {}
-
-      try {
-        if (localStorage.getItem('emy_auth_flag') === 'true') {
-          isAdmin = true;
-        }
+        var saved = localStorage.getItem("emy_state_v2");
+        if (saved) state = Object.assign(state, JSON.parse(saved));
+        if (localStorage.getItem("emy_auth_flag") === "true") isAdmin = true;
       } catch (e) {}
     }
 
     function saveState() {
-      try {
-        localStorage.setItem('emy_state_v2', JSON.stringify(state));
-      } catch (e) {}
+      try { localStorage.setItem("emy_state_v2", JSON.stringify(state)); } catch (e) {}
     }
 
-    function openModal(id) {
-      const el = document.getElementById(id);
-      if (el) el.classList.add('active');
-    }
-
-    function closeModal(id) {
-      const el = document.getElementById(id);
-      if (el) el.classList.remove('active');
-    }
-
-    function toggleDrawer() {
-      const d = document.getElementById('sideDrawer');
-      const o = document.getElementById('drawerOverlay');
-      if (d && o) {
-        d.classList.toggle('active');
-        o.classList.toggle('active');
-      }
-    }
-
-    function handleBrandHeaderClick() {
-      if (isAdmin) openBrandLogoModal();
-      else switchPage('matches');
-    }
-
-    function openBrandLogoModal() {
-      document.getElementById('siteLogoInput').value = state.brandLogo || '';
-      document.getElementById('siteLogoSize').value = state.brandLogoSize || 'normal';
-      openModal('brandLogoModal');
-    }
-
-    function saveBrandLogo() {
-      state.brandLogo = document.getElementById('siteLogoInput').value.trim();
-      state.brandLogoSize = document.getElementById('siteLogoSize').value || 'normal';
-      saveState();
-      closeModal('brandLogoModal');
-      renderBrandLogo();
-    }
-
-    function renderBrandLogo() {
-      const slot = document.getElementById('headerBrandLogoSlot');
-      if (!slot) return;
-      slot.className = 'brand-logo-slot' + (state.brandLogoSize === 'lg' ? ' size-lg' : (state.brandLogoSize === 'xl' ? ' size-xl' : ''));
-      const badgeHtml = '<span class="logo-edit-badge" id="logoEditBadge" style="display:' + (isAdmin ? 'flex' : 'none') + ';">✏️</span>';
-      if (state.brandLogo) {
-        slot.innerHTML = '<img src="' + state.brandLogo + '" alt="Emyelvere">' + badgeHtml;
-      } else {
-        slot.innerHTML = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#fef08a" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="12 7 15.5 9.5 14 13.5 10 13.5 8.5 9.5" fill="#fef08a"></polygon></svg>' + badgeHtml;
-      }
-    }
-
-    function triggerAdminAuth() {
-      if (isAdmin) {
-        lockAdmin();
-      } else {
-        document.getElementById('adminPassInput').value = '';
-        document.getElementById('passError').style.display = 'none';
-        openModal('passwordModal');
-      }
-    }
-
-    function submitAdminPassword() {
-      const errEl = document.getElementById('passError');
-      if (Date.now() < lockoutUntil) {
-        errEl.innerText = '⏳ بۆ ماوێ ١٥ خولەکان قوفڵ بوو ژبەر لێدانا شاش!';
-        errEl.style.display = 'block';
-        return;
-      }
-      const val = document.getElementById('adminPassInput').value;
-      if (val === ADMIN_KEY) {
-        isAdmin = true;
-        failedAttempts = 0;
-        try { localStorage.setItem('emy_auth_flag', 'true'); } catch (e) {}
-        closeModal('passwordModal');
-        updateAdminView();
-      } else {
-        failedAttempts++;
-        if (failedAttempts >= 5) {
-          lockoutUntil = Date.now() + 15 * 60 * 1000;
-          errEl.innerText = '🔒 ٥ جاران شاش بوو! بۆ ١٥ خولەکان هاتە قوفڵکرن.';
-        } else {
-          errEl.innerText = '❌ پاسوۆرد شاشە!';
-        }
-        errEl.style.display = 'block';
-      }
-    }
-
-    function lockAdmin() {
-      isAdmin = false;
-      try { localStorage.setItem('emy_auth_flag', 'false'); } catch (e) {}
-      updateAdminView();
-    }
-
-    function updateAdminView() {
-      const lockBtn = document.getElementById('secretLockBtn');
-      const adminBar = document.getElementById('pageAdminBar');
-      const adminMenu = document.getElementById('adminDrawerMenu');
-
-      if (lockBtn) {
-        lockBtn.innerText = isAdmin ? '🔓' : '🔒';
-        lockBtn.classList.toggle('unlocked', isAdmin);
-      }
-      if (adminBar) adminBar.classList.toggle('visible', isAdmin);
-      if (adminMenu) adminMenu.style.display = isAdmin ? 'block' : 'none';
-
-      renderBrandLogo();
-      renderSponsors();
-      renderPage();
-    }
-
-    function uploadToInput(e, inputId) {
-      const file = e.target.files && e.target.files[0];
+    window.uploadToInput = function(e, inputId) {
+      var file = e.target.files && e.target.files[0];
       if (!file) return;
-      const reader = new FileReader();
+      var reader = new FileReader();
       reader.onload = function(evt) {
-        const el = document.getElementById(inputId);
-        if (el) el.value = evt.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function uploadSponsorImage1280x415(e) {
-      const file = e.target.files && e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        const rawDataUrl = evt.target.result;
-        const img = new Image();
+        var img = new Image();
         img.onload = function() {
           try {
-            const canvas = document.createElement('canvas');
-            canvas.width = 1280;
-            canvas.height = 415;
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, 1280, 415);
-            const fitMode = (document.getElementById('spFit') && document.getElementById('spFit').value) || 'fill';
-            if (fitMode === 'fill') {
-              ctx.drawImage(img, 0, 0, 1280, 415);
-            } else {
-              const scale = fitMode === 'cover'
-                ? Math.max(1280 / img.width, 415 / img.height)
-                : Math.min(1280 / img.width, 415 / img.height);
-              const drawW = img.width * scale;
-              const drawH = img.height * scale;
-              const drawX = (1280 - drawW) / 2;
-              const drawY = (415 - drawH) / 2;
-              ctx.drawImage(img, drawX, drawY, drawW, drawH);
-            }
-            document.getElementById('spLogo').value = canvas.toDataURL('image/png');
-            updateSponsorLivePreview();
+            var c = document.createElement("canvas");
+            var max = 360;
+            var sc = Math.min(1, max / Math.max(img.width, img.height));
+            c.width = Math.round(img.width * sc);
+            c.height = Math.round(img.height * sc);
+            c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+            document.getElementById(inputId).value = c.toDataURL("image/png");
           } catch (err) {
-            document.getElementById('spLogo').value = rawDataUrl;
-            updateSponsorLivePreview();
+            document.getElementById(inputId).value = evt.target.result;
           }
         };
-        img.src = rawDataUrl;
+        img.src = evt.target.result;
       };
       reader.readAsDataURL(file);
-    }
+    };
 
-    function buildSponsorCardHtml(sp, isPreview) {
-      const fx = sp.effect || 'fx-glide';
-      const fitMode = sp.fit || 'fill';
-      const fitClass = fitMode === 'cover' ? 'fit-cover' : (fitMode === 'contain' ? 'fit-contain' : 'fit-fill');
-      const clickAttr = (!isPreview && sp.link) ? 'onclick="visitSponsorLink(\'' + sp.link + '\')"' : '';
-
-      return `
-        <div class="sponsor-card-box ${fx}" ${clickAttr}>
-          <div class="sponsor-top-laser"></div>
-          <div class="sponsor-top-header-bar">
-            <span class="sponsor-badge-pill">✨ سپۆنسەرێ فەرمی • VIP</span>
-            ${(!isPreview && isAdmin) ? `
-              <div class="sponsor-admin-controls-bar" onclick="event.stopPropagation();">
-                <button class="btn-action-icon" onclick="openAddSponsorModal(${sp.id})">✏️ دەستکاری</button>
-                <button class="btn-action-icon" style="color:#dc2626;" onclick="deleteSponsor(${sp.id})">🗑️</button>
-              </div>
-            ` : '<span style="font-family:var(--font-eng); font-size:0.68rem; color:rgba(254,240,138,0.85); font-weight:800; direction:ltr;">SPONSORED</span>'}
-          </div>
-          <div class="sponsor-stage-1280x415">
-            ${sp.logo
-              ? `<img src="${sp.logo}" class="${fitClass}" alt="${sp.name}">`
-              : `<div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px; text-align:center;">
-                   <div style="font-size:2rem; margin-bottom:2px;">🏆</div>
-                   <div style="font-weight:900; font-size:1.2rem; color:#fef08a;">${sp.name || 'ناڤێ سپۆنسەری'}</div>
-                   <div style="font-family:var(--font-eng); font-size:0.75rem; color:rgba(255,255,255,0.75); margin-top:2px; direction:ltr;">1280W × 415H px Full Frame</div>
-                 </div>`
-            }
-          </div>
-          <div class="sponsor-footer-bar">
-            <div class="sponsor-info-col">
-              <div class="sponsor-title-grand">${sp.name || 'سپۆنسەرێ فەرمی'}</div>
-              ${sp.text ? `<div class="sponsor-desc-grand">${sp.text}</div>` : ''}
-            </div>
-            <div style="display:flex; align-items:center; gap:8px;">
-              ${sp.link ? `
-                <a class="sponsor-cta-btn" href="${sp.link}" target="_blank" rel="noopener" onclick="event.stopPropagation();">
-                  <span>سەرەدانێ بکە</span>
-                  <span>↗</span>
-                </a>
-              ` : '<span class="sponsor-cta-btn">✨ سپۆنسەرێ فەرمی</span>'}
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    function updateSponsorLivePreview() {
-      const box = document.getElementById('spLivePreviewBox');
-      if (!box) return;
-      const previewSp = {
-        name: cleanStr(document.getElementById('spName').value) || 'ناڤێ سپۆنسەری',
-        text: cleanStr(document.getElementById('spText').value) || 'پەیاما ڕێکلامێ و ئۆفەرێ تایبەت',
-        logo: document.getElementById('spLogo').value.trim() || '',
-        link: document.getElementById('spLink').value.trim() || 'https://example.com',
-        fit: document.getElementById('spFit').value || 'fill',
-        effect: document.getElementById('spEffect').value || 'fx-glide'
+    window.uploadSponsorImage1280x415 = function(e) {
+      var file = e.target.files && e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(evt) {
+        var img = new Image();
+        img.onload = function() {
+          try {
+            var c = document.createElement("canvas");
+            c.width = 1280;
+            c.height = 415;
+            c.getContext("2d").drawImage(img, 0, 0, 1280, 415);
+            document.getElementById("spLogo").value = c.toDataURL("image/jpeg", 0.88);
+          } catch (err) {
+            document.getElementById("spLogo").value = evt.target.result;
+          }
+        };
+        img.src = evt.target.result;
       };
-      box.innerHTML = buildSponsorCardHtml(previewSp, true);
-    }
+      reader.readAsDataURL(file);
+    };
 
-    function openAddSponsorModal(editId) {
-      const item = editId ? state.sponsors.find(function(s) { return s.id === editId; }) : null;
-      document.getElementById('spEditId').value = item ? item.id : '';
-      document.getElementById('spName').value = item ? item.name : '';
-      document.getElementById('spText').value = item ? item.text : '';
-      document.getElementById('spLogo').value = item ? (item.logo || '') : '';
-      document.getElementById('spLink').value = item ? (item.link || '') : '';
-      document.getElementById('spFit').value = item ? (item.fit || 'fill') : 'fill';
-      document.getElementById('spEffect').value = item ? (item.effect || 'fx-glide') : 'fx-glide';
-      updateSponsorLivePreview();
-      openModal('sponsorModal');
-    }
+    // Brand Logo
+    window.handleBrandHeaderClick = function() {
+      if (isAdmin) window.openBrandLogoModal();
+      else window.switchPage("matches");
+    };
 
-    function saveSponsor() {
-      const editId = document.getElementById('spEditId').value;
-      const name = cleanStr(document.getElementById('spName').value) || 'سپۆنسەرێ فەرمی';
-      const text = cleanStr(document.getElementById('spText').value);
-      const logo = document.getElementById('spLogo').value.trim();
-      const fit = document.getElementById('spFit').value || 'fill';
-      const effect = document.getElementById('spEffect').value || 'fx-glide';
-      let link = document.getElementById('spLink').value.trim();
-      if (link && !/^https?:\/\//i.test(link)) link = 'https://' + link;
+    window.openBrandLogoModal = function() {
+      document.getElementById("siteLogoInput").value = state.brandLogo || "";
+      document.getElementById("siteLogoSize").value = state.brandLogoSize || "normal";
+      window.openModal("brandLogoModal");
+    };
+
+    window.saveBrandLogo = function() {
+      state.brandLogo = document.getElementById("siteLogoInput").value.trim();
+      state.brandLogoSize = document.getElementById("siteLogoSize").value || "normal";
+      saveState();
+      window.closeModal("brandLogoModal");
+      window.renderBrandLogo();
+    };
+
+    window.renderBrandLogo = function() {
+      var slot = document.getElementById("headerBrandLogoSlot");
+      if (!slot) return;
+      slot.className = "brand-logo-slot" + (state.brandLogoSize === "lg" ? " size-lg" : (state.brandLogoSize === "xl" ? " size-xl" : ""));
+      var badge = '<span class="logo-edit-badge" style="display:' + (isAdmin ? "flex" : "none") + ';">✏️</span>';
+      if (state.brandLogo) {
+        slot.innerHTML = '<img src="' + state.brandLogo + '" alt="Emyelvere">' + badge;
+      } else {
+        slot.innerHTML = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#fef08a" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="12 7 15.5 9.5 14 13.5 10 13.5 8.5 9.5" fill="#fef08a"></polygon></svg>' + badge;
+      }
+    };
+
+    // Sponsors (1280x415)
+    window.openAddSponsorModal = function(editId) {
+      var item = editId ? state.sponsors.find(function(s) { return s.id === editId; }) : null;
+      document.getElementById("spEditId").value = item ? item.id : "";
+      document.getElementById("spName").value = item ? item.name : "";
+      document.getElementById("spText").value = item ? item.text : "";
+      document.getElementById("spLogo").value = item ? (item.logo || "") : "";
+      document.getElementById("spLink").value = item ? (item.link || "") : "";
+      document.getElementById("spFit").value = item ? (item.fit || "fill") : "fill";
+      document.getElementById("spEffect").value = item ? (item.effect || "fx-glide") : "fx-glide";
+      window.openModal("sponsorModal");
+    };
+
+    window.saveSponsor = function() {
+      var editId = document.getElementById("spEditId").value;
+      var name = cleanStr(document.getElementById("spName").value) || "سپۆنسەرێ فەرمی";
+      var text = cleanStr(document.getElementById("spText").value);
+      var logo = document.getElementById("spLogo").value.trim();
+      var fit = document.getElementById("spFit").value || "fill";
+      var effect = document.getElementById("spEffect").value || "fx-glide";
+      var link = document.getElementById("spLink").value.trim();
+      if (link && !/^https?:\/\//i.test(link)) link = "https://" + link;
 
       if (editId) {
-        const idx = state.sponsors.findIndex(function(s) { return String(s.id) === String(editId); });
+        var idx = state.sponsors.findIndex(function(s) { return String(s.id) === String(editId); });
         if (idx > -1) state.sponsors[idx] = { id: state.sponsors[idx].id, name: name, text: text, logo: logo, link: link, fit: fit, effect: effect };
       } else {
         state.sponsors.unshift({ id: Date.now(), name: name, text: text, logo: logo, link: link, fit: fit, effect: effect });
       }
       saveState();
-      closeModal('sponsorModal');
-      renderSponsors();
-    }
+      window.closeModal("sponsorModal");
+      window.renderSponsors();
+    };
 
-    function deleteSponsor(id) {
+    window.deleteSponsor = function(id) {
       state.sponsors = state.sponsors.filter(function(s) { return s.id !== id; });
       saveState();
-      renderSponsors();
-    }
+      window.renderSponsors();
+    };
 
-    function visitSponsorLink(url) {
-      if (url) window.open(url, '_blank', 'noopener');
-    }
-
-    function renderSponsors() {
-      const container = document.getElementById('sponsorContainer');
-      if (!container) return;
+    window.renderSponsors = function() {
+      var c = document.getElementById("sponsorContainer");
+      if (!c) return;
       if (!state.sponsors || state.sponsors.length === 0) {
-        container.innerHTML = '';
+        c.innerHTML = "";
         return;
       }
-      container.innerHTML = state.sponsors.map(function(sp) { return buildSponsorCardHtml(sp, false); }).join('');
-    }
+      c.innerHTML = state.sponsors.map(function(sp) {
+        var fitCls = sp.fit === "cover" ? "fit-cover" : (sp.fit === "contain" ? "fit-contain" : "fit-fill");
+        var clickUrl = sp.link ? 'onclick="window.open(\'' + sp.link + '\', \'_blank\')"' : "";
+        return '<div class="sponsor-card-box ' + (sp.effect || "fx-glide") + '" ' + clickUrl + '>' +
+          '<div class="sponsor-top-header-bar">' +
+            '<span class="sponsor-badge-pill">✨ سپۆنسەرێ فەرمی • VIP</span>' +
+            (isAdmin ? '<div onclick="event.stopPropagation();"><button type="button" class="btn-action-icon" onclick="window.openAddSponsorModal(' + sp.id + ')">✏️</button> <button type="button" class="btn-action-icon" style="color:#dc2626;" onclick="window.deleteSponsor(' + sp.id + ')">🗑️</button></div>' : '<span style="font-size:0.68rem; color:#fef08a;">SPONSORED</span>') +
+          '</div>' +
+          '<div class="sponsor-stage-1280x415">' +
+            (sp.logo ? '<img src="' + sp.logo + '" class="' + fitCls + '" alt="' + sp.name + '">' : '<div style="height:100%; display:flex; align-items:center; justify-content:center; color:#fef08a; font-weight:900;">' + sp.name + ' (1280×415)</div>') +
+          '</div>' +
+          '<div class="sponsor-footer-bar">' +
+            '<div><div style="font-weight:900; font-size:1.05rem;">' + sp.name + '</div>' + (sp.text ? '<div style="font-size:0.8rem; color:#fef3c7;">' + sp.text + '</div>' : '') + '</div>' +
+            (sp.link ? '<a class="sponsor-cta-btn" href="' + sp.link + '" target="_blank" rel="noopener" onclick="event.stopPropagation();">سەرەدانێ بکە ↗</a>' : '<span class="sponsor-cta-btn">✨ VIP</span>') +
+          '</div></div>';
+      }).join("");
+    };
 
-    function switchPage(page) {
-      currentPage = page;
-      ['matches', 'livetv', 'standings', 'scorers', 'news'].forEach(function(p) {
-        const b = document.getElementById('bot-' + p);
-        const d = document.getElementById('dlink-' + p);
-        if (b) b.classList.toggle('active', p === page);
-        if (d) d.classList.toggle('active', p === page);
-      });
-      const filterTabs = document.getElementById('matchFilterTabs');
-      if (filterTabs) filterTabs.style.display = (page === 'matches') ? 'flex' : 'none';
-      renderPage();
-      window.scrollTo(0, 0);
-    }
+    // Matches
+    window.openAddMatchModal = function(editId) {
+      var item = editId ? state.matches.find(function(m) { return m.id === editId; }) : null;
+      document.getElementById("mEditId").value = item ? item.id : "";
+      document.getElementById("mHomeName").value = item ? item.homeName : "";
+      document.getElementById("mHomeLogo").value = item ? (item.homeLogo || "") : "";
+      document.getElementById("mAwayName").value = item ? item.awayName : "";
+      document.getElementById("mAwayLogo").value = item ? (item.awayLogo || "") : "";
+      document.getElementById("mHomeScore").value = item ? item.homeScore : "0";
+      document.getElementById("mAwayScore").value = item ? item.awayScore : "0";
+      document.getElementById("mStatus").value = item ? item.status : "upcoming";
+      document.getElementById("mTime").value = item ? item.time : "19:00";
+      window.openModal("matchModal");
+    };
 
-    function setMatchFilter(f) {
-      currentFilter = f;
-      document.querySelectorAll('.filter-tab-btn').forEach(function(btn) {
-        btn.classList.toggle('active', btn.getAttribute('data-filter') === f);
-      });
-      renderMatchesView();
-    }
-
-    function renderPage() {
-      const adminBar = document.getElementById('pageAdminBar');
-      const addBtn = document.getElementById('mainAdminAddBtn');
-      const label = document.getElementById('adminToolbarLabel');
-
-      if (adminBar) {
-        adminBar.classList.toggle('visible', isAdmin);
-        if (addBtn && label) {
-          if (currentPage === 'matches') {
-            label.innerText = 'کۆنترۆڵا یاریان';
-            addBtn.innerText = '+ زێدەکرنا یاریێ';
-            addBtn.onclick = function() { openAddMatchModal(); };
-          } else if (currentPage === 'livetv') {
-            label.innerText = 'کۆنترۆڵا پەخشێ ڕاستەوخۆ';
-            addBtn.innerText = '+ زێدەکرنا پەخشێ لایڤ';
-            addBtn.onclick = function() { openAddTvModal(); };
-          } else if (currentPage === 'standings') {
-            label.innerText = 'کۆنترۆڵا خشتەیێ خولێ';
-            addBtn.innerText = '+ زێدەکرنا یانێ';
-            addBtn.onclick = function() { openAddStandingModal(); };
-          } else if (currentPage === 'scorers') {
-            label.innerText = 'کۆنترۆڵا گۆڵکەران';
-            addBtn.innerText = '+ زێدەکرنا گۆڵکەری';
-            addBtn.onclick = function() { openAddScorerModal(); };
-          } else if (currentPage === 'news') {
-            label.innerText = 'کۆنترۆڵا دەنگوباسان';
-            addBtn.innerText = '+ زێدەکرنا دەنگوباسی';
-            addBtn.onclick = function() { openAddNewsModal(); };
-          }
-        }
-      }
-
-      if (currentPage === 'matches') renderMatchesView();
-      else if (currentPage === 'livetv') renderLiveTvView();
-      else if (currentPage === 'standings') renderStandingsView();
-      else if (currentPage === 'scorers') renderScorersView();
-      else if (currentPage === 'news') renderNewsView();
-    }
-
-    function openAddMatchModal(editId) {
-      const item = editId ? state.matches.find(function(m) { return m.id === editId; }) : null;
-      document.getElementById('mEditId').value = item ? item.id : '';
-      document.getElementById('matchModalTitle').innerText = item ? 'دەستکاریکرنا یاریێ' : 'زێدەکرنا یاریێ';
-      document.getElementById('mHomeName').value = item ? item.homeName : '';
-      document.getElementById('mHomeLogo').value = item ? (item.homeLogo || '') : '';
-      document.getElementById('mAwayName').value = item ? item.awayName : '';
-      document.getElementById('mAwayLogo').value = item ? (item.awayLogo || '') : '';
-      document.getElementById('mHomeScore').value = item ? item.homeScore : '0';
-      document.getElementById('mAwayScore').value = item ? item.awayScore : '0';
-      document.getElementById('mStatus').value = item ? item.status : 'upcoming';
-      document.getElementById('mTime').value = item ? item.time : '19:00';
-      openModal('matchModal');
-    }
-
-    function saveMatch() {
-      const editId = document.getElementById('mEditId').value;
-      const homeName = cleanStr(document.getElementById('mHomeName').value) || 'تیما ئێکێ';
-      const homeLogo = document.getElementById('mHomeLogo').value.trim();
-      const awayName = cleanStr(document.getElementById('mAwayName').value) || 'تیما دووێ';
-      const awayLogo = document.getElementById('mAwayLogo').value.trim();
-      const homeScore = parseInt(document.getElementById('mHomeScore').value, 10) || 0;
-      const awayScore = parseInt(document.getElementById('mAwayScore').value, 10) || 0;
-      const status = document.getElementById('mStatus').value;
-      const time = cleanStr(document.getElementById('mTime').value) || '19:00';
-
-      let savedMatch = null;
+    window.saveMatch = function() {
+      var editId = document.getElementById("mEditId").value;
+      var mObj = {
+        id: editId ? Number(editId) : Date.now(),
+        homeName: cleanStr(document.getElementById("mHomeName").value) || "تیما ١",
+        homeLogo: document.getElementById("mHomeLogo").value.trim(),
+        awayName: cleanStr(document.getElementById("mAwayName").value) || "تیما ٢",
+        awayLogo: document.getElementById("mAwayLogo").value.trim(),
+        homeScore: parseInt(document.getElementById("mHomeScore").value, 10) || 0,
+        awayScore: parseInt(document.getElementById("mAwayScore").value, 10) || 0,
+        status: document.getElementById("mStatus").value,
+        time: cleanStr(document.getElementById("mTime").value) || "19:00",
+        updatedAt: Date.now()
+      };
       if (editId) {
-        const idx = state.matches.findIndex(function(m) { return String(m.id) === String(editId); });
-        if (idx > -1) {
-          savedMatch = { id: state.matches[idx].id, homeName: homeName, homeLogo: homeLogo, awayName: awayName, awayLogo: awayLogo, homeScore: homeScore, awayScore: awayScore, status: status, time: time, updatedAt: Date.now() };
-          state.matches[idx] = savedMatch;
-        }
+        var idx = state.matches.findIndex(function(m) { return String(m.id) === String(editId); });
+        if (idx > -1) state.matches[idx] = mObj;
       } else {
-        savedMatch = { id: Date.now(), homeName: homeName, homeLogo: homeLogo, awayN
+        state.matches.unshift(mObj);
+      }
+      saveState();
+      window.closeModal("matchModal");
+      window.renderMatchesView();
+      window.triggerMatchLiveActivity(mObj);
+    };
+
+    window.deleteMatch = function(id) {
+      state.matches = state.matches.filter(function(m) { return m.id !== id; });
+      saveState();
+      window.renderMatchesView();
+    };
+
+    window.renderMatchesView = function() {
+      var host = document.getElementById("matchesListHost");
+      if (!host) return;
+      var list = state.matches || [];
+      if (currentFilter !== "all") list = list.filter(function(m) { return m.status === currentFilter; });
+      if (list.length === 0) {
+        host.innerHTML = '<div class="empty-state-box"><span style="font-size:2.4rem; display:block; margin-bottom:6px;">⚽</span><div style="font-weight:700; color:var(--burgundy-main);">چ یاری نەهاتینە زێدەکرن</div><div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">' + (isAdmin ? 'دوگمەیا (+ زێدەکرنا یاریێ) ل سەری دابگرە' : 'ب ڕێکا قوفڵا ئەدمینی 🔒 یاریان زێدە بکە') + '</div></div>';
+        return;
+      }
+      host.innerHTML = '<div class="card-box">' + list.map(function(m) {
+        var isLive = m.status === "live";
+        return '<div class="match-card"><div class="match-row-grid">' +
+          '<div class="match-status-col"><span style="font-size:0.75rem; font-weight:700; color:' + (isLive ? '#dc2626' : 'var(--text-muted)') + ';">' + (isLive ? '🔴 LIVE ' + m.time : (m.status === 'finished' ? 'FT' : m.time)) + '</span></div>' +
+          '<div class="teams-grid">' +
+            '<div class="team-cell"><div class="pure-logo-wrap">' + (m.homeLogo ? '<img src="' + m.homeLogo + '" class="pure-logo-img">' : '⚽') + '</div><span style="font-weight:700; font-size:0.9rem;">' + m.homeName + '</span></div>' +
+            '<div class="score-badge ' + (isLive ? 'is-live' : '') + '">' + (m.status === 'upcoming' ? 'VS' : (m.homeScore + ' - ' + m.awayScore)) + '</div>' +
+            '<div class="team-cell away"><span style="font-weight:700; font-size:0.9rem;">' + m.awayName + '</span><div class="pure-logo-wrap">' + (m.awayLogo ? '<img src="' + m.awayLogo + '" class="pure-logo-img">' : '⚽') + '</div></div>' +
+          '</div></div>' +
+          (isAdmin ? '<div style="display:flex; justify-content:flex-end; gap:6px; margin-top:8px;"><button type="button" class="btn-action-icon" onclick="window.openAddMatchModal(' + m.id + ')">✏️ دەستکاری</button><button type="button" class="btn-action-icon" style="color:#dc2626;" onclick="window.deleteMatch(' + m.id + ')">🗑️ ژێبرن</button></div>' : '') +
+        '</div>';
+      }).join("") + '</div>';
+    };
+
+    // Live TV
+    window.openAddTvModal = function(editId) {
+      var item = editId ? state.streams.find(function(s) { return s.id === editId; }) : null;
+      document.getElementById("tvEditId").value = item ? item.id : "";
+      document.getElementById("tvTitle").value = item ? item.title : "";
+      document.getElementById("tvLogo").value = item ? (item.logo || "") : "";
+      document.getElementById("tvUrl1").value = item ? (item.url1 || "") : "";
+      document.getElementById("tvUrl2").value = item ? (item.url2 || "") : "";
+      document.getElementById("tvUrl3").value = item ? (item.url3 || "") : "";
+      window.openModal("tvModal");
+    };
+
+    window.saveTv = function() {
+      var editId = document.getElementById("tvEditId").value;
+      var obj = {
+        id: editId ? Number(editId) : Date.now(),
+        title: cleanStr(document.getElementById("tvTitle").value) || "پەخشێ ڕاستەوخۆ",
+        logo: document.getElementById("tvLogo").value.trim(),
+        url1: document.getElementById("tvUrl1").value.trim(),
+        url2: document.getElementById("tvUrl2").value.trim(),
+        url3: document.getElementById("tvUrl3").value.trim()
+      };
+      if (editId) {
+        var idx = state.streams.findIndex(function(s) { return String(s.id) === String(editId); });
+        if (idx > -1) state.streams[idx] = obj;
+      } else {
+        state.streams.unshift(obj);
+      }
+      saveState();
+      window.closeModal("tvModal");
+      window.renderLiveTvView();
+    };
+
+    window.deleteTv = function(id) {
+      state.streams = state.streams.filter(function(s) { return s.id !== id; });
+      saveState();
+      window.renderLiveTvView();
+    };
+
+    function buildEmbedHtml(raw) {
+      var u = (raw || "").trim();
+      if (!u) return '<div style="color:#fff; padding:30px; text-align:center;">لینک نینە</div>';
+      if (u.toLowerCase().indexOf("<iframe") !== -1) return u;
+      if (u.indexOf("youtube.com") !== -1 || u.indexOf("youtu.be") !== -1) {
+        var vid = "";
+        if (u.indexOf("embed/") !== -1) vid = u.split("embed/")[1].split(/[?&"]/)[0];
+        else if (u.indexOf("v=") !== -1) vid = u.split("v=")[1].split("&")[0];
+        else if (u.indexOf("youtu.be/") !== -1) vid = u.split("youtu.be/")[1].split(/[?&]/)[0];
+        else if (u.indexOf("/live/") !== -1) vid = u.split("/live/")[1].split(/[?&]/)[0];
+        if (vid) return '<iframe src="https://www.youtube.com/embed/' + vid + '?autoplay=1&playsinline=1" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
+      }
+      if (u.indexOf("facebook.com") !== -1 || u.indexOf("fb.watch") !== -1) {
+        return '<iframe src="https://www.facebook.com/plugins/video.php?href=' + encodeURIComponent(u) + '&show_text=false&autoplay=true" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
+      }
+      if (u.indexOf("instagram.com") !== -1) {
+        var cu = u.split("?")[0].replace(/\/$/, "");
+        if (cu.indexOf("/embed") === -1) cu += "/embed";
+        return '<iframe src="' + cu + '" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
+      }
+      if (u.indexOf(".mp4") !== -1 || u.indexOf(".m3u8") !== -1) {
+        return '<video src="' + u + '" controls autoplay playsinline></video>';
+      }
+      return '<iframe src="' + u + '" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
+    }
+
+    window.selectTvServer = function(id, srv) { activeServerMap[id] = srv; window.renderLiveTvView(); };
+    window.toggleTvAspect = function(id) { verticalModeMap[id] = !verticalModeMap[id]; window.renderLiveTvView(); };
+
+    window.renderLiveTvView = function() {
+      var host = document.getElementById("livetvListHost");
+      if (!host) return;
+      if (state.streams.length === 0) {
+        host.innerHTML = '<div class="empty-state-box"><span style="font-size:2.4rem; display:block; margin-bottom:6px;">📺</span><div style="font-weight:700; color:var(--burgundy-main);">چ پەخشێن ڕاستەوخۆ نەهاتینە زێدەکرن</div></div>';
+        return;
+      }
+      host.innerHTML = state.streams.map(function(st) {
+        var srv = activeServerMap[st.id] || 1;
+        var vert = !!verticalModeMap[st.id];
+        var cur = srv === 2 ? st.url2 : (srv === 3 ? st.url3 : st.url1);
+        return '<div class="card-box" style="padding:14px;">' +
+          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">' +
+            '<div style="display:flex; align-items:center; gap:8px;">' + (st.logo ? '<div class="pure-logo-wrap"><img src="' + st.logo + '" class="pure-logo-img"></div>' : '📺') + '<span style="font-weight:700;">' + st.title + '</span></div>' +
+            '<span style="background:#dc2626; color:#fff; font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:99px;">LIVE 🔴</span>' +
+          '</div>' +
+          '<div class="server-btn-row">' +
+            '<button type="button" class="server-pill-btn ' + (srv === 1 ? 'active' : '') + '" onclick="window.selectTvServer(' + st.id + ',1)">📡 سێرڤەر ١</button>' +
+            (st.url2 ? '<button type="button" class="server-pill-btn ' + (srv === 2 ? 'active' : '') + '" onclick="window.selectTvServer(' + st.id + ',2)">📡 سێرڤەر ٢</button>' : '') +
+            (st.url3 ? '<button type="button" class="server-pill-btn ' + (srv === 3 ? 'active' : '') + '" onclick="window.selectTvServer(' + st.id + ',3)">📡 سێرڤەر ٣</button>' : '') +
+            '<button type="button" class="server-pill-btn" onclick="window.toggleTvAspect(' + st.id + ')">' + (vert ? '🖥️ 16:9' : '📱 9:16') + '</button>' +
+          '</div>' +
+          '<div class="tv-stage-wrapper ' + (vert ? 'vertical-mode' : '') + '">' + buildEmbedHtml(cur) + '</div>' +
+          (isAdmin ? '<div style="display:flex; justify-content:flex-end; gap:6px;"><button type="button" class="btn-action-icon" onclick="window.openAddTvModal(' + st.id + ')">✏️ دەستکاری</button><button type="button" class="btn-action-icon" style="color:#dc2626;" onclick="window.deleteTv(' + st.id + ')">🗑️ ژێبرن</button></div>' : '') +
+        '</div>';
+      }).join("");
+    };
+
+    // Standings
+    window.openAddStandingModal = function(editId) {
+      var item = editId ? state.standings.find(function(s) { return s.id === editId; }) : null;
+      document.getElementById("stEditId").value = item ? item.id : "";
+      document.getElementById("stRank").value = item ? item.rank : (state.standings.length + 1);
+      document.getElementById("stClub").value = item ? item.club : "";
+      document.getElementById("stLogo").value = item ? (item.logo || "") : "";
+      document.getElementById("stP").value = item ? item.p : "0";
+      document.getElementById("stPts").value = item ? item.pts : "0";
+      window.openModal("standingModal");
+    };
+
+    window.saveStanding = function() {
+      var editId = document.getElementById("stEditId").value;
+      var obj = {
+        id: editId ? Number(editId) : Date.now(),
+        rank: parseInt(document.getElementById("stRank").value, 10) || 1,
+        club: cleanStr(document.getElementById("stClub").value) || "یانە",
+        logo: document.getElementById("stLogo").value.trim(),
+        p: parseInt(document.getElementById("stP").value, 10) || 0,
+        pts: parseInt(document.getElementById("stPts").value, 10) || 0
+      };
+      if (editId) {
+        var idx = state.standings.findIndex(function(s) { return String(s.id) === String(editId); });
+        if (idx > -1) state.standings[idx] = obj;
+      } else {
+        state.standings.push(obj);
+      }
+      saveState();
+      window.closeModal("standingModal");
+      window.renderStandingsView();
+    };
+
+    window.deleteStanding = function(id) {
+      state.standings = state.standings.filter(function(s) { return s.id !== id; });
+      saveState();
+      window.renderStandingsView();
+    };
+
+    window.renderStandingsView = function() {
+      var host = document.getElementById("standingsListHost");
+      if (!host) return;
+      if (state.standings.length === 0) {
+        host.innerHTML = '<div class="empty-state-box"><span style="font-size:2.4rem; display:block; margin-bottom:6px;">📊</span><div style="font-weight:700; color:var(--burgundy-main);">خشتەیێ خولێ بەتاڵە</div></div>';
+        return;
+      }
+      var sorted = state.standings.slice().sort(function(a, b) { return a.rank - b.rank; });
+      host.innerHTML = '<div class="card-box"><table class="table-responsive"><thead><tr><th>#</th><th style="text-align:right;">یانە</th><th>یاری</th><th>خاڵ</th>' + (isAdmin ? '<th>کردار</th>' : '') + '</tr></thead><tbody>' +
+        sorted.map(function(st) {
+          return '<tr><td>' + st.rank + '</td><td style="text-align:right;"><div style="display:flex; align-items:center; gap:8px;"><div class="pure-logo-wrap" style="width:26px; height:26px;">' + (st.logo ? '<img src="' + st.logo + '" class="pure-logo-img">' : '🛡️') + '</div><span>' + st.club + '</span></div></td><td>' + st.p + '</td><td><span style="background:var(--burgundy-grad); color:#fff; padding:2px 8px; border-radius:6px;">' + st.pts + '</span></td>' + (isAdmin ? '<td><button type="button" class="btn-action-icon" onclick="window.openAddStandingModal(' + st.id + ')">✏️</button> <button type="button" class="btn-action-icon" style="color:#dc2626;" onclick="window.deleteStanding(' + st.id + ')">🗑️</button></td>' : '') + '</tr>';
+        }).join("") + '</tbody></table></div>';
+    };
+
+    // Scorers
+    window.openAddScorerModal = function(editId) {
+      var item = editId ? state.scorers.find(function(s) { return s.id === editId; }) : null;
+      document.getElementById("scEditId").value = item ? item.id : "";
+      document.getElementById("scName").value = item ? item.name : "";
+      document.getElementById("scPhoto").value = item ? (item.photo || "") : "";
+      document.getElementById("scClub").value = item ? item.club : "";
+      document.getElementById("scGoals").value = item ? item.goals : "1";
+      window.openModal("scorerModal");
+    };
+
+    window.saveScorer = function() {
+      var editId = document.getElementById("scEditId").value;
+      var obj = {
+        id: editId ? Number(editId) : Date.now(),
+        name: cleanStr(document.getElementById("scName").value) || "یاریزان",
+        photo: document.getElementById("scPhoto").value.trim(),
+        club: cleanStr(document.getElementById("scClub").value) || "یانە",
+        goals: parseInt(document.getElementById("scGoals").value, 10) || 1
+      };
+      if (editId) {
+        var idx = state.scorers.findIndex(function(s) { return String(s.id) === String(editId); });
+        if (idx > -1) state.scorers[idx] = obj;
+      } else {
+        state.scorers.push(obj);
+      }
+      saveState();
+      window.closeModal("scorerModal");
+      window.renderScorersView();
+    };
+
+    window.deleteScorer = function(id) {
+      state.scorers = state.scorers.filter(function(s) { return s.id !== id; });
+      saveState();
+      window.renderScorersView();
+    };
+
+    window.renderScorersView = function() {
+      var host = document.getElementById("scorersListHost");
+      if (!host) return;
+      if (state.scorers.length === 0) {
+        host.innerHTML = '<div class="empty-state-box"><span style="font-size:2.4rem; display:block; margin-bottom:6px;">👟</span><div style="font-weight:700; color:var(--burgundy-main);">چ گۆڵکەر نەهاتینە تۆمارکرن</div></div>';
+        return;
+      }
+      var sorted = state.scorers.slice().sort(function(a, b) { return b.goals - a.goals; });
+      host.innerHTML = '<div class="card-box">' + sorted.map(function(sc, idx) {
+        return '<div style="padding:12px 14px; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center;">' +
+          '<div style="display:flex; align-items:center; gap:10px;"><span style="font-weight:900;">' + (idx + 1) + '</span><div class="pure-logo-wrap">' + (sc.photo ? '<img src="' + sc.photo + '" class="pure-logo-img">' : '👟') + '</div><div><div style="font-weight:700;">' + sc.name + '</div><div style="font-size:0.75rem; color:var(--text-muted);">' + sc.club + '</div></div></div>' +
+          '<div style="display:flex; align-items:center; gap:8px;"><span style="font-weight:900; color:var(--burgundy-main);">' + sc.goals + ' ⚽</span>' + (isAdmin ? '<button type="button" class="btn-action-icon" onclick="window.openAddScorerModal(' + sc.id + ')">✏️</button><button type="button" class="btn-action-icon" style="color:#dc2626;" onclick="window.deleteScorer(' + sc.id + ')">🗑️</button>' : '') + '</div></div>';
+      }).join("") + '</div>';
+    };
+
+    // News
+    window.openAddNewsModal = function(editId) {
+      var item = editId ? state.news.find(function(n) { return n.id === editId; }) : null;
+      document.getElementById("nwEditId").value = item ? item.id : "";
+      document.getElementById("nwTitle").value = item ? item.title : "";
+      document.getElementById("nwLogo").value = item ? (item.logo || "") : "";
+      document.getElementById("nwText").value = item ? item.text : "";
+      window.openModal("newsModal");
+    };
+
+    window.saveNews = function() {
+      var editId = document.getElementById("nwEditId").value;
+      var obj = {
+        id: editId ? Number(editId) : Date.now(),
+        title: cleanStr(document.getElementById("nwTitle").value) || "دەنگوباس",
+        logo: document.getElementById("nwLogo").value.trim(),
+        text: cleanStr(document.getElementById("nwText").value)
+      };
+      if (editId) {
+        var idx = state.news.findIndex(function(n) { return String(n.id) === String(editId); });
+        if (idx > -1) state.news[idx] = obj;
+      } else {
+        state.news.unshift(obj);
+      }
+      saveState();
+      window.closeModal("newsModal");
+      window.renderNewsView();
+    };
+
+    window.deleteNews = function(id) {
+      state.news = state.news.filter(function(n) { return n.id !== id; });
+      saveState();
+      window.renderNewsView();
+    };
+
+    window.renderNewsView = function() {
+      var host = document.getElementById("newsListHost");
+      if (!host) return;
+      if (state.news.length === 0) {
+        host.innerHTML = '<div class="empty-state-box"><span style="font-size:2.4rem; display:block; margin-bottom:6px;">📰</span><div style="font-weight:700; color:var(--burgundy-main);">چ دەنگوباس بەردەست نینن</div></div>';
+        return;
+      }
+      host.innerHTML = state.news.map(function(n) {
+        return '<div class="card-box" style="padding:14px;"><div style="display:flex; gap:12px;">' + (n.logo ? '<div class="pure-logo-wrap" style="width:52px; height:52px;"><img src="' + n.logo + '" class="pure-logo-img"></div>' : '') + '<div style="flex:1;"><div style="font-weight:700; color:var(--burgundy-main); margin-bottom:4px;">' + n.title + '</div><div style="font-size:0.85rem;">' + n.text + '</div></div></div>' + (isAdmin ? '<div style="display:flex; justify-content:flex-end; gap:6px; margin-top:8px;"><button type="button" class="btn-action-icon" onclick="window.openAddNewsModal(' + n.id + ')">✏️</button><button type="button" class="btn-action-icon" style="color:#dc2626;" onclick="window.deleteNews(' + n.id + ')">🗑️</button></div>' : '') + '</div>';
+      }).join("");
+    };
+
+    // iOS Live Activity
+    window.triggerMatchLiveActivity = function(m) {
+      if (!m) return;
+      currentLaMatchId = m.id + "_" + (m.updatedAt || m.status || "");
+      document.getElementById("iosTitle").innerText = (m.status === "live" ? "⚽ ڕاستەوخۆ: " : "⚽ یاریا نوو: ") + m.homeName + " دژی " + m.awayName;
+      document.getElementById("iosSubtitle").innerText = (m.time || "19:00") + " • خولا ستێرێن عیراقێ #Emyelvere";
+      var logo = m.homeLogo || m.awayLogo || state.brandLogo;
+      document.getElementById("iosBrandBox").innerHTML = logo ? '<img src="' + logo + '" style="width:32px; height:32px; object-fit:contain;">' : '⚽';
+      document.getElementById("iosWrapper").classList.add("active");
+      document.getElementById("iosBackdrop").classList.add("active");
+    };
+
+    window.closeLiveActivity = function() {
+      document.getElementById("iosWrapper").classList.remove("active");
+      document.getElementById("iosBackdrop").classList.remove("active");
+    };
+
+    window.dismissLiveActivity = function(allow) {
+      try { if (currentLaMatchId) localStorage.setItem("emy_seen_la", String(currentLaMatchId)); } catch (e) {}
+      window.closeLiveActivity();
+    };
+
+    window.renderCurrentPageData = function() {
+      window.renderMatchesView();
+      window.renderLiveTvView();
+      window.renderStandingsView();
+      window.renderScorersView();
+      window.renderNewsView();
+    };
+
+    window.updateAdminView = function() {
+      var lockBtn = document.getElementById("secretLockBtn");
+      var adminBar = document.getElementById("pageAdminBar");
+      var adminMenu = document.getElementById("adminDrawerMenu");
+      if (lockBtn) {
+        lockBtn.innerText = isAdmin ? "🔓" : "🔒";
+        lockBtn.classList.toggle("unlocked", isAdmin);
+      }
+      if (adminBar) adminBar.classList.toggle("visible", isAdmin);
+      if (adminMenu) adminMenu.style.display = isAdmin ? "block" : "none";
+      window.updateAdminToolbarLabel();
+      window.renderBrandLogo();
+      window.renderSponsors();
+      window.renderCurrentPageData();
+    };
+
+    loadState();
+    window.updateAdminView();
+  </script>
+</body>
+</html>
