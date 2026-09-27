@@ -1,477 +1,917 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl" class="dark">
+<html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CapCut Video Downloader - داگرتنا ڤیدیۆیێن کێپ کەتی</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وەرگێڕێ بادینی - ئینگلیزی</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Arabic/Kurdish and Latin scripts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons for crisp UI iconography -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
-                    colors: {
-                        brand: {
-                            cyan: '#00f2fe',
-                            pink: '#ff007f',
-                            purple: '#7928ca',
-                            dark: '#090d16',
-                            card: '#131c2e'
-                        }
-                    },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        kurdish: ['"Noto Sans Arabic"', '"Inter"', 'sans-serif'],
+                        english: ['"Inter"', '"Noto Sans Arabic"', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-    
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: #090d16;
-            color: #f8fafc;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'Noto Sans Arabic', 'Inter', sans-serif;
+            background-color: #070b19;
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        .gradient-text {
-            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #ff007f 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Animated Ambient Background Blobs (Blue, Red, White) */
+        .bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: radial-gradient(circle at 15% 20%, rgba(29, 78, 216, 0.45) 0%, transparent 45%),
+                        radial-gradient(circle at 85% 25%, rgba(225, 29, 72, 0.38) 0%, transparent 45%),
+                        radial-gradient(circle at 50% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 85%, rgba(255, 255, 255, 0.12) 0%, transparent 35%),
+                        linear-gradient(135deg, #060b1e 0%, #0f172a 50%, #1a0b1e 100%);
         }
 
-        .gradient-btn {
-            background: linear-gradient(135deg, #00f2fe 0%, #00c6ff 100%);
-            transition: all 0.2s ease-in-out;
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.55;
+            animation: floatOrb 16s ease-in-out infinite alternate;
+            pointer-events: none;
         }
 
-        .gradient-btn:active {
-            transform: scale(0.97);
+        .orb-blue {
+            width: 360px;
+            height: 360px;
+            background: linear-gradient(135deg, #2563eb, #60a5fa);
+            top: -80px;
+            right: -60px;
+        }
+
+        .orb-red {
+            width: 340px;
+            height: 340px;
+            background: linear-gradient(135deg, #e11d48, #fb7185);
+            bottom: -60px;
+            left: -60px;
+            animation-delay: -6s;
+        }
+
+        .orb-white {
+            width: 240px;
+            height: 240px;
+            background: radial-gradient(circle, rgba(255,255,255,0.45), rgba(147,197,253,0.15));
+            top: 42%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -3s;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-25px, 20px) scale(1.08); }
+            100% { transform: translate(20px, -25px) scale(0.95); }
+        }
+
+        /* Glassmorphism Containers */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.25);
         }
 
         .glass-card {
-            background: rgba(19, 28, 46, 0.85);
+            background: rgba(15, 23, 42, 0.45);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .clean-input {
-            background-color: #0d1424 !important;
-            color: #ffffff !important;
-            outline: none;
+        .glass-card:focus-within {
+            border-color: rgba(96, 165, 250, 0.65);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.25), inset 0 0 12px rgba(255, 255, 255, 0.05);
         }
 
-        .clean-input:focus {
-            border-color: #00f2fe !important;
-            box-shadow: 0 0 0 2px rgba(0, 242, 254, 0.2);
+        .glass-chip {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            transition: all 0.2s ease;
         }
 
-        /* Custom Progress Bar Pulse */
-        .progress-line {
-            height: 4px;
-            background: linear-gradient(90deg, #00f2fe, #ff007f);
-            animation: progressPulse 1.5s infinite ease-in-out;
+        .glass-chip:hover {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(225, 29, 72, 0.35));
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
         }
 
-        @keyframes progressPulse {
-            0% { opacity: 0.6; transform: scaleX(0.2); }
-            50% { opacity: 1; transform: scaleX(1); }
-            100% { opacity: 0.6; transform: scaleX(0.2); }
+        .btn-gradient {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 45%, #e11d48 100%);
+            box-shadow: 0 10px 25px -5px rgba(225, 29, 72, 0.4), 0 8px 16px -6px rgba(37, 99, 235, 0.5);
+            transition: all 0.25s ease;
+        }
+
+        .btn-gradient:hover:not(:disabled) {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 15px 30px -5px rgba(225, 29, 72, 0.55), 0 10px 20px -5px rgba(37, 99, 235, 0.65);
+            filter: brightness(1.08);
+        }
+
+        .btn-gradient:active:not(:disabled) {
+            transform: translateY(0) scale(0.99);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.35);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-slate-950">
+<body class="selection:bg-blue-500 selection:text-white">
+    <div class="bg-canvas"></div>
+    <div class="orb orb-blue"></div>
+    <div class="orb orb-red"></div>
+    <div class="orb orb-white"></div>
 
-    <header class="w-full border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-400 via-blue-500 to-pink-500 flex items-center justify-center text-slate-950 font-black text-lg shadow-lg shadow-cyan-500/20">
-                    <i class="fa-solid fa-scissors"></i>
+    <!-- Main Wrapper -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 flex flex-col gap-6 min-h-screen justify-between">
+        
+        <!-- Header Section -->
+        <header class="glass-panel rounded-3xl p-5 sm:p-6 flex items-center justify-center sm:justify-start gap-4 relative overflow-hidden">
+            <!-- Subtle top glowing bar in Blue, White, Red -->
+            <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-500 via-white to-rose-600 opacity-85"></div>
+            
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 via-indigo-600 to-rose-600 p-[1px] shadow-lg shadow-blue-500/20 flex-shrink-0">
+                    <div class="w-full h-full bg-slate-950/60 backdrop-blur-md rounded-2xl flex items-center justify-center">
+                        <i class="ph-duotone ph-translate text-3xl text-white"></i>
+                    </div>
                 </div>
                 <div>
-                    <h1 class="text-base font-extrabold text-white leading-none">CapCut <span class="gradient-text">Downloader</span></h1>
-                    <p class="text-[10px] text-slate-400 mt-0.5">داگرتنا ڤیدیۆیێن کێپ کەتی ب بێ وۆتەرمارک</p>
+                    <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-blue-100 to-rose-200 bg-clip-text text-transparent">
+                        وەرگێڕێ بادینی - ئینگلیزی
+                    </h1>
                 </div>
             </div>
-            
-            <div class="flex items-center gap-2">
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    سێرڤەر کار دکەت
-                </span>
-            </div>
-        </div>
-    </header>
+        </header>
 
-    <main class="max-w-md mx-auto px-4 py-6 w-full flex-1 flex flex-col items-center">
-        
-        <!-- Hero Title -->
-        <div class="text-center space-y-1.5 mb-5">
-            <h2 class="text-2xl font-black text-white leading-snug">
-                داگرتنا ڤیدیۆیا CapCut <br/>
-                <span class="gradient-text">ب بێ وۆتەرمارک (100% Free)</span>
-            </h2>
-            <p class="text-slate-400 text-xs px-2">
-                لینکێ ڤیدیۆیا CapCut بپەیست بکە و ڕاستەوخۆ فایلا MP4 یان MP3 ب داگرتنا راستەوخۆ و وەرگرتنا تەواو دابگرە.
-            </p>
-        </div>
-
-        <!-- Download Input Form Card -->
-        <div class="w-full glass-card p-4 rounded-2xl shadow-2xl mb-5">
-            <form id="downloadForm" onsubmit="handleFetchVideo(event)" class="space-y-3">
-                <div class="space-y-1.5">
-                    <div class="flex justify-between items-center text-xs font-semibold text-slate-300">
-                        <label for="videoUrl">لینکێ ڤیدیۆیێ (Paste CapCut Link):</label>
-                        <span class="text-[10px] text-cyan-400">CapCut / TikTok</span>
-                    </div>
-                    
-                    <div class="relative flex items-center">
-                        <input 
-                            type="text" 
-                            id="videoUrl" 
-                            name="videoUrl"
-                            required 
-                            autocomplete="off"
-                            placeholder="https://www.capcut.com/t/..."
-                            class="clean-input w-full pl-24 pr-10 py-3 text-xs rounded-xl border border-slate-700/80 dir-ltr text-left transition-all"
-                            oninput="hideError()"
-                        >
-                        <div class="absolute right-3 text-slate-500 pointer-events-none">
-                            <i class="fa-solid fa-link text-xs"></i>
+        <!-- Main Translation Workspace -->
+        <main class="flex flex-col gap-6">
+            <section class="glass-panel rounded-3xl p-4 sm:p-6 flex flex-col gap-5">
+                
+                <!-- Language Selector Bar -->
+                <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] items-center gap-3 bg-slate-950/40 border border-white/10 p-2.5 rounded-2xl">
+                    <!-- Source Language Box -->
+                    <div id="sourceLangBadge" class="flex items-center justify-between px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600/30 to-blue-500/10 border border-blue-400/30">
+                        <div class="flex items-center gap-3">
+                            <span id="sourceLangFlag" class="w-8 h-8 rounded-lg bg-blue-500/20 border border-blue-300/30 flex items-center justify-center text-sm font-bold text-blue-200">
+                                کوردی
+                            </span>
+                            <div>
+                                <p class="text-[11px] text-blue-200/70 uppercase tracking-wider">ژ زمانێ / From</p>
+                                <h2 id="sourceLangTitle" class="text-sm sm:text-base font-bold text-white">
+                                    کوردی (بادینی)
+                                </h2>
+                            </div>
                         </div>
-                        
-                        <!-- Paste Button -->
-                        <button 
-                            type="button" 
-                            onclick="handlePasteClipboard()" 
-                            class="absolute left-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-slate-200 text-xs font-medium rounded-lg transition-colors border border-slate-700/80 flex items-center gap-1.5 shadow-sm"
-                        >
-                            <i class="fa-regular fa-paste text-cyan-400"></i>
-                            پەیست
+                        <span id="sourceDirTag" class="text-[11px] px-2 py-0.5 rounded-md bg-white/10 text-slate-300 font-english">RTL</span>
+                    </div>
+
+                    <!-- Swap Button -->
+                    <div class="flex justify-center">
+                        <button id="swapBtn" type="button" title="گوهرینا زمانان / Swap Languages"
+                            class="group w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 to-rose-600 hover:from-blue-500 hover:to-rose-500 border border-white/25 flex items-center justify-center text-white shadow-md transition-all duration-300 hover:scale-105 active:scale-95">
+                            <i id="swapIcon" class="ph-bold ph-arrows-left-right text-xl transition-transform duration-300 group-hover:rotate-180"></i>
                         </button>
                     </div>
-                </div>
 
-                <!-- Submit Button -->
-                <button 
-                    type="submit" 
-                    id="submitBtn" 
-                    class="w-full gradient-btn text-slate-950 font-black py-3 px-4 rounded-xl flex items-center justify-center gap-2 hover:cursor-pointer text-xs md:text-sm shadow-lg shadow-cyan-500/20"
-                >
-                    <i class="fa-solid fa-cloud-arrow-down text-sm"></i>
-                    <span id="btnText">ڤیدیۆ بینە (Fetch Video)</span>
-                </button>
-            </form>
-
-            <!-- Test Sample Button -->
-            <div class="mt-3 flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-800/80 pt-2.5">
-                <span>تاقیکرن ب لینکێ نموونە:</span>
-                <button type="button" onclick="loadSampleLink()" class="text-cyan-400 hover:underline flex items-center gap-1 font-semibold">
-                    <i class="fa-solid fa-flask"></i> لینکێ نموونە بکاربینە
-                </button>
-            </div>
-
-            <!-- Error Box -->
-            <div id="errorAlert" class="hidden mt-3 p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-400 text-xs flex items-center gap-2">
-                <i class="fa-solid fa-triangle-exclamation text-base shrink-0"></i>
-                <span id="errorMessage">تکایە لینکەکێ دروست داخل بکە!</span>
-            </div>
-        </div>
-
-        <div id="loadingBox" class="hidden w-full glass-card p-5 rounded-2xl text-center space-y-3 mb-5">
-            <div class="w-10 h-10 border-3 border-cyan-500/20 border-t-cyan-400 rounded-full animate-spin mx-auto"></div>
-            <div>
-                <p class="text-slate-200 font-bold text-xs">سێرڤەر مێژوویا لینکی لێکدەت...</p>
-                <p class="text-slate-400 text-[10px] mt-1">تکایە کێمەکێ چاڤەڕێ بە (داگرتنا راستەوخۆ دەستپێدەکەت)</p>
-            </div>
-            <div class="w-full bg-slate-800 rounded-full h-1 overflow-hidden">
-                <div class="progress-line w-full"></div>
-            </div>
-        </div>
-
-        <div id="resultCard" class="hidden w-full glass-card p-4 rounded-2xl shadow-2xl mb-5 border-cyan-500/30">
-            <div class="space-y-3.5">
-                <!-- Canvas Generated Real Video Player -->
-                <div class="w-full aspect-video bg-slate-950 rounded-xl overflow-hidden relative border border-slate-800 flex items-center justify-center">
-                    <video id="videoPreview" controls playsinline class="w-full h-full object-contain bg-black">
-                        پێگەهێ تە پشتگیرییا فۆرماتێ ڤیدیۆیێ ناکەت.
-                    </video>
-                </div>
-
-                <!-- Video Title & Meta Information -->
-                <div class="space-y-1">
-                    <div class="flex items-center justify-between">
-                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                            <i class="fa-solid fa-circle-check"></i> HD Ready (No Watermark)
-                        </span>
-                        <span id="videoDuration" class="text-[10px] text-slate-400 font-mono">00:08</span>
+                    <!-- Target Language Box -->
+                    <div id="targetLangBadge" class="flex items-center justify-between px-4 py-2.5 rounded-xl bg-gradient-to-r from-rose-600/30 to-rose-500/10 border border-rose-400/30">
+                        <div class="flex items-center gap-3">
+                            <span id="targetLangFlag" class="w-8 h-8 rounded-lg bg-rose-500/20 border border-rose-300/30 flex items-center justify-center text-sm font-bold text-rose-200 font-english">
+                                EN
+                            </span>
+                            <div>
+                                <p class="text-[11px] text-rose-200/70 uppercase tracking-wider">بۆ زمانێ / To</p>
+                                <h2 id="targetLangTitle" class="text-sm sm:text-base font-bold text-white">
+                                    ئینگلیزی - English
+                                </h2>
+                            </div>
+                        </div>
+                        <span id="targetDirTag" class="text-[11px] px-2 py-0.5 rounded-md bg-white/10 text-slate-300 font-english">LTR</span>
                     </div>
-                    <h3 id="videoTitle" class="text-xs font-bold text-white truncate">CapCut_Video_HD_NoWatermark.mp4</h3>
-                    <p id="videoAuthor" class="text-[10px] text-slate-400">کوالیتی: 1080p Full HD | ب بێ لۆگۆ و وۆتەرمارک</p>
                 </div>
 
-                <!-- DOWNLOAD BUTTONS (GUARANTEED NO XML / NO ACCESS DENIED ERROR) -->
-                <div class="space-y-2 pt-1 border-t border-slate-800">
-                    <button 
-                        id="downloadVideoBtn"
-                        onclick="executeDownload('video')" 
-                        class="w-full bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-slate-950 font-black py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs shadow-lg shadow-emerald-500/20 transition-all"
-                    >
-                        <i class="fa-solid fa-circle-down text-sm"></i>
-                        <span id="dlVideoText">داگرتنا ڤیدیۆیێ (Download Video MP4)</span>
-                    </button>
+                <!-- Dual Input / Output Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
                     
-                    <button 
-                        id="downloadAudioBtn"
-                        onclick="executeDownload('audio')" 
-                        class="w-full bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-slate-200 font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 border border-slate-700 text-xs transition-all"
-                    >
-                        <i class="fa-solid fa-music text-cyan-400"></i>
-                        <span id="dlAudioText">داگرتنا دەنگی ب تەنێ (Download Audio MP3)</span>
+                    <!-- Source Input Card -->
+                    <div class="glass-card rounded-2xl p-4 flex flex-col justify-between min-h-[240px] sm:min-h-[270px]">
+                        <div class="flex items-center justify-between pb-2.5 mb-2 border-b border-white/10">
+                            <span id="sourceBoxLabel" class="text-xs font-semibold text-blue-200 flex items-center gap-1.5">
+                                <i class="ph-fill ph-pencil-simple-line text-blue-400"></i>
+                                نڤیسینا بادینی بنڤیسە / Enter Badini Text
+                            </span>
+                            <button id="clearBtn" type="button"
+                                class="text-xs px-2.5 py-1 rounded-lg bg-white/5 hover:bg-rose-500/25 text-slate-300 hover:text-rose-200 border border-white/10 hover:border-rose-400/30 transition flex items-center gap-1">
+                                <i class="ph ph-trash text-sm"></i>
+                                <span>ژێبرن / Clear</span>
+                            </button>
+                        </div>
+
+                        <!-- Source Textarea -->
+                        <textarea id="sourceInput" rows="5" maxlength="1500"
+                            dir="rtl"
+                            placeholder="ل ڤێرێ ب بادینی بنڤیسە... (بۆ نموونە: تۆ چەوانی باشی؟ ئەز دێ چمە بازاری)"
+                            class="w-full flex-1 bg-transparent resize-none focus:outline-none text-base sm:text-lg leading-relaxed placeholder:text-slate-400/70 text-white font-kurdish py-1"></textarea>
+
+                        <!-- Source Footer -->
+                        <div class="flex items-center justify-between pt-3 mt-2 border-t border-white/10 text-xs text-slate-300">
+                            <span id="charCount" class="font-english">0 / 1500</span>
+                            <span class="text-slate-400 hidden sm:inline">Ctrl + Enter بۆ وەرگێڕانێ</span>
+                        </div>
+                    </div>
+
+                    <!-- Target Output Card -->
+                    <div class="glass-card rounded-2xl p-4 flex flex-col justify-between min-h-[240px] sm:min-h-[270px] relative">
+                        <div class="flex items-center justify-between pb-2.5 mb-2 border-b border-white/10">
+                            <span id="targetBoxLabel" class="text-xs font-semibold text-rose-200 flex items-center gap-1.5">
+                                <i class="ph-fill ph-sparkle text-rose-400"></i>
+                                ئەنجامێ وەرگێڕانێ / Translation Output
+                            </span>
+                            <div class="flex items-center gap-2">
+                                <button id="speakBtn" type="button"
+                                    class="text-xs px-2.5 py-1 rounded-lg bg-white/5 hover:bg-blue-500/25 text-slate-300 hover:text-white border border-white/10 hover:border-blue-400/40 transition flex items-center gap-1.5">
+                                    <i class="ph-fill ph-speaker-high text-sm text-blue-300"></i>
+                                    <span>گوهداریکرن</span>
+                                </button>
+                                <button id="copyBtn" type="button"
+                                    class="text-xs px-2.5 py-1 rounded-lg bg-white/5 hover:bg-blue-500/25 text-slate-300 hover:text-white border border-white/10 hover:border-blue-400/40 transition flex items-center gap-1.5">
+                                    <i id="copyIcon" class="ph ph-copy text-sm"></i>
+                                    <span id="copyBtnText">کۆپیکرن</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Loading Skeleton Overlay -->
+                        <div id="loadingOverlay" class="hidden absolute inset-0 bg-slate-950/65 backdrop-blur-md rounded-2xl z-10 flex flex-col items-center justify-center gap-3 p-6 text-center">
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-rose-600 flex items-center justify-center animate-spin shadow-lg shadow-rose-500/30">
+                                <i class="ph-bold ph-spinner text-2xl text-white"></i>
+                            </div>
+                            <p class="text-sm font-semibold text-white">دهێتە وەرگێڕان... / Translating...</p>
+                            <p class="text-xs text-slate-300">وەرگێڕانا زیرەک ب زاراڤێ بادینی</p>
+                        </div>
+
+                        <!-- Output Display Area -->
+                        <div id="targetOutputWrapper" class="flex-1 flex flex-col justify-between py-1">
+                            <div id="targetOutput" dir="ltr" class="w-full text-base sm:text-lg leading-relaxed text-slate-100 font-english select-all whitespace-pre-wrap break-words">
+                                <span class="text-slate-400/70 italic select-none">Translation will appear here... / وەرگێڕان دێ ل ڤێرێ دیار بیت...</span>
+                            </div>
+
+                            <!-- Optional Phonetic / Dialect Nuance Box -->
+                            <div id="nuanceBox" class="hidden mt-3 p-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-slate-200 flex flex-col gap-1">
+                                <div id="pronunciationLine" class="hidden flex items-center gap-1.5 text-blue-200 font-english" dir="ltr">
+                                    <i class="ph-fill ph-speaker-high text-blue-400"></i>
+                                    <span class="font-semibold">شێوازێ خاندنێ (لاتینی):</span>
+                                    <span id="pronunciationText" class="italic text-white"></span>
+                                </div>
+                                <div id="noteLine" class="hidden flex items-start gap-1.5 text-rose-200">
+                                    <i class="ph-fill ph-info text-rose-400 mt-0.5"></i>
+                                    <span id="noteText" class="text-slate-200"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Target Footer -->
+                        <div class="flex items-center justify-between pt-3 mt-2 border-t border-white/10 text-xs text-slate-300">
+                            <span id="statusIndicator" class="flex items-center gap-1.5 text-slate-400">
+                                <i class="ph-fill ph-check-circle text-emerald-400"></i>
+                                ئامادەیە بۆ وەرگێڕانێ / Ready
+                            </span>
+                            <button id="useAsSourceBtn" type="button" class="hidden text-blue-300 hover:text-white underline underline-offset-4 transition text-xs">
+                                بکارئینان وەک نڤیسینا سەرەکی / Use as input
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Translate CTA Button -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-1">
+                    <!-- Error / Status Toast Banner inside form if needed -->
+                    <div id="errorBanner" class="hidden w-full sm:w-auto flex-1 px-4 py-2.5 rounded-xl bg-rose-500/20 border border-rose-400/40 text-rose-100 text-xs sm:text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-warning-circle text-lg text-rose-400 flex-shrink-0"></i>
+                        <span id="errorText"></span>
+                    </div>
+
+                    <button id="translateBtn" type="button"
+                        class="w-full sm:w-auto sm:min-w-[260px] mr-auto btn-gradient text-white font-bold py-3.5 px-8 rounded-2xl flex items-center justify-center gap-3 text-base shadow-xl cursor-pointer">
+                        <i class="ph-bold ph-magic-wand text-xl"></i>
+                        <span>وەرگێڕان بکە / Translate</span>
                     </button>
                 </div>
-            </div>
+            </section>
+
+            <!-- Quick Common Badini Phrases (Chips) -->
+            <section class="glass-panel rounded-3xl p-4 sm:p-6 flex flex-col gap-3.5">
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-300">
+                            <i class="ph-fill ph-chats-circle text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm sm:text-base font-bold text-white">
+                                رستێن بەربەلاڤ ب بادینی / Common Badini Phrases
+                            </h3>
+                            <p class="text-xs text-slate-300">کلیک ل سەر هەر رستەکێ بکە دا راستەوخۆ بهێتە وەرگێڕان</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="quickChipsContainer" class="flex flex-wrap gap-2.5 pt-1">
+                    <!-- Populated dynamically by JS -->
+                </div>
+            </section>
+
+            <!-- Translation History Section -->
+            <section class="glass-panel rounded-3xl p-4 sm:p-6 flex flex-col gap-4">
+                <div class="flex items-center justify-between flex-wrap gap-2 border-b border-white/10 pb-3">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-xl bg-rose-500/20 border border-rose-400/30 flex items-center justify-center text-rose-300">
+                            <i class="ph-fill ph-clock-counter-clockwise text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm sm:text-base font-bold text-white">
+                                دیرۆکا وەرگێڕانێ / Translation History
+                            </h3>
+                            <p class="text-xs text-slate-300">وەرگێڕانێن تە یێن دوماهیێ د ڤێ روونشتنێ دا</p>
+                        </div>
+                    </div>
+
+                    <button id="clearHistoryBtn" type="button"
+                        class="hidden text-xs px-3 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/30 text-rose-200 border border-rose-400/30 transition flex items-center gap-1.5">
+                        <i class="ph ph-trash-simple"></i>
+                        <span>پاقژکرنا دیرۆکێ / Clear History</span>
+                    </button>
+                </div>
+
+                <!-- History Items List -->
+                <div id="historyList" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <!-- Empty state shown by default -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center text-xs text-slate-400 py-3 flex items-center justify-center border-t border-white/10">
+            <p>وەرگێڕێ بادینی - ئینگلیزی</p>
+        </footer>
+    </div>
+
+    <!-- Floating Notification Toast -->
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-4 transition-all duration-300">
+        <div class="glass-panel px-4 py-2.5 rounded-2xl border border-white/25 shadow-2xl flex items-center gap-2.5 text-xs sm:text-sm text-white">
+            <i id="toastIcon" class="ph-fill ph-check-circle text-emerald-400 text-lg"></i>
+            <span id="toastMessage">هاتە کۆپیکرن! / Copied!</span>
         </div>
-
-        <!-- Features Badges -->
-        <div class="grid grid-cols-2 gap-2.5 w-full">
-            <div class="glass-card p-3 rounded-xl text-center space-y-1">
-                <i class="fa-solid fa-bolt text-cyan-400 text-base"></i>
-                <h4 class="font-bold text-white text-[11px]">داگرتنا راستەوخۆ</h4>
-                <p class="text-[9px] text-slate-400">ب بێ چوونا سەر هیچ لینکه کا شاش</p>
-            </div>
-
-            <div class="glass-card p-3 rounded-xl text-center space-y-1">
-                <i class="fa-solid fa-shield-halved text-emerald-400 text-base"></i>
-                <h4 class="font-bold text-white text-[11px]">بێ وۆتەرمارک</h4>
-                <p class="text-[9px] text-slate-400">100% کوالیتییا زەڵال و ئێکسپۆرت</p>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="w-full border-t border-slate-800/80 bg-slate-950 py-3.5 text-center text-[10px] text-slate-500">
-        <p>© 2026 CapCut Downloader - ب بێ ئاریشەیا Google AccessDenied</p>
-    </footer>
+    </div>
 
     <script>
-        // Global variables holding pure dynamically created Blobs (Zero XML/AccessDenied Errors)
-        let activeVideoBlobUrl = null;
-        let activeAudioBlobUrl = null;
+        // --- Application State ---
+        let direction = 'badini-to-en'; // 'badini-to-en' | 'en-to-badini'
+        let isTranslating = false;
+        let lastTranslatedText = '';
+        let translationHistory = [];
 
-        // Initialize dynamic generated media on load to ensure offline & reliable capability
-        window.addEventListener('DOMContentLoaded', () => {
-            generateDynamicMedia();
-        });
+        // Common Badini Phrases & Instant Fallback Dictionary
+        const commonPhrases = [
+            { badini: 'تۆ چەوانی باشی', en: 'How are you, doing well?', lat: 'To çewanî başî?', label: 'تۆ چەوانی باشی', hint: 'How are you?' },
+            { badini: 'سەر چاڤان', en: 'With pleasure / You are very welcome', lat: 'Ser çavan', label: 'سەر چاڤان', hint: 'With pleasure' },
+            { badini: 'ئەز دێ چمە بازاری', en: 'I am going to the market', lat: 'Ez dê çime bazarî', label: 'ئەز دێ چمە بازاری', hint: 'Going to the market' },
+            { badini: 'گەلەک سوپاس بۆ هاریکاریا تە', en: 'Thank you very much for your help', lat: 'Gelek supas bo harîkariya te', label: 'گەلەک سوپاس بۆ هاریکاریا تە', hint: 'Thank you for your help' },
+            { badini: 'بهایێ ڤێ چەندە؟', en: 'How much does this cost?', lat: 'Bihayê vê çende?', label: 'بهایێ ڤێ چەندە؟', hint: 'How much is this?' },
+            { badini: 'ب خێر هاتی', en: 'Welcome', lat: 'Bi xêr hatî', label: 'ب خێر هاتی', hint: 'Welcome' },
+            { badini: 'دەنگ و باسێن تە چنە؟', en: 'What is your news? / How have you been?', lat: 'Deng û basên te çine?', label: 'دەنگ و باسێن تە چنە؟', hint: 'What is your news?' },
+            { badini: 'هیڤیدارم رۆژەکا خۆش ببۆرینی', en: 'I hope you have a wonderful day', lat: 'Hîvîdarim rojeka xoş biborînî', label: 'هیڤیدارم رۆژەکا خۆش ببۆرینی', hint: 'Have a great day' }
+        ];
 
-        // Generate a fully valid local animated video blob using HTML5 Canvas & Web Audio API
-        function generateDynamicMedia() {
-            try {
-                // 1. Create Dynamic Animated Canvas Video Blob
-                const canvas = document.createElement('canvas');
-                canvas.width = 720;
-                canvas.height = 1280;
-                const ctx = canvas.getContext('2d');
-                
-                const stream = canvas.captureStream(30); // 30 FPS
-                
-                // Web Audio API Synth Tone
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const dest = audioCtx.createMediaStreamDestination();
-                const osc = audioCtx.createOscillator();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(440, audioCtx.currentTime);
-                osc.connect(dest);
-                osc.start();
+        // --- DOM Elements ---
+        const sourceLangTitle = document.getElementById('sourceLangTitle');
+        const targetLangTitle = document.getElementById('targetLangTitle');
+        const sourceLangFlag = document.getElementById('sourceLangFlag');
+        const targetLangFlag = document.getElementById('targetLangFlag');
+        const sourceDirTag = document.getElementById('sourceDirTag');
+        const targetDirTag = document.getElementById('targetDirTag');
+        const sourceBoxLabel = document.getElementById('sourceBoxLabel');
+        const targetBoxLabel = document.getElementById('targetBoxLabel');
+        const swapBtn = document.getElementById('swapBtn');
+        const sourceInput = document.getElementById('sourceInput');
+        const targetOutput = document.getElementById('targetOutput');
+        const charCount = document.getElementById('charCount');
+        const clearBtn = document.getElementById('clearBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const speakBtn = document.getElementById('speakBtn');
+        const copyIcon = document.getElementById('copyIcon');
+        const copyBtnText = document.getElementById('copyBtnText');
+        const translateBtn = document.getElementById('translateBtn');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const nuanceBox = document.getElementById('nuanceBox');
+        const pronunciationLine = document.getElementById('pronunciationLine');
+        const pronunciationText = document.getElementById('pronunciationText');
+        const noteLine = document.getElementById('noteLine');
+        const noteText = document.getElementById('noteText');
+        const statusIndicator = document.getElementById('statusIndicator');
+        const useAsSourceBtn = document.getElementById('useAsSourceBtn');
+        const errorBanner = document.getElementById('errorBanner');
+        const errorText = document.getElementById('errorText');
+        const quickChipsContainer = document.getElementById('quickChipsContainer');
+        const historyList = document.getElementById('historyList');
+        const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
 
-                // Combine stream
-                const combinedStream = new MediaStream([
-                    ...stream.getVideoTracks(),
-                    ...dest.getStreamTracks()
-                ]);
+        // --- Helper: Show Toast Notification ---
+        let toastTimer = null;
+        function showToast(msg) {
+            toastMessage.textContent = msg;
+            toast.classList.remove('opacity-0', 'translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-4');
+                toast.classList.remove('opacity-100', 'translate-y-0');
+            }, 2600);
+        }
 
-                let recorder;
-                let chunks = [];
-
-                if (typeof MediaRecorder !== 'undefined') {
-                    recorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm' });
-                    recorder.ondataavailable = (e) => chunks.push(e.data);
-                    recorder.onstop = () => {
-                        const blob = new Blob(chunks, { type: 'video/mp4' });
-                        activeVideoBlobUrl = URL.createObjectURL(blob);
-                    };
-                    recorder.start();
-                }
-
-                // Render Canvas Frames
-                let frame = 0;
-                function drawCanvas() {
-                    if (frame > 150) { // ~5 seconds video
-                        if (recorder && recorder.state === 'recording') {
-                            recorder.stop();
-                            osc.stop();
-                        }
-                        return;
-                    }
-
-                    // Background Gradient
-                    const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-                    grad.addColorStop(0, '#0f172a');
-                    grad.addColorStop(0.5, '#7928ca');
-                    grad.addColorStop(1, '#00f2fe');
-                    ctx.fillStyle = grad;
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                    // Text & Logo Overlay
-                    ctx.fillStyle = '#ffffff';
-                    ctx.font = 'bold 42px sans-serif';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('CapCut Video HD', canvas.width / 2, canvas.height / 2 - 40);
-
-                    ctx.fillStyle = '#00f2fe';
-                    ctx.font = '30px sans-serif';
-                    ctx.fillText('No Watermark Download', canvas.width / 2, canvas.height / 2 + 20);
-
-                    ctx.fillStyle = '#ffffff';
-                    ctx.font = '22px sans-serif';
-                    ctx.fillText(`Frame: ${frame}`, canvas.width / 2, canvas.height / 2 + 80);
-
-                    frame++;
-                    requestAnimationFrame(drawCanvas);
-                }
-
-                drawCanvas();
-
-                // 2. Create Standalone Dynamic MP3 Audio Blob
-                const audioBlob = new Blob([new Uint8Array([255, 251, 144, 0])], { type: 'audio/mp3' });
-                activeAudioBlobUrl = URL.createObjectURL(audioBlob);
-
-            } catch (err) {
-                console.log("Fallback dynamic generation:", err);
+        // --- Helper: Show/Hide Error Banner ---
+        function setErrorMessage(msg) {
+            if (!msg) {
+                errorBanner.classList.add('hidden');
+                errorText.textContent = '';
+            } else {
+                errorText.textContent = msg;
+                errorBanner.classList.remove('hidden');
             }
         }
 
-        // Paste action from clipboard
-        async function handlePasteClipboard() {
-            hideError();
-            try {
-                if (navigator.clipboard && navigator.clipboard.readText) {
-                    const text = await navigator.clipboard.readText();
-                    if (text) {
-                        document.getElementById('videoUrl').value = text.trim();
-                        return;
-                    }
-                }
-                showError('تکایە ب شێوەیەکێ دەستی لینکێ خۆ بپەیست بکه.');
-            } catch (err) {
-                showError('دەستوورییا پەیستکرنێ نەهاتە دان. تکایە بە دەست پەیست بکە.');
+        // --- Update UI for Language Direction ---
+        function updateLanguageDirectionUI() {
+            const isBadiniSource = direction === 'badini-to-en';
+
+            if (isBadiniSource) {
+                sourceLangTitle.textContent = 'کوردی (بادینی)';
+                targetLangTitle.textContent = 'ئینگلیزی - English';
+                sourceLangFlag.textContent = 'کوردی';
+                targetLangFlag.textContent = 'EN';
+                sourceDirTag.textContent = 'RTL';
+                targetDirTag.textContent = 'LTR';
+                sourceBoxLabel.innerHTML = '<i class="ph-fill ph-pencil-simple-line text-blue-400"></i> نڤیسینا بادینی بنڤیسە / Enter Badini Text';
+                targetBoxLabel.innerHTML = '<i class="ph-fill ph-sparkle text-rose-400"></i> وەرگێڕانا ئینگلیزی / English Output';
+
+                sourceInput.setAttribute('dir', 'rtl');
+                sourceInput.classList.remove('font-english');
+                sourceInput.classList.add('font-kurdish');
+                sourceInput.placeholder = 'ل ڤێرێ ب بادینی بنڤیسە... (بۆ نموونە: تۆ چەوانی باشی؟ ئەز دێ چمە بازاری)';
+
+                targetOutput.setAttribute('dir', 'ltr');
+                targetOutput.classList.remove('font-kurdish');
+                targetOutput.classList.add('font-english');
+            } else {
+                sourceLangTitle.textContent = 'ئینگلیزی - English';
+                targetLangTitle.textContent = 'کوردی (بادینی)';
+                sourceLangFlag.textContent = 'EN';
+                targetLangFlag.textContent = 'کوردی';
+                sourceDirTag.textContent = 'LTR';
+                targetDirTag.textContent = 'RTL';
+                sourceBoxLabel.innerHTML = '<i class="ph-fill ph-pencil-simple-line text-blue-400"></i> نڤیسینا ئینگلیزی بنڤیسە / Enter English Text';
+                targetBoxLabel.innerHTML = '<i class="ph-fill ph-sparkle text-rose-400"></i> وەرگێڕانا بادینی / Badini Output';
+
+                sourceInput.setAttribute('dir', 'ltr');
+                sourceInput.classList.remove('font-kurdish');
+                sourceInput.classList.add('font-english');
+                sourceInput.placeholder = 'Type English text here to translate into Badini Kurdish... (e.g., How are you doing today?)';
+
+                targetOutput.setAttribute('dir', 'rtl');
+                targetOutput.classList.remove('font-english');
+                targetOutput.classList.add('font-kurdish');
+            }
+
+            if (!lastTranslatedText) {
+                renderPlaceholderOutput();
             }
         }
 
-        // Load sample CapCut Link
-        function loadSampleLink() {
-            document.getElementById('videoUrl').value = "https://www.capcut.com/template-detail/738291049281039485";
-            hideError();
+        function renderPlaceholderOutput() {
+            targetOutput.innerHTML = '<span class="text-slate-400/70 italic select-none">Translation will appear here... / وەرگێڕان دێ ل ڤێرێ دیار بیت...</span>';
+            nuanceBox.classList.add('hidden');
+            useAsSourceBtn.classList.add('hidden');
         }
 
-        function showError(msg) {
-            const alertBox = document.getElementById('errorAlert');
-            const errorMsg = document.getElementById('errorMessage');
-            errorMsg.innerText = msg;
-            alertBox.classList.remove('hidden');
+        // --- Render Quick Chips ---
+        function renderQuickChips() {
+            quickChipsContainer.innerHTML = '';
+            commonPhrases.forEach((item) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'glass-chip px-3.5 py-2 rounded-xl text-xs sm:text-sm text-white flex items-center gap-2 cursor-pointer';
+                btn.innerHTML = `
+                    <span class="font-semibold font-kurdish">${item.label}</span>
+                    <span class="text-[11px] text-blue-200/80 font-english border-r border-white/15 pr-2 hidden sm:inline" dir="ltr">${item.hint}</span>
+                `;
+                btn.addEventListener('click', () => {
+                    if (direction !== 'badini-to-en') {
+                        direction = 'badini-to-en';
+                        updateLanguageDirectionUI();
+                    }
+                    sourceInput.value = item.badini;
+                    updateCharCounter();
+                    performTranslation();
+                });
+                quickChipsContainer.appendChild(btn);
+            });
         }
 
-        function hideError() {
-            document.getElementById('errorAlert').classList.add('hidden');
+        // --- Gemini API Call with Exponential Backoff ---
+        async function callGeminiTranslator(inputText, currentDirection) {
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            const systemPrompt = `You are an expert bilingual linguist and native-level translator specializing in the Badini Kurdish dialect (Bahdini / Kurmanji written in standard Kurdish Arabic script) and English.
+
+Rules for translation:
+1. When translating from Badini Kurdish to English:
+   - Accurately interpret Badini vocabulary, idioms, cultural expressions (such as 'سەر چاڤان', 'ب خێر هاتی', 'خودێ ژ تە رازی بیت', future marker 'دێ', pronouns 'ئەز', 'تۆ', 'ئەم', 'هوین').
+   - Provide natural, fluent, and accurate English.
+2. When translating from English to Badini Kurdish:
+   - Translate into authentic, natural Badini Kurdish written in clear Kurdish Arabic script (using standard letters like ڤ, پ, چ, ژ, گ, ێ, ۆ, ر, ڵ).
+   - Strictly use Badini Kurdish grammar and vocabulary (e.g., use 'ئەز دێ چم', 'تۆ چەوانی', 'باژێر', 'ئاخڤتن', 'گەلەک', 'نەخێر / بەلێ') and avoid Sorani-only forms.
+3. Return a JSON object matching the requested schema with:
+   - "translation": The direct translated text only.
+   - "pronunciation": Latin Kurdish (Kurmancî/Badînî) phonetic pronunciation guide of the Badini text.
+   - "dialectNote": A brief 1-sentence friendly note explaining any cultural nuance or literal meaning if relevant (or empty string if straightforward).`;
+
+            const directionInstruction = currentDirection === 'badini-to-en'
+                ? `Translate the following Badini Kurdish text into natural English:\n\n"${inputText}"`
+                : `Translate the following English text into natural Badini Kurdish (written in Arabic script):\n\n"${inputText}"`;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: directionInstruction }]
+                }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            translation: { type: "STRING" },
+                            pronunciation: { type: "STRING" },
+                            dialectNote: { type: "STRING" }
+                        },
+                        propertyOrdering: ["translation", "pronunciation", "dialectNote"]
+                    }
+                }
+            };
+
+            const delays = [1000, 2000, 4000];
+            let attempt = 0;
+
+            while (attempt <= delays.length) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP status ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const rawText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (!rawText) {
+                        throw new Error("Empty response from AI model");
+                    }
+
+                    try {
+                        return JSON.parse(rawText);
+                    } catch {
+                        return { translation: rawText.trim(), pronunciation: "", dialectNote: "" };
+                    }
+                } catch (err) {
+                    if (attempt === delays.length) {
+                        throw err;
+                    }
+                    await new Promise(res => setTimeout(res, delays[attempt]));
+                    attempt++;
+                }
+            }
         }
 
-        // Handle Video Search / Fetch
-        function handleFetchVideo(e) {
-            e.preventDefault();
-            hideError();
+        // --- Execute Translation ---
+        async function performTranslation() {
+            const text = sourceInput.value.trim();
+            setErrorMessage('');
 
-            const inputUrl = document.getElementById('videoUrl').value.trim();
-
-            if (!inputUrl) {
-                showError('تکایە لینکەکێ دروست داخل بکە!');
+            if (!text) {
+                setErrorMessage('هیڤیە نڤیسینەکێ بنڤیسە دا بهێتە وەرگێڕان / Please enter some text to translate.');
+                sourceInput.focus();
                 return;
             }
 
-            const loadingBox = document.getElementById('loadingBox');
-            const resultCard = document.getElementById('resultCard');
-            const submitBtn = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btnText');
+            if (isTranslating) return;
+            isTranslating = true;
+            loadingOverlay.classList.remove('hidden');
+            translateBtn.disabled = true;
+            translateBtn.classList.add('opacity-70', 'cursor-not-allowed');
+            statusIndicator.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-blue-400"></i> دهێتە وەرگێڕان...';
 
-            resultCard.classList.add('hidden');
-            loadingBox.classList.remove('hidden');
-            submitBtn.disabled = true;
-            btnText.innerText = "لێکدانەڤە (Fetching)...";
+            try {
+                // Check exact instant match first or call Gemini AI
+                const exactPreset = commonPhrases.find(p =>
+                    direction === 'badini-to-en'
+                        ? p.badini === text || p.badini + '؟' === text
+                        : p.en.toLowerCase() === text.toLowerCase()
+                );
 
-            // Simulated Fast & Reliable Fetch
-            setTimeout(() => {
-                loadingBox.classList.add('hidden');
-                submitBtn.disabled = false;
-                btnText.innerText = "ڤیدیۆ بینە (Fetch Video)";
-
-                const videoPreview = document.getElementById('videoPreview');
-                
-                // Use guaranteed generated Blob URL or reliable CORS video stream
-                if (activeVideoBlobUrl) {
-                    videoPreview.src = activeVideoBlobUrl;
-                } else {
-                    // Backup working CORS public mp4
-                    videoPreview.src = "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4";
+                let data;
+                try {
+                    data = await callGeminiTranslator(text, direction);
+                } catch (apiErr) {
+                    if (exactPreset) {
+                        data = {
+                            translation: direction === 'badini-to-en' ? exactPreset.en : exactPreset.badini,
+                            pronunciation: exactPreset.lat,
+                            dialectNote: ''
+                        };
+                    } else {
+                        throw apiErr;
+                    }
                 }
 
-                videoPreview.load();
+                const translated = (data.translation || '').trim();
+                lastTranslatedText = translated;
 
-                resultCard.classList.remove('hidden');
-                resultCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 1000);
+                targetOutput.textContent = translated;
+                useAsSourceBtn.classList.remove('hidden');
+
+                // Display pronunciation or dialect note if available
+                const hasPron = data.pronunciation && data.pronunciation.trim().length > 0;
+                const hasNote = data.dialectNote && data.dialectNote.trim().length > 0;
+
+                if (hasPron || hasNote) {
+                    nuanceBox.classList.remove('hidden');
+                    if (hasPron) {
+                        pronunciationLine.classList.remove('hidden');
+                        pronunciationText.textContent = data.pronunciation.trim();
+                    } else {
+                        pronunciationLine.classList.add('hidden');
+                    }
+                    if (hasNote) {
+                        noteLine.classList.remove('hidden');
+                        noteText.textContent = data.dialectNote.trim();
+                    } else {
+                        noteLine.classList.add('hidden');
+                    }
+                } else {
+                    nuanceBox.classList.add('hidden');
+                }
+
+                statusIndicator.innerHTML = '<i class="ph-fill ph-check-circle text-emerald-400"></i> ب سەرکەفتیانە هاتە وەرگێڕان / Translated';
+
+                // Save to Session History
+                addToHistory({
+                    id: Date.now(),
+                    source: text,
+                    target: translated,
+                    pronunciation: data.pronunciation || '',
+                    direction: direction,
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                });
+
+            } catch (error) {
+                setErrorMessage('ئاریشەیەک د پەیوەندیێ دا چێبوو، هیڤیە دووبارە هەول بدە / Translation failed. Please try again.');
+                statusIndicator.innerHTML = '<i class="ph-fill ph-warning-circle text-rose-400"></i> خەلەتی پەیدا بوو / Error';
+            } finally {
+                isTranslating = false;
+                loadingOverlay.classList.add('hidden');
+                translateBtn.disabled = false;
+                translateBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+            }
         }
 
-        // GUARANTEED DOWNLOAD EXECUTION - NO BROKEN LINKS / NO XML ACCESS DENIED
-        function executeDownload(type) {
-            const btnId = type === 'video' ? 'downloadVideoBtn' : 'downloadAudioBtn';
-            const textId = type === 'video' ? 'dlVideoText' : 'dlAudioText';
-            const btn = document.getElementById(btnId);
-            const txt = document.getElementById(textId);
+        // --- Text to Speech (گوهداریکرن) ---
+        function speakOutputText() {
+            if (!lastTranslatedText) {
+                showToast('چ نڤیسین نینن بۆ گوهداریکرنێ!');
+                return;
+            }
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(lastTranslatedText);
+                utterance.lang = direction === 'badini-to-en' ? 'en-US' : 'ar-IQ';
+                window.speechSynthesis.speak(utterance);
+                showToast('گوهداریکرن دەستپێکر 🔊');
+            } else {
+                showToast('گەڕۆکێ تە پشتگیریا دەنگی ناکەت');
+            }
+        }
 
-            const originalText = txt.innerText;
-            txt.innerText = "داگرتن دەستپێکر...";
+        // --- History Management ---
+        function addToHistory(entry) {
+            translationHistory = translationHistory.filter(
+                item => !(item.source === entry.source && item.direction === entry.direction)
+            );
+            translationHistory.unshift(entry);
+            if (translationHistory.length > 10) {
+                translationHistory.pop();
+            }
+            renderHistory();
+        }
 
-            // Determine Target Blob
-            let targetUrl = type === 'video' ? activeVideoBlobUrl : activeAudioBlobUrl;
-            
-            if (!targetUrl) {
-                targetUrl = "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4";
+        function renderHistory() {
+            historyList.innerHTML = '';
+
+            if (translationHistory.length === 0) {
+                clearHistoryBtn.classList.add('hidden');
+                historyList.innerHTML = `
+                    <div class="col-span-full py-8 text-center text-slate-400 flex flex-col items-center gap-2">
+                        <i class="ph-duotone ph-translate text-3xl text-slate-500"></i>
+                        <p class="text-xs sm:text-sm">هێشتا چ وەرگێڕان نەهاتینە کرن / No translations yet in this session.</p>
+                    </div>
+                `;
+                return;
             }
 
-            const fileName = type === 'video' ? "CapCut_HD_NoWatermark.mp4" : "CapCut_Audio_Track.mp3";
+            clearHistoryBtn.classList.remove('hidden');
 
-            // Force direct browser download via Blob Anchor trigger
-            const anchor = document.createElement('a');
-            anchor.style.display = 'none';
-            anchor.href = targetUrl;
-            anchor.download = fileName;
-
-            document.body.appendChild(anchor);
-            anchor.click();
-
-            setTimeout(() => {
-                document.body.removeChild(anchor);
-                txt.innerText = originalText;
-            }, 800);
+            translationHistory.forEach((item) => {
+                const isBadiniToEn = item.direction === 'badini-to-en';
+                const card = document.createElement('div');
+                card.className = 'glass-card rounded-2xl p-3.5 flex flex-col justify-between gap-2.5 hover:border-white/30 cursor-pointer group';
+                card.innerHTML = `
+                    <div class="flex items-center justify-between text-[11px] text-slate-400 border-b border-white/10 pb-1.5">
+                        <span class="px-2 py-0.5 rounded-md bg-white/10 text-slate-200 font-medium">
+                            ${isBadiniToEn ? 'بادینی ← ئینگلیزی' : 'English → بادینی'}
+                        </span>
+                        <span class="font-english" dir="ltr">${item.timestamp}</span>
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <p dir="${isBadiniToEn ? 'rtl' : 'ltr'}" class="text-sm font-semibold text-white line-clamp-2 ${isBadiniToEn ? 'font-kurdish' : 'font-english'}">
+                            ${escapeHtml(item.source)}
+                        </p>
+                        <p dir="${isBadiniToEn ? 'ltr' : 'rtl'}" class="text-sm text-blue-200 line-clamp-2 ${isBadiniToEn ? 'font-english' : 'font-kurdish'}">
+                            ${escapeHtml(item.target)}
+                        </p>
+                    </div>
+                `;
+                card.addEventListener('click', () => {
+                    direction = item.direction;
+                    updateLanguageDirectionUI();
+                    sourceInput.value = item.source;
+                    updateCharCounter();
+                    lastTranslatedText = item.target;
+                    targetOutput.textContent = item.target;
+                    useAsSourceBtn.classList.remove('hidden');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                historyList.appendChild(card);
+            });
         }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        // --- Character Counter ---
+        function updateCharCounter() {
+            const len = sourceInput.value.length;
+            charCount.textContent = `${len} / 1500`;
+        }
+
+        // --- Clipboard Copy (using execCommand for iframe compatibility) ---
+        function copyTranslationToClipboard() {
+            if (!lastTranslatedText) {
+                showToast('چ نڤیسین نینن بۆ کۆپی کرنێ! / Nothing to copy yet');
+                return;
+            }
+
+            const tempTextarea = document.createElement('textarea');
+            tempTextarea.value = lastTranslatedText;
+            tempTextarea.style.position = 'fixed';
+            tempTextarea.style.opacity = '0';
+            document.body.appendChild(tempTextarea);
+            tempTextarea.select();
+
+            try {
+                document.execCommand('copy');
+                copyIcon.className = 'ph-bold ph-check text-emerald-400 text-sm';
+                copyBtnText.textContent = 'هاتە کۆپی کرن / Copied!';
+                showToast('وەرگێڕان هاتە کۆپی کرن! / Translation copied to clipboard');
+                setTimeout(() => {
+                    copyIcon.className = 'ph ph-copy text-sm';
+                    copyBtnText.textContent = 'کۆپی کرن / Copy';
+                }, 2000);
+            } catch (err) {
+                showToast('کۆپی نەبوو / Copy failed');
+            } finally {
+                document.body.removeChild(tempTextarea);
+            }
+        }
+
+        // --- Event Listeners ---
+        sourceInput.addEventListener('input', updateCharCounter);
+
+        sourceInput.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                performTranslation();
+            }
+        });
+
+        swapBtn.addEventListener('click', () => {
+            direction = direction === 'badini-to-en' ? 'en-to-badini' : 'badini-to-en';
+            // If there is already a translation, swap source and target texts for convenience
+            if (lastTranslatedText) {
+                sourceInput.value = lastTranslatedText;
+                lastTranslatedText = '';
+                updateCharCounter();
+            }
+            updateLanguageDirectionUI();
+        });
+
+        clearBtn.addEventListener('click', () => {
+            sourceInput.value = '';
+            lastTranslatedText = '';
+            updateCharCounter();
+            setErrorMessage('');
+            renderPlaceholderOutput();
+            sourceInput.focus();
+        });
+
+        copyBtn.addEventListener('click', copyTranslationToClipboard);
+        speakBtn.addEventListener('click', speakOutputText);
+
+        useAsSourceBtn.addEventListener('click', () => {
+            if (!lastTranslatedText) return;
+            direction = direction === 'badini-to-en' ? 'en-to-badini' : 'badini-to-en';
+            sourceInput.value = lastTranslatedText;
+            lastTranslatedText = '';
+            updateCharCounter();
+            updateLanguageDirectionUI();
+            performTranslation();
+        });
+
+        translateBtn.addEventListener('click', performTranslation);
+
+        clearHistoryBtn.addEventListener('click', () => {
+            translationHistory = [];
+            renderHistory();
+            showToast('دیرۆکا وەرگێڕانێ هاتە پاقژکرن / History cleared');
+        });
+
+        // --- Initialize on Load ---
+        window.onload = function () {
+            updateLanguageDirectionUI();
+            renderQuickChips();
+            renderHistory();
+        };
     </script>
 </body>
 </html>
