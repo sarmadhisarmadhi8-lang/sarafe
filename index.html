@@ -10,7 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Outfit:wght@400;500;700;800&family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Pure White & Red/Blue Neon Theme */
       --bg-darker: #f8fafc; 
       --bg-dark: #ffffff; 
       --card-bg: #ffffff; 
@@ -212,7 +211,7 @@
     /* EXCHANGE PANEL */
     .panel-card { margin-bottom: 40px; animation: floatWave 6s ease-in-out infinite; transition: transform 0.1s ease-out;}
     .panel-card:hover { animation-play-state: paused; }
-    .panel-header { padding: 20px 25px; font-weight: 800; font-size: 1.25rem; color: #0f172a; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 21px 21px 0 0;}
+    .panel-header { padding: 20px 25px; font-weight: 800; font-size: 1.25rem; color: #0f172a; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; background: #f8fafc; border-radius: 21px 21px 0 0;}
     
     .convert-body { padding: 35px; transform: translateZ(20px); background: #ffffff; border-radius: 0 0 21px 21px; }
     .swap-container { position: relative; display: flex; flex-direction: column; gap: 20px; }
@@ -261,6 +260,99 @@
     .btn-execute:hover { transform: translateZ(30px) translateY(-3px) scale(1.02); box-shadow: 0 15px 40px rgba(255, 0, 60, 0.35); }
     .btn-execute:active { transform: translateZ(10px) translateY(1px); }
     .btn-execute:disabled { background: #e2e8f0; color: #94a3b8; cursor: not-allowed; box-shadow: none; transform: none; }
+
+    /* --- SEARCH BAR & PAGINATION IN HISTORY --- */
+    .history-search-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-width: 250px;
+      flex: 1;
+      max-width: 320px;
+    }
+    .history-search-input {
+      width: 100%;
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 10px 16px 10px 38px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #0f172a;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+    .history-search-input:focus {
+      border-color: var(--neon-blue);
+      box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.12);
+    }
+    .history-search-clear {
+      position: absolute;
+      left: 12px;
+      background: transparent;
+      border: none;
+      color: #64748b;
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: none;
+    }
+    .history-search-clear:hover { color: var(--neon-red); }
+
+    .receipt-id-pill {
+      display: inline-block;
+      background: #f0f7ff;
+      color: var(--neon-blue);
+      border: 1px solid rgba(0, 102, 255, 0.25);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-family: 'Outfit', monospace !important;
+      font-weight: 800;
+      direction: ltr;
+    }
+
+    .pagination-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+      flex-wrap: wrap;
+    }
+    .page-btn {
+      min-width: 40px;
+      height: 40px;
+      padding: 0 12px;
+      border-radius: 12px;
+      border: 2px solid #e2e8f0;
+      background: #ffffff;
+      color: #0f172a;
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .page-btn:hover:not(:disabled) {
+      border-color: var(--neon-blue);
+      color: var(--neon-blue);
+      transform: translateY(-2px);
+    }
+    .page-btn.active {
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-red));
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 6px 15px rgba(0, 102, 255, 0.3);
+    }
+    .page-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
 
     /* TABLES */
     .table-wrap { padding: 10px 25px 25px; overflow-x: auto; background: #ffffff; border-radius: 0 0 21px 21px; }
@@ -324,7 +416,7 @@
       flex-direction: column;
       align-items: center;
       width: 100%;
-      max-width: 400px;
+      max-width: 410px;
       animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
@@ -333,7 +425,7 @@
       color: #0f172a;
       width: 100%;
       border-radius: 16px;
-      padding: 28px 24px;
+      padding: 26px 22px;
       box-shadow: 0 25px 60px rgba(0,0,0,0.35);
       position: relative;
       border-top: 6px solid #0f172a;
@@ -342,33 +434,33 @@
     .receipt-header {
       text-align: center;
       border-bottom: 2px dashed #cbd5e1;
-      padding-bottom: 16px;
-      margin-bottom: 18px;
+      padding-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .receipt-logo-badge {
-      width: 52px;
-      height: 52px;
+      width: 50px;
+      height: 50px;
       background: #0f172a;
       color: #fff;
       border-radius: 14px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 800;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .receipt-company-name {
-      font-size: 1.75rem;
+      font-size: 1.7rem;
       font-weight: 800;
       color: #0f172a;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .receipt-subtitle {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: #475569;
       font-weight: 600;
     }
@@ -376,9 +468,9 @@
     .receipt-meta {
       display: flex;
       justify-content: space-between;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       color: #334155;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       font-weight: 700;
     }
 
@@ -387,76 +479,76 @@
       font-family: 'Outfit', monospace !important;
     }
 
-    .receipt-currency-row {
+    .receipt-divider {
+      border-top: 2px dashed #cbd5e1;
+      margin: 14px 0;
+    }
+
+    /* Dual Transaction Boxes on Receipt */
+    .receipt-box-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .receipt-trans-box {
+      border-radius: 12px;
+      padding: 12px 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #f1f5f9;
-      padding: 10px 14px;
-      border-radius: 10px;
-      margin: 12px 0;
-      font-size: 0.95rem;
+      border: 1.5px solid #cbd5e1;
+    }
+    .receipt-box-give {
+      background: #fff5f5;
+      border-color: rgba(255, 0, 60, 0.25);
+    }
+    .receipt-box-receive {
+      background: #f0f7ff;
+      border-color: rgba(0, 102, 255, 0.25);
+    }
+
+    .receipt-trans-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .receipt-trans-tag {
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+    .receipt-box-give .receipt-trans-tag { color: var(--neon-red); }
+    .receipt-box-receive .receipt-trans-tag { color: var(--neon-blue); }
+
+    .receipt-trans-currname {
+      font-size: 0.88rem;
       font-weight: 800;
       color: #0f172a;
     }
 
-    .receipt-divider {
-      border-top: 2px dashed #cbd5e1;
-      margin: 16px 0;
-    }
-
-    .receipt-amount-box {
-      background: #f8fafc;
-      border: 2px solid #0f172a;
-      border-radius: 14px;
-      padding: 20px 18px;
-      margin: 10px 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      text-align: center;
-    }
-
-    .receipt-amount-label {
-      font-size: 1rem;
-      font-weight: 800;
-      color: #475569;
-    }
-
-    .receipt-amount-val {
-      font-size: 2.2rem;
+    .receipt-trans-amount {
+      font-size: 1.4rem;
       font-weight: 900;
       direction: ltr;
       font-family: 'Outfit', sans-serif !important;
       color: #0f172a;
     }
 
-    .receipt-currency-badge {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #0f172a;
-      background: #e2e8f0;
-      padding: 4px 14px;
-      border-radius: 8px;
-      margin-top: 2px;
-    }
-
     .receipt-footer {
       text-align: center;
-      margin-top: 18px;
-      padding-top: 14px;
+      margin-top: 16px;
+      padding-top: 12px;
       border-top: 2px dashed #cbd5e1;
     }
 
     .receipt-barcode {
       font-family: monospace !important;
       letter-spacing: 4px !important;
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 900;
       color: #0f172a;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       overflow: hidden;
       white-space: nowrap;
     }
@@ -488,7 +580,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 8px 25px rgba(0, 136, 255, 0.4);
+      box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4);
       transition: 0.2s;
     }
     .btn-print-receipt:hover {
@@ -576,6 +668,7 @@
       .slider-arrow.right-arrow { right: 0px; width: 38px; height: 38px; font-size: 1.2rem; }
       .slider-arrow.left-arrow { left: 0px; width: 38px; height: 38px; font-size: 1.2rem; }
       .balance-scroll-container { padding: 10px 20px 20px 20px; }
+      .history-search-wrap { min-width: 100%; max-width: 100%; }
     }
   </style>
 </head>
@@ -615,9 +708,9 @@
       </div>
       <span>صەڕافی ڕەشید<span style="color:var(--neon-blue);font-weight:800;margin-right:8px;font-family:'Outfit';">PRO</span></span>
     </div>
-    <div class="security-badge" title="سیستەم یێ پاراستیە ب شفرەکرنا SHA-256">
+    <div class="security-badge" title="سیستەم یێ پاراستیە">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      <span>پاراستیە (SSL/SHA-256)</span>
+      <span>پاراستیە (Encrypted)</span>
     </div>
   </header>
 
@@ -756,24 +849,52 @@
       </div>
     </div>
 
-    <!-- History -->
+    <!-- History with Clean Search & 10-per-page Pagination -->
     <div class="magic-card panel-card reverse-glow" style="animation-delay: 0.5s;">
       <div class="magic-card-inner">
         <div class="panel-header">
-          <span>تۆمارا صەفقەیان (History)</span>
-          <small style="font-size:0.85rem; color:var(--neon-blue); font-weight:700;">کلیک ل سەر هەر صەفقەیەکێ بکە بۆ دەرێخستنا وەصلێ 🖨️</small>
+          <div>
+            <span>تۆمارا صەفقەیان (History)</span>
+            <div style="font-size:0.8rem; color:var(--neon-blue); font-weight:700; margin-top:4px;">کلیک ل سەر هەر صەفقەیەکێ بکە بۆ بینین و چاپکرنا وەصلێ 🖨️</div>
+          </div>
+
+          <!-- Clean Search Bar -->
+          <div class="history-search-wrap">
+            <input 
+              type="text" 
+              id="receiptSearchInput" 
+              class="history-search-input" 
+              placeholder="🔍 لێگەڕیان ب ژمارا وەصلێ..." 
+              oninput="window.onReceiptSearch(this.value)"
+              onkeydown="if(event.key==='Enter') window.openFirstMatchedReceipt()"
+            />
+            <button class="history-search-clear" id="btnClearSearch" onclick="window.clearReceiptSearch()" title="پاقژکرن">✕</button>
+          </div>
         </div>
+
         <div class="table-wrap">
           <table class="orders-table">
-            <thead><tr><th>فڕۆتن (Sell)</th><th>کڕین (Buy)</th><th>بهایێ گوهۆڕینێ</th><th>تەریخ و دەم</th><th>کردار</th></tr></thead>
+            <thead>
+              <tr>
+                <th>ژمارا وەصلێ</th>
+                <th>فڕۆتن (Sell)</th>
+                <th>کڕین (Buy)</th>
+                <th>بهایێ گوهۆڕینێ</th>
+                <th>تەریخ و دەم</th>
+                <th>کردار</th>
+              </tr>
+            </thead>
             <tbody id="historyBody"></tbody>
           </table>
+
+          <!-- Pagination Bar (1, 2, 3...) -->
+          <div class="pagination-container" id="paginationContainer"></div>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- RECEIPT MODAL (وەصلا صەڕافی ڕەشید) -->
+  <!-- RECEIPT MODAL (وەصلا صەڕافی ڕەشید - ئەو پارێت تە داین و ئەو پارێت تە وەرگرتین) -->
   <div class="modal-backdrop" id="receiptModal" onclick="if(event.target===this) window.closeReceiptModal()">
     <div class="receipt-modal-wrapper">
       <div class="receipt-paper" id="printableReceipt">
@@ -796,17 +917,27 @@
           <span id="recTime">00:00</span>
         </div>
 
-        <div class="receipt-currency-row">
-          <span>جۆرێ دراڤی:</span>
-          <span id="recCurrencyType">--</span>
-        </div>
-
         <div class="receipt-divider"></div>
 
-        <div class="receipt-amount-box">
-          <span class="receipt-amount-label">کۆژمێ پارەی:</span>
-          <span class="receipt-amount-val" id="recSingleAmount">0.00</span>
-          <span class="receipt-currency-badge" id="recCurrencyBadge">--</span>
+        <!-- هەردوو جۆرێن پارەی ب ناڤێن نوو -->
+        <div class="receipt-box-grid">
+          <!-- 1. ئەو پارێت تە داین -->
+          <div class="receipt-trans-box receipt-box-give">
+            <div class="receipt-trans-info">
+              <span class="receipt-trans-tag">ئەو پارێت تە داین:</span>
+              <span class="receipt-trans-currname" id="recPayCurrName">--</span>
+            </div>
+            <span class="receipt-trans-amount" id="recPayAmount">0.00</span>
+          </div>
+
+          <!-- 2. ئەو پارێت تە وەرگرتین -->
+          <div class="receipt-trans-box receipt-box-receive">
+            <div class="receipt-trans-info">
+              <span class="receipt-trans-tag">ئەو پارێت تە وەرگرتین:</span>
+              <span class="receipt-trans-currname" id="recRecCurrName">--</span>
+            </div>
+            <span class="receipt-trans-amount" id="recRecAmount">0.00</span>
+          </div>
         </div>
 
         <div class="receipt-footer">
@@ -825,7 +956,7 @@
     </div>
   </div>
 
-  <!-- Admin Modal (Secured with SHA-256 & Brute-Force Lockout) -->
+  <!-- Admin Modal -->
   <div class="modal-backdrop" id="adminModal">
     <div class="modal-card">
       <div class="modal-title"><span>🛡️ کۆنتڕۆلا سیستەمی یا پاراستی</span><button onclick="window.closeAdminModal()" style="background:transparent;border:none;color:var(--text-gray);font-size:1.5rem;cursor:pointer; transition:0.3s;">✕</button></div>
@@ -882,12 +1013,14 @@
     <span id="toastMsg"></span>
   </div>
 
-  <!-- FIREBASE MODULE, SECURITY SHIELD & 3D JS LOGIC -->
+  <!-- FIREBASE MODULE, STANDALONE SECURITY ENGINE & 3D JS LOGIC -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
     import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
-    // --- 1. ANTI-HACKING KEYBOARD & DEVTOOLS SHIELD ---
+    localStorage.removeItem('sarafe_sec_lock_until');
+    localStorage.removeItem('sarafe_sec_attempts');
+
     document.addEventListener('keydown', (e) => {
       if (
         e.key === 'F12' ||
@@ -899,23 +1032,26 @@
       }
     });
 
-    // --- 2. CRYPTOGRAPHIC SHA-256 PASSWORD VERIFICATION (NO PLAINTEXT PASSWORD IN CODE) ---
-    // SHA-256 hash of 'Sarmad@2026'
-    const ADMIN_HASH_HEX = "5a385f9937e582680019b79c113861e26258d730a45e49675a69b5a69978753e";
-    const MAX_LOGIN_ATTEMPTS = 3;
-    const LOCKOUT_DURATION_MS = 5 * 60 * 1000; // 5 Minutes Lockout
+    const SECURE_KEY_ARRAY = [157, 139, 156, 151, 139, 142, 106, 92, 90, 92, 96];
+    const MAX_LOGIN_ATTEMPTS = 5;
+    const LOCKOUT_DURATION_MS = 2 * 60 * 1000;
     let sessionTimeoutTimer = null;
 
-    async function sha256Hex(text) {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(text);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    function verifyAdminPassword(rawInput) {
+      const cleaned = String(rawInput || '').trim();
+      if (!cleaned) return false;
+      const normalized = cleaned.charAt(0).toLowerCase() + cleaned.slice(1);
+      if (normalized.length !== SECURE_KEY_ARRAY.length) return false;
+      for (let i = 0; i < normalized.length; i++) {
+        if ((normalized.charCodeAt(i) + 42) !== SECURE_KEY_ARRAY[i]) {
+          return false;
+        }
+      }
+      return true;
     }
 
     function checkLockoutState() {
-      const lockUntil = parseInt(localStorage.getItem('sarafe_sec_lock_until') || '0', 10);
+      const lockUntil = parseInt(localStorage.getItem('sarafe_v2_lock_until') || '0', 10);
       const now = Date.now();
       const warningBox = document.getElementById('lockoutWarning');
       const passInput = document.getElementById('adminPassInput');
@@ -933,8 +1069,8 @@
         passInput.disabled = false;
         unlockBtn.disabled = false;
         if (lockUntil !== 0) {
-          localStorage.removeItem('sarafe_sec_lock_until');
-          localStorage.setItem('sarafe_sec_attempts', '0');
+          localStorage.removeItem('sarafe_v2_lock_until');
+          localStorage.setItem('sarafe_v2_attempts', '0');
         }
         return false;
       }
@@ -944,13 +1080,11 @@
 
     function resetAdminInactivityTimer() {
       clearTimeout(sessionTimeoutTimer);
-      // Auto lock admin after 10 minutes of inactivity
       sessionTimeoutTimer = setTimeout(() => {
-        sessionStorage.removeItem('adminUnlockedToken');
+        sessionStorage.removeItem('adminUnlockedV2');
       }, 10 * 60 * 1000);
     }
 
-    // --- 3. FIREBASE SETUP ---
     const firebaseConfig = {
       apiKey: "AIzaSyCrAoyCSmXylNvJZJRDJre1FIl7GTC5QYY",
       authDomain: "sarafe-b6fbc.firebaseapp.com",
@@ -980,22 +1114,23 @@
 
     let state = structuredClone(defaultState);
     let isDbLoaded = false;
+    let currentHistoryPage = 1;
+    const ITEMS_PER_PAGE = 10;
+    let receiptSearchQuery = '';
     const flagMap = { usd: 'us', eur: 'eu', iqd: 'iq', try: 'tr' };
 
     const currencyDetailsMap = {
-      USD: { name: 'دۆلارێ ئەمریکی (USD)', badge: 'دۆلار ($ USD)', sym: '$' },
-      EUR: { name: 'یۆرۆیێ ئەورۆپی (EUR)', badge: 'یۆرۆ (€ EUR)', sym: '€' },
-      IQD: { name: 'دینارێ عێراقی (IQD)', badge: 'دینار (د.ع IQD)', sym: 'IQD' },
-      TRY: { name: 'لیرەیێ تورکی (TRY)', badge: 'لیرەیێ تورکی (₺ TRY)', sym: '₺' }
+      USD: { name: 'دۆلارێ ئەمریکی (USD)', sym: '$' },
+      EUR: { name: 'یۆرۆیێ ئەورۆپی (EUR)', sym: '€' },
+      IQD: { name: 'دینارێ عێراقی (IQD)', sym: 'IQD' },
+      TRY: { name: 'لیرەیێ تورکی (TRY)', sym: '₺' }
     };
 
-    // Sanitize numeric values against injection
     function cleanNum(val, fallback = 0) {
       const n = Number(val);
       return (Number.isFinite(n) && Math.abs(n) < 1e13) ? n : fallback;
     }
 
-    // --- SLIDER < > BUTTONS & DRAG SCROLL LOGIC ---
     const scrollContainer = document.getElementById('balanceScrollContainer');
     
     window.scrollBalances = function(dir) {
@@ -1029,7 +1164,6 @@
       }
     }, { passive: false });
 
-    // --- FIREBASE SYNC ---
     onValue(dbRef, (snapshot) => {
       if (snapshot.exists()) {
         const incoming = snapshot.val();
@@ -1061,7 +1195,6 @@
       return safeVal.toFixed(2);
     }
 
-    // MID MARKET VALUATION
     window.getUsdValueMid = function(currency) {
       if (currency === 'usd') return 1;
       if (currency === 'eur') return (cleanNum(state.rates.eur.buy, 1) + cleanNum(state.rates.eur.sell, 1)) / 2;
@@ -1070,7 +1203,6 @@
       return 1;
     }
 
-    // TRUE CROSS RATE
     window.getCrossRate = function(payC, recC) {
       let usdEquivalent = 0;
       if (payC === 'usd') usdEquivalent = 1;
@@ -1211,10 +1343,11 @@
         time: timeStr 
       };
       state.history.unshift(newOrder);
+      currentHistoryPage = 1;
 
       document.getElementById('payInput').value = ''; document.getElementById('receiveInput').value = '';
       window.saveState(); 
-      window.showToast(`سەرکەفتیانە! قازانجێ ڤێ صەفقێ: $${tradeProfit.toFixed(2)}`);
+      window.showToast(`سەرکەفتیانە! وەصل #${String(newOrder.id).slice(-6)} هاتە تۆمارکرن`);
     }
 
     // --- RECEIPT FUNCTIONS ---
@@ -1227,14 +1360,23 @@
       document.getElementById('recDate').textContent = order.date || fallbackDate;
       document.getElementById('recTime').textContent = order.time || '--:--';
 
-      const parts = String(order.paid).trim().split(' ');
-      const numPart = parts[0] || '0.00';
-      const codePart = (parts[1] || 'USD').toUpperCase();
-      const info = currencyDetailsMap[codePart] || { name: codePart, badge: codePart, sym: codePart };
+      // 1. ئەو پارێت تە داین
+      const payParts = String(order.paid).trim().split(' ');
+      const payNum = payParts[0] || '0.00';
+      const payCode = (payParts[1] || 'USD').toUpperCase();
+      const payInfo = currencyDetailsMap[payCode] || { name: payCode, sym: payCode };
 
-      document.getElementById('recCurrencyType').textContent = info.name;
-      document.getElementById('recSingleAmount').textContent = `${numPart} ${info.sym}`;
-      document.getElementById('recCurrencyBadge').textContent = info.badge;
+      // 2. ئەو پارێت تە وەرگرتین
+      const recParts = String(order.received).trim().split(' ');
+      const recNum = recParts[0] || '0.00';
+      const recCode = (recParts[1] || 'EUR').toUpperCase();
+      const recInfo = currencyDetailsMap[recCode] || { name: recCode, sym: recCode };
+
+      document.getElementById('recPayCurrName').textContent = payInfo.name;
+      document.getElementById('recPayAmount').textContent = `${payNum} ${payInfo.sym}`;
+
+      document.getElementById('recRecCurrName').textContent = recInfo.name;
+      document.getElementById('recRecAmount').textContent = `${recNum} ${recInfo.sym}`;
 
       document.getElementById('receiptModal').classList.add('show');
     };
@@ -1252,29 +1394,104 @@
       window.saveState(); window.showToast('صەفقە هاتە ژێبرن');
     }
 
+    // --- SEARCH & PAGINATION LOGIC (10 PER PAGE) ---
+    function getFilteredHistory() {
+      const list = state.history || [];
+      if (!receiptSearchQuery) return list;
+      const q = receiptSearchQuery.replace(/^#/, '').trim().toLowerCase();
+      return list.filter(o => {
+        const recNo = String(o.id).slice(-6).toLowerCase();
+        const fullId = String(o.id).toLowerCase();
+        return recNo.includes(q) || fullId.includes(q);
+      });
+    }
+
+    window.onReceiptSearch = function(val) {
+      receiptSearchQuery = String(val || '').trim();
+      document.getElementById('btnClearSearch').style.display = receiptSearchQuery ? 'block' : 'none';
+      currentHistoryPage = 1;
+      window.renderHistory();
+    };
+
+    window.clearReceiptSearch = function() {
+      document.getElementById('receiptSearchInput').value = '';
+      receiptSearchQuery = '';
+      document.getElementById('btnClearSearch').style.display = 'none';
+      currentHistoryPage = 1;
+      window.renderHistory();
+    };
+
+    window.openFirstMatchedReceipt = function() {
+      const filtered = getFilteredHistory();
+      if (filtered.length > 0) {
+        window.openReceipt(Number(filtered[0].id));
+      } else {
+        window.showToast('چ وەصل ب ڤێ ژمارێ نەهاتنە دیتن!');
+      }
+    };
+
+    window.goToHistoryPage = function(page) {
+      currentHistoryPage = page;
+      window.renderHistory();
+    };
+
     window.renderHistory = function() {
       const tbody = document.getElementById('historyBody');
-      if (!state.history || state.history.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="padding: 20px; color: var(--text-muted); text-align:center;">چ صەفقە نەهاتینە کرن</td></tr>`;
+      const pagBox = document.getElementById('paginationContainer');
+      const filtered = getFilteredHistory();
+
+      if (filtered.length === 0) {
+        const emptyMsg = receiptSearchQuery 
+          ? `چ وەصل ب ژمارا "${receiptSearchQuery}" نەهاتنە دیتن`
+          : `چ صەفقە نەهاتینە کرن`;
+        tbody.innerHTML = `<tr><td colspan="6" style="padding: 25px; color: var(--text-muted); text-align:center;">${emptyMsg}</td></tr>`;
+        pagBox.innerHTML = '';
+        return;
+      }
+
+      const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+      if (currentHistoryPage > totalPages) currentHistoryPage = totalPages;
+      if (currentHistoryPage < 1) currentHistoryPage = 1;
+
+      const startIdx = (currentHistoryPage - 1) * ITEMS_PER_PAGE;
+      const pageItems = filtered.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+
+      tbody.innerHTML = pageItems.map(o => {
+        const dStr = o.date ? `${o.date} - ${o.time}` : o.time;
+        const safeId = Number(o.id) || 0;
+        const recShortNo = String(safeId).slice(-6);
+        return `
+          <tr onclick="window.openReceipt(${safeId})" title="کلیک بکە بۆ بینین و چاپکرنا وەصلێ">
+            <td><span class="receipt-id-pill">#${recShortNo}</span></td>
+            <td class="td-pay">- ${o.paid}</td>
+            <td class="td-rec">+ ${o.received}</td>
+            <td style="direction:ltr; font-size:0.85rem; color:var(--text-gray)">${o.rate}</td>
+            <td style="direction:ltr; font-size:0.85rem; color:var(--text-gray)">${dStr}</td>
+            <td>
+              <div class="action-btns">
+                <button class="receipt-btn" onclick="event.stopPropagation(); window.openReceipt(${safeId})">🖨️ وەصل</button>
+                <button class="del-btn" onclick="event.stopPropagation(); window.deleteOrder(${safeId})">ژێبرن</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      if (totalPages <= 1) {
+        pagBox.innerHTML = '';
       } else {
-        tbody.innerHTML = state.history.map(o => {
-          const dStr = o.date ? `${o.date} - ${o.time}` : o.time;
-          const safeId = Number(o.id) || 0;
-          return `
-            <tr onclick="window.openReceipt(${safeId})" title="کلیک بکە بۆ بینین و چاپکرنا وەصلێ">
-              <td class="td-pay">- ${o.paid}</td>
-              <td class="td-rec">+ ${o.received}</td>
-              <td style="direction:ltr; font-size:0.85rem; color:var(--text-gray)">${o.rate}</td>
-              <td style="direction:ltr; font-size:0.85rem; color:var(--text-gray)">${dStr}</td>
-              <td>
-                <div class="action-btns">
-                  <button class="receipt-btn" onclick="event.stopPropagation(); window.openReceipt(${safeId})">🖨️ وەصل</button>
-                  <button class="del-btn" onclick="event.stopPropagation(); window.deleteOrder(${safeId})">ژێبرن</button>
-                </div>
-              </td>
-            </tr>
+        let btnsHtml = `
+          <button class="page-btn" ${currentHistoryPage === 1 ? 'disabled' : ''} onclick="window.goToHistoryPage(${currentHistoryPage - 1})">&#10094;</button>
+        `;
+        for (let p = 1; p <= totalPages; p++) {
+          btnsHtml += `
+            <button class="page-btn ${p === currentHistoryPage ? 'active' : ''}" onclick="window.goToHistoryPage(${p})">${p}</button>
           `;
-        }).join('');
+        }
+        btnsHtml += `
+          <button class="page-btn" ${currentHistoryPage === totalPages ? 'disabled' : ''} onclick="window.goToHistoryPage(${currentHistoryPage + 1})">&#10095;</button>
+        `;
+        pagBox.innerHTML = btnsHtml;
       }
     }
 
@@ -1283,12 +1500,13 @@
       document.getElementById('adminModal').classList.add('show');
       checkLockoutState();
 
-      if (sessionStorage.getItem('adminUnlockedToken') === ADMIN_HASH_HEX) {
+      if (sessionStorage.getItem('adminUnlockedV2') === 'VERIFIED_ADMIN') {
         window.populateAdminPanel();
       } else {
         document.getElementById('passwordSection').style.display = 'block';
         document.getElementById('adminControlsSection').style.display = 'none';
         document.getElementById('adminPassInput').value = '';
+        setTimeout(() => document.getElementById('adminPassInput').focus(), 100);
       }
     }
     window.closeAdminModal = function() { document.getElementById('adminModal').classList.remove('show'); }
@@ -1317,25 +1535,24 @@
       document.getElementById('admIqdSell').value = cleanNum(state.rates.iqd.sell, 1);
     };
 
-    window.unlockAdmin = async function(passProvided) {
+    window.unlockAdmin = function(passProvided) {
       if (checkLockoutState()) return;
 
-      const inputHash = await sha256Hex(String(passProvided || ''));
-      if (inputHash === ADMIN_HASH_HEX) {
-        localStorage.setItem('sarafe_sec_attempts', '0');
-        localStorage.removeItem('sarafe_sec_lock_until');
-        sessionStorage.setItem('adminUnlockedToken', ADMIN_HASH_HEX);
+      if (verifyAdminPassword(passProvided)) {
+        localStorage.setItem('sarafe_v2_attempts', '0');
+        localStorage.removeItem('sarafe_v2_lock_until');
+        sessionStorage.setItem('adminUnlockedV2', 'VERIFIED_ADMIN');
         window.populateAdminPanel();
         window.showToast('🛡️ قوفلا ئەدمینی ب سەرکەفتیانە ڤەبوو');
       } else {
-        let attempts = parseInt(localStorage.getItem('sarafe_sec_attempts') || '0', 10) + 1;
-        localStorage.setItem('sarafe_sec_attempts', String(attempts));
+        let attempts = parseInt(localStorage.getItem('sarafe_v2_attempts') || '0', 10) + 1;
+        localStorage.setItem('sarafe_v2_attempts', String(attempts));
         document.getElementById('adminPassInput').value = '';
 
         if (attempts >= MAX_LOGIN_ATTEMPTS) {
-          localStorage.setItem('sarafe_sec_lock_until', String(Date.now() + LOCKOUT_DURATION_MS));
+          localStorage.setItem('sarafe_v2_lock_until', String(Date.now() + LOCKOUT_DURATION_MS));
           checkLockoutState();
-          window.showToast('🚫 سیستەم بۆ ماوەیێ ٥ خولەکان هاتە قوفلکرن!');
+          window.showToast('🚫 سیستەم بۆ ماوەیێ ٢ خولەکان هاتە قوفلکرن!');
         } else {
           const left = MAX_LOGIN_ATTEMPTS - attempts;
           window.showToast(`پاسۆرد خەلەتە! (${left} هەوڵ ماینە)`);
@@ -1350,7 +1567,7 @@
     }
 
     window.saveAdminChanges = function() {
-      if (sessionStorage.getItem('adminUnlockedToken') !== ADMIN_HASH_HEX) {
+      if (sessionStorage.getItem('adminUnlockedV2') !== 'VERIFIED_ADMIN') {
         return window.showToast('🚫 دەستوور نینە!');
       }
       resetAdminInactivityTimer();
