@@ -1,1210 +1,1220 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Emyelvere - خولا ستێرێن عیراقێ</title>
+  <title>Test Cafe - Digital QR Menu & Captain POS</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Google Fonts: Inter and Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-body: #f8f4f5;
-      --bg-card: #ffffff;
-      --burgundy-deep: #4a0410;
-      --burgundy-main: #7a091e;
-      --burgundy-grad: linear-gradient(135deg, #7a091e 0%, #4a0410 100%);
-      --border-color: #e5e7eb;
-      --text-main: #111827;
-      --text-muted: #6b7280;
-      --font-krd: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-eng: 'Outfit', sans-serif;
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              purple: '#6366f1',
+              accent: '#8b5cf6',
+              dark: '#090d16',
+              surface: '#111827',
+              card: 'rgba(23, 31, 50, 0.72)',
+              crimson: '#f43f5e',
+              emerald: '#10b981',
+              amber: '#f59e0b'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Kufi Arabic"', 'sans-serif'],
+          }
+        }
+      }
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-krd); -webkit-tap-highlight-color: transparent; }
-    body { background: var(--bg-body); color: var(--text-main); min-height: 100vh; padding-bottom: 92px; overflow-x: hidden; line-height: 1.5; }
+  </script>
 
-    /* Header */
-    .app-header { position: sticky; top: 0; z-index: 50; background: var(--burgundy-grad); color: #fff; border-bottom: 2px solid rgba(245,158,11,0.35); box-shadow: 0 4px 18px rgba(66,3,13,0.35); }
-    .header-inner { max-width: 900px; margin: 0 auto; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; }
-    .menu-toggle-btn { width: 40px; height: 40px; border-radius: 12px; background: #fff; border: 1.5px solid rgba(245,158,11,0.5); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; cursor: pointer; }
-    .menu-toggle-btn span { width: 20px; height: 3px; background: var(--burgundy-main); border-radius: 3px; display: block; }
-    .menu-toggle-btn span:nth-child(2) { width: 14px; align-self: flex-end; margin-right: 9px; background: #f59e0b; }
+  <style>
+    /* Custom UI properties for Glassmorphism & Animations */
+    body {
+      background-color: #080c14;
+      color: #f1f5f9;
+      font-family: 'Plus Jakarta Sans', 'Noto Kufi Arabic', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    
+    .glass-header {
+      background: rgba(11, 17, 32, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .glass-card {
+      background: rgba(17, 24, 39, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .glass-bottom-bar {
+      background: rgba(10, 15, 28, 0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-    .brand-hero-center { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
-    .brand-main-lockup { display: inline-flex; align-items: center; gap: 10px; padding: 4px 16px; border-radius: 16px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); direction: ltr; position: relative; }
-    .brand-logo-slot { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: transparent; position: relative; flex-shrink: 0; }
-    .brand-logo-slot.size-lg { width: 46px; height: 46px; }
-    .brand-logo-slot.size-xl { width: 56px; height: 56px; }
-    .brand-logo-slot img, .brand-logo-slot svg { width: 100%; height: 100%; object-fit: contain; background: transparent; }
-    .logo-edit-badge { display: none; position: absolute; bottom: -4px; right: -4px; background: #fbbf24; color: #4a0410; font-size: 10px; width: 18px; height: 18px; border-radius: 50%; align-items: center; justify-content: center; font-weight: 900; }
-    .brand-wordmark { font-family: var(--font-eng); font-weight: 900; font-size: 1.5rem; color: #fff; letter-spacing: 0.5px; }
-    .brand-sub-pill { margin-top: 3px; font-size: 0.68rem; color: #fef3c7; font-weight: 700; background: rgba(0,0,0,0.25); border: 1px solid rgba(245,158,11,0.3); padding: 1px 10px; border-radius: 99px; }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
 
-    .tiny-admin-lock { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 13px; cursor: pointer; border-radius: 8px; }
-    .tiny-admin-lock.unlocked { background: rgba(251,191,36,0.28); border-color: #fbbf24; }
+    @keyframes pulseAlertRed {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7);
+        border-color: rgba(244, 63, 94, 0.9);
+      }
+      50% {
+        box-shadow: 0 0 20px 4px rgba(244, 63, 94, 0.4);
+        border-color: rgba(244, 63, 94, 0.4);
+      }
+    }
 
-    .container { max-width: 900px; margin: 0 auto; padding: 12px 14px; }
-    .page-section { display: none; }
-    .page-section.active { display: block; }
+    @keyframes pulseAlertAmber {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+        border-color: rgba(245, 158, 11, 0.9);
+      }
+      50% {
+        box-shadow: 0 0 20px 4px rgba(245, 158, 11, 0.4);
+        border-color: rgba(245, 158, 11, 0.4);
+      }
+    }
 
-    /* VIP Sponsor 1280x415 */
-    .sponsor-card-box { position: relative; background: radial-gradient(circle at 50% 25%, #8f0b24 0%, #4a0410 70%, #2b0209 100%); color: #fff; border: 2.5px solid #fbbf24; border-radius: 20px; overflow: hidden; margin-bottom: 16px; cursor: pointer; box-shadow: 0 12px 30px rgba(122,9,30,0.35); }
-    .sponsor-card-box.fx-glide { animation: vipGlide 3.2s ease-in-out infinite alternate; }
-    .sponsor-card-box.fx-pulse3d { animation: vipPulse 2.8s ease-in-out infinite alternate; }
-    .sponsor-card-box.fx-neon { animation: vipNeon 2.4s ease-in-out infinite alternate; }
-    @keyframes vipGlide { 0% { transform: translateX(-4px); } 100% { transform: translateX(4px); } }
-    @keyframes vipPulse { 0% { transform: scale(0.99); } 100% { transform: scale(1.01); } }
-    @keyframes vipNeon { 0% { border-color: #fbbf24; box-shadow: 0 0 12px rgba(251,191,36,0.4); } 100% { border-color: #fff; box-shadow: 0 0 28px rgba(251,191,36,0.9); } }
-    .sponsor-card-box::before { content: ""; position: absolute; top: -60%; left: -60%; width: 45%; height: 220%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), rgba(254,240,138,0.5), transparent); transform: rotate(24deg); pointer-events: none; z-index: 4; animation: sweepLight 3s ease-in-out infinite alternate; }
-    @keyframes sweepLight { 0% { left: -60%; } 100% { left: 120%; } }
-    .sponsor-top-header-bar { position: relative; z-index: 5; background: rgba(28,1,6,0.94); border-bottom: 1.5px solid rgba(251,191,36,0.4); padding: 6px 12px; display: flex; align-items: center; justify-content: space-between; }
-    .sponsor-badge-pill { background: rgba(251,191,36,0.18); border: 1px solid #fbbf24; color: #fef08a; font-size: 0.72rem; font-weight: 900; padding: 2px 10px; border-radius: 99px; }
-    .sponsor-stage-1280x415 { position: relative; width: 100%; aspect-ratio: 1280 / 415; overflow: hidden; background: #2b0209; z-index: 2; }
-    .sponsor-stage-1280x415 img.fit-fill { width: 100%; height: 100%; display: block; object-fit: fill; }
-    .sponsor-stage-1280x415 img.fit-cover { width: 100%; height: 100%; display: block; object-fit: cover; }
-    .sponsor-stage-1280x415 img.fit-contain { width: 100%; height: 100%; display: block; object-fit: contain; background: transparent; }
-    .sponsor-footer-bar { position: relative; z-index: 5; background: rgba(28,1,6,0.94); border-top: 1.5px solid rgba(251,191,36,0.4); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-    .sponsor-cta-btn { background: linear-gradient(135deg, #fde047 0%, #f59e0b 100%); color: #3b020b !important; text-decoration: none; font-weight: 900; font-size: 0.84rem; padding: 7px 14px; border-radius: 11px; border: 1.5px solid #fff; display: inline-flex; align-items: center; gap: 6px; }
+    .alert-calling {
+      animation: pulseAlertRed 1.2s infinite ease-in-out;
+    }
 
-    /* Toolbars, Filters & Cards */
-    .page-admin-toolbar { display: none; background: #fff; border: 1.5px dashed var(--burgundy-main); border-radius: 12px; padding: 10px 14px; margin-bottom: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-    .page-admin-toolbar.visible { display: flex; }
-    .btn-admin-add { background: var(--burgundy-grad); color: #fff; border: none; border-radius: 9px; font-weight: 700; font-size: 0.8rem; padding: 8px 12px; cursor: pointer; }
-    .filter-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0; margin-bottom: 12px; }
-    .filter-tab-btn { padding: 7px 14px; border-radius: 10px; background: #fff; border: 1.5px solid var(--border-color); color: var(--text-main); font-weight: 700; font-size: 0.82rem; white-space: nowrap; cursor: pointer; }
-    .filter-tab-btn.active { background: var(--burgundy-grad); color: #fff; border-color: var(--burgundy-deep); }
-
-    .card-box { background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; margin-bottom: 14px; }
-    .empty-state-box { background: #fff; border: 1.5px dashed var(--border-color); border-radius: 16px; padding: 34px 16px; text-align: center; }
-    .match-card { padding: 12px 14px; border-bottom: 1px solid var(--border-color); }
-    .match-card:last-child { border-bottom: none; }
-    .match-row-grid { display: grid; grid-template-columns: 72px 1fr; align-items: center; gap: 10px; }
-    .match-status-col { display: flex; flex-direction: column; align-items: center; border-left: 1.5px solid var(--border-color); padding-left: 6px; }
-    .teams-grid { display: grid; grid-template-columns: 1fr 70px 1fr; align-items: center; gap: 6px; }
-    .team-cell { display: flex; align-items: center; gap: 8px; overflow: hidden; }
-    .team-cell.away { justify-content: flex-end; text-align: left; }
-    .pure-logo-wrap { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; background: transparent !important; }
-    .pure-logo-img { width: 100%; height: 100%; object-fit: contain; background: transparent !important; }
-    .score-badge { background: #f8fafc; border: 1.5px solid var(--border-color); color: var(--burgundy-main); font-family: var(--font-eng); font-weight: 900; font-size: 1rem; padding: 4px; border-radius: 8px; text-align: center; }
-    .score-badge.is-live { background: var(--burgundy-grad); color: #fff; }
-
-    /* Live TV & Standings */
-    .tv-stage-wrapper { position: relative; width: 100%; background: #000; border-radius: 14px; overflow: hidden; aspect-ratio: 16 / 9; margin-bottom: 10px; }
-    .tv-stage-wrapper.vertical-mode { aspect-ratio: 9 / 16; max-width: 340px; margin: 0 auto 10px auto; }
-    .tv-stage-wrapper iframe, .tv-stage-wrapper video { width: 100%; height: 100%; border: none; }
-    .server-btn-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-    .server-pill-btn { padding: 6px 12px; border-radius: 8px; border: 1.5px solid var(--border-color); background: #f8fafc; font-weight: 700; font-size: 0.78rem; cursor: pointer; }
-    .server-pill-btn.active { background: var(--burgundy-grad); color: #fff; border-color: var(--burgundy-deep); }
-
-    .table-responsive { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    .table-responsive th { background: var(--burgundy-grad); color: #fff; padding: 10px 6px; text-align: center; }
-    .table-responsive td { padding: 10px 6px; border-bottom: 1px solid var(--border-color); text-align: center; font-weight: 700; }
-
-    /* Bottom Nav & Drawer */
-    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); border-top: 1.5px solid var(--border-color); display: flex; justify-content: space-around; padding: 6px 4px; z-index: 60; }
-    .nav-tab { background: none; border: none; color: var(--text-muted); font-size: 0.75rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; padding: 5px 12px; border-radius: 10px; }
-    .nav-tab.active { color: #fff; background: var(--burgundy-grad); }
-
-    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 90; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
-    .drawer-overlay.active { opacity: 1; pointer-events: auto; }
-    .drawer-side { position: fixed; top: 0; right: 0; bottom: 0; width: 285px; background: #fff; z-index: 100; transform: translateX(105%); transition: transform 0.25s; display: flex; flex-direction: column; }
-    .drawer-side.active { transform: translateX(0); }
-    .drawer-btn { width: 100%; padding: 11px 12px; border-radius: 10px; background: #f8fafc; border: 1.5px solid var(--border-color); color: var(--text-main); font-weight: 700; font-size: 0.86rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer; margin-bottom: 8px; }
-    .drawer-btn.active { background: var(--burgundy-grad); color: #fff; }
-
-    /* Modals */
-    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 120; display: flex; align-items: center; justify-content: center; padding: 14px; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
-    .modal-overlay.active { opacity: 1; pointer-events: auto; }
-    .modal-window { background: #fff; border: 2px solid var(--burgundy-main); border-radius: 16px; width: 100%; max-width: 460px; overflow: hidden; max-height: 90vh; display: flex; flex-direction: column; }
-    .modal-header { background: var(--burgundy-grad); color: #fff; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; font-weight: 700; }
-    .modal-body { padding: 14px; overflow-y: auto; }
-    .form-group { margin-bottom: 10px; }
-    .form-label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--burgundy-deep); margin-bottom: 4px; }
-    .form-input, .form-select, .form-textarea { width: 100%; padding: 9px 12px; border-radius: 9px; border: 1.5px solid var(--border-color); background: #fafafa; font-weight: 600; font-size: 0.85rem; }
-    .btn-submit { width: 100%; padding: 10px; background: var(--burgundy-grad); color: #fff; border: none; border-radius: 9px; font-weight: 700; font-size: 0.9rem; cursor: pointer; margin-top: 6px; }
-    .btn-action-icon { background: #f1f5f9; border: 1px solid var(--border-color); padding: 4px 9px; border-radius: 6px; font-size: 0.74rem; font-weight: 700; cursor: pointer; }
-
-    /* iOS Live Activities */
-    .ios-la-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.52); backdrop-filter: blur(4px); z-index: 240; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
-    .ios-la-backdrop.active { opacity: 1; pointer-events: auto; }
-    .ios-la-wrapper { position: fixed; left: 50%; bottom: 88px; transform: translate(-50%, 30px) scale(0.95); width: calc(100% - 24px); max-width: 400px; z-index: 250; opacity: 0; pointer-events: none; transition: all 0.3s ease; }
-    .ios-la-wrapper.active { transform: translate(-50%, 0) scale(1); opacity: 1; pointer-events: auto; }
-    .ios-la-card { background: rgba(18,18,22,0.96); border-radius: 26px; border: 1px solid rgba(255,255,255,0.15); color: #fff; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.75); }
-    .ios-la-progress-bar { display: flex; align-items: center; justify-content: space-between; position: relative; margin: 14px 4px 6px 4px; direction: rtl; }
-    .ios-la-line { position: absolute; top: 50%; left: 14px; right: 14px; height: 3px; background: #2c2c35; transform: translateY(-50%); z-index: 1; }
-    .ios-la-line-fill { position: absolute; top: 50%; right: 14px; height: 3px; background: #e51d36; transform: translateY(-50%); z-index: 1; width: 50%; transition: width 0.3s; }
-    .ios-la-node { position: relative; z-index: 2; width: 30px; height: 30px; border-radius: 50%; background: #23232b; border: 1.5px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 0.82rem; color: #9ca3af; }
-    .ios-la-node.done { background: #e51d36; color: #fff; }
-    .ios-la-node.active-pill { width: 44px; border-radius: 99px; background: #e51d36; color: #fff; box-shadow: 0 0 14px rgba(229,29,54,0.85); }
+    .alert-bill {
+      animation: pulseAlertAmber 1.2s infinite ease-in-out;
+    }
   </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
 
-  <header class="app-header">
-    <div class="header-inner">
-      <div>
-        <button type="button" class="menu-toggle-btn" onclick="window.toggleDrawer()" title="مێنۆ">
-          <span></span><span></span><span></span>
+  <!-- Toast Notification Container -->
+  <div id="toastBox" class="fixed top-4 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
+  <!-- ============================================================== -->
+  <!-- 1. CUSTOMER VIEW (Primary QR Menu View)                         -->
+  <!-- ============================================================== -->
+  <div id="customerApp" class="w-full flex-1 flex flex-col pb-36">
+
+    <!-- Sticky Header -->
+    <header class="sticky top-0 z-30 glass-header px-4 py-3">
+      <div class="max-w-4xl mx-auto flex items-center justify-between">
+        
+        <!-- Cafe Logo and Title -->
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center font-black text-xl text-white shadow-lg shadow-indigo-600/30">
+            T
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-base sm:text-lg font-black tracking-tight text-white">Test Cafe</h1>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">MENU</span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-medium">کافێ و رێستۆرانت • زاخۆ / Zakho</p>
+          </div>
+        </div>
+
+        <!-- Table Badge / Switcher -->
+        <div class="flex items-center gap-2">
+          <div class="flex items-center bg-slate-800/80 border border-white/10 px-3 py-1.5 rounded-xl shadow-inner">
+            <i class="fa-solid fa-chair text-indigo-400 text-xs mr-2"></i>
+            <span class="text-xs text-slate-300 font-semibold mr-1">Table</span>
+            <select id="customerTableSelect" onchange="switchCustomerTable(this.value)" class="bg-transparent text-white font-bold text-xs focus:outline-none cursor-pointer">
+              <option value="1" class="bg-slate-900 text-white">Table 1</option>
+              <option value="2" class="bg-slate-900 text-white">Table 2</option>
+              <option value="3" class="bg-slate-900 text-white">Table 3</option>
+              <option value="4" class="bg-slate-900 text-white">Table 4</option>
+              <option value="5" class="bg-slate-900 text-white">Table 5</option>
+              <option value="6" class="bg-slate-900 text-white">Table 6</option>
+              <option value="7" class="bg-slate-900 text-white">Table 7</option>
+              <option value="8" class="bg-slate-900 text-white">Table 8</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Main Menu Area -->
+    <main class="max-w-4xl mx-auto w-full px-4 pt-4 flex-1">
+      
+      <!-- Search Menu Bar -->
+      <div class="relative mb-4">
+        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+        <input 
+          type="text" 
+          id="menuSearchInput" 
+          oninput="handleMenuSearch()" 
+          placeholder="Search the menu / ل ناڤ مینیوێ بگەڕە..." 
+          class="w-full bg-slate-900/90 border border-white/10 pl-11 pr-4 py-3 rounded-2xl text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-inner"
+        >
+      </div>
+
+      <!-- Categories Pills Scroll -->
+      <div class="mb-5">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Pick a category</span>
+          <span id="activeCategoryLabel" class="text-xs text-indigo-400 font-bold">All dishes</span>
+        </div>
+
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+          <button onclick="filterCategory('all')" data-cat="all" class="cat-filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition flex items-center gap-2 bg-indigo-600 text-white shadow-lg shadow-indigo-600/30">
+            <i class="fa-solid fa-border-all"></i>
+            <span>All dishes</span>
+          </button>
+          <button onclick="filterCategory('cake')" data-cat="cake" class="cat-filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition flex items-center gap-2 bg-slate-800/90 text-slate-300 hover:text-white border border-white/5">
+            <i class="fa-solid fa-cake-candles text-amber-400"></i>
+            <span>Cake</span>
+          </button>
+          <button onclick="filterCategory('drinks')" data-cat="drinks" class="cat-filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition flex items-center gap-2 bg-slate-800/90 text-slate-300 hover:text-white border border-white/5">
+            <i class="fa-solid fa-bottle-water text-cyan-400"></i>
+            <span>Drinks</span>
+          </button>
+          <button onclick="filterCategory('energy')" data-cat="energy" class="cat-filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition flex items-center gap-2 bg-slate-800/90 text-slate-300 hover:text-white border border-white/5">
+            <i class="fa-solid fa-bolt text-rose-400"></i>
+            <span>Energy</span>
+          </button>
+          <button onclick="filterCategory('frappuccino')" data-cat="frappuccino" class="cat-filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition flex items-center gap-2 bg-slate-800/90 text-slate-300 hover:text-white border border-white/5">
+            <i class="fa-solid fa-ice-cream text-pink-400"></i>
+            <span>Frappuccino</span>
+          </button>
+          <button onclick="filterCategory('hot_coffee')" data-cat="hot_coffee" class="cat-filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition flex items-center gap-2 bg-slate-800/90 text-slate-300 hover:text-white border border-white/5">
+            <i class="fa-solid fa-mug-hot text-orange-400"></i>
+            <span>Hot Coffee</span>
+          </button>
+          <button onclick="filterCategory('ice_coffee')" data-cat="ice_coffee" class="cat-filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition flex items-center gap-2 bg-slate-800/90 text-slate-300 hover:text-white border border-white/5">
+            <i class="fa-solid fa-glass-water-droplet text-blue-400"></i>
+            <span>Ice Coffee</span>
+          </button>
+          <button onclick="filterCategory('juices')" data-cat="juices" class="cat-filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition flex items-center gap-2 bg-slate-800/90 text-slate-300 hover:text-white border border-white/5">
+            <i class="fa-solid fa-lemon text-yellow-400"></i>
+            <span>Juices</span>
+          </button>
+          <button onclick="filterCategory('milkshake')" data-cat="milkshake" class="cat-filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition flex items-center gap-2 bg-slate-800/90 text-slate-300 hover:text-white border border-white/5">
+            <i class="fa-solid fa-blender text-purple-400"></i>
+            <span>Milkshake</span>
+          </button>
+          <button onclick="filterCategory('mojito')" data-cat="mojito" class="cat-filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition flex items-center gap-2 bg-slate-800/90 text-slate-300 hover:text-white border border-white/5">
+            <i class="fa-solid fa-martini-glass-citrus text-emerald-400"></i>
+            <span>Mojito</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Menu Items Card Grid -->
+      <div id="menuCardsContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+    </main>
+
+    <!-- Customer Floating Sticky Bottom Controls -->
+    <div class="fixed bottom-0 left-0 right-0 z-40 glass-bottom-bar px-4 py-3 shadow-[0_-10px_30px_rgba(0,0,0,0.7)]">
+      <div class="max-w-4xl mx-auto flex flex-col gap-2.5">
+        
+        <!-- Row 1: Fast Service Buttons (Call Waiter / Ask for Bill) -->
+        <div class="grid grid-cols-2 gap-2">
+          <!-- Call Waiter -->
+          <button onclick="callWaiterAction()" class="py-2.5 px-3 rounded-2xl bg-indigo-950/70 hover:bg-indigo-900/90 border border-indigo-500/30 text-indigo-200 text-xs font-bold flex items-center justify-center gap-2 transition active:scale-95 shadow-sm">
+            <i class="fa-solid fa-bell text-indigo-400 text-sm"></i>
+            <span>Call waiter</span>
+          </button>
+
+          <!-- Ask for the bill -->
+          <button onclick="askForBillAction()" class="py-2.5 px-3 rounded-2xl bg-amber-950/70 hover:bg-amber-900/90 border border-amber-500/30 text-amber-200 text-xs font-bold flex items-center justify-center gap-2 transition active:scale-95 shadow-sm">
+            <i class="fa-solid fa-receipt text-amber-400 text-sm"></i>
+            <span>Ask for the bill</span>
+          </button>
+        </div>
+
+        <!-- Row 2: View Order Bar -->
+        <button onclick="openOrderModal()" class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white font-extrabold text-xs sm:text-sm flex items-center justify-between shadow-xl shadow-indigo-600/30 transition active:scale-[0.98]">
+          <div class="flex items-center gap-2.5">
+            <div class="w-7 h-7 rounded-xl bg-white/20 flex items-center justify-center text-xs font-black text-white">
+              <span id="floatingCartCount">0</span>
+            </div>
+            <span>View order</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span id="floatingCartTotal" class="font-mono text-sm sm:text-base font-bold">0 IQD</span>
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Hidden Discreet Captain Lock Icon (Bottom Corner) -->
+    <!-- Inconspicuous lock icon that opens the staff authentication modal -->
+    <div class="fixed bottom-28 right-3 z-30 opacity-20 hover:opacity-100 transition-opacity">
+      <button onclick="openCaptainLoginModal()" title="Staff Portal" class="w-7 h-7 rounded-full bg-slate-900 border border-white/20 text-slate-400 hover:text-white flex items-center justify-center text-xs shadow-lg">
+        <i class="fa-solid fa-lock text-[10px]"></i>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: CUSTOMER ORDER VIEW & CHECKOUT                           -->
+  <!-- ============================================================== -->
+  <div id="orderDrawerModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
+    <div class="glass-card w-full max-w-lg rounded-t-3xl sm:rounded-3xl p-5 border border-white/10 shadow-2xl flex flex-col max-h-[88vh] bg-slate-900">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-2xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center">
+            <i class="fa-solid fa-cart-shopping text-sm"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-white">Your order</h3>
+            <p id="orderModalTableSubtitle" class="text-[11px] text-slate-400">Ordering for Table 1</p>
+          </div>
+        </div>
+        <button onclick="closeOrderModal()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark text-xs"></i>
         </button>
       </div>
-      <div class="brand-hero-center" onclick="window.handleBrandHeaderClick()">
-        <div class="brand-main-lockup">
-          <div class="brand-logo-slot" id="headerBrandLogoSlot">
-            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#fef08a" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle>
-              <polygon points="12 7 15.5 9.5 14 13.5 10 13.5 8.5 9.5" fill="#fef08a"></polygon>
-            </svg>
-            <span class="logo-edit-badge" id="logoEditBadge">✏️</span>
-          </div>
-          <div class="brand-wordmark">Emyelvere</div>
+
+      <!-- Items List -->
+      <div id="orderModalItemsContainer" class="flex-1 overflow-y-auto py-3 space-y-2.5 no-scrollbar my-2 text-xs">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Customer Name & Special Request inputs -->
+      <div class="space-y-2 mb-3 pt-2 border-t border-white/5">
+        <div>
+          <label class="block text-[11px] text-slate-400 mb-1 font-semibold">Your name (optional):</label>
+          <input type="text" id="customerNameInput" placeholder="Enter name or guest..." class="w-full bg-slate-800/80 border border-white/10 px-3 py-2 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
         </div>
-        <div class="brand-sub-pill">🇮🇶 خولا ستێرێن عیراقێ • ناڤەندا فەرمی</div>
+        <div>
+          <label class="block text-[11px] text-slate-400 mb-1 font-semibold">Any special request? (e.g. no sugar, extra ice)</label>
+          <input type="text" id="customerSpecialNotes" placeholder="Write any notes for the kitchen..." class="w-full bg-slate-800/80 border border-white/10 px-3 py-2 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+        </div>
       </div>
-      <div>
-        <button type="button" id="secretLockBtn" class="tiny-admin-lock" onclick="window.triggerAdminAuth()" title="ئەدمین">🔒</button>
+
+      <!-- Total & Action Button -->
+      <div class="border-t border-white/10 pt-3 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-slate-400 font-medium">Total amount:</span>
+          <span id="orderModalGrandTotal" class="text-lg font-black text-indigo-400">0 IQD</span>
+        </div>
+        <button onclick="submitOrderToCaptain()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-extrabold text-sm shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-2 active:scale-95 transition">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>Order now</span>
+        </button>
       </div>
+
     </div>
-  </header>
+  </div>
 
-  <div id="drawerOverlay" class="drawer-overlay" onclick="window.toggleDrawer()"></div>
-  <aside id="sideDrawer" class="drawer-side">
-    <div style="background:var(--burgundy-grad); color:#fff; padding:16px; display:flex; justify-content:space-between; align-items:center;">
-      <span style="font-weight:700;">مێنۆیا Emyelvere</span>
-      <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.toggleDrawer()">✕</button>
+  <!-- ============================================================== -->
+  <!-- MODAL: ORDER CONFIRMED & QR CODE DISPLAY                        -->
+  <!-- ============================================================== -->
+  <div id="orderSuccessModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="glass-card w-full max-w-sm rounded-3xl p-6 border border-white/10 text-center bg-slate-900 shadow-2xl relative">
+      
+      <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mx-auto flex items-center justify-center text-2xl mb-3">
+        <i class="fa-solid fa-check-double"></i>
+      </div>
+
+      <h3 class="text-base font-extrabold text-white mb-1">Order placed successfully!</h3>
+      <p class="text-xs text-slate-400 mb-4">Show this QR code to your waiter</p>
+
+      <!-- Unique Order Code Display -->
+      <div class="bg-slate-800/80 border border-white/10 p-3 rounded-2xl mb-4">
+        <span class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Your order code</span>
+        <span id="confirmedOrderCode" class="text-2xl font-black text-indigo-400 tracking-widest font-mono">#JJHTF2</span>
+      </div>
+
+      <!-- Functional Scalable Vector QR Code -->
+      <div class="bg-white p-3 rounded-2xl inline-block shadow-lg mb-4">
+        <div id="svgQrPlaceholder" class="w-36 h-36 flex items-center justify-center"></div>
+      </div>
+
+      <!-- Live Waiting Badge -->
+      <div class="flex items-center justify-center gap-2 text-xs text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 py-2.5 rounded-xl mb-4 font-semibold">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span>Waiting for the waiter...</span>
+      </div>
+
+      <button onclick="closeOrderSuccessModal()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition">
+        Close / Done
+      </button>
     </div>
-    <div style="padding:14px; overflow-y:auto; flex:1;">
-      <button type="button" class="drawer-btn active" id="dlink-matches" onclick="window.switchPage('matches'); window.toggleDrawer();">⚽ یاریێن ئەڤرۆ</button>
-      <button type="button" class="drawer-btn" id="dlink-livetv" onclick="window.switchPage('livetv'); window.toggleDrawer();">📺 پەخشێ ڕاستەوخۆ</button>
-      <button type="button" class="drawer-btn" id="dlink-standings" onclick="window.switchPage('standings'); window.toggleDrawer();">📊 خشتەیێ خولێ</button>
-      <button type="button" class="drawer-btn" id="dlink-scorers" onclick="window.switchPage('scorers'); window.toggleDrawer();">👟 گۆڵکەرێن سەرەکی</button>
-      <button type="button" class="drawer-btn" id="dlink-news" onclick="window.switchPage('news'); window.toggleDrawer();">📰 دەنگوباس</button>
+  </div>
 
-      <div id="adminDrawerMenu" style="display:none; margin-top:14px; border-top:1px solid #e5e7eb; padding-top:10px;">
-        <div style="font-size:0.75rem; font-weight:700; color:var(--burgundy-main); margin-bottom:6px;">کۆنترۆڵا ئەدمینی</div>
-        <button type="button" class="drawer-btn" onclick="window.openBrandLogoModal(); window.toggleDrawer();">🖼️ گوهۆڕینا لۆگۆیێ Emyelvere</button>
-        <button type="button" class="drawer-btn" style="background:#fffbeb; color:#92400e;" onclick="window.openAddSponsorModal(); window.toggleDrawer();">📢 + زێدەکرنا سپۆنسەری</button>
-        <button type="button" class="drawer-btn" style="background:#fee2e2; color:#dc2626;" onclick="window.lockAdmin(); window.toggleDrawer();">🔒 قوفڵکرنا ئەدمینی</button>
+  <!-- ============================================================== -->
+  <!-- MODAL: STAFF PIN VERIFICATION MODAL                             -->
+  <!-- ============================================================== -->
+  <div id="captainPinModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="glass-card w-full max-w-xs rounded-3xl p-6 border border-white/10 text-center bg-slate-900 shadow-2xl">
+      <div class="w-12 h-12 rounded-2xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 mx-auto flex items-center justify-center text-xl mb-3">
+        <i class="fa-solid fa-shield-halved"></i>
       </div>
-    </div>
-  </aside>
+      <h3 class="text-sm font-bold text-white mb-1">Captain / POS Login</h3>
+      <p class="text-xs text-slate-400 mb-4">Enter staff PIN to access dashboard</p>
 
-  <div class="container" id="sponsorContainer" style="padding-bottom:0;"></div>
-
-  <main class="container">
-    <div class="page-admin-toolbar" id="pageAdminBar">
-      <span style="font-weight:700; font-size:0.84rem; color:var(--burgundy-main);" id="adminToolbarLabel">کۆنترۆڵا یاریان</span>
-      <div style="display:flex; gap:6px; flex-wrap:wrap;">
-        <button type="button" class="btn-admin-add" id="mainAdminAddBtn" onclick="window.handleCurrentPageAdd()">+ زێدەکرن</button>
-        <button type="button" class="btn-admin-add" style="background:#b45309;" onclick="window.openAddSponsorModal()">📢 + سپۆنسەر</button>
-        <button type="button" class="btn-admin-add" style="background:#374151;" onclick="window.openBrandLogoModal()">🖼️ لۆگۆ</button>
+      <div class="space-y-3 mb-4">
+        <input 
+          type="password" 
+          id="staffPinInput" 
+          maxlength="20" 
+          placeholder="Enter PIN (e.g. 1234)" 
+          class="w-full bg-slate-800 border border-white/10 px-3 py-2.5 text-center text-sm font-mono tracking-widest text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          onkeydown="if(event.key==='Enter') verifyCaptainPin()"
+        >
+        <p class="text-[10px] text-slate-500">Default PIN: <span class="font-mono text-indigo-400">1234</span> or <span class="font-mono text-indigo-400">ZakhoAdmin@2026</span></p>
       </div>
-    </div>
 
-    <!-- Page 1: Matches -->
-    <section id="page-matches" class="page-section active">
-      <div class="filter-tabs">
-        <button type="button" class="filter-tab-btn active" data-filter="all" onclick="window.setMatchFilter('all')">هەمی یاری</button>
-        <button type="button" class="filter-tab-btn" data-filter="live" onclick="window.setMatchFilter('live')">🔴 ڕاستەوخۆ</button>
-        <button type="button" class="filter-tab-btn" data-filter="upcoming" onclick="window.setMatchFilter('upcoming')">نەهاتیەکرن</button>
-        <button type="button" class="filter-tab-btn" data-filter="finished" onclick="window.setMatchFilter('finished')">دووماهیک هاتی</button>
-      </div>
-      <div id="matchesListHost">
-        <div class="empty-state-box">
-          <span style="font-size:2.4rem; display:block; margin-bottom:6px;">⚽</span>
-          <div style="font-weight:700; color:var(--burgundy-main);">چ یاری نەهاتینە زێدەکرن</div>
-          <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">ب ڕێکا قوفڵا ئەدمینی 🔒 ل سەری یاریان زێدە بکە</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Page 2: Live TV -->
-    <section id="page-livetv" class="page-section">
-      <div id="livetvListHost">
-        <div class="empty-state-box">
-          <span style="font-size:2.4rem; display:block; margin-bottom:6px;">📺</span>
-          <div style="font-weight:700; color:var(--burgundy-main);">چ پەخشێن ڕاستەوخۆ نەهاتینە زێدەکرن</div>
-          <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">ل دەمێ یاریێ پەخشێ ڕاستەوخۆ دێ ل ڤێرە ڤەبیت</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Page 3: Standings -->
-    <section id="page-standings" class="page-section">
-      <div id="standingsListHost">
-        <div class="empty-state-box">
-          <span style="font-size:2.4rem; display:block; margin-bottom:6px;">📊</span>
-          <div style="font-weight:700; color:var(--burgundy-main);">خشتەیێ خولێ بەتاڵە</div>
-          <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">ب ڕێکا ئەدمینی 🔒 یانەیان زێدە بکە</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Page 4: Scorers -->
-    <section id="page-scorers" class="page-section">
-      <div id="scorersListHost">
-        <div class="empty-state-box">
-          <span style="font-size:2.4rem; display:block; margin-bottom:6px;">👟</span>
-          <div style="font-weight:700; color:var(--burgundy-main);">چ گۆڵکەر نەهاتینە تۆمارکرن</div>
-          <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">ب ڕێکا ئەدمینی 🔒 گۆڵکەران زێدە بکە</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Page 5: News -->
-    <section id="page-news" class="page-section">
-      <div id="newsListHost">
-        <div class="empty-state-box">
-          <span style="font-size:2.4rem; display:block; margin-bottom:6px;">📰</span>
-          <div style="font-weight:700; color:var(--burgundy-main);">چ دەنگوباس بەردەست نینن</div>
-          <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">ب ڕێکا ئەدمینی 🔒 دەنگوباسان زێدە بکە</div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <nav class="bottom-bar">
-    <button type="button" class="nav-tab active" id="bot-matches" onclick="window.switchPage('matches')">
-      <span style="font-size:1.15rem;">⚽</span><span>یاری</span>
-    </button>
-    <button type="button" class="nav-tab" id="bot-livetv" onclick="window.switchPage('livetv')">
-      <span style="font-size:1.15rem;">📺</span><span>پەخش</span>
-    </button>
-    <button type="button" class="nav-tab" id="bot-standings" onclick="window.switchPage('standings')">
-      <span style="font-size:1.15rem;">📊</span><span>خشتە</span>
-    </button>
-    <button type="button" class="nav-tab" id="bot-scorers" onclick="window.switchPage('scorers')">
-      <span style="font-size:1.15rem;">👟</span><span>گۆڵکەر</span>
-    </button>
-    <button type="button" class="nav-tab" id="bot-news" onclick="window.switchPage('news')">
-      <span style="font-size:1.15rem;">📰</span><span>دەنگوباس</span>
-    </button>
-  </nav>
-
-
-  <!-- Admin Password Modal -->
-  <div id="passwordModal" class="modal-overlay">
-    <div class="modal-window" style="max-width:340px;">
-      <div class="modal-header">
-        <span>داخڵبوونا ئەدمینی 🔒</span>
-        <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.closeModal('passwordModal')">✕</button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label class="form-label">پاسوۆردێ ئەدمینی بنڤیسە:</label>
-          <input type="password" id="adminPassInput" class="form-input" placeholder="پاسوۆرد..." onkeydown="if(event.key==='Enter') window.submitAdminPassword()">
-          <div id="passError" style="display:none; color:#dc2626; font-size:0.75rem; margin-top:5px; font-weight:700;">❌ پاسوۆرد شاشە!</div>
-        </div>
-        <button type="button" class="btn-submit" onclick="window.submitAdminPassword()">ڤەکرن 🔓</button>
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="closeCaptainPinModal()" class="py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">
+          Cancel
+        </button>
+        <button onclick="verifyCaptainPin()" class="py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/30">
+          Unlock
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Brand Logo Modal -->
-  <div id="brandLogoModal" class="modal-overlay">
-    <div class="modal-window" style="max-width:390px;">
-      <div class="modal-header">
-        <span>🖼️ گوهۆڕینا لۆگۆیێ Emyelvere</span>
-        <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.closeModal('brandLogoModal')">✕</button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label class="form-label">لینکێ لۆگۆی یان Upload Image:</label>
-          <div style="display:flex; gap:6px;">
-            <input type="url" id="siteLogoInput" class="form-input" placeholder="لینکێ لۆگۆی...">
-            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer; white-space:nowrap;">
-              📤 Upload
-              <input type="file" accept="image/*" style="display:none;" onchange="window.uploadToInput(event, 'siteLogoInput')">
-            </label>
+  <!-- ============================================================== -->
+  <!-- 2. CAPTAIN / POS DASHBOARD (Hidden behind PIN)                 -->
+  <!-- ============================================================== -->
+  <div id="captainApp" class="w-full flex-1 flex flex-col hidden bg-slate-950 min-h-screen">
+    
+    <!-- Captain Top Header -->
+    <header class="glass-header px-4 py-3 sticky top-0 z-30 border-b border-indigo-500/20">
+      <div class="max-w-6xl mx-auto flex items-center justify-between gap-3">
+        
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-bold text-base shadow-lg shadow-indigo-600/30">
+            <i class="fa-solid fa-clipboard-user"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-sm sm:text-base font-extrabold text-white">Captain Dashboard</h2>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">ONLINE</span>
+            </div>
+            <p class="text-[11px] text-slate-400">POS & Table Floor Management (Test Cafe)</p>
           </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">قەبارەیێ لۆگۆی:</label>
-          <select id="siteLogoSize" class="form-select">
-            <option value="normal">ئاسایی</option>
-            <option value="lg">مەزن</option>
-            <option value="xl">گەلەک مەزن</option>
-          </select>
-        </div>
-        <button type="button" class="btn-submit" onclick="window.saveBrandLogo()">تۆمارکرنا لۆگۆی ✅</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- Match Modal -->
-  <div id="matchModal" class="modal-overlay">
-    <div class="modal-window">
-      <div class="modal-header">
-        <span id="matchModalTitle">زێدەکرنا یاریێ</span>
-        <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.closeModal('matchModal')">✕</button>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" id="mEditId">
-        <div class="form-group">
-          <label class="form-label">تیما ئێکێ (Home):</label>
-          <input type="text" id="mHomeName" class="form-input" placeholder="زاخۆ">
+        <div class="flex items-center gap-2">
+          <!-- Sound Alert Test Button -->
+          <button onclick="playChimeSound(true)" title="Test Bell Sound" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-white/10 text-xs transition">
+            <i class="fa-solid fa-volume-high"></i>
+          </button>
+          
+          <!-- Exit / Back to Customer Menu -->
+          <button onclick="exitCaptainMode()" class="px-3.5 py-2 rounded-xl bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/30 text-xs font-bold transition flex items-center gap-1.5">
+            <i class="fa-solid fa-lock"></i>
+            <span>Exit / Lock</span>
+          </button>
         </div>
-        <div class="form-group">
-          <label class="form-label">لۆگۆیێ تیما ١ (لینک یان Upload):</label>
-          <div style="display:flex; gap:6px;">
-            <input type="url" id="mHomeLogo" class="form-input" placeholder="لینکێ لۆگۆی...">
-            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer; white-space:nowrap;">
-              📤 Upload
-              <input type="file" accept="image/*" style="display:none;" onchange="window.uploadToInput(event, 'mHomeLogo')">
-            </label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">تیما دووێ (Away):</label>
-          <input type="text" id="mAwayName" class="form-input" placeholder="دهۆک">
-        </div>
-        <div class="form-group">
-          <label class="form-label">لۆگۆیێ تیما ٢ (لینک یان Upload):</label>
-          <div style="display:flex; gap:6px;">
-            <input type="url" id="mAwayLogo" class="form-input" placeholder="لینکێ لۆگۆی...">
-            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer; white-space:nowrap;">
-              📤 Upload
-              <input type="file" accept="image/*" style="display:none;" onchange="window.uploadToInput(event, 'mAwayLogo')">
-            </label>
-          </div>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-          <div class="form-group"><label class="form-label">گۆڵێن تیما ١:</label><input type="number" id="mHomeScore" class="form-input" value="0"></div>
-          <div class="form-group"><label class="form-label">گۆڵێن تیما ٢:</label><input type="number" id="mAwayScore" class="form-input" value="0"></div>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-          <div class="form-group">
-            <label class="form-label">ڕەوشا یاریێ:</label>
-            <select id="mStatus" class="form-select">
-              <option value="upcoming">نەهاتیەکرن</option>
-              <option value="live">ڕاستەوخۆ (LIVE)</option>
-              <option value="finished">دووماهیک هاتی (FT)</option>
-            </select>
-          </div>
-          <div class="form-group"><label class="form-label">کات / خولەک:</label><input type="text" id="mTime" class="form-input" placeholder="19:00"></div>
-        </div>
-        <button type="button" class="btn-submit" onclick="window.saveMatch()">تۆمارکردن ✅</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- Live TV Modal -->
-  <div id="tvModal" class="modal-overlay">
-    <div class="modal-window">
-      <div class="modal-header">
-        <span>زێدەکرنا پەخشێ ڕاستەوخۆ</span>
-        <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.closeModal('tvModal')">✕</button>
       </div>
-      <div class="modal-body">
-        <input type="hidden" id="tvEditId">
-        <div class="form-group"><label class="form-label">ناڤێ یاریێ / کەناڵ:</label><input type="text" id="tvTitle" class="form-input" placeholder="زاخۆ دژی شورتە"></div>
-        <div class="form-group">
-          <label class="form-label">لۆگۆ (لینک یان Upload):</label>
-          <div style="display:flex; gap:6px;">
-            <input type="url" id="tvLogo" class="form-input" placeholder="لینکێ لۆگۆی...">
-            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer;">📤 Upload<input type="file" accept="image/*" style="display:none;" onchange="window.uploadToInput(event, 'tvLogo')"></label>
-          </div>
-        </div>
-        <div class="form-group"><label class="form-label">سێرڤەر ١ (YouTube, TikTok, Instagram, Facebook, m3u8, iframe):</label><textarea id="tvUrl1" class="form-textarea" placeholder="لینکێ لایڤێ یان Embed..."></textarea></div>
-        <div class="form-group"><label class="form-label">سێرڤەر ٢:</label><input type="text" id="tvUrl2" class="form-input" placeholder="لینکێ سێرڤەرێ ٢..."></div>
-        <div class="form-group"><label class="form-label">سێرڤەر ٣:</label><input type="text" id="tvUrl3" class="form-input" placeholder="لینکێ سێرڤەرێ ٣..."></div>
-        <button type="button" class="btn-submit" onclick="window.saveTv()">تۆمارکرنا پەخشی ✅</button>
-      </div>
-    </div>
-  </div>
+    </header>
 
-  <!-- Sponsor Modal (1280x415) -->
-  <div id="sponsorModal" class="modal-overlay">
-    <div class="modal-window">
-      <div class="modal-header">
-        <span>📢 سپۆنسەر و ڕێکلام (1280×415)</span>
-        <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.closeModal('sponsorModal')">✕</button>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" id="spEditId">
-        <div class="form-group"><label class="form-label">ناڤێ سپۆنسەری:</label><input type="text" id="spName" class="form-input" placeholder="ناڤێ کۆمپانیێ"></div>
-        <div class="form-group"><label class="form-label">پەیاما ڕێکلامێ:</label><input type="text" id="spText" class="form-input" placeholder="ئۆفەر و خزمەتگوزاری..."></div>
-        <div class="form-group">
-          <label class="form-label">لۆگۆ / بانەر (1280W × 415H px):</label>
-          <div style="display:flex; gap:6px;">
-            <input type="url" id="spLogo" class="form-input" placeholder="لینکێ بانەری...">
-            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer; background:#fef3c7; color:#7a091e;">📤 Upload 1280×415<input type="file" accept="image/*" style="display:none;" onchange="window.uploadSponsorImage1280x415(event)"></label>
-          </div>
+    <!-- Captain Floor & Table Grid Content -->
+    <main class="max-w-6xl mx-auto w-full p-4 grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1">
+      
+      <!-- Left: Tables Grid 1 through 8 -->
+      <section class="lg:col-span-7 flex flex-col gap-3">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+            <i class="fa-solid fa-table-cells-large text-indigo-400"></i>
+            <span>Floor Tables Overview</span>
+          </h3>
+          <span class="text-xs text-slate-400">8 Tables Configured</span>
         </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-          <div class="form-group">
-            <label class="form-label">قەبارە (1280×415):</label>
-            <select id="spFit" class="form-select">
-              <option value="fill">پڕکرنا تەمام ١٠٠٪ (Exact Fit)</option>
-              <option value="cover">پڕکرن بێ کشان (Cover)</option>
-              <option value="contain">لۆگۆیێ شەفاف (Contain)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">حەرەکە (Effect):</label>
-            <select id="spEffect" class="form-select">
-              <option value="fx-glide">✨ هاتن و چوون + تیشک</option>
-              <option value="fx-pulse3d">🚀 لڤینا 3D</option>
-              <option value="fx-neon">🌟 درەوشانا نیۆن</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group"><label class="form-label">لینکێ وێبسایتێ سپۆنسەری:</label><input type="url" id="spLink" class="form-input" placeholder="https://..."></div>
-        <button type="button" class="btn-submit" onclick="window.saveSponsor()">تۆمارکرنا سپۆنسەری ✅</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- Standing Modal -->
-  <div id="standingModal" class="modal-overlay">
-    <div class="modal-window">
-      <div class="modal-header">
-        <span>زێدەکرنا یانێ د خشتەی دا</span>
-        <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.closeModal('standingModal')">✕</button>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" id="stEditId">
-        <div class="form-group"><label class="form-label">ڕێزبەندی (#):</label><input type="number" id="stRank" class="form-input" value="1"></div>
-        <div class="form-group"><label class="form-label">ناڤێ یانەیێ:</label><input type="text" id="stClub" class="form-input" placeholder="زاخۆ"></div>
-        <div class="form-group">
-          <label class="form-label">لۆگۆیێ یانەیێ:</label>
-          <div style="display:flex; gap:6px;">
-            <input type="url" id="stLogo" class="form-input" placeholder="لینکێ لۆگۆی...">
-            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer;">📤 Upload<input type="file" accept="image/*" style="display:none;" onchange="window.uploadToInput(event, 'stLogo')"></label>
-          </div>
+        <!-- 8 Tables Grid -->
+        <div id="captainFloorTablesGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <!-- Rendered dynamically -->
         </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-          <div class="form-group"><label class="form-label">یاری (P):</label><input type="number" id="stP" class="form-input" value="0"></div>
-          <div class="form-group"><label class="form-label">خاڵ (PTS):</label><input type="number" id="stPts" class="form-input" value="0"></div>
-        </div>
-        <button type="button" class="btn-submit" onclick="window.saveStanding()">تۆمارکردن ✅</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- Scorer Modal -->
-  <div id="scorerModal" class="modal-overlay">
-    <div class="modal-window">
-      <div class="modal-header">
-        <span>زێدەکرنا گۆڵکەری</span>
-        <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.closeModal('scorerModal')">✕</button>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" id="scEditId">
-        <div class="form-group"><label class="form-label">ناڤێ یاریزانی:</label><input type="text" id="scName" class="form-input" placeholder="ناڤێ یاریزانی"></div>
-        <div class="form-group">
-          <label class="form-label">وێنەیێ یاریزانی:</label>
-          <div style="display:flex; gap:6px;">
-            <input type="url" id="scPhoto" class="form-input" placeholder="لینکێ وێنەی...">
-            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer;">📤 Upload<input type="file" accept="image/*" style="display:none;" onchange="window.uploadToInput(event, 'scPhoto')"></label>
+        <!-- Legend -->
+        <div class="flex flex-wrap items-center gap-4 text-[11px] bg-slate-900/60 p-3 rounded-2xl border border-white/5 text-slate-400 mt-2">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
+            <span class="text-rose-400 font-semibold">Calling Waiter</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
+            <span class="text-amber-400 font-semibold">Bill Requested</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
+            <span class="text-indigo-400 font-semibold">Occupied / Active</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-slate-600"></span>
+            <span>Empty</span>
           </div>
         </div>
-        <div class="form-group"><label class="form-label">یانە:</label><input type="text" id="scClub" class="form-input" placeholder="زاخۆ"></div>
-        <div class="form-group"><label class="form-label">ژمارەیا گۆڵان:</label><input type="number" id="scGoals" class="form-input" value="1"></div>
-        <button type="button" class="btn-submit" onclick="window.saveScorer()">تۆمارکردن ✅</button>
-      </div>
-    </div>
-  </div>
+      </section>
 
-  <!-- News Modal -->
-  <div id="newsModal" class="modal-overlay">
-    <div class="modal-window">
-      <div class="modal-header">
-        <span>زێدەکرنا دەنگوباسی</span>
-        <button type="button" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;" onclick="window.closeModal('newsModal')">✕</button>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" id="nwEditId">
-        <div class="form-group"><label class="form-label">سەردێڕ:</label><input type="text" id="nwTitle" class="form-input" placeholder="سەردێڕێ دەنگوباسی..."></div>
-        <div class="form-group">
-          <label class="form-label">وێنە / لۆگۆ:</label>
-          <div style="display:flex; gap:6px;">
-            <input type="url" id="nwLogo" class="form-input" placeholder="لینکێ وێنەی...">
-            <label class="btn-action-icon" style="display:flex; align-items:center; cursor:pointer;">📤 Upload<input type="file" accept="image/*" style="display:none;" onchange="window.uploadToInput(event, 'nwLogo')"></label>
-          </div>
-        </div>
-        <div class="form-group"><label class="form-label">ناوەڕۆک:</label><textarea id="nwText" class="form-textarea" placeholder="درێژاهیا دەنگوباسی..."></textarea></div>
-        <button type="button" class="btn-submit" onclick="window.saveNews()">تۆمارکردن ✅</button>
-      </div>
-    </div>
-  </div>
+      <!-- Right: Detailed Table Inspection & Checkout -->
+      <section class="lg:col-span-5 flex flex-col gap-3">
+        <div class="glass-card rounded-3xl p-4 sm:p-5 border border-white/10 flex flex-col justify-between h-full bg-slate-900 shadow-2xl">
+          
+          <div>
+            <!-- Active table title -->
+            <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
+              <div class="flex items-center gap-2.5">
+                <span id="captainSelectedTableBadge" class="w-9 h-9 rounded-xl bg-indigo-600 text-white font-black text-sm flex items-center justify-center">1</span>
+                <div>
+                  <h4 id="captainSelectedTableTitle" class="text-sm font-bold text-white">Table 1</h4>
+                  <span id="captainSelectedTableSubtitle" class="text-[11px] text-slate-400 font-medium">No active orders</span>
+                </div>
+              </div>
 
-  <!-- iOS Live Activities Notification -->
-  <div id="iosBackdrop" class="ios-la-backdrop" onclick="window.closeLiveActivity()"></div>
-  <div id="iosWrapper" class="ios-la-wrapper">
-    <div class="ios-la-card">
-      <div style="padding:16px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
-          <div style="flex:1; text-align:right;">
-            <div style="font-weight:700; font-size:0.95rem;" id="iosTitle">یاریا نوو ئامادە دەکرێت ⚽</div>
-            <div style="font-size:0.76rem; color:#9ca3af;" id="iosSubtitle">خولا ستێرێن عیراقێ • #Emyelvere</div>
+              <!-- Quick Reset / Clear Table -->
+              <button onclick="captainClearSelectedTable()" class="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-rose-950 text-slate-400 hover:text-rose-300 border border-white/10 text-xs font-semibold transition">
+                Clear Table
+              </button>
+            </div>
+
+            <!-- Active Alerts Banner for Waiter Call or Bill Request -->
+            <div id="captainAlertBanner" class="hidden mb-3"></div>
+
+            <!-- Orders Item List -->
+            <div id="captainOrderItemsList" class="space-y-2.5 max-h-72 overflow-y-auto no-scrollbar text-xs">
+              <!-- Rendered dynamically -->
+            </div>
           </div>
-          <div id="iosBrandBox" style="width:42px; height:42px; border-radius:12px; background:linear-gradient(135deg,#e51d36,#7a091e); display:flex; align-items:center; justify-content:center;">⚽</div>
+
+          <!-- Bottom Totals & Actions -->
+          <div class="border-t border-white/10 pt-3 mt-4 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-slate-400">Total amount due:</span>
+              <span id="captainTableTotalAmount" class="text-lg font-black text-indigo-400">0 IQD</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="captainAcknowledgeBill()" class="py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-print"></i>
+                <span>Print Bill</span>
+              </button>
+              <button onclick="captainPaidAndClose()" class="py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-lg shadow-emerald-600/30">
+                <i class="fa-solid fa-check"></i>
+                <span>Mark Paid</span>
+              </button>
+            </div>
+          </div>
+
         </div>
-        <div class="ios-la-progress-bar">
-          <div class="ios-la-line"></div>
-          <div class="ios-la-line-fill" id="iosProgressFill"></div>
-          <div class="ios-la-node done" id="iosStep1">✓</div>
-          <div class="ios-la-node active-pill" id="iosStep2">👕</div>
-          <div class="ios-la-node" id="iosStep3">⚽</div>
-          <div class="ios-la-node" id="iosStep4">🏆</div>
-        </div>
-      </div>
-      <div style="background:#09090c; border-top:1px solid rgba(255,255,255,0.08); padding:12px 16px 4px 16px; text-align:center;">
-        <div style="font-size:0.84rem; font-weight:600; direction:ltr;">Allow Live Activities from Emyelvere?</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; border-top:1px solid rgba(255,255,255,0.08); margin:10px -16px 0 -16px; direction:ltr;">
-          <button type="button" style="background:none; border:none; border-right:1px solid rgba(255,255,255,0.08); color:#9ca3af; padding:12px; font-weight:600; cursor:pointer;" onclick="window.dismissLiveActivity(false)">Don't Allow</button>
-          <button type="button" style="background:none; border:none; color:#fff; padding:12px; font-weight:700; cursor:pointer;" onclick="window.dismissLiveActivity(true)">Allow</button>
-        </div>
-      </div>
-    </div>
+      </section>
+
+    </main>
   </div>
 
   <script>
-    var ADMIN_KEY = "Zakho#Pro99@Iraq";
-    var isAdmin = false;
-    var currentPage = "matches";
-    var currentFilter = "all";
-    var activeServerMap = {};
-    var verticalModeMap = {};
-    var currentLaMatchId = null;
+    // ==============================================================
+    // 1. SYNTHESIZED SOUND GENERATOR (Web Audio API)
+    // ==============================================================
+    let audioCtx = null;
 
-    var state = {
-      brandLogo: "",
-      brandLogoSize: "normal",
-      matches: [],
-      streams: [],
-      standings: [],
-      scorers: [],
-      news: [],
-      sponsors: []
-    };
-
-    // 1. Core Navigation & UI Functions (Attached to window immediately)
-    window.switchPage = function(page) {
-      currentPage = page;
-      var pages = ["matches", "livetv", "standings", "scorers", "news"];
-      for (var i = 0; i < pages.length; i++) {
-        var p = pages[i];
-        var sec = document.getElementById("page-" + p);
-        var bot = document.getElementById("bot-" + p);
-        var drw = document.getElementById("dlink-" + p);
-        if (sec) sec.classList.toggle("active", p === page);
-        if (bot) bot.classList.toggle("active", p === page);
-        if (drw) drw.classList.toggle("active", p === page);
-      }
-      window.updateAdminToolbarLabel();
-      window.renderCurrentPageData();
-      window.scrollTo(0, 0);
-    };
-
-    window.toggleDrawer = function() {
-      var d = document.getElementById("sideDrawer");
-      var o = document.getElementById("drawerOverlay");
-      if (d && o) {
-        d.classList.toggle("active");
-        o.classList.toggle("active");
-      }
-    };
-
-    window.openModal = function(id) {
-      var el = document.getElementById(id);
-      if (el) el.classList.add("active");
-    };
-
-    window.closeModal = function(id) {
-      var el = document.getElementById(id);
-      if (el) el.classList.remove("active");
-    };
-
-    window.triggerAdminAuth = function() {
-      if (isAdmin) {
-        window.lockAdmin();
-      } else {
-        var inp = document.getElementById("adminPassInput");
-        var err = document.getElementById("passError");
-        if (inp) inp.value = "";
-        if (err) err.style.display = "none";
-        window.openModal("passwordModal");
-      }
-    };
-
-    window.submitAdminPassword = function() {
-      var inp = document.getElementById("adminPassInput");
-      var err = document.getElementById("passError");
-      if (inp && inp.value === ADMIN_KEY) {
-        isAdmin = true;
-        try { localStorage.setItem("emy_auth_flag", "true"); } catch (e) {}
-        window.closeModal("passwordModal");
-        window.updateAdminView();
-      } else if (err) {
-        err.style.display = "block";
-      }
-    };
-
-    window.lockAdmin = function() {
-      isAdmin = false;
-      try { localStorage.setItem("emy_auth_flag", "false"); } catch (e) {}
-      window.updateAdminView();
-    };
-
-    window.handleCurrentPageAdd = function() {
-      if (currentPage === "matches") window.openAddMatchModal();
-      else if (currentPage === "livetv") window.openAddTvModal();
-      else if (currentPage === "standings") window.openAddStandingModal();
-      else if (currentPage === "scorers") window.openAddScorerModal();
-      else if (currentPage === "news") window.openAddNewsModal();
-    };
-
-    window.updateAdminToolbarLabel = function() {
-      var label = document.getElementById("adminToolbarLabel");
-      var btn = document.getElementById("mainAdminAddBtn");
-      if (!label || !btn) return;
-      var map = {
-        matches: ["کۆنترۆڵا یاریان", "+ زێدەکرنا یاریێ"],
-        livetv: ["کۆنترۆڵا پەخشێ ڕاستەوخۆ", "+ زێدەکرنا پەخشێ لایڤ"],
-        standings: ["کۆنترۆڵا خشتەیێ خولێ", "+ زێدەکرنا یانێ"],
-        scorers: ["کۆنترۆڵا گۆڵکەران", "+ زێدەکرنا گۆڵکەری"],
-        news: ["کۆنترۆڵا دەنگوباسان", "+ زێدەکرنا دەنگوباسی"]
-      };
-      var info = map[currentPage] || map.matches;
-      label.innerText = info[0];
-      btn.innerText = info[1];
-    };
-
-    window.setMatchFilter = function(f) {
-      currentFilter = f;
-      var btns = document.querySelectorAll(".filter-tab-btn");
-      for (var i = 0; i < btns.length; i++) {
-        btns[i].classList.toggle("active", btns[i].getAttribute("data-filter") === f);
-      }
-      window.renderMatchesView();
-    };
-
-    function cleanStr(s) {
-      return String(s || "").replace(/[<>]/g, "").trim();
-    }
-
-    function loadState() {
+    function playChimeSound(isManualTest = false) {
       try {
-        var saved = localStorage.getItem("emy_state_v2");
-        if (saved) state = Object.assign(state, JSON.parse(saved));
-        if (localStorage.getItem("emy_auth_flag") === "true") isAdmin = true;
-      } catch (e) {}
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        // High crystal chime (Ding-Dong harmonic)
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, now); // A5
+        osc.frequency.exponentialRampToValueAtTime(1320, now + 0.15); // E6
+
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.9);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.95);
+
+        if (isManualTest) {
+          showToast('Bell chime sound played!', 'info');
+        }
+      } catch (e) {
+        console.warn('AudioContext not allowed yet:', e);
+      }
     }
 
-    function saveState() {
-      try { localStorage.setItem("emy_state_v2", JSON.stringify(state)); } catch (e) {}
+    // ==============================================================
+    // 2. CAFE MENU DATABASE (Realistic images & Iraqi Dinar IQD)
+    // ==============================================================
+    const CAFE_ITEMS = [
+      {
+        id: 'cookie_cake',
+        title: 'Cookies',
+        category: 'cake',
+        price: 3000,
+        img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=500&q=80',
+        badge: 'Fresh'
+      },
+      {
+        id: 'choc_cake',
+        title: 'Chocolate Cake',
+        category: 'cake',
+        price: 4500,
+        img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=80',
+        badge: 'Popular'
+      },
+      {
+        id: 'coca_cola',
+        title: 'Coca-Cola',
+        category: 'drinks',
+        price: 1000,
+        img: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=500&q=80',
+        badge: 'Chilled'
+      },
+      {
+        id: 'soda_mix',
+        title: 'Soda Variety',
+        category: 'drinks',
+        price: 1000,
+        img: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=500&q=80',
+        badge: 'Can'
+      },
+      {
+        id: 'sprite',
+        title: 'Sprite',
+        category: 'drinks',
+        price: 1000,
+        img: 'https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?auto=format&fit=crop&w=500&q=80',
+        badge: 'Lime'
+      },
+      {
+        id: 'water_bottle',
+        title: '250ml Water',
+        category: 'drinks',
+        price: 500,
+        img: 'https://images.unsplash.com/photo-1548839140-29a749e1bc4e?auto=format&fit=crop&w=500&q=80',
+        badge: 'Mineral'
+      },
+      {
+        id: 'redbull',
+        title: 'Red Bull',
+        category: 'energy',
+        price: 2500,
+        img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=500&q=80',
+        badge: 'Energy'
+      },
+      {
+        id: 'caramel_frappe',
+        title: 'Frappuccino Caramel',
+        category: 'frappuccino',
+        price: 4500,
+        img: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=500&q=80',
+        badge: 'Sweet'
+      },
+      {
+        id: 'hot_cappuccino',
+        title: 'Hot Coffee Cappuccino',
+        category: 'hot_coffee',
+        price: 3500,
+        img: 'https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=500&q=80',
+        badge: 'Creamy'
+      },
+      {
+        id: 'ice_coffee',
+        title: 'Ice Coffee Latte',
+        category: 'ice_coffee',
+        price: 4000,
+        img: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=500&q=80',
+        badge: 'Cold'
+      },
+      {
+        id: 'orange_juice',
+        title: 'Fresh Orange Juice',
+        category: 'juices',
+        price: 3500,
+        img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=500&q=80',
+        badge: 'Natural'
+      },
+      {
+        id: 'strawberry_milkshake',
+        title: 'Strawberry Milkshake',
+        category: 'milkshake',
+        price: 4500,
+        img: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=500&q=80',
+        badge: 'Sweet'
+      },
+      {
+        id: 'mojito_mint',
+        title: 'Mint Mojito',
+        category: 'mojito',
+        price: 4000,
+        img: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&w=500&q=80',
+        badge: 'Refreshing'
+      }
+    ];
+
+    // ==============================================================
+    // 3. APPLICATION STATE
+    // ==============================================================
+    let currentCustomerTable = 1;
+    let selectedCaptainTable = 1;
+    let activeCategory = 'all';
+    let customerCart = {}; // { itemId: quantity }
+
+    // 8 Restaurant Tables State
+    let floorTables = {
+      1: { status: 'occupied', calling: false, billRequested: false, orders: [] },
+      2: { status: 'empty', calling: false, billRequested: false, orders: [] },
+      3: { status: 'empty', calling: false, billRequested: false, orders: [] },
+      4: { status: 'empty', calling: false, billRequested: false, orders: [] },
+      5: { status: 'empty', calling: false, billRequested: false, orders: [] },
+      6: { status: 'empty', calling: false, billRequested: false, orders: [] },
+      7: { status: 'empty', calling: false, billRequested: false, orders: [] },
+      8: { status: 'empty', calling: false, billRequested: false, orders: [] }
+    };
+
+    // Prepopulate Table 1 with sample order identical to the demonstration
+    floorTables[1].orders.push({
+      code: 'JJHTF2',
+      customerName: 'Guest',
+      notes: '',
+      time: '12:45 PM',
+      items: [
+        { id: 'cookie_cake', title: 'Cookies', qty: 1, price: 3000 },
+        { id: 'coca_cola', title: 'Coca-Cola', qty: 1, price: 1000 }
+      ],
+      total: 4000
+    });
+
+    // ==============================================================
+    // 4. RENDERING MENU ITEMS
+    // ==============================================================
+    function renderCustomerMenu() {
+      const container = document.getElementById('menuCardsContainer');
+      const searchQuery = (document.getElementById('menuSearchInput').value || '').toLowerCase().trim();
+
+      const filtered = CAFE_ITEMS.filter(item => {
+        const matchesCategory = (activeCategory === 'all') || (item.category === activeCategory);
+        const matchesSearch = item.title.toLowerCase().includes(searchQuery);
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-16 text-center text-slate-500">
+            <i class="fa-solid fa-mug-saucer text-3xl mb-2 text-slate-600"></i>
+            <p class="text-xs">No menu items found.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => {
+        const qty = customerCart[item.id] || 0;
+        return `
+          <div class="glass-card rounded-2xl overflow-hidden border border-white/5 hover:border-indigo-500/40 transition flex flex-col justify-between group shadow-lg">
+            <div class="relative h-28 sm:h-36 overflow-hidden bg-slate-900">
+              <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" onerror="this.src='https://placehold.co/400x300/1e293b/ffffff?text=${encodeURIComponent(item.title)}'">
+              <span class="absolute top-2 right-2 text-[9px] font-bold px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-amber-300 border border-white/10">
+                ${item.badge}
+              </span>
+            </div>
+
+            <div class="p-3 flex-1 flex flex-col justify-between">
+              <div>
+                <h4 class="text-xs sm:text-sm font-bold text-white line-clamp-1">${item.title}</h4>
+                <p class="text-xs font-black text-indigo-400 mt-0.5">${formatIQD(item.price)}</p>
+              </div>
+
+              <div class="mt-2.5 pt-2 border-t border-white/5">
+                ${qty > 0 ? `
+                  <div class="flex items-center justify-between bg-indigo-950/80 border border-indigo-500/40 rounded-xl p-1">
+                    <button onclick="updateCartItemQty('${item.id}', -1)" class="w-6 h-6 rounded-lg bg-indigo-800 text-white flex items-center justify-center text-xs active:scale-90">
+                      <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <span class="text-xs font-black text-white px-1">${qty}</span>
+                    <button onclick="updateCartItemQty('${item.id}', 1)" class="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-xs active:scale-90">
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
+                  </div>
+                ` : `
+                  <button onclick="updateCartItemQty('${item.id}', 1)" class="w-full py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 active:scale-95 shadow-md shadow-indigo-600/20 transition">
+                    <i class="fa-solid fa-plus text-[10px]"></i>
+                    <span>Add to order</span>
+                  </button>
+                `}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
-    window.uploadToInput = function(e, inputId) {
-      var file = e.target.files && e.target.files[0];
-      if (!file) return;
-      var reader = new FileReader();
-      reader.onload = function(evt) {
-        var img = new Image();
-        img.onload = function() {
-          try {
-            var c = document.createElement("canvas");
-            var max = 360;
-            var sc = Math.min(1, max / Math.max(img.width, img.height));
-            c.width = Math.round(img.width * sc);
-            c.height = Math.round(img.height * sc);
-            c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
-            document.getElementById(inputId).value = c.toDataURL("image/png");
-          } catch (err) {
-            document.getElementById(inputId).value = evt.target.result;
-          }
+    function updateCartItemQty(itemId, change) {
+      if (!customerCart[itemId]) customerCart[itemId] = 0;
+      customerCart[itemId] += change;
+      if (customerCart[itemId] <= 0) {
+        delete customerCart[itemId];
+      }
+      updateCustomerCartBar();
+      renderCustomerMenu();
+    }
+
+    function updateCustomerCartBar() {
+      let count = 0;
+      let total = 0;
+      for (const [id, qty] of Object.entries(customerCart)) {
+        const item = CAFE_ITEMS.find(i => i.id === id);
+        if (item) {
+          count += qty;
+          total += item.price * qty;
+        }
+      }
+      document.getElementById('floatingCartCount').innerText = count;
+      document.getElementById('floatingCartTotal').innerText = formatIQD(total);
+    }
+
+    function filterCategory(cat) {
+      activeCategory = cat;
+      document.getElementById('activeCategoryLabel').innerText = cat === 'all' ? 'All dishes' : cat.charAt(0).toUpperCase() + cat.slice(1);
+
+      document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+        if (btn.getAttribute('data-cat') === cat) {
+          btn.className = 'cat-filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition flex items-center gap-2 bg-indigo-600 text-white shadow-lg shadow-indigo-600/30';
+        } else {
+          btn.className = 'cat-filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition flex items-center gap-2 bg-slate-800/90 text-slate-300 hover:text-white border border-white/5';
+        }
+      });
+
+      renderCustomerMenu();
+    }
+
+    function handleMenuSearch() {
+      renderCustomerMenu();
+    }
+
+    function switchCustomerTable(val) {
+      currentCustomerTable = parseInt(val);
+      showToast(`Switched customer view to Table ${val}`, 'info');
+      updateCustomerCartBar();
+    }
+
+    // ==============================================================
+    // 5. CUSTOMER CART & CHECKOUT LOGIC
+    // ==============================================================
+    function openOrderModal() {
+      const container = document.getElementById('orderModalItemsContainer');
+      const totalEl = document.getElementById('orderModalGrandTotal');
+      document.getElementById('orderModalTableSubtitle').innerText = `Ordering for Table ${currentCustomerTable}`;
+
+      const keys = Object.keys(customerCart);
+      let grandTotal = 0;
+
+      if (keys.length === 0) {
+        container.innerHTML = `
+          <div class="py-10 text-center text-slate-500">
+            <i class="fa-solid fa-basket-shopping text-3xl mb-2 text-slate-600"></i>
+            <p>Your order is empty! Add items from the menu.</p>
+          </div>
+        `;
+        totalEl.innerText = '0 IQD';
+      } else {
+        container.innerHTML = keys.map(id => {
+          const item = CAFE_ITEMS.find(i => i.id === id);
+          const qty = customerCart[id];
+          const subtotal = item.price * qty;
+          grandTotal += subtotal;
+
+          return `
+            <div class="flex items-center justify-between bg-slate-800/60 p-2.5 rounded-xl border border-white/5">
+              <div class="flex items-center gap-2.5">
+                <img src="${item.img}" class="w-10 h-10 rounded-lg object-cover">
+                <div>
+                  <h5 class="text-xs font-bold text-white">${item.title}</h5>
+                  <p class="text-[11px] text-indigo-400 font-bold">${formatIQD(item.price)}</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="updateCartItemQty('${item.id}', -1); openOrderModal();" class="w-6 h-6 rounded bg-slate-700 text-white flex items-center justify-center text-xs">
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+                <span class="text-xs font-bold w-4 text-center">${qty}</span>
+                <button onclick="updateCartItemQty('${item.id}', 1); openOrderModal();" class="w-6 h-6 rounded bg-indigo-600 text-white flex items-center justify-center text-xs">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        totalEl.innerText = formatIQD(grandTotal);
+      }
+
+      document.getElementById('orderDrawerModal').classList.remove('hidden');
+    }
+
+    function closeOrderModal() {
+      document.getElementById('orderDrawerModal').classList.add('hidden');
+    }
+
+    function submitOrderToCaptain() {
+      const keys = Object.keys(customerCart);
+      if (keys.length === 0) {
+        showToast('Please add items to your cart first!', 'error');
+        return;
+      }
+
+      const customerName = document.getElementById('customerNameInput').value.trim() || 'Guest';
+      const specialNotes = document.getElementById('customerSpecialNotes').value.trim();
+      const code = 'JJ' + Math.random().toString(36).substring(2, 6).toUpperCase();
+      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      let sum = 0;
+      const orderItems = keys.map(id => {
+        const item = CAFE_ITEMS.find(i => i.id === id);
+        sum += item.price * customerCart[id];
+        return {
+          id: item.id,
+          title: item.title,
+          price: item.price,
+          qty: customerCart[id]
         };
-        img.src = evt.target.result;
-      };
-      reader.readAsDataURL(file);
-    };
+      });
 
-    window.uploadSponsorImage1280x415 = function(e) {
-      var file = e.target.files && e.target.files[0];
-      if (!file) return;
-      var reader = new FileReader();
-      reader.onload = function(evt) {
-        var img = new Image();
-        img.onload = function() {
-          try {
-            var c = document.createElement("canvas");
-            c.width = 1280;
-            c.height = 415;
-            c.getContext("2d").drawImage(img, 0, 0, 1280, 415);
-            document.getElementById("spLogo").value = c.toDataURL("image/jpeg", 0.88);
-          } catch (err) {
-            document.getElementById("spLogo").value = evt.target.result;
-          }
-        };
-        img.src = evt.target.result;
-      };
-      reader.readAsDataURL(file);
-    };
+      // Update state for this table
+      floorTables[currentCustomerTable].status = 'occupied';
+      floorTables[currentCustomerTable].orders.push({
+        code: code,
+        customerName: customerName,
+        notes: specialNotes,
+        time: timeStr,
+        items: orderItems,
+        total: sum
+      });
 
-    // Brand Logo
-    window.handleBrandHeaderClick = function() {
-      if (isAdmin) window.openBrandLogoModal();
-      else window.switchPage("matches");
-    };
+      // Play chime alert
+      playChimeSound();
 
-    window.openBrandLogoModal = function() {
-      document.getElementById("siteLogoInput").value = state.brandLogo || "";
-      document.getElementById("siteLogoSize").value = state.brandLogoSize || "normal";
-      window.openModal("brandLogoModal");
-    };
+      // Reset cart and inputs
+      customerCart = {};
+      document.getElementById('customerSpecialNotes').value = '';
+      updateCustomerCartBar();
+      renderCustomerMenu();
+      closeOrderModal();
 
-    window.saveBrandLogo = function() {
-      state.brandLogo = document.getElementById("siteLogoInput").value.trim();
-      state.brandLogoSize = document.getElementById("siteLogoSize").value || "normal";
-      saveState();
-      window.closeModal("brandLogoModal");
-      window.renderBrandLogo();
-    };
+      // Open Success QR Code Dialog
+      document.getElementById('confirmedOrderCode').innerText = `#${code}`;
+      document.getElementById('svgQrPlaceholder').innerHTML = generateQrSvg();
+      document.getElementById('orderSuccessModal').classList.remove('hidden');
 
-    window.renderBrandLogo = function() {
-      var slot = document.getElementById("headerBrandLogoSlot");
-      if (!slot) return;
-      slot.className = "brand-logo-slot" + (state.brandLogoSize === "lg" ? " size-lg" : (state.brandLogoSize === "xl" ? " size-xl" : ""));
-      var badge = '<span class="logo-edit-badge" style="display:' + (isAdmin ? "flex" : "none") + ';">✏️</span>';
-      if (state.brandLogo) {
-        slot.innerHTML = '<img src="' + state.brandLogo + '" alt="Emyelvere">' + badge;
-      } else {
-        slot.innerHTML = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#fef08a" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="12 7 15.5 9.5 14 13.5 10 13.5 8.5 9.5" fill="#fef08a"></polygon></svg>' + badge;
-      }
-    };
-
-    // Sponsors (1280x415)
-    window.openAddSponsorModal = function(editId) {
-      var item = editId ? state.sponsors.find(function(s) { return s.id === editId; }) : null;
-      document.getElementById("spEditId").value = item ? item.id : "";
-      document.getElementById("spName").value = item ? item.name : "";
-      document.getElementById("spText").value = item ? item.text : "";
-      document.getElementById("spLogo").value = item ? (item.logo || "") : "";
-      document.getElementById("spLink").value = item ? (item.link || "") : "";
-      document.getElementById("spFit").value = item ? (item.fit || "fill") : "fill";
-      document.getElementById("spEffect").value = item ? (item.effect || "fx-glide") : "fx-glide";
-      window.openModal("sponsorModal");
-    };
-
-    window.saveSponsor = function() {
-      var editId = document.getElementById("spEditId").value;
-      var name = cleanStr(document.getElementById("spName").value) || "سپۆنسەرێ فەرمی";
-      var text = cleanStr(document.getElementById("spText").value);
-      var logo = document.getElementById("spLogo").value.trim();
-      var fit = document.getElementById("spFit").value || "fill";
-      var effect = document.getElementById("spEffect").value || "fx-glide";
-      var link = document.getElementById("spLink").value.trim();
-      if (link && !/^https?:\/\//i.test(link)) link = "https://" + link;
-
-      if (editId) {
-        var idx = state.sponsors.findIndex(function(s) { return String(s.id) === String(editId); });
-        if (idx > -1) state.sponsors[idx] = { id: state.sponsors[idx].id, name: name, text: text, logo: logo, link: link, fit: fit, effect: effect };
-      } else {
-        state.sponsors.unshift({ id: Date.now(), name: name, text: text, logo: logo, link: link, fit: fit, effect: effect });
-      }
-      saveState();
-      window.closeModal("sponsorModal");
-      window.renderSponsors();
-    };
-
-    window.deleteSponsor = function(id) {
-      state.sponsors = state.sponsors.filter(function(s) { return s.id !== id; });
-      saveState();
-      window.renderSponsors();
-    };
-
-    window.renderSponsors = function() {
-      var c = document.getElementById("sponsorContainer");
-      if (!c) return;
-      if (!state.sponsors || state.sponsors.length === 0) {
-        c.innerHTML = "";
-        return;
-      }
-      c.innerHTML = state.sponsors.map(function(sp) {
-        var fitCls = sp.fit === "cover" ? "fit-cover" : (sp.fit === "contain" ? "fit-contain" : "fit-fill");
-        var clickUrl = sp.link ? 'onclick="window.open(\'' + sp.link + '\', \'_blank\')"' : "";
-        return '<div class="sponsor-card-box ' + (sp.effect || "fx-glide") + '" ' + clickUrl + '>' +
-          '<div class="sponsor-top-header-bar">' +
-            '<span class="sponsor-badge-pill">✨ سپۆنسەرێ فەرمی • VIP</span>' +
-            (isAdmin ? '<div onclick="event.stopPropagation();"><button type="button" class="btn-action-icon" onclick="window.openAddSponsorModal(' + sp.id + ')">✏️</button> <button type="button" class="btn-action-icon" style="color:#dc2626;" onclick="window.deleteSponsor(' + sp.id + ')">🗑️</button></div>' : '<span style="font-size:0.68rem; color:#fef08a;">SPONSORED</span>') +
-          '</div>' +
-          '<div class="sponsor-stage-1280x415">' +
-            (sp.logo ? '<img src="' + sp.logo + '" class="' + fitCls + '" alt="' + sp.name + '">' : '<div style="height:100%; display:flex; align-items:center; justify-content:center; color:#fef08a; font-weight:900;">' + sp.name + ' (1280×415)</div>') +
-          '</div>' +
-          '<div class="sponsor-footer-bar">' +
-            '<div><div style="font-weight:900; font-size:1.05rem;">' + sp.name + '</div>' + (sp.text ? '<div style="font-size:0.8rem; color:#fef3c7;">' + sp.text + '</div>' : '') + '</div>' +
-            (sp.link ? '<a class="sponsor-cta-btn" href="' + sp.link + '" target="_blank" rel="noopener" onclick="event.stopPropagation();">سەرەدانێ بکە ↗</a>' : '<span class="sponsor-cta-btn">✨ VIP</span>') +
-          '</div></div>';
-      }).join("");
-    };
-
-    // Matches
-    window.openAddMatchModal = function(editId) {
-      var item = editId ? state.matches.find(function(m) { return m.id === editId; }) : null;
-      document.getElementById("mEditId").value = item ? item.id : "";
-      document.getElementById("mHomeName").value = item ? item.homeName : "";
-      document.getElementById("mHomeLogo").value = item ? (item.homeLogo || "") : "";
-      document.getElementById("mAwayName").value = item ? item.awayName : "";
-      document.getElementById("mAwayLogo").value = item ? (item.awayLogo || "") : "";
-      document.getElementById("mHomeScore").value = item ? item.homeScore : "0";
-      document.getElementById("mAwayScore").value = item ? item.awayScore : "0";
-      document.getElementById("mStatus").value = item ? item.status : "upcoming";
-      document.getElementById("mTime").value = item ? item.time : "19:00";
-      window.openModal("matchModal");
-    };
-
-    window.saveMatch = function() {
-      var editId = document.getElementById("mEditId").value;
-      var mObj = {
-        id: editId ? Number(editId) : Date.now(),
-        homeName: cleanStr(document.getElementById("mHomeName").value) || "تیما ١",
-        homeLogo: document.getElementById("mHomeLogo").value.trim(),
-        awayName: cleanStr(document.getElementById("mAwayName").value) || "تیما ٢",
-        awayLogo: document.getElementById("mAwayLogo").value.trim(),
-        homeScore: parseInt(document.getElementById("mHomeScore").value, 10) || 0,
-        awayScore: parseInt(document.getElementById("mAwayScore").value, 10) || 0,
-        status: document.getElementById("mStatus").value,
-        time: cleanStr(document.getElementById("mTime").value) || "19:00",
-        updatedAt: Date.now()
-      };
-      if (editId) {
-        var idx = state.matches.findIndex(function(m) { return String(m.id) === String(editId); });
-        if (idx > -1) state.matches[idx] = mObj;
-      } else {
-        state.matches.unshift(mObj);
-      }
-      saveState();
-      window.closeModal("matchModal");
-      window.renderMatchesView();
-      window.triggerMatchLiveActivity(mObj);
-    };
-
-    window.deleteMatch = function(id) {
-      state.matches = state.matches.filter(function(m) { return m.id !== id; });
-      saveState();
-      window.renderMatchesView();
-    };
-
-    window.renderMatchesView = function() {
-      var host = document.getElementById("matchesListHost");
-      if (!host) return;
-      var list = state.matches || [];
-      if (currentFilter !== "all") list = list.filter(function(m) { return m.status === currentFilter; });
-      if (list.length === 0) {
-        host.innerHTML = '<div class="empty-state-box"><span style="font-size:2.4rem; display:block; margin-bottom:6px;">⚽</span><div style="font-weight:700; color:var(--burgundy-main);">چ یاری نەهاتینە زێدەکرن</div><div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">' + (isAdmin ? 'دوگمەیا (+ زێدەکرنا یاریێ) ل سەری دابگرە' : 'ب ڕێکا قوفڵا ئەدمینی 🔒 یاریان زێدە بکە') + '</div></div>';
-        return;
-      }
-      host.innerHTML = '<div class="card-box">' + list.map(function(m) {
-        var isLive = m.status === "live";
-        return '<div class="match-card"><div class="match-row-grid">' +
-          '<div class="match-status-col"><span style="font-size:0.75rem; font-weight:700; color:' + (isLive ? '#dc2626' : 'var(--text-muted)') + ';">' + (isLive ? '🔴 LIVE ' + m.time : (m.status === 'finished' ? 'FT' : m.time)) + '</span></div>' +
-          '<div class="teams-grid">' +
-            '<div class="team-cell"><div class="pure-logo-wrap">' + (m.homeLogo ? '<img src="' + m.homeLogo + '" class="pure-logo-img">' : '⚽') + '</div><span style="font-weight:700; font-size:0.9rem;">' + m.homeName + '</span></div>' +
-            '<div class="score-badge ' + (isLive ? 'is-live' : '') + '">' + (m.status === 'upcoming' ? 'VS' : (m.homeScore + ' - ' + m.awayScore)) + '</div>' +
-            '<div class="team-cell away"><span style="font-weight:700; font-size:0.9rem;">' + m.awayName + '</span><div class="pure-logo-wrap">' + (m.awayLogo ? '<img src="' + m.awayLogo + '" class="pure-logo-img">' : '⚽') + '</div></div>' +
-          '</div></div>' +
-          (isAdmin ? '<div style="display:flex; justify-content:flex-end; gap:6px; margin-top:8px;"><button type="button" class="btn-action-icon" onclick="window.openAddMatchModal(' + m.id + ')">✏️ دەستکاری</button><button type="button" class="btn-action-icon" style="color:#dc2626;" onclick="window.deleteMatch(' + m.id + ')">🗑️ ژێبرن</button></div>' : '') +
-        '</div>';
-      }).join("") + '</div>';
-    };
-
-    // Live TV
-    window.openAddTvModal = function(editId) {
-      var item = editId ? state.streams.find(function(s) { return s.id === editId; }) : null;
-      document.getElementById("tvEditId").value = item ? item.id : "";
-      document.getElementById("tvTitle").value = item ? item.title : "";
-      document.getElementById("tvLogo").value = item ? (item.logo || "") : "";
-      document.getElementById("tvUrl1").value = item ? (item.url1 || "") : "";
-      document.getElementById("tvUrl2").value = item ? (item.url2 || "") : "";
-      document.getElementById("tvUrl3").value = item ? (item.url3 || "") : "";
-      window.openModal("tvModal");
-    };
-
-    window.saveTv = function() {
-      var editId = document.getElementById("tvEditId").value;
-      var obj = {
-        id: editId ? Number(editId) : Date.now(),
-        title: cleanStr(document.getElementById("tvTitle").value) || "پەخشێ ڕاستەوخۆ",
-        logo: document.getElementById("tvLogo").value.trim(),
-        url1: document.getElementById("tvUrl1").value.trim(),
-        url2: document.getElementById("tvUrl2").value.trim(),
-        url3: document.getElementById("tvUrl3").value.trim()
-      };
-      if (editId) {
-        var idx = state.streams.findIndex(function(s) { return String(s.id) === String(editId); });
-        if (idx > -1) state.streams[idx] = obj;
-      } else {
-        state.streams.unshift(obj);
-      }
-      saveState();
-      window.closeModal("tvModal");
-      window.renderLiveTvView();
-    };
-
-    window.deleteTv = function(id) {
-      state.streams = state.streams.filter(function(s) { return s.id !== id; });
-      saveState();
-      window.renderLiveTvView();
-    };
-
-    function buildEmbedHtml(raw) {
-      var u = (raw || "").trim();
-      if (!u) return '<div style="color:#fff; padding:30px; text-align:center;">لینک نینە</div>';
-      if (u.toLowerCase().indexOf("<iframe") !== -1) return u;
-      if (u.indexOf("youtube.com") !== -1 || u.indexOf("youtu.be") !== -1) {
-        var vid = "";
-        if (u.indexOf("embed/") !== -1) vid = u.split("embed/")[1].split(/[?&"]/)[0];
-        else if (u.indexOf("v=") !== -1) vid = u.split("v=")[1].split("&")[0];
-        else if (u.indexOf("youtu.be/") !== -1) vid = u.split("youtu.be/")[1].split(/[?&]/)[0];
-        else if (u.indexOf("/live/") !== -1) vid = u.split("/live/")[1].split(/[?&]/)[0];
-        if (vid) return '<iframe src="https://www.youtube.com/embed/' + vid + '?autoplay=1&playsinline=1" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
-      }
-      if (u.indexOf("facebook.com") !== -1 || u.indexOf("fb.watch") !== -1) {
-        return '<iframe src="https://www.facebook.com/plugins/video.php?href=' + encodeURIComponent(u) + '&show_text=false&autoplay=true" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
-      }
-      if (u.indexOf("instagram.com") !== -1) {
-        var cu = u.split("?")[0].replace(/\/$/, "");
-        if (cu.indexOf("/embed") === -1) cu += "/embed";
-        return '<iframe src="' + cu + '" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
-      }
-      if (u.indexOf(".mp4") !== -1 || u.indexOf(".m3u8") !== -1) {
-        return '<video src="' + u + '" controls autoplay playsinline></video>';
-      }
-      return '<iframe src="' + u + '" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
+      showToast(`Order #${code} sent to captain!`, 'success');
+      renderCaptainDashboard();
     }
 
-    window.selectTvServer = function(id, srv) { activeServerMap[id] = srv; window.renderLiveTvView(); };
-    window.toggleTvAspect = function(id) { verticalModeMap[id] = !verticalModeMap[id]; window.renderLiveTvView(); };
+    function closeOrderSuccessModal() {
+      document.getElementById('orderSuccessModal').classList.add('hidden');
+    }
 
-    window.renderLiveTvView = function() {
-      var host = document.getElementById("livetvListHost");
-      if (!host) return;
-      if (state.streams.length === 0) {
-        host.innerHTML = '<div class="empty-state-box"><span style="font-size:2.4rem; display:block; margin-bottom:6px;">📺</span><div style="font-weight:700; color:var(--burgundy-main);">چ پەخشێن ڕاستەوخۆ نەهاتینە زێدەکرن</div></div>';
-        return;
-      }
-      host.innerHTML = state.streams.map(function(st) {
-        var srv = activeServerMap[st.id] || 1;
-        var vert = !!verticalModeMap[st.id];
-        var cur = srv === 2 ? st.url2 : (srv === 3 ? st.url3 : st.url1);
-        return '<div class="card-box" style="padding:14px;">' +
-          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">' +
-            '<div style="display:flex; align-items:center; gap:8px;">' + (st.logo ? '<div class="pure-logo-wrap"><img src="' + st.logo + '" class="pure-logo-img"></div>' : '📺') + '<span style="font-weight:700;">' + st.title + '</span></div>' +
-            '<span style="background:#dc2626; color:#fff; font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:99px;">LIVE 🔴</span>' +
-          '</div>' +
-          '<div class="server-btn-row">' +
-            '<button type="button" class="server-pill-btn ' + (srv === 1 ? 'active' : '') + '" onclick="window.selectTvServer(' + st.id + ',1)">📡 سێرڤەر ١</button>' +
-            (st.url2 ? '<button type="button" class="server-pill-btn ' + (srv === 2 ? 'active' : '') + '" onclick="window.selectTvServer(' + st.id + ',2)">📡 سێرڤەر ٢</button>' : '') +
-            (st.url3 ? '<button type="button" class="server-pill-btn ' + (srv === 3 ? 'active' : '') + '" onclick="window.selectTvServer(' + st.id + ',3)">📡 سێرڤەر ٣</button>' : '') +
-            '<button type="button" class="server-pill-btn" onclick="window.toggleTvAspect(' + st.id + ')">' + (vert ? '🖥️ 16:9' : '📱 9:16') + '</button>' +
-          '</div>' +
-          '<div class="tv-stage-wrapper ' + (vert ? 'vertical-mode' : '') + '">' + buildEmbedHtml(cur) + '</div>' +
-          (isAdmin ? '<div style="display:flex; justify-content:flex-end; gap:6px;"><button type="button" class="btn-action-icon" onclick="window.openAddTvModal(' + st.id + ')">✏️ دەستکاری</button><button type="button" class="btn-action-icon" style="color:#dc2626;" onclick="window.deleteTv(' + st.id + ')">🗑️ ژێبرن</button></div>' : '') +
-        '</div>';
-      }).join("");
-    };
+    function callWaiterAction() {
+      floorTables[currentCustomerTable].calling = true;
+      playChimeSound();
+      showToast(`Captain notified! Waiter is on their way to Table ${currentCustomerTable}.`, 'info');
+      renderCaptainDashboard();
+    }
 
-    // Standings
-    window.openAddStandingModal = function(editId) {
-      var item = editId ? state.standings.find(function(s) { return s.id === editId; }) : null;
-      document.getElementById("stEditId").value = item ? item.id : "";
-      document.getElementById("stRank").value = item ? item.rank : (state.standings.length + 1);
-      document.getElementById("stClub").value = item ? item.club : "";
-      document.getElementById("stLogo").value = item ? (item.logo || "") : "";
-      document.getElementById("stP").value = item ? item.p : "0";
-      document.getElementById("stPts").value = item ? item.pts : "0";
-      window.openModal("standingModal");
-    };
+    function askForBillAction() {
+      floorTables[currentCustomerTable].billRequested = true;
+      playChimeSound();
+      showToast(`Bill requested for Table ${currentCustomerTable}. Waiter is preparing it.`, 'warning');
+      renderCaptainDashboard();
+    }
 
-    window.saveStanding = function() {
-      var editId = document.getElementById("stEditId").value;
-      var obj = {
-        id: editId ? Number(editId) : Date.now(),
-        rank: parseInt(document.getElementById("stRank").value, 10) || 1,
-        club: cleanStr(document.getElementById("stClub").value) || "یانە",
-        logo: document.getElementById("stLogo").value.trim(),
-        p: parseInt(document.getElementById("stP").value, 10) || 0,
-        pts: parseInt(document.getElementById("stPts").value, 10) || 0
-      };
-      if (editId) {
-        var idx = state.standings.findIndex(function(s) { return String(s.id) === String(editId); });
-        if (idx > -1) state.standings[idx] = obj;
+    // ==============================================================
+    // 6. HIDDEN STAFF PIN VERIFICATION
+    // ==============================================================
+    function openCaptainLoginModal() {
+      document.getElementById('staffPinInput').value = '';
+      document.getElementById('captainPinModal').classList.remove('hidden');
+      setTimeout(() => document.getElementById('staffPinInput').focus(), 100);
+    }
+
+    function closeCaptainPinModal() {
+      document.getElementById('captainPinModal').classList.add('hidden');
+    }
+
+    function verifyCaptainPin() {
+      const pin = document.getElementById('staffPinInput').value.trim();
+      if (pin === '1234' || pin === 'ZakhoAdmin@2026') {
+        closeCaptainPinModal();
+        document.getElementById('customerApp').classList.add('hidden');
+        document.getElementById('captainApp').classList.remove('hidden');
+        showToast('Captain Dashboard unlocked successfully!', 'success');
+        renderCaptainDashboard();
       } else {
-        state.standings.push(obj);
+        showToast('Incorrect staff PIN!', 'error');
       }
-      saveState();
-      window.closeModal("standingModal");
-      window.renderStandingsView();
-    };
+    }
 
-    window.deleteStanding = function(id) {
-      state.standings = state.standings.filter(function(s) { return s.id !== id; });
-      saveState();
-      window.renderStandingsView();
-    };
+    function exitCaptainMode() {
+      document.getElementById('captainApp').classList.add('hidden');
+      document.getElementById('customerApp').classList.remove('hidden');
+      showToast('Returned to customer menu view.', 'info');
+    }
 
-    window.renderStandingsView = function() {
-      var host = document.getElementById("standingsListHost");
-      if (!host) return;
-      if (state.standings.length === 0) {
-        host.innerHTML = '<div class="empty-state-box"><span style="font-size:2.4rem; display:block; margin-bottom:6px;">📊</span><div style="font-weight:700; color:var(--burgundy-main);">خشتەیێ خولێ بەتاڵە</div></div>';
-        return;
-      }
-      var sorted = state.standings.slice().sort(function(a, b) { return a.rank - b.rank; });
-      host.innerHTML = '<div class="card-box"><table class="table-responsive"><thead><tr><th>#</th><th style="text-align:right;">یانە</th><th>یاری</th><th>خاڵ</th>' + (isAdmin ? '<th>کردار</th>' : '') + '</tr></thead><tbody>' +
-        sorted.map(function(st) {
-          return '<tr><td>' + st.rank + '</td><td style="text-align:right;"><div style="display:flex; align-items:center; gap:8px;"><div class="pure-logo-wrap" style="width:26px; height:26px;">' + (st.logo ? '<img src="' + st.logo + '" class="pure-logo-img">' : '🛡️') + '</div><span>' + st.club + '</span></div></td><td>' + st.p + '</td><td><span style="background:var(--burgundy-grad); color:#fff; padding:2px 8px; border-radius:6px;">' + st.pts + '</span></td>' + (isAdmin ? '<td><button type="button" class="btn-action-icon" onclick="window.openAddStandingModal(' + st.id + ')">✏️</button> <button type="button" class="btn-action-icon" style="color:#dc2626;" onclick="window.deleteStanding(' + st.id + ')">🗑️</button></td>' : '') + '</tr>';
-        }).join("") + '</tbody></table></div>';
-    };
+    // ==============================================================
+    // 7. CAPTAIN POS DASHBOARD LOGIC
+    // ==============================================================
+    function renderCaptainDashboard() {
+      const grid = document.getElementById('captainFloorTablesGrid');
 
-    // Scorers
-    window.openAddScorerModal = function(editId) {
-      var item = editId ? state.scorers.find(function(s) { return s.id === editId; }) : null;
-      document.getElementById("scEditId").value = item ? item.id : "";
-      document.getElementById("scName").value = item ? item.name : "";
-      document.getElementById("scPhoto").value = item ? (item.photo || "") : "";
-      document.getElementById("scClub").value = item ? item.club : "";
-      document.getElementById("scGoals").value = item ? item.goals : "1";
-      window.openModal("scorerModal");
-    };
+      grid.innerHTML = Object.keys(floorTables).map(num => {
+        const table = floorTables[num];
+        const isSelected = parseInt(num) === selectedCaptainTable;
+        const hasOrders = table.orders && table.orders.length > 0;
 
-    window.saveScorer = function() {
-      var editId = document.getElementById("scEditId").value;
-      var obj = {
-        id: editId ? Number(editId) : Date.now(),
-        name: cleanStr(document.getElementById("scName").value) || "یاریزان",
-        photo: document.getElementById("scPhoto").value.trim(),
-        club: cleanStr(document.getElementById("scClub").value) || "یانە",
-        goals: parseInt(document.getElementById("scGoals").value, 10) || 1
-      };
-      if (editId) {
-        var idx = state.scorers.findIndex(function(s) { return String(s.id) === String(editId); });
-        if (idx > -1) state.scorers[idx] = obj;
+        let badgeHtml = '';
+        let containerClass = 'border-white/5 bg-slate-900/40 text-slate-400';
+
+        if (table.calling) {
+          containerClass = 'border-rose-500 bg-rose-950/40 text-rose-200 alert-calling';
+          badgeHtml = `<span class="bg-rose-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full">CALLING</span>`;
+        } else if (table.billRequested) {
+          containerClass = 'border-amber-500 bg-amber-950/40 text-amber-200 alert-bill';
+          badgeHtml = `<span class="bg-amber-500 text-slate-900 text-[9px] font-black px-1.5 py-0.5 rounded-full">BILL</span>`;
+        } else if (isSelected) {
+          containerClass = 'border-indigo-500 ring-2 ring-indigo-500/40 bg-slate-900 text-white';
+        } else if (hasOrders) {
+          containerClass = 'border-indigo-500/40 bg-slate-900/80 text-white';
+        }
+
+        return `
+          <div onclick="selectCaptainTable(${num})" class="cursor-pointer rounded-2xl p-3 border transition-all ${containerClass} hover:opacity-100 relative">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-extrabold text-xs">Table ${num}</span>
+              ${badgeHtml}
+            </div>
+            <p class="text-[10px] font-semibold ${hasOrders ? 'text-indigo-400' : 'text-slate-500'}">
+              ${hasOrders ? `${table.orders.length} order(s)` : 'Empty'}
+            </p>
+          </div>
+        `;
+      }).join('');
+
+      renderCaptainSelectedTableDetails();
+    }
+
+    function selectCaptainTable(num) {
+      selectedCaptainTable = parseInt(num);
+      renderCaptainDashboard();
+    }
+
+    function renderCaptainSelectedTableDetails() {
+      const table = floorTables[selectedCaptainTable] || { status: 'empty', calling: false, billRequested: false, orders: [] };
+
+      document.getElementById('captainSelectedTableBadge').innerText = selectedCaptainTable;
+      document.getElementById('captainSelectedTableTitle').innerText = `Table ${selectedCaptainTable}`;
+
+      // Alert banners
+      const alertBanner = document.getElementById('captainAlertBanner');
+      if (table.calling) {
+        alertBanner.className = 'mb-3 p-3 rounded-2xl bg-rose-500/20 border border-rose-500/40 text-rose-200 text-xs flex items-center justify-between';
+        alertBanner.innerHTML = `
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-bell text-rose-400 animate-bounce"></i>
+            <span class="font-bold">Customer is calling waiter!</span>
+          </div>
+          <button onclick="dismissTableAlert(${selectedCaptainTable}, 'calling')" class="px-2.5 py-1 rounded-xl bg-rose-600 text-white font-bold text-[10px]">
+            Acknowledge
+          </button>
+        `;
+        alertBanner.classList.remove('hidden');
+      } else if (table.billRequested) {
+        alertBanner.className = 'mb-3 p-3 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-200 text-xs flex items-center justify-between';
+        alertBanner.innerHTML = `
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-receipt text-amber-400"></i>
+            <span class="font-bold">Customer asked for the bill!</span>
+          </div>
+          <button onclick="dismissTableAlert(${selectedCaptainTable}, 'bill')" class="px-2.5 py-1 rounded-xl bg-amber-600 text-slate-900 font-bold text-[10px]">
+            Acknowledge
+          </button>
+        `;
+        alertBanner.classList.remove('hidden');
       } else {
-        state.scorers.push(obj);
+        alertBanner.classList.add('hidden');
       }
-      saveState();
-      window.closeModal("scorerModal");
-      window.renderScorersView();
-    };
 
-    window.deleteScorer = function(id) {
-      state.scorers = state.scorers.filter(function(s) { return s.id !== id; });
-      saveState();
-      window.renderScorersView();
-    };
+      // Order items list
+      const listEl = document.getElementById('captainOrderItemsList');
+      let grandTotal = 0;
 
-    window.renderScorersView = function() {
-      var host = document.getElementById("scorersListHost");
-      if (!host) return;
-      if (state.scorers.length === 0) {
-        host.innerHTML = '<div class="empty-state-box"><span style="font-size:2.4rem; display:block; margin-bottom:6px;">👟</span><div style="font-weight:700; color:var(--burgundy-main);">چ گۆڵکەر نەهاتینە تۆمارکرن</div></div>';
+      if (!table.orders || table.orders.length === 0) {
+        document.getElementById('captainSelectedTableSubtitle').innerText = 'Empty / No active orders';
+        listEl.innerHTML = `
+          <div class="text-center py-10 text-slate-500">
+            <i class="fa-solid fa-receipt text-2xl mb-1 text-slate-600"></i>
+            <p>No active orders for this table.</p>
+          </div>
+        `;
+        document.getElementById('captainTableTotalAmount').innerText = '0 IQD';
         return;
       }
-      var sorted = state.scorers.slice().sort(function(a, b) { return b.goals - a.goals; });
-      host.innerHTML = '<div class="card-box">' + sorted.map(function(sc, idx) {
-        return '<div style="padding:12px 14px; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center;">' +
-          '<div style="display:flex; align-items:center; gap:10px;"><span style="font-weight:900;">' + (idx + 1) + '</span><div class="pure-logo-wrap">' + (sc.photo ? '<img src="' + sc.photo + '" class="pure-logo-img">' : '👟') + '</div><div><div style="font-weight:700;">' + sc.name + '</div><div style="font-size:0.75rem; color:var(--text-muted);">' + sc.club + '</div></div></div>' +
-          '<div style="display:flex; align-items:center; gap:8px;"><span style="font-weight:900; color:var(--burgundy-main);">' + sc.goals + ' ⚽</span>' + (isAdmin ? '<button type="button" class="btn-action-icon" onclick="window.openAddScorerModal(' + sc.id + ')">✏️</button><button type="button" class="btn-action-icon" style="color:#dc2626;" onclick="window.deleteScorer(' + sc.id + ')">🗑️</button>' : '') + '</div></div>';
-      }).join("") + '</div>';
-    };
 
-    // News
-    window.openAddNewsModal = function(editId) {
-      var item = editId ? state.news.find(function(n) { return n.id === editId; }) : null;
-      document.getElementById("nwEditId").value = item ? item.id : "";
-      document.getElementById("nwTitle").value = item ? item.title : "";
-      document.getElementById("nwLogo").value = item ? (item.logo || "") : "";
-      document.getElementById("nwText").value = item ? item.text : "";
-      window.openModal("newsModal");
-    };
+      document.getElementById('captainSelectedTableSubtitle').innerText = `${table.orders.length} order(s) placed`;
 
-    window.saveNews = function() {
-      var editId = document.getElementById("nwEditId").value;
-      var obj = {
-        id: editId ? Number(editId) : Date.now(),
-        title: cleanStr(document.getElementById("nwTitle").value) || "دەنگوباس",
-        logo: document.getElementById("nwLogo").value.trim(),
-        text: cleanStr(document.getElementById("nwText").value)
-      };
-      if (editId) {
-        var idx = state.news.findIndex(function(n) { return String(n.id) === String(editId); });
-        if (idx > -1) state.news[idx] = obj;
-      } else {
-        state.news.unshift(obj);
+      listEl.innerHTML = table.orders.map(ord => {
+        grandTotal += ord.total;
+        return `
+          <div class="bg-slate-800/80 p-3 rounded-xl border border-white/5 space-y-1.5">
+            <div class="flex justify-between border-b border-white/5 pb-1">
+              <span class="font-mono font-bold text-indigo-400">#${ord.code}</span>
+              <span class="text-slate-400 text-[10px]">${ord.time}</span>
+            </div>
+            ${ord.customerName ? `<p class="text-[10px] text-slate-300"><i class="fa-solid fa-user mr-1 text-slate-400"></i>${ord.customerName}</p>` : ''}
+            ${ord.notes ? `<p class="text-[10px] text-amber-300 italic"><i class="fa-solid fa-note-sticky mr-1"></i>${ord.notes}</p>` : ''}
+            ${ord.items.map(it => `
+              <div class="flex justify-between text-slate-300">
+                <span>${it.qty}x ${it.title}</span>
+                <span class="font-mono text-slate-400">${formatIQD(it.price * it.qty)}</span>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('captainTableTotalAmount').innerText = formatIQD(grandTotal);
+    }
+
+    function dismissTableAlert(tableNum, type) {
+      if (floorTables[tableNum]) {
+        if (type === 'calling') floorTables[tableNum].calling = false;
+        if (type === 'bill') floorTables[tableNum].billRequested = false;
+        renderCaptainDashboard();
       }
-      saveState();
-      window.closeModal("newsModal");
-      window.renderNewsView();
-    };
+    }
 
-    window.deleteNews = function(id) {
-      state.news = state.news.filter(function(n) { return n.id !== id; });
-      saveState();
-      window.renderNewsView();
-    };
+    function captainClearSelectedTable() {
+      if (floorTables[selectedCaptainTable]) {
+        floorTables[selectedCaptainTable].orders = [];
+        floorTables[selectedCaptainTable].calling = false;
+        floorTables[selectedCaptainTable].billRequested = false;
+        floorTables[selectedCaptainTable].status = 'empty';
+        showToast(`Table ${selectedCaptainTable} cleared!`, 'info');
+        renderCaptainDashboard();
+      }
+    }
 
-    window.renderNewsView = function() {
-      var host = document.getElementById("newsListHost");
-      if (!host) return;
-      if (state.news.length === 0) {
-        host.innerHTML = '<div class="empty-state-box"><span style="font-size:2.4rem; display:block; margin-bottom:6px;">📰</span><div style="font-weight:700; color:var(--burgundy-main);">چ دەنگوباس بەردەست نینن</div></div>';
+    function captainAcknowledgeBill() {
+      showToast(`Bill printed for Table ${selectedCaptainTable}!`, 'info');
+    }
+
+    function captainPaidAndClose() {
+      const table = floorTables[selectedCaptainTable];
+      if (!table || !table.orders || table.orders.length === 0) {
+        showToast('Table is already clear.', 'info');
         return;
       }
-      host.innerHTML = state.news.map(function(n) {
-        return '<div class="card-box" style="padding:14px;"><div style="display:flex; gap:12px;">' + (n.logo ? '<div class="pure-logo-wrap" style="width:52px; height:52px;"><img src="' + n.logo + '" class="pure-logo-img"></div>' : '') + '<div style="flex:1;"><div style="font-weight:700; color:var(--burgundy-main); margin-bottom:4px;">' + n.title + '</div><div style="font-size:0.85rem;">' + n.text + '</div></div></div>' + (isAdmin ? '<div style="display:flex; justify-content:flex-end; gap:6px; margin-top:8px;"><button type="button" class="btn-action-icon" onclick="window.openAddNewsModal(' + n.id + ')">✏️</button><button type="button" class="btn-action-icon" style="color:#dc2626;" onclick="window.deleteNews(' + n.id + ')">🗑️</button></div>' : '') + '</div>';
-      }).join("");
-    };
+      playChimeSound();
+      showToast(`Payment collected! Table ${selectedCaptainTable} marked as paid.`, 'success');
+      captainClearSelectedTable();
+    }
 
-    // iOS Live Activity
-    window.triggerMatchLiveActivity = function(m) {
-      if (!m) return;
-      currentLaMatchId = m.id + "_" + (m.updatedAt || m.status || "");
-      document.getElementById("iosTitle").innerText = (m.status === "live" ? "⚽ ڕاستەوخۆ: " : "⚽ یاریا نوو: ") + m.homeName + " دژی " + m.awayName;
-      document.getElementById("iosSubtitle").innerText = (m.time || "19:00") + " • خولا ستێرێن عیراقێ #Emyelvere";
-      var logo = m.homeLogo || m.awayLogo || state.brandLogo;
-      document.getElementById("iosBrandBox").innerHTML = logo ? '<img src="' + logo + '" style="width:32px; height:32px; object-fit:contain;">' : '⚽';
-      document.getElementById("iosWrapper").classList.add("active");
-      document.getElementById("iosBackdrop").classList.add("active");
-    };
+    // ==============================================================
+    // 8. HELPERS & UTILITIES
+    // ==============================================================
+    function formatIQD(number) {
+      return new Intl.NumberFormat('en-US').format(number) + ' IQD';
+    }
 
-    window.closeLiveActivity = function() {
-      document.getElementById("iosWrapper").classList.remove("active");
-      document.getElementById("iosBackdrop").classList.remove("active");
-    };
+    function generateQrSvg() {
+      return `
+        <svg viewBox="0 0 100 100" class="w-full h-full text-slate-900" fill="currentColor">
+          <rect x="5" y="5" width="26" height="26" rx="3" fill="none" stroke="currentColor" stroke-width="5"/>
+          <rect x="13" y="13" width="10" height="10" rx="1"/>
+          
+          <rect x="69" y="5" width="26" height="26" rx="3" fill="none" stroke="currentColor" stroke-width="5"/>
+          <rect x="77" y="13" width="10" height="10" rx="1"/>
+          
+          <rect x="5" y="69" width="26" height="26" rx="3" fill="none" stroke="currentColor" stroke-width="5"/>
+          <rect x="13" y="77" width="10" height="10" rx="1"/>
+          
+          <rect x="42" y="10" width="8" height="8" rx="1"/>
+          <rect x="54" y="18" width="6" height="12" rx="1"/>
+          <rect x="15" y="44" width="14" height="6" rx="1"/>
+          <rect x="44" y="44" width="12" height="12" rx="2" fill="#6366f1"/>
+          <rect x="70" y="44" width="16" height="6" rx="1"/>
+          <rect x="42" y="70" width="8" height="14" rx="1"/>
+          <rect x="65" y="75" width="10" height="10" rx="1"/>
+          <rect x="80" y="65" width="12" height="8" rx="1"/>
+        </svg>
+      `;
+    }
 
-    window.dismissLiveActivity = function(allow) {
-      try { if (currentLaMatchId) localStorage.setItem("emy_seen_la", String(currentLaMatchId)); } catch (e) {}
-      window.closeLiveActivity();
-    };
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastBox');
+      const toast = document.createElement('div');
 
-    window.renderCurrentPageData = function() {
-      window.renderMatchesView();
-      window.renderLiveTvView();
-      window.renderStandingsView();
-      window.renderScorersView();
-      window.renderNewsView();
-    };
+      let border = 'border-slate-700 bg-slate-900/95 text-white';
+      let icon = 'fa-circle-info text-indigo-400';
 
-    window.updateAdminView = function() {
-      var lockBtn = document.getElementById("secretLockBtn");
-      var adminBar = document.getElementById("pageAdminBar");
-      var adminMenu = document.getElementById("adminDrawerMenu");
-      if (lockBtn) {
-        lockBtn.innerText = isAdmin ? "🔓" : "🔒";
-        lockBtn.classList.toggle("unlocked", isAdmin);
+      if (type === 'error') {
+        border = 'border-rose-500/50 bg-rose-950/95 text-rose-100';
+        icon = 'fa-triangle-exclamation text-rose-400';
+      } else if (type === 'success') {
+        border = 'border-emerald-500/50 bg-emerald-950/95 text-emerald-100';
+        icon = 'fa-circle-check text-emerald-400';
+      } else if (type === 'warning') {
+        border = 'border-amber-500/50 bg-amber-950/95 text-amber-100';
+        icon = 'fa-bell text-amber-400';
       }
-      if (adminBar) adminBar.classList.toggle("visible", isAdmin);
-      if (adminMenu) adminMenu.style.display = isAdmin ? "block" : "none";
-      window.updateAdminToolbarLabel();
-      window.renderBrandLogo();
-      window.renderSponsors();
-      window.renderCurrentPageData();
-    };
 
-    loadState();
-    window.updateAdminView();
+      toast.className = `p-3 rounded-2xl border ${border} shadow-2xl backdrop-blur-md flex items-center gap-2.5 text-xs font-bold transition duration-300 pointer-events-auto`;
+      toast.innerHTML = `<i class="fa-solid ${icon}"></i><span>${message}</span>`;
+
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-x-4');
+        setTimeout(() => toast.remove(), 250);
+      }, 3000);
+    }
+
+    // Initialize application on window load
+    window.onload = function () {
+      renderCustomerMenu();
+      updateCustomerCartBar();
+    };
   </script>
 </body>
 </html>
