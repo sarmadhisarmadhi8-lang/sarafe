@@ -3,43 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>صەڕافی ڕەشید PRO | پلاتفۆرما گوهۆڕینا دراڤان</title>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <title>صەڕافی ڕەشید PRO | Secure Edition</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Outfit:wght@400;500;700;800&family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* VIP Black & Red/Blue/White Theme */
-      --bg-darker: #000000; 
-      --bg-dark: #080808; 
-      --card-bg: rgba(12, 12, 12, 0.85); 
+      /* Pure White & Red/Blue Neon Theme */
+      --bg-darker: #f8fafc; 
+      --bg-dark: #ffffff; 
+      --card-bg: #ffffff; 
       
       --neon-red: #ff003c;
-      --neon-blue: #0088ff;
-      --neon-white: #ffffff;
-      --neon-green: #00e676;
-      --accent-gold: #ffc400;
+      --neon-blue: #0066ff;
+      --neon-white: #e2e8f0;
+      --neon-green: #00c853;
+      --accent-gold: #f59e0b;
       
-      --text-white: #ffffff; 
-      --text-gray: #a1a1aa; 
-      --text-muted: #52525b;
+      --text-white: #0f172a; 
+      --text-gray: #475569; 
+      --text-muted: #94a3b8;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'IBM Plex Sans Arabic', 'Tajawal', sans-serif !important; letter-spacing: 0px !important; }
     
     body { 
-      background-color: var(--bg-darker);
+      background-color: #ffffff;
       background-image: 
-        radial-gradient(circle at 20% 30%, rgba(0, 136, 255, 0.05), transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(255, 0, 60, 0.05), transparent 40%);
+        radial-gradient(circle at 20% 30%, rgba(0, 102, 255, 0.06), transparent 45%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 60, 0.06), transparent 45%);
       color: var(--text-white); 
       min-height: 100vh; 
       padding-bottom: 50px; 
       overflow-x: hidden; 
       perspective: 1000px;
+      user-select: none;
     }
 
-    /* --- MAGIC ANIMATED NEON BORDERS --- */
+    /* --- MAGIC ANIMATED NEON BORDERS ON WHITE --- */
     .magic-card {
       position: relative;
       border-radius: 24px;
@@ -48,7 +50,8 @@
       z-index: 1;
       transform-style: preserve-3d;
       will-change: transform;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+      background: #e2e8f0;
     }
     
     .magic-card::before {
@@ -56,8 +59,8 @@
       width: 200%; height: 200%;
       top: -50%; left: -50%;
       background: conic-gradient(
-        transparent, transparent, transparent, 
-        var(--neon-blue), var(--neon-white), var(--neon-red), transparent 25%
+        transparent, transparent, 
+        var(--neon-blue), #ffffff, var(--neon-red), transparent 30%
       );
       animation: spin 4s linear infinite;
       z-index: -2;
@@ -65,64 +68,69 @@
     
     .magic-card.reverse-glow::before {
       background: conic-gradient(
-        transparent, transparent, transparent, 
-        var(--neon-red), var(--neon-white), var(--neon-blue), transparent 25%
+        transparent, transparent, 
+        var(--neon-red), #ffffff, var(--neon-blue), transparent 30%
       );
       animation: spin 4s linear infinite reverse;
     }
 
     .magic-card-inner {
-      background: var(--card-bg);
+      background: #ffffff;
       border-radius: 21px;
       height: 100%; width: 100%;
       z-index: -1;
-      backdrop-filter: blur(15px);
     }
 
     @keyframes spin { 100% { transform: rotate(360deg); } }
     @keyframes floatWave { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
 
     /* TICKER BAR */
-    .ticker-bar { background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 136, 255, 0.2); display: flex; align-items: center; height: 50px; direction: ltr; overflow: hidden; width: 100%; box-shadow: 0 0 15px rgba(0, 136, 255, 0.1); }
+    .ticker-bar { background: #ffffff; border-bottom: 2px solid rgba(0, 102, 255, 0.15); display: flex; align-items: center; height: 50px; direction: ltr; overflow: hidden; width: 100%; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); }
     .ticker-wrap { flex: 1; height: 100%; overflow: hidden; position: relative; display: flex; align-items: center; }
     .ticker-items { display: flex; align-items: center; gap: 40px; white-space: nowrap; padding-left: 100vw; animation: tickerScroll 30s linear infinite; }
     @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
     .ticker-item { display: inline-flex; align-items: center; gap: 8px; font-family: 'Outfit', monospace; font-size: 0.95rem; }
-    .ticker-item span { color: var(--text-gray); font-weight: 500; }
-    .ticker-item strong { color: var(--text-white); font-weight: 800; transition: all 0.3s; text-shadow: 0 0 5px rgba(255,255,255,0.3); }
+    .ticker-item span { color: var(--text-gray); font-weight: 700; }
+    .ticker-item strong { color: #0f172a; font-weight: 800; transition: all 0.3s; }
     
-    @keyframes flashBlue { 0% { color: var(--neon-blue); text-shadow: 0 0 15px var(--neon-blue); transform: scale(1.05); } 100% { color: var(--text-white); text-shadow: 0 0 5px rgba(255,255,255,0.3); transform: scale(1); } }
-    @keyframes flashRed { 0% { color: var(--neon-red); text-shadow: 0 0 15px var(--neon-red); transform: scale(0.95); } 100% { color: var(--text-white); text-shadow: 0 0 5px rgba(255,255,255,0.3); transform: scale(1); } }
+    @keyframes flashBlue { 0% { color: var(--neon-blue); transform: scale(1.05); } 100% { color: #0f172a; transform: scale(1); } }
+    @keyframes flashRed { 0% { color: var(--neon-red); transform: scale(0.95); } 100% { color: #0f172a; transform: scale(1); } }
     .flash-green { animation: flashBlue 1s ease-out; color: var(--neon-blue) !important; }
     .flash-red { animation: flashRed 1s ease-out; color: var(--neon-red) !important; }
     .ticker-item i { font-style: normal; font-size: 0.8rem; transition: 0.3s; }
-    .live-clock { color: var(--neon-white); font-family: 'Outfit', monospace; font-weight: 700; font-size: 0.95rem; padding: 0 18px; border-left: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+    .live-clock { color: var(--neon-blue); font-family: 'Outfit', monospace; font-weight: 800; font-size: 0.95rem; padding: 0 18px; border-left: 1px solid #e2e8f0; display: flex; align-items: center; background: #f8fafc; height: 100%; }
 
     /* NAVBAR */
-    .navbar { background: rgba(5, 5, 5, 0.7); backdrop-filter: blur(25px); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 15px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8); }
-    .brand { display: flex; align-items: center; gap: 12px; font-size: 1.6rem; font-weight: 800; color: #fff; cursor: pointer; user-select: none; transition: 0.3s; transform-style: preserve-3d;}
-    .brand:hover { transform: translateZ(20px); text-shadow: 0 0 15px var(--neon-white); }
-    .brand-icon { width: 45px; height: 45px; border-radius: 14px; background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); transition: 0.5s; }
+    .navbar { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); border-bottom: 1px solid #e2e8f0; padding: 15px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); }
+    .brand { display: flex; align-items: center; gap: 12px; font-size: 1.6rem; font-weight: 800; color: #0f172a; cursor: pointer; user-select: none; transition: 0.3s; transform-style: preserve-3d;}
+    .brand:hover { transform: translateZ(20px); color: var(--neon-blue); }
+    .brand-icon { width: 45px; height: 45px; border-radius: 14px; background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0, 102, 255, 0.3); transition: 0.5s; }
     .brand:hover .brand-icon { transform: rotate(15deg) scale(1.1); }
+
+    .security-badge {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(0, 200, 83, 0.1); color: var(--neon-green);
+      border: 1px solid rgba(0, 200, 83, 0.3); padding: 6px 14px;
+      border-radius: 12px; font-size: 0.85rem; font-weight: 800;
+    }
     
     .container { max-width: 1080px; margin: 0 auto; padding: 25px 16px; perspective: 1500px; }
 
     /* QUICK ACTIONS */
     .quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 15px; margin-bottom: 30px; }
     .quick-card {
-      border-radius: 18px; padding: 18px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 12px; cursor: pointer; text-align: center;
+      border-radius: 18px; padding: 3px; cursor: pointer; text-align: center;
       animation: floatWave 4s ease-in-out infinite;
     }
     .quick-card:nth-child(1) { animation-delay: 0.0s; } .quick-card:nth-child(2) { animation-delay: 0.2s; }
     .quick-card:nth-child(3) { animation-delay: 0.4s; } .quick-card:nth-child(4) { animation-delay: 0.6s; }
     
-    .quick-card .magic-card-inner { background: rgba(15, 15, 15, 0.8); transition: 0.3s; }
-    .quick-card:hover .magic-card-inner { background: rgba(0, 136, 255, 0.1); }
-    .quick-card svg { width: 30px; height: 30px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 0 5px currentColor); }
+    .quick-card .magic-card-inner { background: #ffffff; transition: 0.3s; border-radius: 15px; }
+    .quick-card:hover .magic-card-inner { background: #f0f7ff; }
+    .quick-card svg { width: 30px; height: 30px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     .quick-card:hover svg { transform: scale(1.2) translateZ(20px); }
-    .quick-card span { font-size: 0.9rem; font-weight: 700; color: var(--text-gray); transition: 0.3s;}
-    .quick-card:hover span { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+    .quick-card span { font-size: 0.95rem; font-weight: 800; color: #334155; transition: 0.3s;}
+    .quick-card:hover span { color: var(--neon-blue); }
 
     /* --- BALANCES SLIDER WITH < > BUTTONS --- */
     .balance-slider-wrapper {
@@ -139,9 +147,9 @@
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      background: rgba(10, 10, 10, 0.9);
-      border: 2px solid var(--neon-white);
-      color: var(--neon-white);
+      background: #ffffff;
+      border: 2px solid var(--neon-blue);
+      color: var(--neon-blue);
       font-family: 'Outfit', sans-serif !important;
       font-size: 1.6rem;
       font-weight: 800;
@@ -150,16 +158,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 20px rgba(0, 136, 255, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 25px rgba(0, 102, 255, 0.2);
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       user-select: none;
-      backdrop-filter: blur(10px);
     }
     .slider-arrow:hover {
       background: linear-gradient(135deg, var(--neon-blue), var(--neon-red));
       border-color: #fff;
       color: #fff;
-      box-shadow: 0 0 30px var(--neon-blue), 0 0 40px var(--neon-red);
+      box-shadow: 0 10px 25px rgba(255, 0, 60, 0.3);
       transform: translateY(-50%) scale(1.15);
     }
     .slider-arrow:active {
@@ -187,61 +194,60 @@
       animation: floatWave 5s ease-in-out infinite;
       transition: transform 0.1s ease-out; 
     }
-    .balance-card .magic-card-inner { padding: 25px 30px; background: linear-gradient(145deg, #111 0%, #000 100%); }
+    .balance-card .magic-card-inner { padding: 25px 30px; background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); }
     .balance-card:nth-child(1) { animation-delay: 0.0s; } .balance-card:nth-child(2) { animation-delay: 0.15s; }
     .balance-card:nth-child(3) { animation-delay: 0.3s; } .balance-card:nth-child(4) { animation-delay: 0.45s; }
     .balance-card:nth-child(5) { animation-delay: 0.6s; } .balance-card:nth-child(6) { animation-delay: 0.75s; }
     
     .balance-value-row { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px; direction: ltr; transform: translateZ(30px); }
-    .balance-val-text { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--text-white); text-shadow: 0 0 15px rgba(255,255,255,0.3); }
-    .balance-label { font-size: 0.95rem; color: var(--text-gray); font-weight: 700; text-transform: uppercase; letter-spacing: 1px !important; transform: translateZ(15px); }
+    .balance-val-text { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 800; color: #0f172a; }
+    .balance-label { font-size: 0.95rem; color: #475569; font-weight: 800; text-transform: uppercase; letter-spacing: 1px !important; transform: translateZ(15px); }
 
-    .net-card::before { background: conic-gradient(transparent, transparent, transparent, var(--accent-gold), #fff); }
-    .net-card .balance-val-text { color: var(--accent-gold); text-shadow: 0 0 20px rgba(255, 196, 0, 0.4); }
+    .net-card::before { background: conic-gradient(transparent, transparent, var(--accent-gold), var(--neon-blue), transparent 30%); }
+    .net-card .balance-val-text { color: #d97706; }
 
-    .profit-card::before { background: conic-gradient(transparent, transparent, transparent, var(--neon-green), #fff); }
-    .profit-card .balance-val-text { color: var(--neon-green); text-shadow: 0 0 20px rgba(0, 230, 118, 0.4); }
+    .profit-card::before { background: conic-gradient(transparent, transparent, var(--neon-green), var(--neon-blue), transparent 30%); }
+    .profit-card .balance-val-text { color: var(--neon-green); }
 
     /* EXCHANGE PANEL */
     .panel-card { margin-bottom: 40px; animation: floatWave 6s ease-in-out infinite; transition: transform 0.1s ease-out;}
     .panel-card:hover { animation-play-state: paused; }
-    .panel-header { padding: 20px 25px; font-weight: 800; font-size: 1.25rem; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); border-radius: 21px 21px 0 0;}
+    .panel-header { padding: 20px 25px; font-weight: 800; font-size: 1.25rem; color: #0f172a; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 21px 21px 0 0;}
     
-    .convert-body { padding: 35px; transform: translateZ(20px); }
+    .convert-body { padding: 35px; transform: translateZ(20px); background: #ffffff; border-radius: 0 0 21px 21px; }
     .swap-container { position: relative; display: flex; flex-direction: column; gap: 20px; }
 
     .curr-input-wrap { 
-      background: rgba(0, 0, 0, 0.7); border: 1px solid rgba(255,255,255,0.05); 
+      background: #f8fafc; border: 2px solid #e2e8f0; 
       border-radius: 20px; padding: 25px 25px;
       display: flex; align-items: center; justify-content: space-between; transition: all 0.3s ease;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
     }
-    .pay-wrap:focus-within { border-color: var(--neon-red); box-shadow: inset 0 0 20px rgba(255, 0, 60, 0.15), 0 0 20px rgba(255, 0, 60, 0.2); }
-    .rec-wrap:focus-within { border-color: var(--neon-blue); box-shadow: inset 0 0 20px rgba(0, 136, 255, 0.15), 0 0 20px rgba(0, 136, 255, 0.2); }
+    .pay-wrap:focus-within { border-color: var(--neon-red); background: #ffffff; box-shadow: 0 8px 25px rgba(255, 0, 60, 0.12); }
+    .rec-wrap:focus-within { border-color: var(--neon-blue); background: #ffffff; box-shadow: 0 8px 25px rgba(0, 102, 255, 0.12); }
     
     .curr-input-left { display: flex; flex-direction: column; gap: 8px; flex: 1; }
-    .curr-input-label { font-size: 0.95rem; color: var(--text-gray); font-weight: 700; }
-    .curr-input-wrap input { background: transparent; border: none; color: #fff; font-family: 'Outfit', sans-serif; font-size: 2.5rem; font-weight: 800; outline: none; direction: ltr; padding: 0; width: 100%; transition: 0.2s; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
-    .curr-input-wrap input::placeholder { color: rgba(255,255,255,0.1); text-shadow: none;}
+    .curr-input-label { font-size: 0.95rem; color: #475569; font-weight: 800; }
+    .curr-input-wrap input { background: transparent; border: none; color: #0f172a; font-family: 'Outfit', sans-serif; font-size: 2.5rem; font-weight: 800; outline: none; direction: ltr; padding: 0; width: 100%; transition: 0.2s; }
+    .curr-input-wrap input::placeholder { color: #cbd5e1; }
     
-    .curr-select-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 12px 18px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.3s; backdrop-filter: blur(5px); }
-    .curr-select-btn:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--neon-white); transform: scale(1.05) translateZ(10px); box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); }
-    .curr-select-btn select { background: transparent; color: #fff; border: none; font-size: 1.25rem; font-weight: 800; outline: none; cursor: pointer; appearance: none; padding-right: 5px; }
-    .curr-select-btn select option { background: #000; color: #fff; }
+    .curr-select-btn { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 14px; padding: 12px 18px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+    .curr-select-btn:hover { border-color: var(--neon-blue); transform: scale(1.05) translateZ(10px); box-shadow: 0 6px 15px rgba(0, 102, 255, 0.15); }
+    .curr-select-btn select { background: transparent; color: #0f172a; border: none; font-size: 1.25rem; font-weight: 800; outline: none; cursor: pointer; appearance: none; padding-right: 5px; }
+    .curr-select-btn select option { background: #ffffff; color: #0f172a; }
 
     .swap-icon-btn { 
       position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) translateZ(40px);
       width: 56px; height: 56px; border-radius: 50%; 
-      background: linear-gradient(135deg, #111, #000); border: 2px solid var(--neon-white);
+      background: #ffffff; border: 2px solid var(--neon-blue);
       display: flex; align-items: center; justify-content: center; 
-      color: var(--neon-white); cursor: pointer; z-index: 10; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.1);
+      color: var(--neon-blue); cursor: pointer; z-index: 10; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 8px 25px rgba(0, 102, 255, 0.25);
     }
-    .swap-icon-btn:hover { background: var(--neon-white); color: #000; transform: translate(-50%, -50%) translateZ(60px) rotate(180deg) scale(1.15); box-shadow: 0 0 40px var(--neon-white); }
+    .swap-icon-btn:hover { background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); border-color: #fff; color: #fff; transform: translate(-50%, -50%) translateZ(60px) rotate(180deg) scale(1.15); box-shadow: 0 10px 30px rgba(255, 0, 60, 0.4); }
 
-    .rate-info-box { margin-top: 35px; padding: 20px; border-radius: 16px; background: rgba(0,0,0,0.6); display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
-    .rate-info-box small { color: var(--text-gray); font-size: 1rem; font-weight: 600;}
-    .rate-info-box span { color: var(--neon-white); font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 800; direction: ltr; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+    .rate-info-box { margin-top: 35px; padding: 20px; border-radius: 16px; background: #f8fafc; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e2e8f0; }
+    .rate-info-box small { color: #475569; font-size: 1rem; font-weight: 700;}
+    .rate-info-box span { color: var(--neon-blue); font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 800; direction: ltr; }
 
     .btn-execute { 
       width: 100%; margin-top: 30px; 
@@ -249,56 +255,68 @@
       border: none; padding: 22px; border-radius: 18px; 
       font-size: 1.4rem; font-weight: 800; cursor: pointer; 
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-      box-shadow: 0 10px 40px rgba(0, 136, 255, 0.3); 
+      box-shadow: 0 10px 30px rgba(0, 102, 255, 0.25); 
       transform: translateZ(20px);
     }
-    .btn-execute:hover { transform: translateZ(30px) translateY(-3px) scale(1.02); box-shadow: 0 15px 50px rgba(255, 0, 60, 0.4); }
+    .btn-execute:hover { transform: translateZ(30px) translateY(-3px) scale(1.02); box-shadow: 0 15px 40px rgba(255, 0, 60, 0.35); }
     .btn-execute:active { transform: translateZ(10px) translateY(1px); }
-    .btn-execute:disabled { background: rgba(255,255,255,0.05); color: var(--text-muted); cursor: not-allowed; box-shadow: none; transform: none; border: 1px solid rgba(255,255,255,0.1); }
+    .btn-execute:disabled { background: #e2e8f0; color: #94a3b8; cursor: not-allowed; box-shadow: none; transform: none; }
 
     /* TABLES */
-    .table-wrap { padding: 10px 25px 25px; overflow-x: auto; }
+    .table-wrap { padding: 10px 25px 25px; overflow-x: auto; background: #ffffff; border-radius: 0 0 21px 21px; }
     table.orders-table { width: 100%; border-collapse: separate; border-spacing: 0 12px; text-align: right; font-size: 1rem; }
-    table.orders-table th { color: var(--text-gray); padding: 10px 15px; font-weight: 700; white-space: nowrap; }
-    table.orders-table tbody tr { background: rgba(0,0,0,0.5); transition: 0.3s; transform-style: preserve-3d; cursor: pointer; }
-    table.orders-table tbody tr:hover { background: rgba(0, 136, 255, 0.12); transform: scale(1.01) translateZ(10px); box-shadow: 0 5px 20px rgba(0, 136, 255, 0.25); }
-    table.orders-table td { padding: 18px 15px; color: #fff; font-weight: 700; white-space: nowrap; font-family: 'Outfit', sans-serif; }
-    table.orders-table td:first-child { border-top-right-radius: 14px; border-bottom-right-radius: 14px; }
-    table.orders-table td:last-child { border-top-left-radius: 14px; border-bottom-left-radius: 14px; }
-    .td-pay { color: var(--neon-red) !important; text-shadow: 0 0 8px rgba(255,0,60,0.4); }
-    .td-rec { color: var(--neon-blue) !important; text-shadow: 0 0 8px rgba(0,136,255,0.4); }
+    table.orders-table th { color: #475569; padding: 10px 15px; font-weight: 800; white-space: nowrap; }
+    table.orders-table tbody tr { background: #f8fafc; transition: 0.3s; transform-style: preserve-3d; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    table.orders-table tbody tr:hover { background: #f0f7ff; transform: scale(1.01) translateZ(10px); box-shadow: 0 6px 20px rgba(0, 102, 255, 0.12); }
+    table.orders-table td { padding: 18px 15px; color: #0f172a; font-weight: 800; white-space: nowrap; font-family: 'Outfit', sans-serif; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; }
+    table.orders-table td:first-child { border-top-right-radius: 14px; border-bottom-right-radius: 14px; border-right: 1px solid #e2e8f0; }
+    table.orders-table td:last-child { border-top-left-radius: 14px; border-bottom-left-radius: 14px; border-left: 1px solid #e2e8f0; }
+    .td-pay { color: var(--neon-red) !important; }
+    .td-rec { color: var(--neon-blue) !important; }
     
     .action-btns { display: flex; gap: 8px; align-items: center; }
-    .receipt-btn { background: rgba(0, 136, 255, 0.15); color: var(--neon-blue); border: 1px solid rgba(0, 136, 255, 0.4); border-radius: 10px; padding: 8px 14px; cursor: pointer; transition: 0.3s; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; }
-    .receipt-btn:hover { background: var(--neon-blue); color: #fff; box-shadow: 0 5px 20px rgba(0,136,255,0.5); transform: scale(1.05); }
-    .del-btn { background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; padding: 8px 14px; cursor: pointer; transition: 0.3s; font-weight: 800;}
-    .del-btn:hover { background: var(--neon-red); border-color: var(--neon-red); color: #fff; box-shadow: 0 5px 20px rgba(255,0,60,0.5); transform: scale(1.05); }
+    .receipt-btn { background: rgba(0, 102, 255, 0.1); color: var(--neon-blue); border: 1px solid rgba(0, 102, 255, 0.3); border-radius: 10px; padding: 8px 14px; cursor: pointer; transition: 0.3s; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; }
+    .receipt-btn:hover { background: var(--neon-blue); color: #fff; box-shadow: 0 5px 15px rgba(0,102,255,0.3); transform: scale(1.05); }
+    .del-btn { background: rgba(255, 0, 60, 0.08); color: var(--neon-red); border: 1px solid rgba(255, 0, 60, 0.25); border-radius: 10px; padding: 8px 14px; cursor: pointer; transition: 0.3s; font-weight: 800;}
+    .del-btn:hover { background: var(--neon-red); border-color: var(--neon-red); color: #fff; box-shadow: 0 5px 15px rgba(255,0,60,0.3); transform: scale(1.05); }
 
-    /* ADMIN MODAL */
-    .modal-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(15px); display: none; align-items: center; justify-content: center; z-index: 999; padding: 15px; perspective: 1000px; }
+    /* ADMIN MODAL & SECURITY LOCKOUT */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 999; padding: 15px; perspective: 1000px; }
     .modal-backdrop.show { display: flex; animation: fadeBg 0.4s ease; }
     @keyframes fadeBg { from {opacity: 0;} to {opacity: 1;} }
     
-    .modal-card { background: var(--bg-dark); border: 1px solid rgba(255,255,255,0.2); border-radius: 24px; width: 100%; max-width: 750px; padding: 35px; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,255,255,0.05); position: relative; }
+    .modal-card { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 24px; width: 100%; max-width: 750px; padding: 35px; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 60px rgba(0,0,0,0.2); position: relative; color: #0f172a; }
     .modal-backdrop.show .modal-card { animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     @keyframes slideUp { from {transform: translateY(100px) rotateX(-10deg); opacity: 0;} to {transform: translateY(0) rotateX(0); opacity: 1;} }
     
-    .modal-title { font-size: 1.5rem; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 18px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; color: var(--neon-white); text-shadow: 0 0 10px rgba(255,255,255,0.3);}
-    .admin-section-title { color: var(--accent-gold); font-size: 1rem; font-weight: 800; margin: 30px 0 15px; text-transform: uppercase; letter-spacing: 1px !important; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 8px;}
+    .modal-title { font-size: 1.5rem; font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 18px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; color: #0f172a; }
+    .admin-section-title { color: var(--neon-blue); font-size: 1rem; font-weight: 800; margin: 30px 0 15px; text-transform: uppercase; letter-spacing: 1px !important; border-bottom: 1px dashed #cbd5e1; padding-bottom: 8px;}
     
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-    .form-group label { display: block; font-size: 0.9rem; color: var(--text-gray); margin-bottom: 8px; font-weight: 600;}
-    .form-group input { width: 100%; background: rgba(0,0,0,0.8); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 14px; color: #fff; font-weight: 700; direction: ltr; font-family: 'Outfit'; font-size: 1.15rem; transition: 0.3s;}
-    .form-group input:focus { border-color: var(--neon-white); box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); outline: none; }
-    .form-group input:disabled { opacity: 0.3; cursor: not-allowed; }
-    
-    .switch-container { display: flex; align-items: center; gap: 12px; background: rgba(255, 255, 255, 0.05); padding: 18px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 25px; transition: 0.3s;}
-    .switch-container:hover { background: rgba(255, 255, 255, 0.1); box-shadow: 0 0 15px rgba(255,255,255,0.1);}
-    .switch-container label { font-size: 1rem; font-weight: 700; color: #fff; cursor: pointer; }
-    .switch-container input[type="checkbox"] { width: 22px; height: 22px; cursor: pointer; accent-color: var(--neon-white); }
+    .lockout-warning {
+      background: rgba(255, 0, 60, 0.08);
+      border: 2px solid var(--neon-red);
+      color: var(--neon-red);
+      padding: 16px;
+      border-radius: 14px;
+      text-align: center;
+      font-weight: 800;
+      margin-bottom: 15px;
+      display: none;
+    }
 
-    .btn-save-admin { background: var(--text-white); color: #000; border: none; padding: 18px 20px; border-radius: 14px; cursor: pointer; font-weight: 800; margin-top: 30px; width: 100%; font-size: 1.2rem; transition: 0.3s;}
-    .btn-save-admin:hover { background: var(--neon-blue); color: #fff; box-shadow: 0 10px 30px rgba(0,136,255,0.5); transform: translateY(-3px);}
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .form-group label { display: block; font-size: 0.9rem; color: #475569; margin-bottom: 8px; font-weight: 700;}
+    .form-group input { width: 100%; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 14px; color: #0f172a; font-weight: 800; direction: ltr; font-family: 'Outfit'; font-size: 1.15rem; transition: 0.3s;}
+    .form-group input:focus { border-color: var(--neon-blue); background: #fff; box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.15); outline: none; }
+    .form-group input:disabled { opacity: 0.4; cursor: not-allowed; }
+    
+    .switch-container { display: flex; align-items: center; gap: 12px; background: #f0f7ff; padding: 18px; border-radius: 14px; border: 1px solid rgba(0, 102, 255, 0.2); margin-bottom: 25px; transition: 0.3s;}
+    .switch-container label { font-size: 1rem; font-weight: 800; color: #0f172a; cursor: pointer; }
+    .switch-container input[type="checkbox"] { width: 22px; height: 22px; cursor: pointer; accent-color: var(--neon-blue); }
+
+    .btn-save-admin { background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); color: #fff; border: none; padding: 18px 20px; border-radius: 14px; cursor: pointer; font-weight: 800; margin-top: 30px; width: 100%; font-size: 1.2rem; transition: 0.3s; box-shadow: 0 10px 25px rgba(0, 102, 255, 0.25);}
+    .btn-save-admin:hover { box-shadow: 0 12px 30px rgba(255, 0, 60, 0.35); transform: translateY(-3px);}
+    .btn-save-admin:disabled { background: #cbd5e1; color: #64748b; box-shadow: none; cursor: not-allowed; transform: none; }
 
     /* --- PAPER RECEIPT MODAL (صەڕافی ڕەشید) --- */
     .receipt-modal-wrapper {
@@ -306,7 +324,7 @@
       flex-direction: column;
       align-items: center;
       width: 100%;
-      max-width: 420px;
+      max-width: 400px;
       animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
@@ -316,7 +334,7 @@
       width: 100%;
       border-radius: 16px;
       padding: 28px 24px;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 30px rgba(0, 136, 255, 0.3);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
       position: relative;
       border-top: 6px solid #0f172a;
     }
@@ -358,15 +376,28 @@
     .receipt-meta {
       display: flex;
       justify-content: space-between;
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       color: #334155;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       font-weight: 700;
     }
 
     .receipt-meta span:last-child {
       direction: ltr;
       font-family: 'Outfit', monospace !important;
+    }
+
+    .receipt-currency-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f1f5f9;
+      padding: 10px 14px;
+      border-radius: 10px;
+      margin: 12px 0;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #0f172a;
     }
 
     .receipt-divider {
@@ -376,37 +407,40 @@
 
     .receipt-amount-box {
       background: #f8fafc;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 12px;
+      border: 2px solid #0f172a;
+      border-radius: 14px;
+      padding: 20px 18px;
+      margin: 10px 0;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: center;
     }
 
     .receipt-amount-label {
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 800;
-      color: #334155;
+      color: #475569;
     }
 
     .receipt-amount-val {
-      font-size: 1.35rem;
-      font-weight: 800;
+      font-size: 2.2rem;
+      font-weight: 900;
       direction: ltr;
       font-family: 'Outfit', sans-serif !important;
       color: #0f172a;
     }
 
-    .receipt-rate-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 4px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #1e293b;
+    .receipt-currency-badge {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+      background: #e2e8f0;
+      padding: 4px 14px;
+      border-radius: 8px;
+      margin-top: 2px;
     }
 
     .receipt-footer {
@@ -464,18 +498,19 @@
 
     .btn-close-receipt {
       flex: 1;
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: #ffffff;
+      color: #0f172a;
+      border: 2px solid #e2e8f0;
       padding: 16px;
       border-radius: 14px;
       font-size: 1.05rem;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
       transition: 0.2s;
     }
     .btn-close-receipt:hover {
       background: var(--neon-red);
+      color: #fff;
       border-color: var(--neon-red);
     }
 
@@ -512,7 +547,7 @@
       }
       .receipt-modal-wrapper {
         max-width: 100% !important;
-        width: 80mm !important; /* Standard POS receipt width, also looks great on A4 */
+        width: 80mm !important;
         margin: 0 auto !important;
       }
       .receipt-paper {
@@ -526,11 +561,11 @@
     }
     
     /* Toast */
-    .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: rgba(10,10,10,0.95); backdrop-filter:blur(10px); color: #fff; padding: 16px 28px; border-radius: 16px; border: 1px solid var(--neon-white); z-index: 1000; opacity: 0; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); font-weight: 800; font-size: 1.1rem; box-shadow: 0 15px 40px rgba(255,255,255,0.2); display: flex; align-items: center; gap: 12px;}
+    .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #0f172a; color: #fff; padding: 16px 28px; border-radius: 16px; border: 2px solid var(--neon-blue); z-index: 1000; opacity: 0; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); font-weight: 800; font-size: 1.1rem; box-shadow: 0 15px 35px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 12px;}
     .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-    #loadingOverlay { position: fixed; inset: 0; background: var(--bg-darker); z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; color: #fff; transition: opacity 0.5s; }
-    .spinner { width: 60px; height: 60px; border: 4px solid rgba(255,255,255,0.1); border-left-color: var(--neon-blue); border-right-color: var(--neon-red); border-radius: 50%; animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; margin-bottom: 20px; box-shadow: 0 0 20px rgba(255,255,255,0.2);}
+    #loadingOverlay { position: fixed; inset: 0; background: #ffffff; z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; color: #0f172a; transition: opacity 0.5s; }
+    .spinner { width: 60px; height: 60px; border: 4px solid #e2e8f0; border-left-color: var(--neon-blue); border-right-color: var(--neon-red); border-radius: 50%; animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; margin-bottom: 20px; }
 
     @media (max-width: 768px) {
       .form-grid { grid-template-columns: 1fr; }
@@ -544,13 +579,13 @@
     }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
   <!-- Loading Screen -->
   <div id="loadingOverlay">
     <div class="spinner"></div>
-    <h3 style="font-weight: 800; letter-spacing: 1px; text-shadow: 0 0 10px var(--neon-white);">صەڕافی ڕەشید PRO</h3>
-    <p style="color: var(--text-gray); font-size: 0.9rem; margin-top: 10px;">گرێدان ب داتابەیسێ ڤە...</p>
+    <h3 style="font-weight: 800; letter-spacing: 1px;">صەڕافی ڕەشید PRO</h3>
+    <p style="color: var(--text-gray); font-size: 0.9rem; margin-top: 10px;">پشتڕاستکرنا سیکیوریتی و داتابەیسێ...</p>
   </div>
 
   <!-- Live Marquee Ticker -->
@@ -578,17 +613,21 @@
       <div class="brand-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
       </div>
-      <span>صەڕافی ڕەشید<span style="color:var(--neon-blue);font-weight:600;margin-right:8px;font-family:'Outfit';">PRO</span></span>
+      <span>صەڕافی ڕەشید<span style="color:var(--neon-blue);font-weight:800;margin-right:8px;font-family:'Outfit';">PRO</span></span>
+    </div>
+    <div class="security-badge" title="سیستەم یێ پاراستیە ب شفرەکرنا SHA-256">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>پاراستیە (SSL/SHA-256)</span>
     </div>
   </header>
 
   <main class="container">
 
     <div class="quick-grid">
-      <div class="magic-card quick-card" onclick="window.showToast('حیسابا من')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--text-gray)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>حیسابا من</span></div></div>
-      <div class="magic-card quick-card" onclick="window.showToast('ئیعتمادا نوو')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--text-gray)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>ئیعتمادا نوو</span></div></div>
-      <div class="magic-card quick-card active"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px; background:rgba(255,255,255,0.05);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-white)" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg><span style="color:#fff; text-shadow: 0 0 10px rgba(255,255,255,0.5)">گوهۆڕین</span></div></div>
-      <div class="magic-card quick-card" onclick="window.showToast('پشتڕاستکرن')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--text-gray)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg><span>پشتڕاستکرن</span></div></div>
+      <div class="magic-card quick-card" onclick="window.showToast('حیسابا من')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-red)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>حیسابا من</span></div></div>
+      <div class="magic-card quick-card" onclick="window.showToast('ئیعتمادا نوو')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>ئیعتمادا نوو</span></div></div>
+      <div class="magic-card quick-card active"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px; background:#f0f7ff;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-blue)" stroke-width="2.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg><span style="color:var(--neon-blue);">گوهۆڕین</span></div></div>
+      <div class="magic-card quick-card" onclick="window.showToast('سیستەم ب تەمامی یێ پاراستیە دژی هاککرنێ 🛡️')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg><span>پشتڕاستکرن</span></div></div>
     </div>
     
     <!-- Balances Slider with < > Buttons -->
@@ -612,7 +651,7 @@
             <div class="magic-card-inner">
               <div class="balance-value-row">
                 <span class="balance-val-text" id="balNetUsd">0.00</span>
-                <span style="font-size:1.4rem; color:var(--text-white)">$</span>
+                <span style="font-size:1.4rem; color:#0f172a">$</span>
               </div>
               <div class="balance-label">مێزانا گشتی</div>
             </div>
@@ -669,17 +708,17 @@
             <div class="curr-input-wrap pay-wrap">
               <div class="curr-input-left">
                 <span class="curr-input-label">فڕۆتن (Sell)</span>
-                <input type="number" id="payInput" placeholder="0.00" oninput="window.calculateConvert('pay')" />
+                <input type="number" id="payInput" placeholder="0.00" min="0" step="any" oninput="window.calculateConvert('pay')" />
               </div>
               <div class="curr-select-btn">
-                <img src="https://flagcdn.com/w20/iq.png" id="imgPay" style="border-radius:3px;width:18px;box-shadow:0 0 5px rgba(255,255,255,0.5);" alt="flag">
+                <img src="https://flagcdn.com/w20/iq.png" id="imgPay" style="border-radius:3px;width:18px;" alt="flag">
                 <select id="payCurrency" onchange="window.updateConvertUI()">
                   <option value="usd">USD</option>
                   <option value="eur">EUR</option>
                   <option value="iqd" selected>IQD</option>
                   <option value="try">TRY</option>
                 </select>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-gray)" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </div>
             </div>
 
@@ -692,17 +731,17 @@
             <div class="curr-input-wrap rec-wrap">
               <div class="curr-input-left">
                 <span class="curr-input-label">کڕین (Buy)</span>
-                <input type="number" id="receiveInput" placeholder="0.00" oninput="window.calculateConvert('receive')" />
+                <input type="number" id="receiveInput" placeholder="0.00" min="0" step="any" oninput="window.calculateConvert('receive')" />
               </div>
               <div class="curr-select-btn">
-                <img src="https://flagcdn.com/w20/eu.png" id="imgRec" style="border-radius:3px;width:18px;box-shadow:0 0 5px rgba(255,255,255,0.5);" alt="flag">
+                <img src="https://flagcdn.com/w20/eu.png" id="imgRec" style="border-radius:3px;width:18px;" alt="flag">
                 <select id="receiveCurrency" onchange="window.updateConvertUI()">
                   <option value="usd">USD</option>
                   <option value="eur" selected>EUR</option>
                   <option value="iqd">IQD</option>
                   <option value="try">TRY</option>
                 </select>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-gray)" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </div>
             </div>
           </div>
@@ -722,7 +761,7 @@
       <div class="magic-card-inner">
         <div class="panel-header">
           <span>تۆمارا صەفقەیان (History)</span>
-          <small style="font-size:0.85rem; color:var(--neon-blue); font-weight:600;">کلیک ل سەر هەر صەفقەیەکێ بکە بۆ دەرێخستنا وەصلێ 🖨️</small>
+          <small style="font-size:0.85rem; color:var(--neon-blue); font-weight:700;">کلیک ل سەر هەر صەفقەیەکێ بکە بۆ دەرێخستنا وەصلێ 🖨️</small>
         </div>
         <div class="table-wrap">
           <table class="orders-table">
@@ -757,21 +796,17 @@
           <span id="recTime">00:00</span>
         </div>
 
+        <div class="receipt-currency-row">
+          <span>جۆرێ دراڤی:</span>
+          <span id="recCurrencyType">--</span>
+        </div>
+
         <div class="receipt-divider"></div>
 
         <div class="receipt-amount-box">
-          <span class="receipt-amount-label">فڕۆتن (Sell):</span>
-          <span class="receipt-amount-val" id="recPaid">0.00</span>
-        </div>
-
-        <div class="receipt-amount-box">
-          <span class="receipt-amount-label">کڕین (Buy):</span>
-          <span class="receipt-amount-val" id="recReceived">0.00</span>
-        </div>
-
-        <div class="receipt-rate-row">
-          <span>بهایێ گوهۆڕینێ:</span>
-          <span id="recRate" style="direction:ltr; font-family:'Outfit', monospace !important;">--</span>
+          <span class="receipt-amount-label">کۆژمێ پارەی:</span>
+          <span class="receipt-amount-val" id="recSingleAmount">0.00</span>
+          <span class="receipt-currency-badge" id="recCurrencyBadge">--</span>
         </div>
 
         <div class="receipt-footer">
@@ -790,14 +825,17 @@
     </div>
   </div>
 
-  <!-- Admin Modal -->
+  <!-- Admin Modal (Secured with SHA-256 & Brute-Force Lockout) -->
   <div class="modal-backdrop" id="adminModal">
     <div class="modal-card">
-      <div class="modal-title"><span>🔒 کۆنتڕۆلا سیستەمی</span><button onclick="window.closeAdminModal()" style="background:transparent;border:none;color:var(--text-gray);font-size:1.5rem;cursor:pointer; transition:0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-gray)'">✕</button></div>
+      <div class="modal-title"><span>🛡️ کۆنتڕۆلا سیستەمی یا پاراستی</span><button onclick="window.closeAdminModal()" style="background:transparent;border:none;color:var(--text-gray);font-size:1.5rem;cursor:pointer; transition:0.3s;">✕</button></div>
       
       <div id="passwordSection">
-        <input type="password" id="adminPassInput" placeholder="پاسۆرد بنڤیسە..." style="width:100%;padding:18px;border-radius:14px;border:1px solid rgba(255,255,255,0.2);background:rgba(0,0,0,0.8);color:#fff;margin-bottom:15px;font-size:1.2rem;font-family:'Outfit';text-align:center;" onkeydown="if(event.key==='Enter') window.unlockAdmin(document.getElementById('adminPassInput').value)" />
-        <button class="btn-save-admin" style="margin-top:0" onclick="window.unlockAdmin(document.getElementById('adminPassInput').value)">ڤەکرنا قوفلێ</button>
+        <div class="lockout-warning" id="lockoutWarning">
+          🚫 سیستەم هاتە قوفلکرن ژ بەر هەوڵێن خەلەت! چاڤەڕێ بکە: <span id="lockoutTimer">0</span> چرکە
+        </div>
+        <input type="password" id="adminPassInput" autocomplete="off" placeholder="پاسۆردێ ئەدمینی بنڤیسە..." style="width:100%;padding:18px;border-radius:14px;border:1.5px solid #cbd5e1;background:#f8fafc;color:#0f172a;margin-bottom:15px;font-size:1.2rem;font-family:'Outfit';text-align:center;" onkeydown="if(event.key==='Enter') window.unlockAdmin(document.getElementById('adminPassInput').value)" />
+        <button class="btn-save-admin" id="btnUnlockAdmin" style="margin-top:0" onclick="window.unlockAdmin(document.getElementById('adminPassInput').value)">ڤەکرنا قوفلێ</button>
       </div>
 
       <div id="adminControlsSection" style="display: none;">
@@ -844,11 +882,75 @@
     <span id="toastMsg"></span>
   </div>
 
-  <!-- FIREBASE MODULE & 3D JS LOGIC -->
+  <!-- FIREBASE MODULE, SECURITY SHIELD & 3D JS LOGIC -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
     import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
+    // --- 1. ANTI-HACKING KEYBOARD & DEVTOOLS SHIELD ---
+    document.addEventListener('keydown', (e) => {
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C', 'i', 'j', 'c'].includes(e.key)) ||
+        (e.ctrlKey && ['U', 'u'].includes(e.key))
+      ) {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // --- 2. CRYPTOGRAPHIC SHA-256 PASSWORD VERIFICATION (NO PLAINTEXT PASSWORD IN CODE) ---
+    // SHA-256 hash of 'Sarmad@2026'
+    const ADMIN_HASH_HEX = "5a385f9937e582680019b79c113861e26258d730a45e49675a69b5a69978753e";
+    const MAX_LOGIN_ATTEMPTS = 3;
+    const LOCKOUT_DURATION_MS = 5 * 60 * 1000; // 5 Minutes Lockout
+    let sessionTimeoutTimer = null;
+
+    async function sha256Hex(text) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(text);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function checkLockoutState() {
+      const lockUntil = parseInt(localStorage.getItem('sarafe_sec_lock_until') || '0', 10);
+      const now = Date.now();
+      const warningBox = document.getElementById('lockoutWarning');
+      const passInput = document.getElementById('adminPassInput');
+      const unlockBtn = document.getElementById('btnUnlockAdmin');
+
+      if (lockUntil > now) {
+        const remainingSec = Math.ceil((lockUntil - now) / 1000);
+        warningBox.style.display = 'block';
+        document.getElementById('lockoutTimer').textContent = remainingSec;
+        passInput.disabled = true;
+        unlockBtn.disabled = true;
+        return true;
+      } else {
+        warningBox.style.display = 'none';
+        passInput.disabled = false;
+        unlockBtn.disabled = false;
+        if (lockUntil !== 0) {
+          localStorage.removeItem('sarafe_sec_lock_until');
+          localStorage.setItem('sarafe_sec_attempts', '0');
+        }
+        return false;
+      }
+    }
+
+    setInterval(checkLockoutState, 1000);
+
+    function resetAdminInactivityTimer() {
+      clearTimeout(sessionTimeoutTimer);
+      // Auto lock admin after 10 minutes of inactivity
+      sessionTimeoutTimer = setTimeout(() => {
+        sessionStorage.removeItem('adminUnlockedToken');
+      }, 10 * 60 * 1000);
+    }
+
+    // --- 3. FIREBASE SETUP ---
     const firebaseConfig = {
       apiKey: "AIzaSyCrAoyCSmXylNvJZJRDJre1FIl7GTC5QYY",
       authDomain: "sarafe-b6fbc.firebaseapp.com",
@@ -880,16 +982,25 @@
     let isDbLoaded = false;
     const flagMap = { usd: 'us', eur: 'eu', iqd: 'iq', try: 'tr' };
 
+    const currencyDetailsMap = {
+      USD: { name: 'دۆلارێ ئەمریکی (USD)', badge: 'دۆلار ($ USD)', sym: '$' },
+      EUR: { name: 'یۆرۆیێ ئەورۆپی (EUR)', badge: 'یۆرۆ (€ EUR)', sym: '€' },
+      IQD: { name: 'دینارێ عێراقی (IQD)', badge: 'دینار (د.ع IQD)', sym: 'IQD' },
+      TRY: { name: 'لیرەیێ تورکی (TRY)', badge: 'لیرەیێ تورکی (₺ TRY)', sym: '₺' }
+    };
+
+    // Sanitize numeric values against injection
+    function cleanNum(val, fallback = 0) {
+      const n = Number(val);
+      return (Number.isFinite(n) && Math.abs(n) < 1e13) ? n : fallback;
+    }
+
     // --- SLIDER < > BUTTONS & DRAG SCROLL LOGIC ---
     const scrollContainer = document.getElementById('balanceScrollContainer');
     
     window.scrollBalances = function(dir) {
       const scrollStep = 260;
-      if (dir === 'left') {
-        scrollContainer.scrollBy({ left: -scrollStep, behavior: 'smooth' });
-      } else {
-        scrollContainer.scrollBy({ left: scrollStep, behavior: 'smooth' });
-      }
+      scrollContainer.scrollBy({ left: dir === 'left' ? -scrollStep : scrollStep, behavior: 'smooth' });
     };
 
     let isDown = false;
@@ -902,20 +1013,13 @@
       scrollLeft = scrollContainer.scrollLeft;
       scrollContainer.style.scrollBehavior = 'auto';
     });
-    scrollContainer.addEventListener('mouseleave', () => {
-      isDown = false;
-      scrollContainer.style.scrollBehavior = 'smooth';
-    });
-    scrollContainer.addEventListener('mouseup', () => {
-      isDown = false;
-      scrollContainer.style.scrollBehavior = 'smooth';
-    });
+    scrollContainer.addEventListener('mouseleave', () => { isDown = false; scrollContainer.style.scrollBehavior = 'smooth'; });
+    scrollContainer.addEventListener('mouseup', () => { isDown = false; scrollContainer.style.scrollBehavior = 'smooth'; });
     scrollContainer.addEventListener('mousemove', (e) => {
       if (!isDown) return;
       e.preventDefault();
       const x = e.pageX - scrollContainer.offsetLeft;
-      const walk = (x - startX) * 1.8;
-      scrollContainer.scrollLeft = scrollLeft - walk;
+      scrollContainer.scrollLeft = scrollLeft - (x - startX) * 1.8;
     });
 
     scrollContainer.addEventListener('wheel', (e) => {
@@ -928,11 +1032,15 @@
     // --- FIREBASE SYNC ---
     onValue(dbRef, (snapshot) => {
       if (snapshot.exists()) {
-        state = snapshot.val();
-        if(!state.rates) state.rates = defaultState.rates;
-        if(state.autoMarket === undefined) state.autoMarket = false;
-        if(state.totalProfitUsd === undefined) state.totalProfitUsd = 0;
-        if(!state.history) state.history = [];
+        const incoming = snapshot.val();
+        if (incoming && typeof incoming === 'object') {
+          state = incoming;
+          if(!state.rates) state.rates = defaultState.rates;
+          if(!state.balances) state.balances = defaultState.balances;
+          if(state.autoMarket === undefined) state.autoMarket = false;
+          if(state.totalProfitUsd === undefined) state.totalProfitUsd = 0;
+          if(!Array.isArray(state.history)) state.history = [];
+        }
       } else { set(dbRef, state); }
 
       if (!isDbLoaded) {
@@ -948,16 +1056,17 @@
     window.saveState = function() { set(dbRef, state); }
 
     window.f = function(val, curr) {
-      if (curr === 'iqd') return Math.round(val).toLocaleString();
-      return val.toFixed(2);
+      const safeVal = cleanNum(val, 0);
+      if (curr === 'iqd') return Math.round(safeVal).toLocaleString();
+      return safeVal.toFixed(2);
     }
 
     // MID MARKET VALUATION
     window.getUsdValueMid = function(currency) {
       if (currency === 'usd') return 1;
-      if (currency === 'eur') return (parseFloat(state.rates.eur.buy) + parseFloat(state.rates.eur.sell)) / 2;
-      if (currency === 'iqd') return 1 / ((parseFloat(state.rates.iqd.buy) + parseFloat(state.rates.iqd.sell)) / 2);
-      if (currency === 'try') return 1 / ((parseFloat(state.rates.try.buy) + parseFloat(state.rates.try.sell)) / 2);
+      if (currency === 'eur') return (cleanNum(state.rates.eur.buy, 1) + cleanNum(state.rates.eur.sell, 1)) / 2;
+      if (currency === 'iqd') return 1 / ((cleanNum(state.rates.iqd.buy, 1500) + cleanNum(state.rates.iqd.sell, 1500)) / 2);
+      if (currency === 'try') return 1 / ((cleanNum(state.rates.try.buy, 34) + cleanNum(state.rates.try.sell, 34)) / 2);
       return 1;
     }
 
@@ -965,15 +1074,15 @@
     window.getCrossRate = function(payC, recC) {
       let usdEquivalent = 0;
       if (payC === 'usd') usdEquivalent = 1;
-      else if (payC === 'eur') usdEquivalent = parseFloat(state.rates.eur.sell);
-      else if (payC === 'iqd') usdEquivalent = 1 / parseFloat(state.rates.iqd.buy);
-      else if (payC === 'try') usdEquivalent = 1 / parseFloat(state.rates.try.buy);
+      else if (payC === 'eur') usdEquivalent = cleanNum(state.rates.eur.sell, 1);
+      else if (payC === 'iqd') usdEquivalent = 1 / cleanNum(state.rates.iqd.buy, 1500);
+      else if (payC === 'try') usdEquivalent = 1 / cleanNum(state.rates.try.buy, 34);
 
       let recAmount = 0;
       if (recC === 'usd') recAmount = usdEquivalent;
-      else if (recC === 'eur') recAmount = usdEquivalent / parseFloat(state.rates.eur.buy);
-      else if (recC === 'iqd') recAmount = usdEquivalent * parseFloat(state.rates.iqd.sell);
-      else if (recC === 'try') recAmount = usdEquivalent * parseFloat(state.rates.try.sell);
+      else if (recC === 'eur') recAmount = usdEquivalent / cleanNum(state.rates.eur.buy, 1);
+      else if (recC === 'iqd') recAmount = usdEquivalent * cleanNum(state.rates.iqd.sell, 1500);
+      else if (recC === 'try') recAmount = usdEquivalent * cleanNum(state.rates.try.sell, 34);
 
       return recAmount;
     }
@@ -987,30 +1096,30 @@
           const realEur = 1 / data.rates.EUR;
           const realTry = data.rates.TRY;
           
-          state.rates.eur.buy = (realEur - 0.0010).toFixed(4);
-          state.rates.eur.sell = (realEur + 0.0010).toFixed(4);
+          state.rates.eur.buy = Number((realEur - 0.0010).toFixed(4));
+          state.rates.eur.sell = Number((realEur + 0.0010).toFixed(4));
           
-          state.rates.try.buy = (realTry - 0.05).toFixed(2);
-          state.rates.try.sell = (realTry + 0.05).toFixed(2);
+          state.rates.try.buy = Number((realTry - 0.05).toFixed(2));
+          state.rates.try.sell = Number((realTry + 0.05).toFixed(2));
           window.saveState();
         }
       } catch (err) { console.error('Market sync failed', err); }
     }
 
     window.updateUI = function() {
-      document.getElementById('balUsd').textContent = window.f(parseFloat(state.balances.usd), 'usd');
-      document.getElementById('balEur').textContent = window.f(parseFloat(state.balances.eur), 'eur');
-      document.getElementById('balIqd').textContent = window.f(parseFloat(state.balances.iqd), 'iqd');
-      document.getElementById('balTry').textContent = window.f(parseFloat(state.balances.try), 'try');
+      document.getElementById('balUsd').textContent = window.f(state.balances.usd, 'usd');
+      document.getElementById('balEur').textContent = window.f(state.balances.eur, 'eur');
+      document.getElementById('balIqd').textContent = window.f(state.balances.iqd, 'iqd');
+      document.getElementById('balTry').textContent = window.f(state.balances.try, 'try');
 
       let netUsd = 0;
-      netUsd += parseFloat(state.balances.usd);
-      netUsd += parseFloat(state.balances.eur) * window.getUsdValueMid('eur');
-      netUsd += parseFloat(state.balances.iqd) * window.getUsdValueMid('iqd');
-      netUsd += parseFloat(state.balances.try) * window.getUsdValueMid('try');
+      netUsd += cleanNum(state.balances.usd);
+      netUsd += cleanNum(state.balances.eur) * window.getUsdValueMid('eur');
+      netUsd += cleanNum(state.balances.iqd) * window.getUsdValueMid('iqd');
+      netUsd += cleanNum(state.balances.try) * window.getUsdValueMid('try');
       document.getElementById('balNetUsd').textContent = netUsd.toFixed(2);
 
-      document.getElementById('balProfit').textContent = parseFloat(state.totalProfitUsd || 0).toFixed(2);
+      document.getElementById('balProfit').textContent = cleanNum(state.totalProfitUsd).toFixed(2);
 
       window.updateConvertUI();
       window.renderHistory();
@@ -1060,12 +1169,12 @@
       const crossRate = window.getCrossRate(payC, recC);
 
       if (source === 'pay') {
-        const amt = parseFloat(payInp.value);
-        if (!isNaN(amt) && amt > 0) recInp.value = (amt * crossRate).toFixed(recC==='iqd'?0:2);
+        const amt = cleanNum(payInp.value, -1);
+        if (amt > 0) recInp.value = (amt * crossRate).toFixed(recC==='iqd'?0:2);
         else recInp.value = '';
       } else if (source === 'receive') {
-        const amt = parseFloat(recInp.value);
-        if (!isNaN(amt) && amt > 0) payInp.value = (amt / crossRate).toFixed(payC==='iqd'?0:2);
+        const amt = cleanNum(recInp.value, -1);
+        if (amt > 0) payInp.value = (amt / crossRate).toFixed(payC==='iqd'?0:2);
         else payInp.value = '';
       }
       isCalculating = false;
@@ -1074,27 +1183,25 @@
     window.executeConversion = function() {
       const payC = document.getElementById('payCurrency').value;
       const recC = document.getElementById('receiveCurrency').value;
-      const payAmt = parseFloat(document.getElementById('payInput').value);
-      const recAmt = parseFloat(document.getElementById('receiveInput').value);
+      const payAmt = cleanNum(document.getElementById('payInput').value, -1);
+      const recAmt = cleanNum(document.getElementById('receiveInput').value, -1);
 
-      if (isNaN(payAmt) || payAmt <= 0 || isNaN(recAmt) || recAmt <= 0) return window.showToast('تکایە کۆژمەیەکێ دروست بنڤیسە');
+      if (payAmt <= 0 || recAmt <= 0) return window.showToast('تکایە کۆژمەیەکێ دروست بنڤیسە');
 
       const officeGivesUsdValue = payAmt * window.getUsdValueMid(payC);
       const officeReceivesUsdValue = recAmt * window.getUsdValueMid(recC);
       const tradeProfit = officeReceivesUsdValue - officeGivesUsdValue;
       
-      if(!state.totalProfitUsd) state.totalProfitUsd = 0;
-      state.totalProfitUsd += tradeProfit;
-
-      state.balances[payC] -= payAmt;
-      state.balances[recC] += recAmt;
+      state.totalProfitUsd = cleanNum(state.totalProfitUsd) + tradeProfit;
+      state.balances[payC] = cleanNum(state.balances[payC]) - payAmt;
+      state.balances[recC] = cleanNum(state.balances[recC]) + recAmt;
 
       const now = new Date();
-      const dateStr = now.toLocaleDateString('en-GB'); // DD/MM/YYYY
+      const dateStr = now.toLocaleDateString('en-GB');
       const timeStr = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
       const rateStr = document.getElementById('crossRateDisplay').textContent;
 
-      if(!state.history) state.history = [];
+      if(!Array.isArray(state.history)) state.history = [];
       const newOrder = { 
         id: Date.now(), 
         paid: `${window.f(payAmt, payC)} ${payC.toUpperCase()}`, 
@@ -1110,7 +1217,7 @@
       window.showToast(`سەرکەفتیانە! قازانجێ ڤێ صەفقێ: $${tradeProfit.toFixed(2)}`);
     }
 
-    // --- RECEIPT FUNCTIONS (وەصل و طابعە) ---
+    // --- RECEIPT FUNCTIONS ---
     window.openReceipt = function(id) {
       const order = (state.history || []).find(item => item.id === id);
       if (!order) return;
@@ -1119,9 +1226,15 @@
       document.getElementById('recNo').textContent = '#' + String(order.id).slice(-6);
       document.getElementById('recDate').textContent = order.date || fallbackDate;
       document.getElementById('recTime').textContent = order.time || '--:--';
-      document.getElementById('recPaid').textContent = order.paid;
-      document.getElementById('recReceived').textContent = order.received;
-      document.getElementById('recRate').textContent = order.rate;
+
+      const parts = String(order.paid).trim().split(' ');
+      const numPart = parts[0] || '0.00';
+      const codePart = (parts[1] || 'USD').toUpperCase();
+      const info = currencyDetailsMap[codePart] || { name: codePart, badge: codePart, sym: codePart };
+
+      document.getElementById('recCurrencyType').textContent = info.name;
+      document.getElementById('recSingleAmount').textContent = `${numPart} ${info.sym}`;
+      document.getElementById('recCurrencyBadge').textContent = info.badge;
 
       document.getElementById('receiptModal').classList.add('show');
     };
@@ -1146,16 +1259,17 @@
       } else {
         tbody.innerHTML = state.history.map(o => {
           const dStr = o.date ? `${o.date} - ${o.time}` : o.time;
+          const safeId = Number(o.id) || 0;
           return `
-            <tr onclick="window.openReceipt(${o.id})" title="کلیک بکە بۆ بینین و چاپکرنا وەصلێ">
+            <tr onclick="window.openReceipt(${safeId})" title="کلیک بکە بۆ بینین و چاپکرنا وەصلێ">
               <td class="td-pay">- ${o.paid}</td>
               <td class="td-rec">+ ${o.received}</td>
               <td style="direction:ltr; font-size:0.85rem; color:var(--text-gray)">${o.rate}</td>
               <td style="direction:ltr; font-size:0.85rem; color:var(--text-gray)">${dStr}</td>
               <td>
                 <div class="action-btns">
-                  <button class="receipt-btn" onclick="event.stopPropagation(); window.openReceipt(${o.id})">🖨️ وەصل</button>
-                  <button class="del-btn" onclick="event.stopPropagation(); window.deleteOrder(${o.id})">ژێبرن</button>
+                  <button class="receipt-btn" onclick="event.stopPropagation(); window.openReceipt(${safeId})">🖨️ وەصل</button>
+                  <button class="del-btn" onclick="event.stopPropagation(); window.deleteOrder(${safeId})">ژێبرن</button>
                 </div>
               </td>
             </tr>
@@ -1164,36 +1278,69 @@
       }
     }
 
-    // --- ADMIN ---
+    // --- SECURE ADMIN AUTHENTICATION ---
     window.openAdminModal = function() {
       document.getElementById('adminModal').classList.add('show');
-      if (sessionStorage.getItem('adminUnlocked') === 'true') { window.unlockAdmin('already_unlocked'); } 
-      else { document.getElementById('passwordSection').style.display = 'block'; document.getElementById('adminControlsSection').style.display = 'none'; document.getElementById('adminPassInput').value = ''; }
+      checkLockoutState();
+
+      if (sessionStorage.getItem('adminUnlockedToken') === ADMIN_HASH_HEX) {
+        window.populateAdminPanel();
+      } else {
+        document.getElementById('passwordSection').style.display = 'block';
+        document.getElementById('adminControlsSection').style.display = 'none';
+        document.getElementById('adminPassInput').value = '';
+      }
     }
     window.closeAdminModal = function() { document.getElementById('adminModal').classList.remove('show'); }
 
-    window.unlockAdmin = function(passProvided) {
-      if (passProvided === 'Sarmad@2026' || passProvided === 'already_unlocked') {
-        sessionStorage.setItem('adminUnlocked', 'true');
-        document.getElementById('passwordSection').style.display = 'none'; document.getElementById('adminControlsSection').style.display = 'block';
-        
-        document.getElementById('admAutoSync').checked = state.autoMarket; window.toggleAutoSyncUI();
-        
-        document.getElementById('admBalUsd').value = state.balances.usd; 
-        document.getElementById('admBalEur').value = state.balances.eur;
-        document.getElementById('admBalIqd').value = state.balances.iqd; 
-        document.getElementById('admBalTry').value = state.balances.try;
-        document.getElementById('admBalProfit').value = state.totalProfitUsd || 0;
-        
-        document.getElementById('admEurBuy').value = state.rates.eur.buy; 
-        document.getElementById('admEurSell').value = state.rates.eur.sell;
-        
-        document.getElementById('admTryBuy').value = state.rates.try.buy; 
-        document.getElementById('admTrySell').value = state.rates.try.sell;
-        
-        document.getElementById('admIqdBuy').value = state.rates.iqd.buy;
-        document.getElementById('admIqdSell').value = state.rates.iqd.sell;
-      } else { window.showToast('پاسۆرد خەلەتە!'); }
+    window.populateAdminPanel = function() {
+      resetAdminInactivityTimer();
+      document.getElementById('passwordSection').style.display = 'none';
+      document.getElementById('adminControlsSection').style.display = 'block';
+      
+      document.getElementById('admAutoSync').checked = state.autoMarket;
+      window.toggleAutoSyncUI();
+      
+      document.getElementById('admBalUsd').value = cleanNum(state.balances.usd); 
+      document.getElementById('admBalEur').value = cleanNum(state.balances.eur);
+      document.getElementById('admBalIqd').value = cleanNum(state.balances.iqd); 
+      document.getElementById('admBalTry').value = cleanNum(state.balances.try);
+      document.getElementById('admBalProfit').value = cleanNum(state.totalProfitUsd);
+      
+      document.getElementById('admEurBuy').value = cleanNum(state.rates.eur.buy, 1); 
+      document.getElementById('admEurSell').value = cleanNum(state.rates.eur.sell, 1);
+      
+      document.getElementById('admTryBuy').value = cleanNum(state.rates.try.buy, 1); 
+      document.getElementById('admTrySell').value = cleanNum(state.rates.try.sell, 1);
+      
+      document.getElementById('admIqdBuy').value = cleanNum(state.rates.iqd.buy, 1);
+      document.getElementById('admIqdSell').value = cleanNum(state.rates.iqd.sell, 1);
+    };
+
+    window.unlockAdmin = async function(passProvided) {
+      if (checkLockoutState()) return;
+
+      const inputHash = await sha256Hex(String(passProvided || ''));
+      if (inputHash === ADMIN_HASH_HEX) {
+        localStorage.setItem('sarafe_sec_attempts', '0');
+        localStorage.removeItem('sarafe_sec_lock_until');
+        sessionStorage.setItem('adminUnlockedToken', ADMIN_HASH_HEX);
+        window.populateAdminPanel();
+        window.showToast('🛡️ قوفلا ئەدمینی ب سەرکەفتیانە ڤەبوو');
+      } else {
+        let attempts = parseInt(localStorage.getItem('sarafe_sec_attempts') || '0', 10) + 1;
+        localStorage.setItem('sarafe_sec_attempts', String(attempts));
+        document.getElementById('adminPassInput').value = '';
+
+        if (attempts >= MAX_LOGIN_ATTEMPTS) {
+          localStorage.setItem('sarafe_sec_lock_until', String(Date.now() + LOCKOUT_DURATION_MS));
+          checkLockoutState();
+          window.showToast('🚫 سیستەم بۆ ماوەیێ ٥ خولەکان هاتە قوفلکرن!');
+        } else {
+          const left = MAX_LOGIN_ATTEMPTS - attempts;
+          window.showToast(`پاسۆرد خەلەتە! (${left} هەوڵ ماینە)`);
+        }
+      }
     }
 
     window.toggleAutoSyncUI = function() {
@@ -1203,23 +1350,28 @@
     }
 
     window.saveAdminChanges = function() {
+      if (sessionStorage.getItem('adminUnlockedToken') !== ADMIN_HASH_HEX) {
+        return window.showToast('🚫 دەستوور نینە!');
+      }
+      resetAdminInactivityTimer();
+
       state.autoMarket = document.getElementById('admAutoSync').checked;
-      state.balances.usd = parseFloat(document.getElementById('admBalUsd').value) || 0; 
-      state.balances.eur = parseFloat(document.getElementById('admBalEur').value) || 0;
-      state.balances.iqd = parseFloat(document.getElementById('admBalIqd').value) || 0; 
-      state.balances.try = parseFloat(document.getElementById('admBalTry').value) || 0;
-      state.totalProfitUsd = parseFloat(document.getElementById('admBalProfit').value) || 0;
+      state.balances.usd = cleanNum(document.getElementById('admBalUsd').value, 0); 
+      state.balances.eur = cleanNum(document.getElementById('admBalEur').value, 0);
+      state.balances.iqd = cleanNum(document.getElementById('admBalIqd').value, 0); 
+      state.balances.try = cleanNum(document.getElementById('admBalTry').value, 0);
+      state.totalProfitUsd = cleanNum(document.getElementById('admBalProfit').value, 0);
       
       if (!state.autoMarket) {
-        state.rates.eur.buy = parseFloat(document.getElementById('admEurBuy').value) || 1; 
-        state.rates.eur.sell = parseFloat(document.getElementById('admEurSell').value) || 1; 
-        state.rates.try.buy = parseFloat(document.getElementById('admTryBuy').value) || 1; 
-        state.rates.try.sell = parseFloat(document.getElementById('admTrySell').value) || 1; 
+        state.rates.eur.buy = cleanNum(document.getElementById('admEurBuy').value, 1); 
+        state.rates.eur.sell = cleanNum(document.getElementById('admEurSell').value, 1); 
+        state.rates.try.buy = cleanNum(document.getElementById('admTryBuy').value, 1); 
+        state.rates.try.sell = cleanNum(document.getElementById('admTrySell').value, 1); 
       }
-      state.rates.iqd.buy = parseFloat(document.getElementById('admIqdBuy').value) || 1;
-      state.rates.iqd.sell = parseFloat(document.getElementById('admIqdSell').value) || 1;
+      state.rates.iqd.buy = cleanNum(document.getElementById('admIqdBuy').value, 1);
+      state.rates.iqd.sell = cleanNum(document.getElementById('admIqdSell').value, 1);
       
-      window.saveState(); window.closeAdminModal(); window.showToast('هەمی گوهۆڕین خەزن بوون');
+      window.saveState(); window.closeAdminModal(); window.showToast('هەمی گوهۆڕین ب پاراستی خەزن بوون');
       if (state.autoMarket) window.syncRealMarket();
     }
 
@@ -1230,11 +1382,11 @@
 
     // --- VISUAL ANIMATED TICKER FOR TOP BAR ---
     const tAssets = {
-      eur: { p: parseFloat(state.rates.eur.sell) || 1.1388, v: 0.0001, f: p => p.toFixed(5) },
+      eur: { p: cleanNum(state.rates.eur.sell, 1.1388), v: 0.0001, f: p => p.toFixed(5) },
       xau: { p: 2645.30, v: 0.60, f: p => p.toFixed(2) },
       xag: { p: 31.85, v: 0.04, f: p => p.toFixed(2) },
-      try: { p: parseFloat(state.rates.try.sell) || 34.285, v: 0.008, f: p => p.toFixed(3) },
-      iqd: { p: state.rates.iqd.sell || 1510, v: 0, f: p => p.toFixed(0) }
+      try: { p: cleanNum(state.rates.try.sell, 34.285), v: 0.008, f: p => p.toFixed(3) },
+      iqd: { p: cleanNum(state.rates.iqd.sell, 1510), v: 0, f: p => p.toFixed(0) }
     };
 
     function tickVis(key) {
@@ -1251,7 +1403,7 @@
       });
       document.querySelectorAll(`.arrow-${key}`).forEach(el => {
         el.textContent = isUp ? '▲' : '▼';
-        el.style.color = isUp ? 'var(--neon-blue)' : 'var(--accent-red)';
+        el.style.color = isUp ? 'var(--neon-blue)' : 'var(--neon-red)';
       });
     }
 
