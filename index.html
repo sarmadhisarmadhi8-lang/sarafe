@@ -136,41 +136,55 @@
     /* --- TRADINGVIEW TOP BAR --- */
     .tv-Header-Wrap { width: 100%; background: #0f172a; border-bottom: 2px solid rgba(0, 102, 255, 0.3); overflow: hidden; min-height: 46px; }
 
-    /* --- LIVE WEBSOCKET STREAM BAR --- */
+    /* --- OUR OFFICE CUSTOM RATES BAR (نرخێن مە) --- */
     .live-stream-bar {
       background: #ffffff; border-bottom: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between;
-      padding: 8px 20px; direction: ltr; overflow-x: auto; scrollbar-width: none; gap: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      padding: 10px 20px; direction: rtl; overflow-x: auto; scrollbar-width: none; gap: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
     .live-stream-bar::-webkit-scrollbar { display: none; }
 
-    .stream-items-group { display: flex; align-items: center; gap: 16px; min-width: max-content; }
-    .stream-pill {
-      display: inline-flex; align-items: center; gap: 8px; background: #f8fafc; border: 1.5px solid #e2e8f0;
-      padding: 6px 14px; border-radius: 12px; font-family: 'Outfit', monospace !important; font-size: 0.92rem; transition: all 0.2s ease;
+    .stream-items-group { display: flex; align-items: center; gap: 14px; min-width: max-content; }
+    
+    .office-rate-pill {
+      display: inline-flex; align-items: center; gap: 10px; background: #f8fafc; border: 1.5px solid #cbd5e1;
+      padding: 6px 14px; border-radius: 14px; font-size: 0.88rem; transition: all 0.25s ease;
     }
-    .stream-pill .sym-label { color: #475569; font-weight: 800; font-size: 0.82rem; }
-    .stream-pill .sym-price { color: #0f172a; font-weight: 800; font-family: 'Outfit', monospace !important; }
-    .stream-pill .sym-change { font-size: 0.78rem; font-weight: 800; padding: 2px 6px; border-radius: 6px; font-family: 'Outfit', monospace !important; }
-
-    .up-tick { border-color: rgba(0, 200, 83, 0.5) !important; background: rgba(0, 200, 83, 0.06) !important; }
-    .up-tick .sym-price { color: var(--neon-green) !important; }
-    .up-tick .sym-change { background: rgba(0, 200, 83, 0.15); color: var(--neon-green); }
-
-    .down-tick { border-color: rgba(255, 0, 60, 0.5) !important; background: rgba(255, 0, 60, 0.06) !important; }
-    .down-tick .sym-price { color: var(--neon-red) !important; }
-    .down-tick .sym-change { background: rgba(255, 0, 60, 0.15); color: var(--neon-red); }
+    .office-rate-pill:hover {
+      border-color: var(--neon-blue);
+      background: #f0f7ff;
+    }
+    .office-rate-pill .sym-title {
+      color: #0f172a; font-weight: 800; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px;
+    }
+    .office-rate-pill .rate-pair {
+      display: inline-flex; align-items: center; gap: 8px; direction: ltr; font-family: 'Outfit', monospace !important; font-weight: 800;
+    }
+    .rate-buy-tag {
+      color: var(--neon-green); background: rgba(0, 200, 83, 0.1); padding: 2px 8px; border-radius: 6px; font-size: 0.85rem;
+    }
+    .rate-sell-tag {
+      color: var(--neon-red); background: rgba(255, 0, 60, 0.1); padding: 2px 8px; border-radius: 6px; font-size: 0.85rem;
+    }
+    .ayar-badge {
+      background: #0f172a; color: #ffffff; font-family: 'Outfit', monospace !important;
+      font-size: 0.76rem; font-weight: 800; padding: 2px 8px; border-radius: 6px; direction: ltr;
+    }
+    .ayar-badge.auto-on {
+      background: var(--neon-blue); color: #fff;
+    }
 
     .live-status-dot {
-      display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 800;
-      color: var(--neon-green); background: rgba(0, 200, 83, 0.1); padding: 5px 12px; border-radius: 20px; white-space: nowrap;
+      display: inline-flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 800;
+      color: var(--neon-green); background: rgba(0, 200, 83, 0.12); border: 1.5px solid rgba(0, 200, 83, 0.35);
+      padding: 6px 14px; border-radius: 20px; white-space: nowrap; cursor: pointer;
     }
-    .pulse-circle { width: 8px; height: 8px; background: var(--neon-green); border-radius: 50%; animation: pulseAnim 1.2s infinite; }
+    .pulse-circle { width: 9px; height: 9px; background: var(--neon-green); border-radius: 50%; animation: pulseAnim 1.2s infinite; }
     @keyframes pulseAnim {
       0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
       70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(0, 200, 83, 0); }
       100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0); }
     }
-    .live-clock { color: var(--neon-blue); font-family: 'Outfit', monospace !important; font-weight: 800; font-size: 0.95rem; padding-left: 12px; border-left: 2px solid #e2e8f0; white-space: nowrap; }
+    .live-clock { color: var(--neon-blue); font-family: 'Outfit', monospace !important; font-weight: 800; font-size: 0.95rem; padding-right: 12px; border-right: 2px solid #e2e8f0; white-space: nowrap; direction: ltr; }
 
     /* --- MAGIC ANIMATED NEON BORDERS ON WHITE --- */
     .magic-card { position: relative; border-radius: 24px; padding: 3px; overflow: hidden; z-index: 1; box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08); background: #e2e8f0; }
@@ -420,48 +434,58 @@
       <p style="color: var(--text-gray); font-size: 0.9rem; margin-top: 10px;">گرێدان ب بۆرسا عالەمی و داتابەیسێ ڤە...</p>
     </div>
 
-    <!-- 1. OFFICIAL TRADINGVIEW REAL-TIME TICKER TAPE -->
+    <!-- 1. OFFICIAL TRADINGVIEW REAL-TIME TICKER TAPE (بۆرسا جیهانی) -->
     <div class="tv-Header-Wrap">
       <div class="tradingview-widget-container" id="tvTickerContainer">
         <div class="tradingview-widget-container__widget"></div>
       </div>
     </div>
 
-    <!-- 2. ULTRA-FAST WEBSOCKET LIVE BAR -->
+    <!-- 2. OUR OFFICE CUSTOM RATES & AYAR BAR (نرخێن مە - کڕین و فڕۆتن و عەیار) -->
     <div class="live-stream-bar">
       <div class="stream-items-group">
-        <div class="live-status-dot" title="پەخشێ ڕاستەوخۆ ژ بۆرسا عالەمی">
+        <div class="live-status-dot" onclick="window.openAdminModal()" title="کلیک بکە بۆ گوهۆڕینا عەیارێ و نرخێن کڕین و فڕۆتنێ">
           <span class="pulse-circle"></span>
-          <span>بۆرسا عالەمی</span>
+          <span>نرخێن مە (کڕین / فڕۆتن)</span>
         </div>
 
-        <div class="stream-pill" id="pill-eur">
-          <span class="sym-label">🇪🇺 EUR/USD</span>
-          <span class="sym-price" id="ws-eur">1.1348</span>
-          <span class="sym-change" id="chg-eur">0.00%</span>
+        <!-- EUR / USD Office Rate & Ayar -->
+        <div class="office-rate-pill">
+          <span class="sym-title">🇪🇺 یۆرۆ (EUR/USD):</span>
+          <div class="rate-pair">
+            <span class="rate-buy-tag" title="کڕینا مە">کڕین: <strong id="bar-eur-buy">1.1340</strong></span>
+            <span class="rate-sell-tag" title="فڕۆتنا مە">فڕۆتن: <strong id="bar-eur-sell">1.1360</strong></span>
+          </div>
+          <span class="ayar-badge" id="ayar-eur">دەستی</span>
         </div>
 
-        <div class="stream-pill" id="pill-xau">
-          <span class="sym-label">🪙 زێڕ (XAU)</span>
-          <span class="sym-price" id="ws-xau">2645.50</span>
-          <span class="sym-change" id="chg-xau">0.00%</span>
+        <!-- USD / IQD Office Rate & Ayar -->
+        <div class="office-rate-pill">
+          <span class="sym-title">🇮🇶 دینار (1$ IQD):</span>
+          <div class="rate-pair">
+            <span class="rate-buy-tag" title="کڕینا مە">کڕین: <strong id="bar-iqd-buy">1510</strong></span>
+            <span class="rate-sell-tag" title="فڕۆتنا مە">فڕۆتن: <strong id="bar-iqd-sell">1512</strong></span>
+          </div>
+          <span class="ayar-badge" id="ayar-iqd">دەستی</span>
         </div>
 
-        <div class="stream-pill" id="pill-xag">
-          <span class="sym-label">🥈 زیڤ (XAG)</span>
-          <span class="sym-price" id="ws-xag">31.85</span>
-          <span class="sym-change" id="chg-xag">0.00%</span>
+        <!-- USD / TRY Office Rate & Ayar -->
+        <div class="office-rate-pill">
+          <span class="sym-title">🇹🇷 لیرەیێ تورکی (1$ TRY):</span>
+          <div class="rate-pair">
+            <span class="rate-buy-tag" title="کڕینا مە">کڕین: <strong id="bar-try-buy">34.20</strong></span>
+            <span class="rate-sell-tag" title="فڕۆتنا مە">فڕۆتن: <strong id="bar-try-sell">34.30</strong></span>
+          </div>
+          <span class="ayar-badge" id="ayar-try">دەستی</span>
         </div>
 
-        <div class="stream-pill" id="pill-try">
-          <span class="sym-label">🇹🇷 USD/TRY</span>
-          <span class="sym-price" id="ws-try">34.28</span>
-          <span class="sym-change" id="chg-try">0.00%</span>
-        </div>
-
-        <div class="stream-pill" id="pill-iqd">
-          <span class="sym-label">🇮🇶 USD/IQD</span>
-          <span class="sym-price" id="ws-iqd">1510</span>
+        <!-- USD Base Reference -->
+        <div class="office-rate-pill">
+          <span class="sym-title">🇺🇸 دۆلار (100$):</span>
+          <div class="rate-pair">
+            <span class="rate-buy-tag">کڕین: <strong id="bar-usd100-buy">151,000</strong></span>
+            <span class="rate-sell-tag">فڕۆتن: <strong id="bar-usd100-sell">151,200</strong></span>
+          </div>
         </div>
       </div>
 
@@ -728,12 +752,12 @@
     <!-- Admin Modal -->
     <div class="modal-backdrop" id="adminModal">
       <div class="modal-card">
-        <div class="modal-title"><span>🛡️️ کۆنتڕۆلا سیستەمی یا پاراستی</span><button onclick="window.closeAdminModal()" style="background:transparent;border:none;color:var(--text-gray);font-size:1.5rem;cursor:pointer; transition:0.3s;">✕</button></div>
+        <div class="modal-title"><span>🛡 کۆنتڕۆلا سیستەمی یا پاراستی</span><button onclick="window.closeAdminModal()" style="background:transparent;border:none;color:var(--text-gray);font-size:1.5rem;cursor:pointer; transition:0.3s;">✕</button></div>
         
         <div id="adminControlsSection">
           <div class="switch-container">
             <input type="checkbox" id="admAutoSync" onchange="window.toggleAutoSyncUI()" />
-            <label for="admAutoSync">گرێدانا ئۆتۆماتیک ب بۆرسا عالەمی ڤە (دیارکرنا جیاوازیێ -/+)</label>
+            <label for="admAutoSync">گرێدانا ئۆتۆماتیک ب بۆرسا عالەمی ڤە (دیارکرنا عەیارێ -/+)</label>
           </div>
 
           <div class="admin-section-title">باڵانسێن حیسابێ و قازانج</div>
@@ -751,8 +775,8 @@
             <div class="form-group"><label>فڕۆتنا کۆمپانیێ (Sell EUR)</label><input type="number" step="0.0001" id="admEurSell" /></div>
           </div>
           <div class="form-grid auto-offsets" style="display: none;">
-            <div class="form-group"><label>زێدە/کێم بۆ کڕینێ (+/-)</label><input type="number" step="0.0001" id="offEurBuy" placeholder="نموونە: -0.0010" /></div>
-            <div class="form-group"><label>زێدە/کێم بۆ فڕۆتنێ (+/-)</label><input type="number" step="0.0001" id="offEurSell" placeholder="نموونە: +0.0010" /></div>
+            <div class="form-group"><label>عەیارا کڕینێ (+/- ل سەر بۆرسێ)</label><input type="number" step="0.0001" id="offEurBuy" placeholder="نموونە: -0.0010" /></div>
+            <div class="form-group"><label>عەیارا فڕۆتنێ (+/- ل سەر بۆرسێ)</label><input type="number" step="0.0001" id="offEurSell" placeholder="نموونە: +0.0010" /></div>
           </div>
 
           <div class="admin-section-title">نرخێن دۆلار بەرامبەر دیناری (IQD)</div>
@@ -761,8 +785,8 @@
             <div class="form-group"><label>فڕۆتنا کۆمپانیێ 1$ (Sell USD)</label><input type="number" id="admIqdSell" /></div>
           </div>
           <div class="form-grid auto-offsets" style="display: none;">
-            <div class="form-group"><label>زێدە/کێم بۆ کڕینێ (+/-)</label><input type="number" step="1" id="offIqdBuy" placeholder="نموونە: +190" /></div>
-            <div class="form-group"><label>زێدە/کێم بۆ فڕۆتنێ (+/-)</label><input type="number" step="1" id="offIqdSell" placeholder="نموونە: +200" /></div>
+            <div class="form-group"><label>عەیارا کڕینێ (+/- ل سەر بۆرسێ)</label><input type="number" step="1" id="offIqdBuy" placeholder="نموونە: +190" /></div>
+            <div class="form-group"><label>عەیارا فڕۆتنێ (+/- ل سەر بۆرسێ)</label><input type="number" step="1" id="offIqdSell" placeholder="نموونە: +200" /></div>
           </div>
 
           <div class="admin-section-title">نرخێن دۆلار بەرامبەر لیرەی (TRY)</div>
@@ -771,8 +795,8 @@
             <div class="form-group"><label>فڕۆتنا کۆمپانیێ 1$ (Sell USD)</label><input type="number" step="0.01" id="admTrySell" /></div>
           </div>
           <div class="form-grid auto-offsets" style="display: none;">
-            <div class="form-group"><label>زێدە/کێم بۆ کڕینێ (+/-)</label><input type="number" step="0.01" id="offTryBuy" placeholder="نموونە: -0.05" /></div>
-            <div class="form-group"><label>زێدە/کێم بۆ فڕۆتنێ (+/-)</label><input type="number" step="0.01" id="offTrySell" placeholder="نموونە: +0.05" /></div>
+            <div class="form-group"><label>عەیارا کڕینێ (+/- ل سەر بۆرسێ)</label><input type="number" step="0.01" id="offTryBuy" placeholder="نموونە: -0.05" /></div>
+            <div class="form-group"><label>عەیارا فڕۆتنێ (+/- ل سەر بۆرسێ)</label><input type="number" step="0.01" id="offTrySell" placeholder="نموونە: +0.05" /></div>
           </div>
 
           <button class="btn-save-admin" onclick="window.saveAdminChanges()">خەزنکرنا گوهۆڕینان</button>
@@ -796,7 +820,6 @@
     const SESSION_KEY_V5 = "SARAFE_RASHED_AUTH_V5_9818HSKDFG";
 
     function cleanAndNormalizePass(raw) {
-      // Remove any invisible spaces from copy-paste and unify all quote types (” “ " ') into "
       let s = String(raw || '').replace(/[\u200B-\u200D\uFEFF\u00A0\s]/g, '');
       s = s.replace(/[\u201C\u201D\u201F\u2018\u2019\u0022\u0027\u2033]/g, '"');
       if (s.length > 0) {
@@ -808,10 +831,7 @@
     function verifyRashedLogin(user, pass) {
       const u = String(user || '').replace(/[\u200B-\u200D\uFEFF\u00A0\s]/g, '').toLowerCase();
       const p = cleanAndNormalizePass(pass);
-
-      // Exact target using Unicode escape \u00A3 for £ so file encoding never breaks it
       const targetWithPound = 'rashed394774929274739@&\u00A3(:"98';
-
       return (u === 'rashed') && (p === targetWithPound);
     }
 
@@ -939,6 +959,53 @@
       return (Number.isFinite(n) && Math.abs(n) < 1e13) ? n : fallback;
     }
 
+    function formatSignedOffset(val, decimals) {
+      const n = cleanNum(val, 0);
+      const sign = n >= 0 ? '+' : '';
+      return `${sign}${n.toFixed(decimals)}`;
+    }
+
+    window.updateOfficeBarUI = function() {
+      const eurBuy = cleanNum(state.rates?.eur?.buy, 1.1340);
+      const eurSell = cleanNum(state.rates?.eur?.sell, 1.1360);
+      const iqdBuy = cleanNum(state.rates?.iqd?.buy, 1510);
+      const iqdSell = cleanNum(state.rates?.iqd?.sell, 1512);
+      const tryBuy = cleanNum(state.rates?.try?.buy, 34.20);
+      const trySell = cleanNum(state.rates?.try?.sell, 34.30);
+
+      document.getElementById('bar-eur-buy').textContent = eurBuy.toFixed(4);
+      document.getElementById('bar-eur-sell').textContent = eurSell.toFixed(4);
+
+      document.getElementById('bar-iqd-buy').textContent = iqdBuy.toFixed(0);
+      document.getElementById('bar-iqd-sell').textContent = iqdSell.toFixed(0);
+
+      document.getElementById('bar-try-buy').textContent = tryBuy.toFixed(2);
+      document.getElementById('bar-try-sell').textContent = trySell.toFixed(2);
+
+      document.getElementById('bar-usd100-buy').textContent = Math.round(iqdBuy * 100).toLocaleString();
+      document.getElementById('bar-usd100-sell').textContent = Math.round(iqdSell * 100).toLocaleString();
+
+      const ayarEur = document.getElementById('ayar-eur');
+      const ayarIqd = document.getElementById('ayar-iqd');
+      const ayarTry = document.getElementById('ayar-try');
+
+      if (state.autoMarket) {
+        ayarEur.textContent = `عەیار: ${formatSignedOffset(state.offsets?.eur?.buy, 4)} / ${formatSignedOffset(state.offsets?.eur?.sell, 4)}`;
+        ayarIqd.textContent = `عەیار: ${formatSignedOffset(state.offsets?.iqd?.buy, 0)} / ${formatSignedOffset(state.offsets?.iqd?.sell, 0)}`;
+        ayarTry.textContent = `عەیار: ${formatSignedOffset(state.offsets?.try?.buy, 2)} / ${formatSignedOffset(state.offsets?.try?.sell, 2)}`;
+        ayarEur.classList.add('auto-on');
+        ayarIqd.classList.add('auto-on');
+        ayarTry.classList.add('auto-on');
+      } else {
+        ayarEur.textContent = 'عەیار: دەستی';
+        ayarIqd.textContent = 'عەیار: دەستی';
+        ayarTry.textContent = 'عەیار: دەستی';
+        ayarEur.classList.remove('auto-on');
+        ayarIqd.classList.remove('auto-on');
+        ayarTry.classList.remove('auto-on');
+      }
+    };
+
     window.initAppCore = function() {
       mountTradingViewTicker();
       const scrollContainer = document.getElementById('balanceScrollContainer');
@@ -1032,70 +1099,31 @@
       return recAmount;
     }
 
-    // LIVE WEBSOCKET
-    const livePrices = { eur: 1.1348, xau: 2645.50, xag: 31.85, try: 34.28 };
-
-    function flashPillUI(key, newPrice, decimals, pctChange) {
-      const pill = document.getElementById(`pill-${key}`);
-      const priceEl = document.getElementById(`ws-${key}`);
-      const chgEl = document.getElementById(`chg-${key}`);
-      if (!pill || !priceEl) return;
-
-      const oldPrice = livePrices[key] || newPrice;
-      livePrices[key] = newPrice;
-
-      priceEl.textContent = newPrice.toFixed(decimals);
-      if (chgEl && pctChange !== undefined) {
-        const sign = pctChange >= 0 ? '+' : '';
-        chgEl.textContent = `${sign}${pctChange.toFixed(2)}%`;
-      }
-
-      if (newPrice !== oldPrice) {
-        const isUp = newPrice > oldPrice;
-        pill.classList.remove('up-tick', 'down-tick');
-        void pill.offsetWidth;
-        pill.classList.add(isUp ? 'up-tick' : 'down-tick');
-      }
-    }
-
+    // LIVE WEBSOCKET TO UPDATE OUR RATES WHEN AUTO-MARKET IS ON
     window.initLiveMarketStreams = function() {
       window.syncRealMarket();
 
       try {
-        const ws = new WebSocket('wss://stream.binance.com:9443/stream?streams=eurusdt@ticker/paxgusdt@ticker/usdttry@ticker');
+        const ws = new WebSocket('wss://stream.binance.com:9443/stream?streams=eurusdt@ticker/usdttry@ticker');
         ws.onmessage = (event) => {
           const msg = JSON.parse(event.data);
           if (!msg || !msg.data) return;
           const s = msg.data.s;
           const price = parseFloat(msg.data.c);
-          const pct = parseFloat(msg.data.P);
 
-          if (s === 'EURUSDT' && price > 0) {
-            flashPillUI('eur', price, 5, pct);
-            if (state.autoMarket) {
-              state.rates.eur.buy = Number((price + (state.offsets?.eur?.buy || 0)).toFixed(4));
-              state.rates.eur.sell = Number((price + (state.offsets?.eur?.sell || 0)).toFixed(4));
-              window.updateConvertUI();
-            }
-          } else if (s === 'PAXGUSDT' && price > 0) {
-            flashPillUI('xau', price, 2, pct);
-          } else if (s === 'USDTTRY' && price > 0) {
-            flashPillUI('try', price, 3, pct);
-            if (state.autoMarket) {
-              state.rates.try.buy = Number((price + (state.offsets?.try?.buy || 0)).toFixed(2));
-              state.rates.try.sell = Number((price + (state.offsets?.try?.sell || 0)).toFixed(2));
-              window.updateConvertUI();
-            }
+          if (s === 'EURUSDT' && price > 0 && state.autoMarket) {
+            state.rates.eur.buy = Number((price + cleanNum(state.offsets?.eur?.buy, 0)).toFixed(4));
+            state.rates.eur.sell = Number((price + cleanNum(state.offsets?.eur?.sell, 0)).toFixed(4));
+            window.updateOfficeBarUI();
+            window.updateConvertUI();
+          } else if (s === 'USDTTRY' && price > 0 && state.autoMarket) {
+            state.rates.try.buy = Number((price + cleanNum(state.offsets?.try?.buy, 0)).toFixed(2));
+            state.rates.try.sell = Number((price + cleanNum(state.offsets?.try?.sell, 0)).toFixed(2));
+            window.updateOfficeBarUI();
+            window.updateConvertUI();
           }
         };
       } catch (e) { console.warn(e); }
-
-      setInterval(() => {
-        const delta = (Math.random() - 0.495) * 0.015;
-        const nextXag = Math.max(15, livePrices.xag + delta);
-        const pct = ((nextXag - 31.80) / 31.80) * 100;
-        flashPillUI('xag', nextXag, 3, pct);
-      }, 2200);
     };
 
     window.syncRealMarket = async function() {
@@ -1107,17 +1135,14 @@
           const realTry = data.rates.TRY;
           const realIqd = data.rates.IQD;
 
-          flashPillUI('eur', realEur, 5, 0.05);
-          flashPillUI('try', realTry, 3, 0.12);
-
           if (state.autoMarket) {
-            state.rates.eur.buy = Number((realEur + (state.offsets?.eur?.buy || 0)).toFixed(4));
-            state.rates.eur.sell = Number((realEur + (state.offsets?.eur?.sell || 0)).toFixed(4));
-            state.rates.try.buy = Number((realTry + (state.offsets?.try?.buy || 0)).toFixed(2));
-            state.rates.try.sell = Number((realTry + (state.offsets?.try?.sell || 0)).toFixed(2));
+            state.rates.eur.buy = Number((realEur + cleanNum(state.offsets?.eur?.buy, 0)).toFixed(4));
+            state.rates.eur.sell = Number((realEur + cleanNum(state.offsets?.eur?.sell, 0)).toFixed(4));
+            state.rates.try.buy = Number((realTry + cleanNum(state.offsets?.try?.buy, 0)).toFixed(2));
+            state.rates.try.sell = Number((realTry + cleanNum(state.offsets?.try?.sell, 0)).toFixed(2));
             if (realIqd > 0) {
-              state.rates.iqd.buy = Number((realIqd + (state.offsets?.iqd?.buy || 0)).toFixed(0));
-              state.rates.iqd.sell = Number((realIqd + (state.offsets?.iqd?.sell || 0)).toFixed(0));
+              state.rates.iqd.buy = Number((realIqd + cleanNum(state.offsets?.iqd?.buy, 0)).toFixed(0));
+              state.rates.iqd.sell = Number((realIqd + cleanNum(state.offsets?.iqd?.sell, 0)).toFixed(0));
             }
             window.saveState();
           }
@@ -1131,9 +1156,6 @@
       document.getElementById('balIqd').textContent = window.f(state.balances.iqd, 'iqd');
       document.getElementById('balTry').textContent = window.f(state.balances.try, 'try');
 
-      const iqdEl = document.getElementById('ws-iqd');
-      if (iqdEl) iqdEl.textContent = cleanNum(state.rates.iqd.sell, 1510).toFixed(0);
-
       let netUsd = 0;
       netUsd += cleanNum(state.balances.usd);
       netUsd += cleanNum(state.balances.eur) * window.getUsdValueMid('eur');
@@ -1143,6 +1165,7 @@
 
       document.getElementById('balProfit').textContent = cleanNum(state.totalProfitUsd).toFixed(2);
 
+      window.updateOfficeBarUI();
       window.updateConvertUI();
       window.renderHistory();
     }
@@ -1432,7 +1455,7 @@
         state.rates.iqd.sell = cleanNum(document.getElementById('admIqdSell').value, 1);
       }
       
-      window.saveState(); window.closeAdminModal(); window.showToast('هەمی گوهۆڕین ب پاراستی خەزن بوون');
+      window.saveState(); window.closeAdminModal(); window.showToast('هەمی گوهۆڕین و عەیار ب پاراستی خەزن بوون');
       if (state.autoMarket) window.syncRealMarket();
     }
 
