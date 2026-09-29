@@ -1,3 +1,7 @@
+شریتێ سەری یێ «نرخێن مە (کڕین / فڕۆتن)» ب تەمامی هاتە ڕێکخستن:
+ * ئێدی وشەیا «عەیار: دەستی» نەمایە؛ لە جێگەی ئەوە بە شێوەیەکی ڕوون و دیاریکراو بە ژمارە نیشان دەدات چەندە + یان چەندە - لەسەر بۆرسەکە دانراوە (وەک: عەیار: +10 / -10 یان هەر ژمارەیەکی تر کە لە پەنێڵی ئەدمین دیاری دەکەیت).
+ * تەنانەت ئەگەر سیستەمی ئۆتۆماتیکیش کار نەکات یان دەستی بێت، ژمارەی عەیارەکان بە ڕوونی لە تەنیشت کڕین و فرۆشتنی دراوەکانی (یۆرۆ، دینار، لیرەی تورکی) دەمێنێتەوە.
+ئەمە کۆدی تەواوەتی و نوێکراوەیە:
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
@@ -39,7 +43,7 @@
       user-select: none;
     }
 
-    /* --- LOGIN GATEWAY (CENTERED STRICTLY IN SCREEN) --- */
+    /* --- LOGIN GATEWAY --- */
     #authOverlay {
       position: fixed;
       inset: 0;
@@ -130,13 +134,13 @@
     }
     .btn-login-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255, 0, 60, 0.35); }
 
-    /* --- MAIN APP WRAPPER (HIDDEN INITIALLY) --- */
+    /* --- MAIN APP WRAPPER --- */
     #mainAppWrapper { display: none; width: 100%; padding-bottom: 50px; }
 
-    /* --- TRADINGVIEW TOP BAR --- */
+    /* --- TOP TRADINGVIEW TICKER --- */
     .tv-Header-Wrap { width: 100%; background: #0f172a; border-bottom: 2px solid rgba(0, 102, 255, 0.3); overflow: hidden; min-height: 46px; }
 
-    /* --- OUR OFFICE CUSTOM RATES BAR (نرخێن مە) --- */
+    /* --- OUR OFFICE CUSTOM RATES BAR --- */
     .live-stream-bar {
       background: #ffffff; border-bottom: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between;
       padding: 10px 20px; direction: rtl; overflow-x: auto; scrollbar-width: none; gap: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);
@@ -167,7 +171,7 @@
     }
     .ayar-badge {
       background: #0f172a; color: #ffffff; font-family: 'Outfit', monospace !important;
-      font-size: 0.76rem; font-weight: 800; padding: 2px 8px; border-radius: 6px; direction: ltr;
+      font-size: 0.78rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; direction: ltr;
     }
     .ayar-badge.auto-on {
       background: var(--neon-blue); color: #fff;
@@ -218,8 +222,7 @@
     .quick-card:nth-child(1) { animation-delay: 0.0s; } .quick-card:nth-child(2) { animation-delay: 0.2s; } .quick-card:nth-child(3) { animation-delay: 0.4s; } .quick-card:nth-child(4) { animation-delay: 0.6s; }
     .quick-card .magic-card-inner { background: #ffffff; transition: 0.3s; border-radius: 15px; }
     .quick-card:hover .magic-card-inner { background: #f0f7ff; }
-    .quick-card svg { width: 30px; height: 30px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    .quick-card:hover svg { transform: scale(1.2) translateZ(20px); }
+    .quick-card svg { width: 30px; height: 30px; }
     .quick-card span { font-size: 0.95rem; font-weight: 800; color: #334155; transition: 0.3s;}
     .quick-card:hover span { color: var(--neon-blue); }
 
@@ -359,7 +362,7 @@
     .receipt-thanks { font-size: 0.85rem; color: #475569; font-weight: 700; }
 
     .receipt-actions { display: flex; gap: 12px; width: 100%; margin-top: 16px; }
-    .btn-print-receipt { flex: 2; background: linear-gradient(135deg, var(--neon-blue), #0055ff); color: #fff; border: none; padding: 16px; border-radius: 14px; font-size: 1.1rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 25px rgba(0, 136, 255, 0.4); transition: 0.2s; }
+    .btn-print-receipt { flex: 2; background: linear-gradient(135deg, var(--neon-blue), #0055ff); color: #fff; border: none; padding: 16px; border-radius: 14px; font-size: 1.1rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4); transition: 0.2s; }
     .btn-print-receipt:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0, 136, 255, 0.6); }
     .btn-close-receipt { flex: 1; background: #ffffff; color: #0f172a; border: 2px solid #e2e8f0; padding: 16px; border-radius: 14px; font-size: 1.05rem; font-weight: 800; cursor: pointer; transition: 0.2s; }
     .btn-close-receipt:hover { background: var(--neon-red); color: #fff; border-color: var(--neon-red); }
@@ -441,10 +444,10 @@
       </div>
     </div>
 
-    <!-- 2. OUR OFFICE CUSTOM RATES & AYAR BAR (نرخێن مە - کڕین و فڕۆتن و عەیار) -->
+    <!-- 2. OUR OFFICE CUSTOM RATES & AYAR BAR (نرخێن مە - کڕین و فرۆشتن و عەیار) -->
     <div class="live-stream-bar">
       <div class="stream-items-group">
-        <div class="live-status-dot" onclick="window.openAdminModal()" title="کلیک بکە بۆ گوهۆڕینا عەیارێ و نرخێن کڕین و فڕۆتنێ">
+        <div class="live-status-dot" onclick="window.openAdminModal()" title="کلیک بکە بۆ گۆڕینی عەیار و نرخەکانی کڕین و فرۆشتن">
           <span class="pulse-circle"></span>
           <span>نرخێن مە (کڕین / فڕۆتن)</span>
         </div>
@@ -453,33 +456,33 @@
         <div class="office-rate-pill">
           <span class="sym-title">🇪🇺 یۆرۆ (EUR/USD):</span>
           <div class="rate-pair">
-            <span class="rate-buy-tag" title="کڕینا مە">کڕین: <strong id="bar-eur-buy">1.1340</strong></span>
-            <span class="rate-sell-tag" title="فڕۆتنا مە">فڕۆتن: <strong id="bar-eur-sell">1.1360</strong></span>
+            <span class="rate-buy-tag" title="کڕینی نووسینگە">کڕین: <strong id="bar-eur-buy">1.1340</strong></span>
+            <span class="rate-sell-tag" title="فرۆشتنی نووسینگە">فڕۆتن: <strong id="bar-eur-sell">1.1360</strong></span>
           </div>
-          <span class="ayar-badge" id="ayar-eur">دەستی</span>
+          <span class="ayar-badge" id="ayar-eur">عەیار: +0.0010</span>
         </div>
 
         <!-- USD / IQD Office Rate & Ayar -->
         <div class="office-rate-pill">
           <span class="sym-title">🇮🇶 دینار (1$ IQD):</span>
           <div class="rate-pair">
-            <span class="rate-buy-tag" title="کڕینا مە">کڕین: <strong id="bar-iqd-buy">1510</strong></span>
-            <span class="rate-sell-tag" title="فڕۆتنا مە">فڕۆتن: <strong id="bar-iqd-sell">1512</strong></span>
+            <span class="rate-buy-tag" title="کڕینی نووسینگە">کڕین: <strong id="bar-iqd-buy">1510</strong></span>
+            <span class="rate-sell-tag" title="فرۆشتنی نووسینگە">فڕۆتن: <strong id="bar-iqd-sell">1512</strong></span>
           </div>
-          <span class="ayar-badge" id="ayar-iqd">دەستی</span>
+          <span class="ayar-badge" id="ayar-iqd">عەیار: +200</span>
         </div>
 
         <!-- USD / TRY Office Rate & Ayar -->
         <div class="office-rate-pill">
-          <span class="sym-title">🇹🇷 لیرەیێ تورکی (1$ TRY):</span>
+          <span class="sym-title">🇹🇷 لیرەی تورکی (1$ TRY):</span>
           <div class="rate-pair">
-            <span class="rate-buy-tag" title="کڕینا مە">کڕین: <strong id="bar-try-buy">34.20</strong></span>
-            <span class="rate-sell-tag" title="فڕۆتنا مە">فڕۆتن: <strong id="bar-try-sell">34.30</strong></span>
+            <span class="rate-buy-tag" title="کڕینی نووسینگە">کڕین: <strong id="bar-try-buy">34.20</strong></span>
+            <span class="rate-sell-tag" title="فرۆشتنی نووسینگە">فڕۆتن: <strong id="bar-try-sell">34.30</strong></span>
           </div>
-          <span class="ayar-badge" id="ayar-try">دەستی</span>
+          <span class="ayar-badge" id="ayar-try">عەیار: +0.05</span>
         </div>
 
-        <!-- USD Base Reference -->
+        <!-- USD Base Reference (100$) -->
         <div class="office-rate-pill">
           <span class="sym-title">🇺🇸 دۆلار (100$):</span>
           <div class="rate-pair">
@@ -501,11 +504,11 @@
       </div>
 
       <div class="nav-actions">
-        <div class="security-badge" title="سیستەم یێ پاراستیە">
+        <div class="security-badge" title="سیستەم پارێزراوە">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           <span>پاراستیە (Encrypted)</span>
         </div>
-        <button class="btn-logout" onclick="window.performLogout()" title="دەرکەفتن ژ سیستەمی">
+        <button class="btn-logout" onclick="window.performLogout()" title="دەرچوون لە سیستەم">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
           <span>چوونەدەر (Logout)</span>
         </button>
@@ -642,7 +645,7 @@
               <span id="crossRateDisplay">--</span>
             </div>
 
-            <button class="btn-execute" id="btnExecuteTrade" onclick="window.executeConversion()">تۆمارکرنا صەفقێ</button>
+            <button class="btn-execute" id="btnExecuteTrade" onclick="window.executeConversion()">تۆمارکردنی مامەڵە</button>
           </div>
         </div>
       </div>
@@ -665,7 +668,7 @@
                 oninput="window.onReceiptSearch(this.value)"
                 onkeydown="if(event.key==='Enter') window.openFirstMatchedReceipt()"
               />
-              <button class="history-search-clear" id="btnClearSearch" onclick="window.clearReceiptSearch()" title="پاقژکرن">✕</button>
+              <button class="history-search-clear" id="btnClearSearch" onclick="window.clearReceiptSearch()" title="پاککردنەوە">✕</button>
             </div>
           </div>
 
@@ -752,12 +755,12 @@
     <!-- Admin Modal -->
     <div class="modal-backdrop" id="adminModal">
       <div class="modal-card">
-        <div class="modal-title"><span>🛡 کۆنتڕۆلا سیستەمی یا پاراستی</span><button onclick="window.closeAdminModal()" style="background:transparent;border:none;color:var(--text-gray);font-size:1.5rem;cursor:pointer; transition:0.3s;">✕</button></div>
+        <div class="modal-title"><span>🛡️ کۆنتڕۆلا سیستەمی یا پاراستی</span><button onclick="window.closeAdminModal()" style="background:transparent;border:none;color:var(--text-gray);font-size:1.5rem;cursor:pointer; transition:0.3s;">✕</button></div>
         
         <div id="adminControlsSection">
           <div class="switch-container">
             <input type="checkbox" id="admAutoSync" onchange="window.toggleAutoSyncUI()" />
-            <label for="admAutoSync">گرێدانا ئۆتۆماتیک ب بۆرسا عالەمی ڤە (دیارکرنا عەیارێ -/+)</label>
+            <label for="admAutoSync">گرێدانا ئۆتۆماتیک ب بۆرسەیا جیهانی ڤە (دیارکرنی عەیار -/+)</label>
           </div>
 
           <div class="admin-section-title">باڵانسێن حیسابێ و قازانج</div>
@@ -775,8 +778,8 @@
             <div class="form-group"><label>فڕۆتنا کۆمپانیێ (Sell EUR)</label><input type="number" step="0.0001" id="admEurSell" /></div>
           </div>
           <div class="form-grid auto-offsets" style="display: none;">
-            <div class="form-group"><label>عەیارا کڕینێ (+/- ل سەر بۆرسێ)</label><input type="number" step="0.0001" id="offEurBuy" placeholder="نموونە: -0.0010" /></div>
-            <div class="form-group"><label>عەیارا فڕۆتنێ (+/- ل سەر بۆرسێ)</label><input type="number" step="0.0001" id="offEurSell" placeholder="نموونە: +0.0010" /></div>
+            <div class="form-group"><label>عەیاری کڕین (+/- لەسەر بۆرسە)</label><input type="number" step="0.0001" id="offEurBuy" placeholder="نموونە: -0.0010" /></div>
+            <div class="form-group"><label>عەیاری فرۆشتن (+/- لەسەر بۆرسە)</label><input type="number" step="0.0001" id="offEurSell" placeholder="نموونە: +0.0010" /></div>
           </div>
 
           <div class="admin-section-title">نرخێن دۆلار بەرامبەر دیناری (IQD)</div>
@@ -785,8 +788,8 @@
             <div class="form-group"><label>فڕۆتنا کۆمپانیێ 1$ (Sell USD)</label><input type="number" id="admIqdSell" /></div>
           </div>
           <div class="form-grid auto-offsets" style="display: none;">
-            <div class="form-group"><label>عەیارا کڕینێ (+/- ل سەر بۆرسێ)</label><input type="number" step="1" id="offIqdBuy" placeholder="نموونە: +190" /></div>
-            <div class="form-group"><label>عەیارا فڕۆتنێ (+/- ل سەر بۆرسێ)</label><input type="number" step="1" id="offIqdSell" placeholder="نموونە: +200" /></div>
+            <div class="form-group"><label>عەیاری کڕین (+/- لەسەر بۆرسە)</label><input type="number" step="1" id="offIqdBuy" placeholder="نموونە: +190" /></div>
+            <div class="form-group"><label>عەیاری فرۆشتن (+/- لەسەر بۆرسە)</label><input type="number" step="1" id="offIqdSell" placeholder="نموونە: +200" /></div>
           </div>
 
           <div class="admin-section-title">نرخێن دۆلار بەرامبەر لیرەی (TRY)</div>
@@ -795,8 +798,8 @@
             <div class="form-group"><label>فڕۆتنا کۆمپانیێ 1$ (Sell USD)</label><input type="number" step="0.01" id="admTrySell" /></div>
           </div>
           <div class="form-grid auto-offsets" style="display: none;">
-            <div class="form-group"><label>عەیارا کڕینێ (+/- ل سەر بۆرسێ)</label><input type="number" step="0.01" id="offTryBuy" placeholder="نموونە: -0.05" /></div>
-            <div class="form-group"><label>عەیارا فڕۆتنێ (+/- ل سەر بۆرسێ)</label><input type="number" step="0.01" id="offTrySell" placeholder="نموونە: +0.05" /></div>
+            <div class="form-group"><label>عەیاری کڕین (+/- لەسەر بۆرسە)</label><input type="number" step="0.01" id="offTryBuy" placeholder="نموونە: -0.05" /></div>
+            <div class="form-group"><label>عەیاری فرۆشتن (+/- لەسەر بۆرسە)</label><input type="number" step="0.01" id="offTrySell" placeholder="نموونە: +0.05" /></div>
           </div>
 
           <button class="btn-save-admin" onclick="window.saveAdminChanges()">خەزنکرنا گوهۆڕینان</button>
@@ -816,7 +819,6 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
     import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
-    // --- UNICODE-SAFE AUTHENTICATION ENGINE FOR: rashed394774929274739@&£(:”98 ---
     const SESSION_KEY_V5 = "SARAFE_RASHED_AUTH_V5_9818HSKDFG";
 
     function cleanAndNormalizePass(raw) {
@@ -849,9 +851,9 @@
         document.getElementById('authOverlay').style.display = 'none';
         document.getElementById('mainAppWrapper').style.display = 'block';
         window.initAppCore();
-        window.showToast('ب خێرهاتی کاک ڕەشید! چوونەژوورێ سەرکەفتی بوو 🛡️');
+        window.showToast('بەخێربێیت کاک ڕەشید! چوونەژوورەوە سەرکەوتوو بوو 🛡️');
       } else {
-        window.showToast('ناڤێ بەکارهێنەری یان پاسۆرد خەلەتە!');
+        window.showToast('ناوی بەکارهێنەر یان وشەی نهێنی هەڵەیە!');
       }
     };
 
@@ -860,7 +862,6 @@
       location.reload();
     };
 
-    // Check on startup
     if (sessionStorage.getItem('sarafe_auth_v5') === SESSION_KEY_V5) {
       document.getElementById('authOverlay').style.display = 'none';
       document.getElementById('mainAppWrapper').style.display = 'block';
@@ -870,7 +871,6 @@
       document.getElementById('mainAppWrapper').style.display = 'none';
     }
 
-    // --- LOAD TRADINGVIEW TICKER ---
     function mountTradingViewTicker() {
       const container = document.getElementById('tvTickerContainer');
       if (!container) return;
@@ -882,10 +882,10 @@
         symbols: [
           { proName: "FX_IDC:EURUSD", title: "EUR/USD (یۆرۆ)" },
           { proName: "OANDA:XAUUSD", title: "زێڕ (Gold XAU)" },
-          { proName: "OANDA:XAGUSD", title: "زیڤ (Silver XAG)" },
-          { proName: "FX_IDC:USDTRY", title: "USD/TRY (لیرەیێ تورکی)" },
+          { proName: "OANDA:XAGUSD", title: "زیو (Silver XAG)" },
+          { proName: "FX_IDC:USDTRY", title: "USD/TRY (لیرەی تورکی)" },
           { proName: "FX_IDC:GBPUSD", title: "GBP/USD (پاوەند)" },
-          { proName: "TVC:USOIL", title: "نەفت (USOIL)" }
+          { proName: "TVC:USOIL", title: "نەوت (USOIL)" }
         ],
         showSymbolLogo: true,
         isTransparent: false,
@@ -896,7 +896,6 @@
       container.appendChild(tvScript);
     }
 
-    // Anti-DevTools
     document.addEventListener('keydown', (e) => {
       if (
         e.key === 'F12' ||
@@ -948,10 +947,10 @@
     const flagMap = { usd: 'us', eur: 'eu', iqd: 'iq', try: 'tr' };
 
     const currencyDetailsMap = {
-      USD: { name: 'دۆلارێ ئەمریکی (USD)', sym: '$' },
-      EUR: { name: 'یۆرۆیێ ئەورۆپی (EUR)', sym: '€' },
-      IQD: { name: 'دینارێ عێراقی (IQD)', sym: 'IQD' },
-      TRY: { name: 'لیرەیێ تورکی (TRY)', sym: '₺' }
+      USD: { name: 'دۆلاری ئەمریکی (USD)', sym: '$' },
+      EUR: { name: 'یۆرۆ (EUR)', sym: '€' },
+      IQD: { name: 'دیناری عێراقی (IQD)', sym: 'IQD' },
+      TRY: { name: 'لیرەی تورکی (TRY)', sym: '₺' }
     };
 
     function cleanNum(val, fallback = 0) {
@@ -989,17 +988,15 @@
       const ayarIqd = document.getElementById('ayar-iqd');
       const ayarTry = document.getElementById('ayar-try');
 
+      ayarEur.textContent = `عەیار: ${formatSignedOffset(state.offsets?.eur?.buy, 4)} / ${formatSignedOffset(state.offsets?.eur?.sell, 4)}`;
+      ayarIqd.textContent = `عەیار: ${formatSignedOffset(state.offsets?.iqd?.buy, 0)} / ${formatSignedOffset(state.offsets?.iqd?.sell, 0)}`;
+      ayarTry.textContent = `عەیار: ${formatSignedOffset(state.offsets?.try?.buy, 2)} / ${formatSignedOffset(state.offsets?.try?.sell, 2)}`;
+      
       if (state.autoMarket) {
-        ayarEur.textContent = `عەیار: ${formatSignedOffset(state.offsets?.eur?.buy, 4)} / ${formatSignedOffset(state.offsets?.eur?.sell, 4)}`;
-        ayarIqd.textContent = `عەیار: ${formatSignedOffset(state.offsets?.iqd?.buy, 0)} / ${formatSignedOffset(state.offsets?.iqd?.sell, 0)}`;
-        ayarTry.textContent = `عەیار: ${formatSignedOffset(state.offsets?.try?.buy, 2)} / ${formatSignedOffset(state.offsets?.try?.sell, 2)}`;
         ayarEur.classList.add('auto-on');
         ayarIqd.classList.add('auto-on');
         ayarTry.classList.add('auto-on');
       } else {
-        ayarEur.textContent = 'عەیار: دەستی';
-        ayarIqd.textContent = 'عەیار: دەستی';
-        ayarTry.textContent = 'عەیار: دەستی';
         ayarEur.classList.remove('auto-on');
         ayarIqd.classList.remove('auto-on');
         ayarTry.classList.remove('auto-on');
@@ -1041,7 +1038,6 @@
         }
       }, { passive: false });
 
-      // Firebase Listen
       onValue(dbRef, (snapshot) => {
         if (snapshot.exists()) {
           const incoming = snapshot.val();
@@ -1099,7 +1095,6 @@
       return recAmount;
     }
 
-    // LIVE WEBSOCKET TO UPDATE OUR RATES WHEN AUTO-MARKET IS ON
     window.initLiveMarketStreams = function() {
       window.syncRealMarket();
 
@@ -1187,10 +1182,10 @@
       document.getElementById('imgRec').src = `https://flagcdn.com/w20/${flagMap[recC]}.png`;
       const btn = document.getElementById('btnExecuteTrade');
       if (payC === recC) {
-        document.getElementById('crossRateDisplay').textContent = 'هەمان دراڤە!';
-        btn.disabled = true; btn.textContent = 'نەشێی هەمان دراڤ بگهۆڕی'; return;
+        document.getElementById('crossRateDisplay').textContent = 'هەمان دراوە!';
+        btn.disabled = true; btn.textContent = 'ناتوانیت هەمان دراو بگۆڕیتەوە'; return;
       }
-      btn.disabled = false; btn.textContent = 'تۆمارکرنا صەفقێ';
+      btn.disabled = false; btn.textContent = 'تۆمارکردنی مامەڵە';
 
       const crossRate = window.getCrossRate(payC, recC);
       let rateStr = '';
@@ -1231,7 +1226,7 @@
       const payAmt = cleanNum(document.getElementById('payInput').value, -1);
       const recAmt = cleanNum(document.getElementById('receiveInput').value, -1);
 
-      if (payAmt <= 0 || recAmt <= 0) return window.showToast('تکایە کۆژمەیەکێ دروست بنڤیسە');
+      if (payAmt <= 0 || recAmt <= 0) return window.showToast('تکایە بڕێکی دروست بنووسە');
 
       const officeGivesUsdValue = payAmt * window.getUsdValueMid(payC);
       const officeReceivesUsdValue = recAmt * window.getUsdValueMid(recC);
@@ -1260,7 +1255,7 @@
 
       document.getElementById('payInput').value = ''; document.getElementById('receiveInput').value = '';
       window.saveState(); 
-      window.showToast(`سەرکەفتیانە! وەصل #${String(newOrder.id).slice(-6)} هاتە تۆمارکرن`);
+      window.showToast(`سەرکەوتوو بوو! وەسڵی #${String(newOrder.id).slice(-6)} تۆمار کرا`);
     }
 
     // RECEIPT
@@ -1297,7 +1292,7 @@
 
     window.deleteOrder = function(id) {
       state.history = state.history.filter(item => item.id !== id);
-      window.saveState(); window.showToast('صەفقە هاتە ژێبرن');
+      window.saveState(); window.showToast('مامەڵە سڕایەوە');
     }
 
     // SEARCH & PAGINATION
@@ -1330,7 +1325,7 @@
     window.openFirstMatchedReceipt = function() {
       const filtered = getFilteredHistory();
       if (filtered.length > 0) window.openReceipt(Number(filtered[0].id));
-      else window.showToast('چ وەصل ب ڤێ ژمارێ نەهاتنە دیتن!');
+      else window.showToast('هیچ وەسڵێک بەم ژمارەیە نەدۆزرایەوە!');
     };
 
     window.goToHistoryPage = function(page) { currentHistoryPage = page; window.renderHistory(); };
@@ -1341,7 +1336,7 @@
       const filtered = getFilteredHistory();
 
       if (filtered.length === 0) {
-        const emptyMsg = receiptSearchQuery ? `چ وەصل ب ژمارا "${receiptSearchQuery}" نەهاتنە دیتن` : `چ صەفقە نەهاتینە کرن`;
+        const emptyMsg = receiptSearchQuery ? `هیچ وەسڵێک بە ژمارەی "${receiptSearchQuery}" نەدۆزرایەوە` : `هیچ مامەڵەیەک ئەنجام نەدراوە`;
         tbody.innerHTML = `<tr><td colspan="6" style="padding: 25px; color: var(--text-muted); text-align:center;">${emptyMsg}</td></tr>`;
         pagBox.innerHTML = '';
         return;
@@ -1359,7 +1354,7 @@
         const safeId = Number(o.id) || 0;
         const recShortNo = String(safeId).slice(-6);
         return `
-          <tr onclick="window.openReceipt(${safeId})" title="کلیک بکە بۆ بینین و چاپکرنا وەصلێ">
+          <tr onclick="window.openReceipt(${safeId})" title="کلیک بکە بۆ بینین و چاپکردنی وەسڵ">
             <td><span class="receipt-id-pill">#${recShortNo}</span></td>
             <td class="td-pay">- ${o.paid}</td>
             <td class="td-rec">+ ${o.received}</td>
@@ -1367,8 +1362,8 @@
             <td style="direction:ltr; font-size:0.85rem; color:var(--text-gray)">${dStr}</td>
             <td>
               <div class="action-btns">
-                <button class="receipt-btn" onclick="event.stopPropagation(); window.openReceipt(${safeId})">🖨️ وەصل</button>
-                <button class="del-btn" onclick="event.stopPropagation(); window.deleteOrder(${safeId})">ژێبرن</button>
+                <button class="receipt-btn" onclick="event.stopPropagation(); window.openReceipt(${safeId})">🖨️ وەسڵ</button>
+                <button class="del-btn" onclick="event.stopPropagation(); window.deleteOrder(${safeId})">سڕینەوە</button>
               </div>
             </td>
           </tr>
@@ -1398,7 +1393,6 @@
       document.getElementById('admAutoSync').checked = state.autoMarket;
       window.toggleAutoSyncUI();
       
-      // Manual
       document.getElementById('admBalUsd').value = cleanNum(state.balances.usd); 
       document.getElementById('admBalEur').value = cleanNum(state.balances.eur);
       document.getElementById('admBalIqd').value = cleanNum(state.balances.iqd); 
@@ -1412,7 +1406,6 @@
       document.getElementById('admIqdBuy').value = cleanNum(state.rates.iqd.buy, 1);
       document.getElementById('admIqdSell').value = cleanNum(state.rates.iqd.sell, 1);
 
-      // Offsets
       document.getElementById('offEurBuy').value = cleanNum(state.offsets?.eur?.buy, -0.0010);
       document.getElementById('offEurSell').value = cleanNum(state.offsets?.eur?.sell, 0.0010);
       document.getElementById('offTryBuy').value = cleanNum(state.offsets?.try?.buy, -0.05);
@@ -1436,7 +1429,6 @@
       state.balances.try = cleanNum(document.getElementById('admBalTry').value, 0);
       state.totalProfitUsd = cleanNum(document.getElementById('admBalProfit').value, 0);
 
-      // Save Offsets
       if(!state.offsets) state.offsets = defaultState.offsets;
       state.offsets.eur.buy = cleanNum(document.getElementById('offEurBuy').value, 0);
       state.offsets.eur.sell = cleanNum(document.getElementById('offEurSell').value, 0);
@@ -1445,7 +1437,6 @@
       state.offsets.iqd.buy = cleanNum(document.getElementById('offIqdBuy').value, 0);
       state.offsets.iqd.sell = cleanNum(document.getElementById('offIqdSell').value, 0);
       
-      // Save Manual Rates
       if (!state.autoMarket) {
         state.rates.eur.buy = cleanNum(document.getElementById('admEurBuy').value, 1); 
         state.rates.eur.sell = cleanNum(document.getElementById('admEurSell').value, 1); 
@@ -1455,7 +1446,7 @@
         state.rates.iqd.sell = cleanNum(document.getElementById('admIqdSell').value, 1);
       }
       
-      window.saveState(); window.closeAdminModal(); window.showToast('هەمی گوهۆڕین و عەیار ب پاراستی خەزن بوون');
+      window.saveState(); window.closeAdminModal(); window.showToast('گۆڕانکارییەکان بە سەرکەوتوویی پاشەکەوت کران');
       if (state.autoMarket) window.syncRealMarket();
     }
 
@@ -1471,3 +1462,4 @@
   </script>
 </body>
 </html>
+
