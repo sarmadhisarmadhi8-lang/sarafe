@@ -792,32 +792,28 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
     import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
-    // --- SECURE AUTHENTICATION ENGINE (FIXED QUOTE NORMALIZATION ON BOTH SIDES) ---
-    const SECURE_SALT = "9818HSKDFGbbbgs0928707877383778278))((--0ssSS";
+    // --- UNICODE-SAFE AUTHENTICATION ENGINE FOR: rashed394774929274739@&£(:”98 ---
+    const SESSION_KEY_V5 = "SARAFE_RASHED_AUTH_V5_9818HSKDFG";
 
-    function normalizePassText(str) {
-      let s = String(str || '').trim();
-      // Normalize any curly or straight quotes (” “ " ') into standard "
-      s = s.replace(/[“”‟"‘’']/g, '"');
+    function cleanAndNormalizePass(raw) {
+      // Remove any invisible spaces from copy-paste and unify all quote types (” “ " ') into "
+      let s = String(raw || '').replace(/[\u200B-\u200D\uFEFF\u00A0\s]/g, '');
+      s = s.replace(/[\u201C\u201D\u201F\u2018\u2019\u0022\u0027\u2033]/g, '"');
       if (s.length > 0) {
         s = s.charAt(0).toLowerCase() + s.slice(1);
       }
       return s;
     }
 
-    function generateSecureSig(user, pass) {
-      const cleanU = String(user || '').trim().toLowerCase();
-      const cleanP = normalizePassText(pass);
-      const combined = cleanU + "::" + cleanP + "::" + SECURE_SALT;
-      let hash = 0;
-      for (let i = 0; i < combined.length; i++) {
-        hash = ((hash << 5) - hash) + combined.charCodeAt(i);
-        hash |= 0;
-      }
-      return hash.toString(16);
-    }
+    function verifyRashedLogin(user, pass) {
+      const u = String(user || '').replace(/[\u200B-\u200D\uFEFF\u00A0\s]/g, '').toLowerCase();
+      const p = cleanAndNormalizePass(pass);
 
-    const EXPECTED_AUTH_SIG = generateSecureSig("rashed", 'rashed394774929274739@&£(:"98');
+      // Exact target using Unicode escape \u00A3 for £ so file encoding never breaks it
+      const targetWithPound = 'rashed394774929274739@&\u00A3(:"98';
+
+      return (u === 'rashed') && (p === targetWithPound);
+    }
 
     window.toggleLoginPassVis = function() {
       const inp = document.getElementById('loginPass');
@@ -828,8 +824,8 @@
       const u = document.getElementById('loginUser').value;
       const p = document.getElementById('loginPass').value;
 
-      if (generateSecureSig(u, p) === EXPECTED_AUTH_SIG) {
-        sessionStorage.setItem('sarafe_auth_v4', EXPECTED_AUTH_SIG);
+      if (verifyRashedLogin(u, p)) {
+        sessionStorage.setItem('sarafe_auth_v5', SESSION_KEY_V5);
         document.getElementById('authOverlay').style.display = 'none';
         document.getElementById('mainAppWrapper').style.display = 'block';
         window.initAppCore();
@@ -840,12 +836,12 @@
     };
 
     window.performLogout = function() {
-      sessionStorage.removeItem('sarafe_auth_v4');
+      sessionStorage.removeItem('sarafe_auth_v5');
       location.reload();
     };
 
     // Check on startup
-    if (sessionStorage.getItem('sarafe_auth_v4') === EXPECTED_AUTH_SIG) {
+    if (sessionStorage.getItem('sarafe_auth_v5') === SESSION_KEY_V5) {
       document.getElementById('authOverlay').style.display = 'none';
       document.getElementById('mainAppWrapper').style.display = 'block';
       setTimeout(() => window.initAppCore(), 100);
