@@ -937,26 +937,38 @@
     import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
     // --- SECURE AUTHENTICATION ENGINE ---
-    const SECURE_SALT = "9818HSKDFGbbbgs0928707877383778278))((--0ssSS";
-    
-    function generateSecureSig(user, pass) {
-      let combined = user.trim().toLowerCase() + "::" + pass.trim().toLowerCase() + "::" + SECURE_SALT;
-      let hash = 0;
-      for (let i = 0; i < combined.length; i++) {
-        hash = ((hash << 5) - hash) + combined.charCodeAt(i);
-        hash |= 0;
+    // Encrypted Byte Arrays for Username ("rashed") and Password ("rashed394774929274739@&£(:”98")
+    const ENC_USER_BYTES = [156, 139, 157, 146, 143, 142];
+    const ENC_PASS_BYTES = [
+      156, 139, 157, 146, 143, 142, 93, 99, 94, 97, 97, 94, 99, 92, 99, 92,
+      97, 94, 97, 93, 99, 106, 80, 205, 82, 100, 76, 99, 98
+    ];
+    const SESSION_TOKEN_KEY = "SARAFE_RASHED_AUTH_V3_9818HSKDFG";
+
+    function verifyCredentials(rawUser, rawPass) {
+      const u = String(rawUser || '').trim().toLowerCase();
+      // Normalize smart curly quotes (” / “) and straight quotes (") so both work on mobile & PC
+      const pRaw = String(rawPass || '').trim().replace(/[“”"]/g, '"');
+      const p = pRaw.charAt(0).toLowerCase() + pRaw.slice(1);
+
+      if (u.length !== ENC_USER_BYTES.length || p.length !== ENC_PASS_BYTES.length) {
+        return false;
       }
-      return hash.toString(16);
+      for (let i = 0; i < u.length; i++) {
+        if ((u.charCodeAt(i) + 42) !== ENC_USER_BYTES[i]) return false;
+      }
+      for (let j = 0; j < p.length; j++) {
+        if ((p.charCodeAt(j) + 42) !== ENC_PASS_BYTES[j]) return false;
+      }
+      return true;
     }
 
-    const EXPECTED_AUTH_SIG = generateSecureSig("rashed", "rashed");
-
     window.performSecureLogin = function() {
-      const u = (document.getElementById('loginUser').value || '').trim();
-      const p = (document.getElementById('loginPass').value || '').trim();
+      const u = document.getElementById('loginUser').value;
+      const p = document.getElementById('loginPass').value;
 
-      if (generateSecureSig(u, p) === EXPECTED_AUTH_SIG) {
-        sessionStorage.setItem('sarafe_auth_token', EXPECTED_AUTH_SIG);
+      if (verifyCredentials(u, p)) {
+        sessionStorage.setItem('sarafe_auth_v3', SESSION_TOKEN_KEY);
         document.getElementById('authOverlay').style.display = 'none';
         document.getElementById('mainAppWrapper').style.display = 'block';
         window.initAppCore();
@@ -968,12 +980,12 @@
     };
 
     window.performLogout = function() {
-      sessionStorage.removeItem('sarafe_auth_token');
+      sessionStorage.removeItem('sarafe_auth_v3');
       location.reload();
     };
 
     // Check on startup
-    if (sessionStorage.getItem('sarafe_auth_token') === EXPECTED_AUTH_SIG) {
+    if (sessionStorage.getItem('sarafe_auth_v3') === SESSION_TOKEN_KEY) {
       document.getElementById('authOverlay').style.display = 'none';
       document.getElementById('mainAppWrapper').style.display = 'block';
       setTimeout(() => window.initAppCore(), 100);
