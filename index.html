@@ -81,160 +81,72 @@
       z-index: 2;
     }
 
-    .login-header {
-      text-align: center;
-      margin-bottom: 22px;
-    }
-
+    .login-header { text-align: center; margin-bottom: 22px; }
     .login-icon-box {
-      width: 58px;
-      height: 58px;
+      width: 58px; height: 58px;
       background: linear-gradient(135deg, var(--neon-blue), var(--neon-red));
-      border-radius: 18px;
-      display: inline-flex;
+      border-radius: 18px; display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 20px rgba(0, 102, 255, 0.3); margin-bottom: 12px;
+    }
+
+    .login-title { font-size: 1.55rem; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
+    .login-subtitle { font-size: 0.85rem; color: var(--text-gray); font-weight: 700; }
+
+    .login-field-group { margin-bottom: 16px; text-align: right; }
+    .login-field-group label { display: block; font-size: 0.88rem; font-weight: 800; color: #334155; margin-bottom: 6px; }
+
+    .pass-input-wrapper {
+      position: relative;
+      display: flex;
       align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 20px rgba(0, 102, 255, 0.3);
-      margin-bottom: 12px;
-    }
-
-    .login-title {
-      font-size: 1.55rem;
-      font-weight: 800;
-      color: #0f172a;
-      margin-bottom: 4px;
-    }
-
-    .login-subtitle {
-      font-size: 0.85rem;
-      color: var(--text-gray);
-      font-weight: 700;
-    }
-
-    .login-field-group {
-      margin-bottom: 16px;
-      text-align: right;
-    }
-
-    .login-field-group label {
-      display: block;
-      font-size: 0.88rem;
-      font-weight: 800;
-      color: #334155;
-      margin-bottom: 6px;
     }
 
     .login-input {
-      width: 100%;
-      background: #f8fafc;
-      border: 2px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 13px 16px;
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #0f172a;
-      outline: none;
-      direction: ltr;
-      text-align: center;
-      font-family: 'Outfit', sans-serif !important;
-      transition: all 0.25s ease;
+      width: 100%; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 14px;
+      padding: 13px 42px 13px 16px; font-size: 1.05rem; font-weight: 800; color: #0f172a; outline: none;
+      direction: ltr; text-align: center; font-family: 'Outfit', sans-serif !important; transition: all 0.25s ease;
     }
+    .login-input:focus { border-color: var(--neon-blue); background: #ffffff; box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.12); }
 
-    .login-input:focus {
-      border-color: var(--neon-blue);
-      background: #ffffff;
-      box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.12);
+    .toggle-pass-btn {
+      position: absolute;
+      right: 12px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.15rem;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
     }
+    .toggle-pass-btn:hover { color: var(--neon-blue); }
 
     .btn-login-submit {
-      width: 100%;
-      background: linear-gradient(135deg, var(--neon-blue), var(--neon-red));
-      color: #fff;
-      border: none;
-      padding: 15px;
-      border-radius: 14px;
-      font-size: 1.15rem;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 0 8px 25px rgba(0, 102, 255, 0.3);
-      transition: all 0.25s ease;
-      margin-top: 6px;
+      width: 100%; background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); color: #fff;
+      border: none; padding: 15px; border-radius: 14px; font-size: 1.15rem; font-weight: 800;
+      cursor: pointer; box-shadow: 0 8px 25px rgba(0, 102, 255, 0.3); transition: all 0.25s ease; margin-top: 6px;
     }
-
-    .btn-login-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(255, 0, 60, 0.35);
-    }
-
-    .btn-logout {
-      background: rgba(255, 0, 60, 0.08);
-      color: var(--neon-red);
-      border: 1.5px solid rgba(255, 0, 60, 0.25);
-      border-radius: 12px;
-      padding: 6px 14px;
-      font-size: 0.85rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: 0.2s;
-    }
-    .btn-logout:hover {
-      background: var(--neon-red);
-      color: #fff;
-    }
+    .btn-login-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255, 0, 60, 0.35); }
 
     /* --- MAIN APP WRAPPER (HIDDEN INITIALLY) --- */
-    #mainAppWrapper {
-      display: none;
-      width: 100%;
-      padding-bottom: 50px;
-    }
+    #mainAppWrapper { display: none; width: 100%; padding-bottom: 50px; }
 
     /* --- TRADINGVIEW TOP BAR --- */
-    .tv-Header-Wrap {
-      width: 100%;
-      background: #0f172a;
-      border-bottom: 2px solid rgba(0, 102, 255, 0.3);
-      overflow: hidden;
-      min-height: 46px;
-    }
+    .tv-Header-Wrap { width: 100%; background: #0f172a; border-bottom: 2px solid rgba(0, 102, 255, 0.3); overflow: hidden; min-height: 46px; }
 
     /* --- LIVE WEBSOCKET STREAM BAR --- */
     .live-stream-bar {
-      background: #ffffff;
-      border-bottom: 2px solid #e2e8f0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 20px;
-      direction: ltr;
-      overflow-x: auto;
-      scrollbar-width: none;
-      gap: 18px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      background: #ffffff; border-bottom: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 20px; direction: ltr; overflow-x: auto; scrollbar-width: none; gap: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
     .live-stream-bar::-webkit-scrollbar { display: none; }
 
-    .stream-items-group {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      min-width: max-content;
-    }
-
+    .stream-items-group { display: flex; align-items: center; gap: 16px; min-width: max-content; }
     .stream-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #f8fafc;
-      border: 1.5px solid #e2e8f0;
-      padding: 6px 14px;
-      border-radius: 12px;
-      font-family: 'Outfit', monospace !important;
-      font-size: 0.92rem;
-      transition: all 0.2s ease;
+      display: inline-flex; align-items: center; gap: 8px; background: #f8fafc; border: 1.5px solid #e2e8f0;
+      padding: 6px 14px; border-radius: 12px; font-family: 'Outfit', monospace !important; font-size: 0.92rem; transition: all 0.2s ease;
     }
     .stream-pill .sym-label { color: #475569; font-weight: 800; font-size: 0.82rem; }
     .stream-pill .sym-price { color: #0f172a; font-weight: 800; font-family: 'Outfit', monospace !important; }
@@ -249,66 +161,27 @@
     .down-tick .sym-change { background: rgba(255, 0, 60, 0.15); color: var(--neon-red); }
 
     .live-status-dot {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.8rem;
-      font-weight: 800;
-      color: var(--neon-green);
-      background: rgba(0, 200, 83, 0.1);
-      padding: 5px 12px;
-      border-radius: 20px;
-      white-space: nowrap;
+      display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 800;
+      color: var(--neon-green); background: rgba(0, 200, 83, 0.1); padding: 5px 12px; border-radius: 20px; white-space: nowrap;
     }
-    .pulse-circle {
-      width: 8px; height: 8px; background: var(--neon-green); border-radius: 50%; animation: pulseAnim 1.2s infinite;
-    }
+    .pulse-circle { width: 8px; height: 8px; background: var(--neon-green); border-radius: 50%; animation: pulseAnim 1.2s infinite; }
     @keyframes pulseAnim {
       0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
       70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(0, 200, 83, 0); }
       100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0); }
     }
-
     .live-clock { color: var(--neon-blue); font-family: 'Outfit', monospace !important; font-weight: 800; font-size: 0.95rem; padding-left: 12px; border-left: 2px solid #e2e8f0; white-space: nowrap; }
 
     /* --- MAGIC ANIMATED NEON BORDERS ON WHITE --- */
-    .magic-card {
-      position: relative;
-      border-radius: 24px;
-      padding: 3px; 
-      overflow: hidden;
-      z-index: 1;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
-      background: #e2e8f0;
-    }
-    
+    .magic-card { position: relative; border-radius: 24px; padding: 3px; overflow: hidden; z-index: 1; box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08); background: #e2e8f0; }
     .magic-card::before {
-      content: ''; position: absolute;
-      width: 200%; height: 200%;
-      top: -50%; left: -50%;
-      background: conic-gradient(
-        transparent, transparent, 
-        var(--neon-blue), #ffffff, var(--neon-red), transparent 30%
-      );
-      animation: spin 4s linear infinite;
-      z-index: -2;
+      content: ''; position: absolute; width: 200%; height: 200%; top: -50%; left: -50%;
+      background: conic-gradient(transparent, transparent, var(--neon-blue), #ffffff, var(--neon-red), transparent 30%); animation: spin 4s linear infinite; z-index: -2;
     }
-    
     .magic-card.reverse-glow::before {
-      background: conic-gradient(
-        transparent, transparent, 
-        var(--neon-red), #ffffff, var(--neon-blue), transparent 30%
-      );
-      animation: spin 4s linear infinite reverse;
+      background: conic-gradient(transparent, transparent, var(--neon-red), #ffffff, var(--neon-blue), transparent 30%); animation: spin 4s linear infinite reverse;
     }
-
-    .magic-card-inner {
-      background: #ffffff;
-      border-radius: 21px;
-      height: 100%; width: 100%;
-      z-index: -1;
-    }
-
+    .magic-card-inner { background: #ffffff; border-radius: 21px; height: 100%; width: 100%; z-index: -1; }
     @keyframes spin { 100% { transform: rotate(360deg); } }
     @keyframes floatWave { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
 
@@ -319,91 +192,66 @@
     .brand-icon { width: 45px; height: 45px; border-radius: 14px; background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0, 102, 255, 0.3); }
 
     .nav-actions { display: flex; align-items: center; gap: 12px; }
-    .security-badge {
-      display: flex; align-items: center; gap: 6px;
-      background: rgba(0, 200, 83, 0.1); color: var(--neon-green);
-      border: 1px solid rgba(0, 200, 83, 0.3); padding: 6px 14px;
-      border-radius: 12px; font-size: 0.85rem; font-weight: 800;
-    }
-    
+    .security-badge { display: flex; align-items: center; gap: 6px; background: rgba(0, 200, 83, 0.1); color: var(--neon-green); border: 1px solid rgba(0, 200, 83, 0.3); padding: 6px 14px; border-radius: 12px; font-size: 0.85rem; font-weight: 800; }
+    .btn-logout { background: rgba(255, 0, 60, 0.08); color: var(--neon-red); border: 1.5px solid rgba(255, 0, 60, 0.25); border-radius: 12px; padding: 6px 14px; font-size: 0.85rem; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: 0.2s; }
+    .btn-logout:hover { background: var(--neon-red); color: #fff; }
+
     .container { max-width: 1080px; margin: 0 auto; padding: 25px 16px; }
 
     /* QUICK ACTIONS */
     .quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 15px; margin-bottom: 30px; }
-    .quick-card {
-      border-radius: 18px; padding: 3px; cursor: pointer; text-align: center;
-      animation: floatWave 4s ease-in-out infinite;
-    }
-    .quick-card:nth-child(1) { animation-delay: 0.0s; } .quick-card:nth-child(2) { animation-delay: 0.2s; }
-    .quick-card:nth-child(3) { animation-delay: 0.4s; } .quick-card:nth-child(4) { animation-delay: 0.6s; }
-    
+    .quick-card { border-radius: 18px; padding: 3px; cursor: pointer; text-align: center; animation: floatWave 4s ease-in-out infinite; }
+    .quick-card:nth-child(1) { animation-delay: 0.0s; } .quick-card:nth-child(2) { animation-delay: 0.2s; } .quick-card:nth-child(3) { animation-delay: 0.4s; } .quick-card:nth-child(4) { animation-delay: 0.6s; }
     .quick-card .magic-card-inner { background: #ffffff; transition: 0.3s; border-radius: 15px; }
     .quick-card:hover .magic-card-inner { background: #f0f7ff; }
-    .quick-card svg { width: 30px; height: 30px; }
+    .quick-card svg { width: 30px; height: 30px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .quick-card:hover svg { transform: scale(1.2) translateZ(20px); }
     .quick-card span { font-size: 0.95rem; font-weight: 800; color: #334155; transition: 0.3s;}
     .quick-card:hover span { color: var(--neon-blue); }
 
     /* BALANCES SLIDER */
     .balance-slider-wrapper { position: relative; display: flex; align-items: center; margin-bottom: 25px; }
-
-    .slider-arrow {
-      position: absolute; top: 45%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; background: #ffffff; border: 2px solid var(--neon-blue); color: var(--neon-blue); font-family: 'Outfit', sans-serif !important; font-size: 1.6rem; font-weight: 800; cursor: pointer; z-index: 30; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(0, 102, 255, 0.2); user-select: none;
-    }
+    .slider-arrow { position: absolute; top: 45%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; background: #ffffff; border: 2px solid var(--neon-blue); color: var(--neon-blue); font-family: 'Outfit', sans-serif !important; font-size: 1.6rem; font-weight: 800; cursor: pointer; z-index: 30; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(0, 102, 255, 0.2); user-select: none; }
     .slider-arrow:hover { background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); border-color: #fff; color: #fff; box-shadow: 0 10px 25px rgba(255, 0, 60, 0.3); transform: translateY(-50%) scale(1.15); }
     .slider-arrow:active { transform: translateY(-50%) scale(0.95); }
     .slider-arrow.right-arrow { right: -12px; }
     .slider-arrow.left-arrow { left: -12px; }
-
     .balance-scroll-container { width: 100%; overflow-x: auto; padding: 12px 35px 25px 35px; scrollbar-width: none; scroll-behavior: smooth; cursor: grab; user-select: none; }
     .balance-scroll-container:active { cursor: grabbing; }
     .balance-scroll-container::-webkit-scrollbar { display: none; }
-    
     .balance-grid { display: flex; gap: 20px; min-width: max-content; }
     
     .balance-card { min-width: 215px; text-align: center; animation: floatWave 5s ease-in-out infinite; }
     .balance-card .magic-card-inner { padding: 25px 30px; background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); }
-    .balance-card:nth-child(1) { animation-delay: 0.0s; } .balance-card:nth-child(2) { animation-delay: 0.15s; }
-    .balance-card:nth-child(3) { animation-delay: 0.3s; } .balance-card:nth-child(4) { animation-delay: 0.45s; }
-    .balance-card:nth-child(5) { animation-delay: 0.6s; } .balance-card:nth-child(6) { animation-delay: 0.75s; }
-    
+    .balance-card:nth-child(1) { animation-delay: 0.0s; } .balance-card:nth-child(2) { animation-delay: 0.15s; } .balance-card:nth-child(3) { animation-delay: 0.3s; } .balance-card:nth-child(4) { animation-delay: 0.45s; } .balance-card:nth-child(5) { animation-delay: 0.6s; } .balance-card:nth-child(6) { animation-delay: 0.75s; }
     .balance-value-row { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px; direction: ltr; }
     .balance-val-text { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 800; color: #0f172a; }
     .balance-label { font-size: 0.95rem; color: #475569; font-weight: 800; text-transform: uppercase; letter-spacing: 1px !important; }
-
     .net-card::before { background: conic-gradient(transparent, transparent, var(--accent-gold), var(--neon-blue), transparent 30%); }
     .net-card .balance-val-text { color: #d97706; }
-
     .profit-card::before { background: conic-gradient(transparent, transparent, var(--neon-green), var(--neon-blue), transparent 30%); }
     .profit-card .balance-val-text { color: var(--neon-green); }
 
     /* EXCHANGE PANEL */
     .panel-card { margin-bottom: 40px; }
     .panel-header { padding: 20px 25px; font-weight: 800; font-size: 1.25rem; color: #0f172a; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; background: #f8fafc; border-radius: 21px 21px 0 0;}
-    
     .convert-body { padding: 35px; background: #ffffff; border-radius: 0 0 21px 21px; }
     .swap-container { position: relative; display: flex; flex-direction: column; gap: 20px; }
-
     .curr-input-wrap { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 20px; padding: 25px 25px; display: flex; align-items: center; justify-content: space-between; transition: all 0.3s ease; }
     .pay-wrap:focus-within { border-color: var(--neon-red); background: #ffffff; box-shadow: 0 8px 25px rgba(255, 0, 60, 0.12); }
     .rec-wrap:focus-within { border-color: var(--neon-blue); background: #ffffff; box-shadow: 0 8px 25px rgba(0, 102, 255, 0.12); }
-    
     .curr-input-left { display: flex; flex-direction: column; gap: 8px; flex: 1; }
     .curr-input-label { font-size: 0.95rem; color: #475569; font-weight: 800; }
     .curr-input-wrap input { background: transparent; border: none; color: #0f172a; font-family: 'Outfit', sans-serif; font-size: 2.5rem; font-weight: 800; outline: none; direction: ltr; padding: 0; width: 100%; transition: 0.2s; }
     .curr-input-wrap input::placeholder { color: #cbd5e1; }
-    
     .curr-select-btn { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 14px; padding: 12px 18px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
     .curr-select-btn:hover { border-color: var(--neon-blue); transform: scale(1.05); box-shadow: 0 6px 15px rgba(0, 102, 255, 0.15); }
     .curr-select-btn select { background: transparent; color: #0f172a; border: none; font-size: 1.25rem; font-weight: 800; outline: none; cursor: pointer; appearance: none; padding-right: 5px; }
     .curr-select-btn select option { background: #ffffff; color: #0f172a; }
-
     .swap-icon-btn { 
-      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-      width: 56px; height: 56px; border-radius: 50%; 
-      background: #ffffff; border: 2px solid var(--neon-blue);
-      display: flex; align-items: center; justify-content: center; 
-      color: var(--neon-blue); cursor: pointer; z-index: 10; transition: all 0.3s ease;
-      box-shadow: 0 8px 25px rgba(0, 102, 255, 0.25);
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 56px; height: 56px; border-radius: 50%; 
+      background: #ffffff; border: 2px solid var(--neon-blue); display: flex; align-items: center; justify-content: center; 
+      color: var(--neon-blue); cursor: pointer; z-index: 10; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(0, 102, 255, 0.25);
     }
     .swap-icon-btn:hover { background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); border-color: #fff; color: #fff; transform: translate(-50%, -50%) rotate(180deg) scale(1.15); box-shadow: 0 10px 30px rgba(255, 0, 60, 0.4); }
 
@@ -411,14 +259,7 @@
     .rate-info-box small { color: #475569; font-size: 1rem; font-weight: 700;}
     .rate-info-box span { color: var(--neon-blue); font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 800; direction: ltr; }
 
-    .btn-execute { 
-      width: 100%; margin-top: 30px; 
-      background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); color: #fff; 
-      border: none; padding: 22px; border-radius: 18px; 
-      font-size: 1.4rem; font-weight: 800; cursor: pointer; 
-      transition: all 0.3s ease; 
-      box-shadow: 0 10px 30px rgba(0, 102, 255, 0.25); 
-    }
+    .btn-execute { width: 100%; margin-top: 30px; background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); color: #fff; border: none; padding: 22px; border-radius: 18px; font-size: 1.4rem; font-weight: 800; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0, 102, 255, 0.25); }
     .btn-execute:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255, 0, 60, 0.35); }
     .btn-execute:active { transform: translateY(1px); }
     .btn-execute:disabled { background: #e2e8f0; color: #94a3b8; cursor: not-allowed; box-shadow: none; transform: none; }
@@ -504,7 +345,7 @@
     .receipt-thanks { font-size: 0.85rem; color: #475569; font-weight: 700; }
 
     .receipt-actions { display: flex; gap: 12px; width: 100%; margin-top: 16px; }
-    .btn-print-receipt { flex: 2; background: linear-gradient(135deg, var(--neon-blue), #0055ff); color: #fff; border: none; padding: 16px; border-radius: 14px; font-size: 1.1rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4); transition: 0.2s; }
+    .btn-print-receipt { flex: 2; background: linear-gradient(135deg, var(--neon-blue), #0055ff); color: #fff; border: none; padding: 16px; border-radius: 14px; font-size: 1.1rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 25px rgba(0, 136, 255, 0.4); transition: 0.2s; }
     .btn-print-receipt:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0, 136, 255, 0.6); }
     .btn-close-receipt { flex: 1; background: #ffffff; color: #0f172a; border: 2px solid #e2e8f0; padding: 16px; border-radius: 14px; font-size: 1.05rem; font-weight: 800; cursor: pointer; transition: 0.2s; }
     .btn-close-receipt:hover { background: var(--neon-red); color: #fff; border-color: var(--neon-red); }
@@ -539,7 +380,7 @@
 </head>
 <body oncontextmenu="return false;">
 
-  <!-- HIGH-SECURITY LOGIN GATEWAY (CENTERED STRICTLY) -->
+  <!-- HIGH-SECURITY LOGIN GATEWAY -->
   <div id="authOverlay">
     <div class="login-card">
       <div class="login-card-inner">
@@ -553,12 +394,15 @@
 
         <div class="login-field-group">
           <label>ناڤێ بەکارهێنەری (Username):</label>
-          <input type="text" id="loginUser" class="login-input" placeholder="ناڤێ خۆ بنڤیسە..." autocomplete="off" onkeydown="if(event.key==='Enter') document.getElementById('loginPass').focus()" />
+          <input type="text" id="loginUser" class="login-input" style="padding-right:16px;" placeholder="ناڤێ خۆ بنڤیسە..." autocomplete="off" onkeydown="if(event.key==='Enter') document.getElementById('loginPass').focus()" />
         </div>
 
         <div class="login-field-group">
           <label>پاسۆرد (Password):</label>
-          <input type="password" id="loginPass" class="login-input" placeholder="پاسۆرد بنڤیسە..." autocomplete="off" onkeydown="if(event.key==='Enter') window.performSecureLogin()" />
+          <div class="pass-input-wrapper">
+            <input type="password" id="loginPass" class="login-input" placeholder="پاسۆرد بنڤیسە..." autocomplete="off" onkeydown="if(event.key==='Enter') window.performSecureLogin()" />
+            <button type="button" class="toggle-pass-btn" onclick="window.toggleLoginPassVis()" title="نیشاندانا پاسۆردی">👁️</button>
+          </div>
         </div>
 
         <button class="btn-login-submit" onclick="window.performSecureLogin()">چوونەژوورێ (Login)</button>
@@ -884,12 +728,12 @@
     <!-- Admin Modal -->
     <div class="modal-backdrop" id="adminModal">
       <div class="modal-card">
-        <div class="modal-title"><span>🛡️ کۆنتڕۆلا سیستەمی یا پاراستی</span><button onclick="window.closeAdminModal()" style="background:transparent;border:none;color:var(--text-gray);font-size:1.5rem;cursor:pointer; transition:0.3s;">✕</button></div>
+        <div class="modal-title"><span>🛡️️ کۆنتڕۆلا سیستەمی یا پاراستی</span><button onclick="window.closeAdminModal()" style="background:transparent;border:none;color:var(--text-gray);font-size:1.5rem;cursor:pointer; transition:0.3s;">✕</button></div>
         
         <div id="adminControlsSection">
           <div class="switch-container">
             <input type="checkbox" id="admAutoSync" onchange="window.toggleAutoSyncUI()" />
-            <label for="admAutoSync">گرێدانا ئۆتۆماتیک ب بۆرسا عالەمی ڤە (چرکە ب چرکە بۆ یۆرۆ و لیرەی)</label>
+            <label for="admAutoSync">گرێدانا ئۆتۆماتیک ب بۆرسا عالەمی ڤە (دیارکرنا جیاوازیێ -/+)</label>
           </div>
 
           <div class="admin-section-title">باڵانسێن حیسابێ و قازانج</div>
@@ -902,21 +746,33 @@
           </div>
 
           <div class="admin-section-title">نرخێن یۆرۆ (EUR) بەرامبەر دۆلاری</div>
-          <div class="form-grid">
+          <div class="form-grid manual-rates">
             <div class="form-group"><label>کڕینا کۆمپانیێ (Buy EUR)</label><input type="number" step="0.0001" id="admEurBuy" /></div>
             <div class="form-group"><label>فڕۆتنا کۆمپانیێ (Sell EUR)</label><input type="number" step="0.0001" id="admEurSell" /></div>
           </div>
+          <div class="form-grid auto-offsets" style="display: none;">
+            <div class="form-group"><label>زێدە/کێم بۆ کڕینێ (+/-)</label><input type="number" step="0.0001" id="offEurBuy" placeholder="نموونە: -0.0010" /></div>
+            <div class="form-group"><label>زێدە/کێم بۆ فڕۆتنێ (+/-)</label><input type="number" step="0.0001" id="offEurSell" placeholder="نموونە: +0.0010" /></div>
+          </div>
 
           <div class="admin-section-title">نرخێن دۆلار بەرامبەر دیناری (IQD)</div>
-          <div class="form-grid">
+          <div class="form-grid manual-rates">
             <div class="form-group"><label>کڕینا کۆمپانیێ 1$ (Buy USD)</label><input type="number" id="admIqdBuy" /></div>
             <div class="form-group"><label>فڕۆتنا کۆمپانیێ 1$ (Sell USD)</label><input type="number" id="admIqdSell" /></div>
           </div>
+          <div class="form-grid auto-offsets" style="display: none;">
+            <div class="form-group"><label>زێدە/کێم بۆ کڕینێ (+/-)</label><input type="number" step="1" id="offIqdBuy" placeholder="نموونە: +190" /></div>
+            <div class="form-group"><label>زێدە/کێم بۆ فڕۆتنێ (+/-)</label><input type="number" step="1" id="offIqdSell" placeholder="نموونە: +200" /></div>
+          </div>
 
           <div class="admin-section-title">نرخێن دۆلار بەرامبەر لیرەی (TRY)</div>
-          <div class="form-grid">
+          <div class="form-grid manual-rates">
             <div class="form-group"><label>کڕینا کۆمپانیێ 1$ (Buy USD)</label><input type="number" step="0.01" id="admTryBuy" /></div>
             <div class="form-group"><label>فڕۆتنا کۆمپانیێ 1$ (Sell USD)</label><input type="number" step="0.01" id="admTrySell" /></div>
+          </div>
+          <div class="form-grid auto-offsets" style="display: none;">
+            <div class="form-group"><label>زێدە/کێم بۆ کڕینێ (+/-)</label><input type="number" step="0.01" id="offTryBuy" placeholder="نموونە: -0.05" /></div>
+            <div class="form-group"><label>زێدە/کێم بۆ فڕۆتنێ (+/-)</label><input type="number" step="0.01" id="offTrySell" placeholder="نموونە: +0.05" /></div>
           </div>
 
           <button class="btn-save-admin" onclick="window.saveAdminChanges()">خەزنکرنا گوهۆڕینان</button>
@@ -936,56 +792,60 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
     import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
-    // --- SECURE AUTHENTICATION ENGINE ---
-    // Encrypted Byte Arrays for Username ("rashed") and Password ("rashed394774929274739@&£(:”98")
-    const ENC_USER_BYTES = [156, 139, 157, 146, 143, 142];
-    const ENC_PASS_BYTES = [
-      156, 139, 157, 146, 143, 142, 93, 99, 94, 97, 97, 94, 99, 92, 99, 92,
-      97, 94, 97, 93, 99, 106, 80, 205, 82, 100, 76, 99, 98
-    ];
-    const SESSION_TOKEN_KEY = "SARAFE_RASHED_AUTH_V3_9818HSKDFG";
+    // --- SECURE AUTHENTICATION ENGINE (FIXED QUOTE NORMALIZATION ON BOTH SIDES) ---
+    const SECURE_SALT = "9818HSKDFGbbbgs0928707877383778278))((--0ssSS";
 
-    function verifyCredentials(rawUser, rawPass) {
-      const u = String(rawUser || '').trim().toLowerCase();
-      // Normalize smart curly quotes (” / “) and straight quotes (") so both work on mobile & PC
-      const pRaw = String(rawPass || '').trim().replace(/[“”"]/g, '"');
-      const p = pRaw.charAt(0).toLowerCase() + pRaw.slice(1);
-
-      if (u.length !== ENC_USER_BYTES.length || p.length !== ENC_PASS_BYTES.length) {
-        return false;
+    function normalizePassText(str) {
+      let s = String(str || '').trim();
+      // Normalize any curly or straight quotes (” “ " ') into standard "
+      s = s.replace(/[“”‟"‘’']/g, '"');
+      if (s.length > 0) {
+        s = s.charAt(0).toLowerCase() + s.slice(1);
       }
-      for (let i = 0; i < u.length; i++) {
-        if ((u.charCodeAt(i) + 42) !== ENC_USER_BYTES[i]) return false;
-      }
-      for (let j = 0; j < p.length; j++) {
-        if ((p.charCodeAt(j) + 42) !== ENC_PASS_BYTES[j]) return false;
-      }
-      return true;
+      return s;
     }
+
+    function generateSecureSig(user, pass) {
+      const cleanU = String(user || '').trim().toLowerCase();
+      const cleanP = normalizePassText(pass);
+      const combined = cleanU + "::" + cleanP + "::" + SECURE_SALT;
+      let hash = 0;
+      for (let i = 0; i < combined.length; i++) {
+        hash = ((hash << 5) - hash) + combined.charCodeAt(i);
+        hash |= 0;
+      }
+      return hash.toString(16);
+    }
+
+    const EXPECTED_AUTH_SIG = generateSecureSig("rashed", 'rashed394774929274739@&£(:"98');
+
+    window.toggleLoginPassVis = function() {
+      const inp = document.getElementById('loginPass');
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+    };
 
     window.performSecureLogin = function() {
       const u = document.getElementById('loginUser').value;
       const p = document.getElementById('loginPass').value;
 
-      if (verifyCredentials(u, p)) {
-        sessionStorage.setItem('sarafe_auth_v3', SESSION_TOKEN_KEY);
+      if (generateSecureSig(u, p) === EXPECTED_AUTH_SIG) {
+        sessionStorage.setItem('sarafe_auth_v4', EXPECTED_AUTH_SIG);
         document.getElementById('authOverlay').style.display = 'none';
         document.getElementById('mainAppWrapper').style.display = 'block';
         window.initAppCore();
         window.showToast('ب خێرهاتی کاک ڕەشید! چوونەژوورێ سەرکەفتی بوو 🛡️');
       } else {
         window.showToast('ناڤێ بەکارهێنەری یان پاسۆرد خەلەتە!');
-        document.getElementById('loginPass').value = '';
       }
     };
 
     window.performLogout = function() {
-      sessionStorage.removeItem('sarafe_auth_v3');
+      sessionStorage.removeItem('sarafe_auth_v4');
       location.reload();
     };
 
     // Check on startup
-    if (sessionStorage.getItem('sarafe_auth_v3') === SESSION_TOKEN_KEY) {
+    if (sessionStorage.getItem('sarafe_auth_v4') === EXPECTED_AUTH_SIG) {
       document.getElementById('authOverlay').style.display = 'none';
       document.getElementById('mainAppWrapper').style.display = 'block';
       setTimeout(() => window.initAppCore(), 100);
@@ -1055,6 +915,11 @@
         iqd: { buy: 1510, sell: 1512 },
         try: { buy: 34.20, sell: 34.30 }
       },
+      offsets: {
+        eur: { buy: -0.0010, sell: 0.0010 },
+        iqd: { buy: 200, sell: 202 }, 
+        try: { buy: -0.05, sell: 0.05 }
+      },
       totalProfitUsd: 0,
       history: []
     };
@@ -1120,6 +985,7 @@
           if (incoming && typeof incoming === 'object') {
             state = incoming;
             if(!state.rates) state.rates = defaultState.rates;
+            if(!state.offsets) state.offsets = defaultState.offsets;
             if(!state.balances) state.balances = defaultState.balances;
             if(state.autoMarket === undefined) state.autoMarket = false;
             if(state.totalProfitUsd === undefined) state.totalProfitUsd = 0;
@@ -1211,8 +1077,8 @@
           if (s === 'EURUSDT' && price > 0) {
             flashPillUI('eur', price, 5, pct);
             if (state.autoMarket) {
-              state.rates.eur.buy = Number((price - 0.0010).toFixed(4));
-              state.rates.eur.sell = Number((price + 0.0010).toFixed(4));
+              state.rates.eur.buy = Number((price + (state.offsets?.eur?.buy || 0)).toFixed(4));
+              state.rates.eur.sell = Number((price + (state.offsets?.eur?.sell || 0)).toFixed(4));
               window.updateConvertUI();
             }
           } else if (s === 'PAXGUSDT' && price > 0) {
@@ -1220,8 +1086,8 @@
           } else if (s === 'USDTTRY' && price > 0) {
             flashPillUI('try', price, 3, pct);
             if (state.autoMarket) {
-              state.rates.try.buy = Number((price - 0.05).toFixed(2));
-              state.rates.try.sell = Number((price + 0.05).toFixed(2));
+              state.rates.try.buy = Number((price + (state.offsets?.try?.buy || 0)).toFixed(2));
+              state.rates.try.sell = Number((price + (state.offsets?.try?.sell || 0)).toFixed(2));
               window.updateConvertUI();
             }
           }
@@ -1243,14 +1109,20 @@
         if (data && data.rates) {
           const realEur = 1 / data.rates.EUR;
           const realTry = data.rates.TRY;
+          const realIqd = data.rates.IQD;
+
           flashPillUI('eur', realEur, 5, 0.05);
           flashPillUI('try', realTry, 3, 0.12);
 
           if (state.autoMarket) {
-            state.rates.eur.buy = Number((realEur - 0.0010).toFixed(4));
-            state.rates.eur.sell = Number((realEur + 0.0010).toFixed(4));
-            state.rates.try.buy = Number((realTry - 0.05).toFixed(2));
-            state.rates.try.sell = Number((realTry + 0.05).toFixed(2));
+            state.rates.eur.buy = Number((realEur + (state.offsets?.eur?.buy || 0)).toFixed(4));
+            state.rates.eur.sell = Number((realEur + (state.offsets?.eur?.sell || 0)).toFixed(4));
+            state.rates.try.buy = Number((realTry + (state.offsets?.try?.buy || 0)).toFixed(2));
+            state.rates.try.sell = Number((realTry + (state.offsets?.try?.sell || 0)).toFixed(2));
+            if (realIqd > 0) {
+              state.rates.iqd.buy = Number((realIqd + (state.offsets?.iqd?.buy || 0)).toFixed(0));
+              state.rates.iqd.sell = Number((realIqd + (state.offsets?.iqd?.sell || 0)).toFixed(0));
+            }
             window.saveState();
           }
         }
@@ -1507,6 +1379,7 @@
       document.getElementById('admAutoSync').checked = state.autoMarket;
       window.toggleAutoSyncUI();
       
+      // Manual
       document.getElementById('admBalUsd').value = cleanNum(state.balances.usd); 
       document.getElementById('admBalEur').value = cleanNum(state.balances.eur);
       document.getElementById('admBalIqd').value = cleanNum(state.balances.iqd); 
@@ -1515,36 +1388,53 @@
       
       document.getElementById('admEurBuy').value = cleanNum(state.rates.eur.buy, 1); 
       document.getElementById('admEurSell').value = cleanNum(state.rates.eur.sell, 1);
-      
       document.getElementById('admTryBuy').value = cleanNum(state.rates.try.buy, 1); 
       document.getElementById('admTrySell').value = cleanNum(state.rates.try.sell, 1);
-      
       document.getElementById('admIqdBuy').value = cleanNum(state.rates.iqd.buy, 1);
       document.getElementById('admIqdSell').value = cleanNum(state.rates.iqd.sell, 1);
+
+      // Offsets
+      document.getElementById('offEurBuy').value = cleanNum(state.offsets?.eur?.buy, -0.0010);
+      document.getElementById('offEurSell').value = cleanNum(state.offsets?.eur?.sell, 0.0010);
+      document.getElementById('offTryBuy').value = cleanNum(state.offsets?.try?.buy, -0.05);
+      document.getElementById('offTrySell').value = cleanNum(state.offsets?.try?.sell, 0.05);
+      document.getElementById('offIqdBuy').value = cleanNum(state.offsets?.iqd?.buy, 190);
+      document.getElementById('offIqdSell').value = cleanNum(state.offsets?.iqd?.sell, 200);
     };
 
     window.toggleAutoSyncUI = function() {
       const isAuto = document.getElementById('admAutoSync').checked;
-      document.getElementById('admEurBuy').disabled = isAuto; document.getElementById('admEurSell').disabled = isAuto;
-      document.getElementById('admTryBuy').disabled = isAuto; document.getElementById('admTrySell').disabled = isAuto;
+      document.querySelectorAll('.manual-rates').forEach(el => el.style.display = isAuto ? 'none' : 'grid');
+      document.querySelectorAll('.auto-offsets').forEach(el => el.style.display = isAuto ? 'grid' : 'none');
     }
 
     window.saveAdminChanges = function() {
       state.autoMarket = document.getElementById('admAutoSync').checked;
+      
       state.balances.usd = cleanNum(document.getElementById('admBalUsd').value, 0); 
       state.balances.eur = cleanNum(document.getElementById('admBalEur').value, 0);
       state.balances.iqd = cleanNum(document.getElementById('admBalIqd').value, 0); 
       state.balances.try = cleanNum(document.getElementById('admBalTry').value, 0);
       state.totalProfitUsd = cleanNum(document.getElementById('admBalProfit').value, 0);
+
+      // Save Offsets
+      if(!state.offsets) state.offsets = defaultState.offsets;
+      state.offsets.eur.buy = cleanNum(document.getElementById('offEurBuy').value, 0);
+      state.offsets.eur.sell = cleanNum(document.getElementById('offEurSell').value, 0);
+      state.offsets.try.buy = cleanNum(document.getElementById('offTryBuy').value, 0);
+      state.offsets.try.sell = cleanNum(document.getElementById('offTrySell').value, 0);
+      state.offsets.iqd.buy = cleanNum(document.getElementById('offIqdBuy').value, 0);
+      state.offsets.iqd.sell = cleanNum(document.getElementById('offIqdSell').value, 0);
       
+      // Save Manual Rates
       if (!state.autoMarket) {
         state.rates.eur.buy = cleanNum(document.getElementById('admEurBuy').value, 1); 
         state.rates.eur.sell = cleanNum(document.getElementById('admEurSell').value, 1); 
         state.rates.try.buy = cleanNum(document.getElementById('admTryBuy').value, 1); 
         state.rates.try.sell = cleanNum(document.getElementById('admTrySell').value, 1); 
+        state.rates.iqd.buy = cleanNum(document.getElementById('admIqdBuy').value, 1);
+        state.rates.iqd.sell = cleanNum(document.getElementById('admIqdSell').value, 1);
       }
-      state.rates.iqd.buy = cleanNum(document.getElementById('admIqdBuy').value, 1);
-      state.rates.iqd.sell = cleanNum(document.getElementById('admIqdSell').value, 1);
       
       window.saveState(); window.closeAdminModal(); window.showToast('هەمی گوهۆڕین ب پاراستی خەزن بوون');
       if (state.autoMarket) window.syncRealMarket();
