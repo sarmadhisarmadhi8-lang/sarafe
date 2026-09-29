@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <title>صەڕافی ڕەشید PRO | Live Market Edition</title>
+  <title>صەڕافی ڕەشید PRO | Secure Edition</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Outfit:wght@400;500;700;800&family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
@@ -34,13 +34,165 @@
         radial-gradient(circle at 80% 70%, rgba(255, 0, 60, 0.06), transparent 45%);
       color: var(--text-white); 
       min-height: 100vh; 
-      padding-bottom: 50px; 
-      overflow-x: hidden; 
-      perspective: 1000px;
+      margin: 0;
+      padding: 0;
       user-select: none;
     }
 
-    /* --- TRADINGVIEW OFFICIAL TOP BAR --- */
+    /* --- LOGIN GATEWAY (CENTERED STRICTLY IN SCREEN) --- */
+    #authOverlay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at 50% 35%, #ffffff 0%, #f1f5f9 100%);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 380px;
+      background: #e2e8f0;
+      border-radius: 26px;
+      padding: 3px;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-card::before {
+      content: ''; position: absolute;
+      width: 200%; height: 200%;
+      top: -50%; left: -50%;
+      background: conic-gradient(transparent, transparent, var(--neon-blue), #ffffff, var(--neon-red), transparent 30%);
+      animation: spin 4s linear infinite;
+      z-index: 1;
+    }
+
+    .login-card-inner {
+      background: #ffffff;
+      border-radius: 23px;
+      padding: 28px 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .login-icon-box {
+      width: 58px;
+      height: 58px;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-red));
+      border-radius: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(0, 102, 255, 0.3);
+      margin-bottom: 12px;
+    }
+
+    .login-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .login-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      font-weight: 700;
+    }
+
+    .login-field-group {
+      margin-bottom: 16px;
+      text-align: right;
+    }
+
+    .login-field-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+
+    .login-input {
+      width: 100%;
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 13px 16px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+      outline: none;
+      direction: ltr;
+      text-align: center;
+      font-family: 'Outfit', sans-serif !important;
+      transition: all 0.25s ease;
+    }
+
+    .login-input:focus {
+      border-color: var(--neon-blue);
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.12);
+    }
+
+    .btn-login-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-red));
+      color: #fff;
+      border: none;
+      padding: 15px;
+      border-radius: 14px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(0, 102, 255, 0.3);
+      transition: all 0.25s ease;
+      margin-top: 6px;
+    }
+
+    .btn-login-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(255, 0, 60, 0.35);
+    }
+
+    .btn-logout {
+      background: rgba(255, 0, 60, 0.08);
+      color: var(--neon-red);
+      border: 1.5px solid rgba(255, 0, 60, 0.25);
+      border-radius: 12px;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+    .btn-logout:hover {
+      background: var(--neon-red);
+      color: #fff;
+    }
+
+    /* --- MAIN APP WRAPPER (HIDDEN INITIALLY) --- */
+    #mainAppWrapper {
+      display: none;
+      width: 100%;
+      padding-bottom: 50px;
+    }
+
+    /* --- TRADINGVIEW TOP BAR --- */
     .tv-Header-Wrap {
       width: 100%;
       background: #0f172a;
@@ -84,35 +236,15 @@
       font-size: 0.92rem;
       transition: all 0.2s ease;
     }
-    .stream-pill .sym-label {
-      color: #475569;
-      font-weight: 800;
-      font-size: 0.82rem;
-    }
-    .stream-pill .sym-price {
-      color: #0f172a;
-      font-weight: 800;
-      font-family: 'Outfit', monospace !important;
-    }
-    .stream-pill .sym-change {
-      font-size: 0.78rem;
-      font-weight: 800;
-      padding: 2px 6px;
-      border-radius: 6px;
-      font-family: 'Outfit', monospace !important;
-    }
+    .stream-pill .sym-label { color: #475569; font-weight: 800; font-size: 0.82rem; }
+    .stream-pill .sym-price { color: #0f172a; font-weight: 800; font-family: 'Outfit', monospace !important; }
+    .stream-pill .sym-change { font-size: 0.78rem; font-weight: 800; padding: 2px 6px; border-radius: 6px; font-family: 'Outfit', monospace !important; }
 
-    .up-tick {
-      border-color: rgba(0, 200, 83, 0.5) !important;
-      background: rgba(0, 200, 83, 0.06) !important;
-    }
+    .up-tick { border-color: rgba(0, 200, 83, 0.5) !important; background: rgba(0, 200, 83, 0.06) !important; }
     .up-tick .sym-price { color: var(--neon-green) !important; }
     .up-tick .sym-change { background: rgba(0, 200, 83, 0.15); color: var(--neon-green); }
 
-    .down-tick {
-      border-color: rgba(255, 0, 60, 0.5) !important;
-      background: rgba(255, 0, 60, 0.06) !important;
-    }
+    .down-tick { border-color: rgba(255, 0, 60, 0.5) !important; background: rgba(255, 0, 60, 0.06) !important; }
     .down-tick .sym-price { color: var(--neon-red) !important; }
     .down-tick .sym-change { background: rgba(255, 0, 60, 0.15); color: var(--neon-red); }
 
@@ -129,11 +261,7 @@
       white-space: nowrap;
     }
     .pulse-circle {
-      width: 8px;
-      height: 8px;
-      background: var(--neon-green);
-      border-radius: 50%;
-      animation: pulseAnim 1.2s infinite;
+      width: 8px; height: 8px; background: var(--neon-green); border-radius: 50%; animation: pulseAnim 1.2s infinite;
     }
     @keyframes pulseAnim {
       0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
@@ -150,8 +278,6 @@
       padding: 3px; 
       overflow: hidden;
       z-index: 1;
-      transform-style: preserve-3d;
-      will-change: transform;
       box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
       background: #e2e8f0;
     }
@@ -188,11 +314,11 @@
 
     /* NAVBAR */
     .navbar { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(20px); border-bottom: 1px solid #e2e8f0; padding: 15px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); }
-    .brand { display: flex; align-items: center; gap: 12px; font-size: 1.6rem; font-weight: 800; color: #0f172a; cursor: pointer; user-select: none; transition: 0.3s; transform-style: preserve-3d;}
-    .brand:hover { transform: translateZ(20px); color: var(--neon-blue); }
-    .brand-icon { width: 45px; height: 45px; border-radius: 14px; background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0, 102, 255, 0.3); transition: 0.5s; }
-    .brand:hover .brand-icon { transform: rotate(15deg) scale(1.1); }
+    .brand { display: flex; align-items: center; gap: 12px; font-size: 1.6rem; font-weight: 800; color: #0f172a; cursor: pointer; user-select: none; }
+    .brand:hover { color: var(--neon-blue); }
+    .brand-icon { width: 45px; height: 45px; border-radius: 14px; background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0, 102, 255, 0.3); }
 
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
     .security-badge {
       display: flex; align-items: center; gap: 6px;
       background: rgba(0, 200, 83, 0.1); color: var(--neon-green);
@@ -200,7 +326,7 @@
       border-radius: 12px; font-size: 0.85rem; font-weight: 800;
     }
     
-    .container { max-width: 1080px; margin: 0 auto; padding: 25px 16px; perspective: 1500px; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 25px 16px; }
 
     /* QUICK ACTIONS */
     .quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 15px; margin-bottom: 30px; }
@@ -213,81 +339,36 @@
     
     .quick-card .magic-card-inner { background: #ffffff; transition: 0.3s; border-radius: 15px; }
     .quick-card:hover .magic-card-inner { background: #f0f7ff; }
-    .quick-card svg { width: 30px; height: 30px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    .quick-card:hover svg { transform: scale(1.2) translateZ(20px); }
+    .quick-card svg { width: 30px; height: 30px; }
     .quick-card span { font-size: 0.95rem; font-weight: 800; color: #334155; transition: 0.3s;}
     .quick-card:hover span { color: var(--neon-blue); }
 
-    /* --- BALANCES SLIDER WITH < > BUTTONS --- */
-    .balance-slider-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-      margin-bottom: 25px;
-    }
+    /* BALANCES SLIDER */
+    .balance-slider-wrapper { position: relative; display: flex; align-items: center; margin-bottom: 25px; }
 
     .slider-arrow {
-      position: absolute;
-      top: 45%;
-      transform: translateY(-50%);
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #ffffff;
-      border: 2px solid var(--neon-blue);
-      color: var(--neon-blue);
-      font-family: 'Outfit', sans-serif !important;
-      font-size: 1.6rem;
-      font-weight: 800;
-      cursor: pointer;
-      z-index: 30;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 25px rgba(0, 102, 255, 0.2);
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      user-select: none;
+      position: absolute; top: 45%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; background: #ffffff; border: 2px solid var(--neon-blue); color: var(--neon-blue); font-family: 'Outfit', sans-serif !important; font-size: 1.6rem; font-weight: 800; cursor: pointer; z-index: 30; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(0, 102, 255, 0.2); user-select: none;
     }
-    .slider-arrow:hover {
-      background: linear-gradient(135deg, var(--neon-blue), var(--neon-red));
-      border-color: #fff;
-      color: #fff;
-      box-shadow: 0 10px 25px rgba(255, 0, 60, 0.3);
-      transform: translateY(-50%) scale(1.15);
-    }
-    .slider-arrow:active {
-      transform: translateY(-50%) scale(0.95);
-    }
+    .slider-arrow:hover { background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); border-color: #fff; color: #fff; box-shadow: 0 10px 25px rgba(255, 0, 60, 0.3); transform: translateY(-50%) scale(1.15); }
+    .slider-arrow:active { transform: translateY(-50%) scale(0.95); }
     .slider-arrow.right-arrow { right: -12px; }
     .slider-arrow.left-arrow { left: -12px; }
 
-    .balance-scroll-container { 
-      width: 100%; 
-      overflow-x: auto; 
-      padding: 12px 35px 25px 35px; 
-      scrollbar-width: none; 
-      scroll-behavior: smooth;
-      cursor: grab;
-      user-select: none;
-    }
+    .balance-scroll-container { width: 100%; overflow-x: auto; padding: 12px 35px 25px 35px; scrollbar-width: none; scroll-behavior: smooth; cursor: grab; user-select: none; }
     .balance-scroll-container:active { cursor: grabbing; }
     .balance-scroll-container::-webkit-scrollbar { display: none; }
     
-    .balance-grid { display: flex; gap: 20px; min-width: max-content; perspective: 1000px; }
+    .balance-grid { display: flex; gap: 20px; min-width: max-content; }
     
-    .balance-card { 
-      min-width: 215px; text-align: center;
-      animation: floatWave 5s ease-in-out infinite;
-      transition: transform 0.1s ease-out; 
-    }
+    .balance-card { min-width: 215px; text-align: center; animation: floatWave 5s ease-in-out infinite; }
     .balance-card .magic-card-inner { padding: 25px 30px; background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); }
     .balance-card:nth-child(1) { animation-delay: 0.0s; } .balance-card:nth-child(2) { animation-delay: 0.15s; }
     .balance-card:nth-child(3) { animation-delay: 0.3s; } .balance-card:nth-child(4) { animation-delay: 0.45s; }
     .balance-card:nth-child(5) { animation-delay: 0.6s; } .balance-card:nth-child(6) { animation-delay: 0.75s; }
     
-    .balance-value-row { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px; direction: ltr; transform: translateZ(30px); }
+    .balance-value-row { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px; direction: ltr; }
     .balance-val-text { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 800; color: #0f172a; }
-    .balance-label { font-size: 0.95rem; color: #475569; font-weight: 800; text-transform: uppercase; letter-spacing: 1px !important; transform: translateZ(15px); }
+    .balance-label { font-size: 0.95rem; color: #475569; font-weight: 800; text-transform: uppercase; letter-spacing: 1px !important; }
 
     .net-card::before { background: conic-gradient(transparent, transparent, var(--accent-gold), var(--neon-blue), transparent 30%); }
     .net-card .balance-val-text { color: #d97706; }
@@ -296,18 +377,13 @@
     .profit-card .balance-val-text { color: var(--neon-green); }
 
     /* EXCHANGE PANEL */
-    .panel-card { margin-bottom: 40px; animation: floatWave 6s ease-in-out infinite; transition: transform 0.1s ease-out;}
-    .panel-card:hover { animation-play-state: paused; }
+    .panel-card { margin-bottom: 40px; }
     .panel-header { padding: 20px 25px; font-weight: 800; font-size: 1.25rem; color: #0f172a; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; background: #f8fafc; border-radius: 21px 21px 0 0;}
     
-    .convert-body { padding: 35px; transform: translateZ(20px); background: #ffffff; border-radius: 0 0 21px 21px; }
+    .convert-body { padding: 35px; background: #ffffff; border-radius: 0 0 21px 21px; }
     .swap-container { position: relative; display: flex; flex-direction: column; gap: 20px; }
 
-    .curr-input-wrap { 
-      background: #f8fafc; border: 2px solid #e2e8f0; 
-      border-radius: 20px; padding: 25px 25px;
-      display: flex; align-items: center; justify-content: space-between; transition: all 0.3s ease;
-    }
+    .curr-input-wrap { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 20px; padding: 25px 25px; display: flex; align-items: center; justify-content: space-between; transition: all 0.3s ease; }
     .pay-wrap:focus-within { border-color: var(--neon-red); background: #ffffff; box-shadow: 0 8px 25px rgba(255, 0, 60, 0.12); }
     .rec-wrap:focus-within { border-color: var(--neon-blue); background: #ffffff; box-shadow: 0 8px 25px rgba(0, 102, 255, 0.12); }
     
@@ -317,19 +393,19 @@
     .curr-input-wrap input::placeholder { color: #cbd5e1; }
     
     .curr-select-btn { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 14px; padding: 12px 18px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
-    .curr-select-btn:hover { border-color: var(--neon-blue); transform: scale(1.05) translateZ(10px); box-shadow: 0 6px 15px rgba(0, 102, 255, 0.15); }
+    .curr-select-btn:hover { border-color: var(--neon-blue); transform: scale(1.05); box-shadow: 0 6px 15px rgba(0, 102, 255, 0.15); }
     .curr-select-btn select { background: transparent; color: #0f172a; border: none; font-size: 1.25rem; font-weight: 800; outline: none; cursor: pointer; appearance: none; padding-right: 5px; }
     .curr-select-btn select option { background: #ffffff; color: #0f172a; }
 
     .swap-icon-btn { 
-      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) translateZ(40px);
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
       width: 56px; height: 56px; border-radius: 50%; 
       background: #ffffff; border: 2px solid var(--neon-blue);
       display: flex; align-items: center; justify-content: center; 
-      color: var(--neon-blue); cursor: pointer; z-index: 10; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      color: var(--neon-blue); cursor: pointer; z-index: 10; transition: all 0.3s ease;
       box-shadow: 0 8px 25px rgba(0, 102, 255, 0.25);
     }
-    .swap-icon-btn:hover { background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); border-color: #fff; color: #fff; transform: translate(-50%, -50%) translateZ(60px) rotate(180deg) scale(1.15); box-shadow: 0 10px 30px rgba(255, 0, 60, 0.4); }
+    .swap-icon-btn:hover { background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); border-color: #fff; color: #fff; transform: translate(-50%, -50%) rotate(180deg) scale(1.15); box-shadow: 0 10px 30px rgba(255, 0, 60, 0.4); }
 
     .rate-info-box { margin-top: 35px; padding: 20px; border-radius: 16px; background: #f8fafc; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e2e8f0; }
     .rate-info-box small { color: #475569; font-size: 1rem; font-weight: 700;}
@@ -340,113 +416,34 @@
       background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); color: #fff; 
       border: none; padding: 22px; border-radius: 18px; 
       font-size: 1.4rem; font-weight: 800; cursor: pointer; 
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+      transition: all 0.3s ease; 
       box-shadow: 0 10px 30px rgba(0, 102, 255, 0.25); 
-      transform: translateZ(20px);
     }
-    .btn-execute:hover { transform: translateZ(30px) translateY(-3px) scale(1.02); box-shadow: 0 15px 40px rgba(255, 0, 60, 0.35); }
-    .btn-execute:active { transform: translateZ(10px) translateY(1px); }
+    .btn-execute:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255, 0, 60, 0.35); }
+    .btn-execute:active { transform: translateY(1px); }
     .btn-execute:disabled { background: #e2e8f0; color: #94a3b8; cursor: not-allowed; box-shadow: none; transform: none; }
 
-    /* --- SEARCH BAR & PAGINATION IN HISTORY --- */
-    .history-search-wrap {
-      position: relative;
-      display: flex;
-      align-items: center;
-      min-width: 250px;
-      flex: 1;
-      max-width: 320px;
-    }
-    .history-search-input {
-      width: 100%;
-      background: #ffffff;
-      border: 2px solid #cbd5e1;
-      border-radius: 14px;
-      padding: 10px 16px 10px 38px;
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: #0f172a;
-      outline: none;
-      transition: all 0.25s ease;
-    }
-    .history-search-input:focus {
-      border-color: var(--neon-blue);
-      box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.12);
-    }
-    .history-search-clear {
-      position: absolute;
-      left: 12px;
-      background: transparent;
-      border: none;
-      color: #64748b;
-      font-size: 1.1rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: none;
-    }
+    /* SEARCH & PAGINATION */
+    .history-search-wrap { position: relative; display: flex; align-items: center; min-width: 250px; flex: 1; max-width: 320px; }
+    .history-search-input { width: 100%; background: #ffffff; border: 2px solid #cbd5e1; border-radius: 14px; padding: 10px 16px 10px 38px; font-size: 0.95rem; font-weight: 800; color: #0f172a; outline: none; transition: all 0.25s ease; }
+    .history-search-input:focus { border-color: var(--neon-blue); box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.12); }
+    .history-search-clear { position: absolute; left: 12px; background: transparent; border: none; color: #64748b; font-size: 1.1rem; font-weight: 800; cursor: pointer; display: none; }
     .history-search-clear:hover { color: var(--neon-red); }
 
-    .receipt-id-pill {
-      display: inline-block;
-      background: #f0f7ff;
-      color: var(--neon-blue);
-      border: 1px solid rgba(0, 102, 255, 0.25);
-      padding: 4px 10px;
-      border-radius: 8px;
-      font-family: 'Outfit', monospace !important;
-      font-weight: 800;
-      direction: ltr;
-    }
+    .receipt-id-pill { display: inline-block; background: #f0f7ff; color: var(--neon-blue); border: 1px solid rgba(0, 102, 255, 0.25); padding: 4px 10px; border-radius: 8px; font-family: 'Outfit', monospace !important; font-weight: 800; direction: ltr; }
 
-    .pagination-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 18px;
-      padding-top: 12px;
-      border-top: 1px dashed #e2e8f0;
-      flex-wrap: wrap;
-    }
-    .page-btn {
-      min-width: 40px;
-      height: 40px;
-      padding: 0 12px;
-      border-radius: 12px;
-      border: 2px solid #e2e8f0;
-      background: #ffffff;
-      color: #0f172a;
-      font-family: 'Outfit', sans-serif !important;
-      font-size: 1rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .page-btn:hover:not(:disabled) {
-      border-color: var(--neon-blue);
-      color: var(--neon-blue);
-      transform: translateY(-2px);
-    }
-    .page-btn.active {
-      background: linear-gradient(135deg, var(--neon-blue), var(--neon-red));
-      color: #ffffff;
-      border-color: transparent;
-      box-shadow: 0 6px 15px rgba(0, 102, 255, 0.3);
-    }
-    .page-btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
+    .pagination-container { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 18px; padding-top: 12px; border-top: 1px dashed #e2e8f0; flex-wrap: wrap; }
+    .page-btn { min-width: 40px; height: 40px; padding: 0 12px; border-radius: 12px; border: 2px solid #e2e8f0; background: #ffffff; color: #0f172a; font-family: 'Outfit', sans-serif !important; font-size: 1rem; font-weight: 800; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; }
+    .page-btn:hover:not(:disabled) { border-color: var(--neon-blue); color: var(--neon-blue); transform: translateY(-2px); }
+    .page-btn.active { background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); color: #ffffff; border-color: transparent; box-shadow: 0 6px 15px rgba(0, 102, 255, 0.3); }
+    .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
     /* TABLES */
     .table-wrap { padding: 10px 25px 25px; overflow-x: auto; background: #ffffff; border-radius: 0 0 21px 21px; }
     table.orders-table { width: 100%; border-collapse: separate; border-spacing: 0 12px; text-align: right; font-size: 1rem; }
     table.orders-table th { color: #475569; padding: 10px 15px; font-weight: 800; white-space: nowrap; }
-    table.orders-table tbody tr { background: #f8fafc; transition: 0.3s; transform-style: preserve-3d; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-    table.orders-table tbody tr:hover { background: #f0f7ff; transform: scale(1.01) translateZ(10px); box-shadow: 0 6px 20px rgba(0, 102, 255, 0.12); }
+    table.orders-table tbody tr { background: #f8fafc; transition: 0.3s; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    table.orders-table tbody tr:hover { background: #f0f7ff; box-shadow: 0 6px 20px rgba(0, 102, 255, 0.12); }
     table.orders-table td { padding: 18px 15px; color: #0f172a; font-weight: 800; white-space: nowrap; font-family: 'Outfit', sans-serif; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; }
     table.orders-table td:first-child { border-top-right-radius: 14px; border-bottom-right-radius: 14px; border-right: 1px solid #e2e8f0; }
     table.orders-table td:last-child { border-top-left-radius: 14px; border-bottom-left-radius: 14px; border-left: 1px solid #e2e8f0; }
@@ -459,30 +456,15 @@
     .del-btn { background: rgba(255, 0, 60, 0.08); color: var(--neon-red); border: 1px solid rgba(255, 0, 60, 0.25); border-radius: 10px; padding: 8px 14px; cursor: pointer; transition: 0.3s; font-weight: 800;}
     .del-btn:hover { background: var(--neon-red); border-color: var(--neon-red); color: #fff; box-shadow: 0 5px 15px rgba(255,0,60,0.3); transform: scale(1.05); }
 
-    /* ADMIN MODAL & SECURITY LOCKOUT */
-    .modal-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 999; padding: 15px; perspective: 1000px; }
-    .modal-backdrop.show { display: flex; animation: fadeBg 0.4s ease; }
-    @keyframes fadeBg { from {opacity: 0;} to {opacity: 1;} }
+    /* ADMIN MODAL */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 999; padding: 15px; }
+    .modal-backdrop.show { display: flex; }
     
     .modal-card { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 24px; width: 100%; max-width: 750px; padding: 35px; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 60px rgba(0,0,0,0.2); position: relative; color: #0f172a; }
-    .modal-backdrop.show .modal-card { animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    @keyframes slideUp { from {transform: translateY(100px) rotateX(-10deg); opacity: 0;} to {transform: translateY(0) rotateX(0); opacity: 1;} }
     
     .modal-title { font-size: 1.5rem; font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 18px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; color: #0f172a; }
     .admin-section-title { color: var(--neon-blue); font-size: 1rem; font-weight: 800; margin: 30px 0 15px; text-transform: uppercase; letter-spacing: 1px !important; border-bottom: 1px dashed #cbd5e1; padding-bottom: 8px;}
     
-    .lockout-warning {
-      background: rgba(255, 0, 60, 0.08);
-      border: 2px solid var(--neon-red);
-      color: var(--neon-red);
-      padding: 16px;
-      border-radius: 14px;
-      text-align: center;
-      font-weight: 800;
-      margin-bottom: 15px;
-      display: none;
-    }
-
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
     .form-group label { display: block; font-size: 0.9rem; color: #475569; margin-bottom: 8px; font-weight: 700;}
     .form-group input { width: 100%; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 14px; color: #0f172a; font-weight: 800; direction: ltr; font-family: 'Outfit'; font-size: 1.15rem; transition: 0.3s;}
@@ -494,264 +476,60 @@
     .switch-container input[type="checkbox"] { width: 22px; height: 22px; cursor: pointer; accent-color: var(--neon-blue); }
 
     .btn-save-admin { background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); color: #fff; border: none; padding: 18px 20px; border-radius: 14px; cursor: pointer; font-weight: 800; margin-top: 30px; width: 100%; font-size: 1.2rem; transition: 0.3s; box-shadow: 0 10px 25px rgba(0, 102, 255, 0.25);}
-    .btn-save-admin:hover { box-shadow: 0 12px 30px rgba(255, 0, 60, 0.35); transform: translateY(-3px);}
-    .btn-save-admin:disabled { background: #cbd5e1; color: #64748b; box-shadow: none; cursor: not-allowed; transform: none; }
+    .btn-save-admin:hover { box-shadow: 0 12px 30px rgba(255, 0, 60, 0.35); }
 
-    /* --- PAPER RECEIPT MODAL (صەڕافی ڕەشید) --- */
-    .receipt-modal-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 410px;
-      animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
+    /* RECEIPT MODAL */
+    .receipt-modal-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 410px; }
+    .receipt-paper { background: #ffffff; color: #0f172a; width: 100%; border-radius: 16px; padding: 26px 22px; box-shadow: 0 25px 60px rgba(0,0,0,0.35); position: relative; border-top: 6px solid #0f172a; }
+    .receipt-header { text-align: center; border-bottom: 2px dashed #cbd5e1; padding-bottom: 14px; margin-bottom: 16px; }
+    .receipt-logo-badge { width: 50px; height: 50px; background: #0f172a; color: #fff; border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; }
+    .receipt-company-name { font-size: 1.7rem; font-weight: 800; color: #0f172a; margin-bottom: 3px; }
+    .receipt-subtitle { font-size: 0.82rem; color: #475569; font-weight: 600; }
+    .receipt-meta { display: flex; justify-content: space-between; font-size: 0.9rem; color: #334155; margin-bottom: 8px; font-weight: 700; }
+    .receipt-meta span:last-child { direction: ltr; font-family: 'Outfit', monospace !important; }
+    .receipt-divider { border-top: 2px dashed #cbd5e1; margin: 14px 0; }
 
-    .receipt-paper {
-      background: #ffffff;
-      color: #0f172a;
-      width: 100%;
-      border-radius: 16px;
-      padding: 26px 22px;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
-      position: relative;
-      border-top: 6px solid #0f172a;
-    }
-
-    .receipt-header {
-      text-align: center;
-      border-bottom: 2px dashed #cbd5e1;
-      padding-bottom: 14px;
-      margin-bottom: 16px;
-    }
-
-    .receipt-logo-badge {
-      width: 50px;
-      height: 50px;
-      background: #0f172a;
-      color: #fff;
-      border-radius: 14px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .receipt-company-name {
-      font-size: 1.7rem;
-      font-weight: 800;
-      color: #0f172a;
-      margin-bottom: 3px;
-    }
-
-    .receipt-subtitle {
-      font-size: 0.82rem;
-      color: #475569;
-      font-weight: 600;
-    }
-
-    .receipt-meta {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.9rem;
-      color: #334155;
-      margin-bottom: 8px;
-      font-weight: 700;
-    }
-
-    .receipt-meta span:last-child {
-      direction: ltr;
-      font-family: 'Outfit', monospace !important;
-    }
-
-    .receipt-divider {
-      border-top: 2px dashed #cbd5e1;
-      margin: 14px 0;
-    }
-
-    .receipt-box-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin: 10px 0;
-    }
-
-    .receipt-trans-box {
-      border-radius: 12px;
-      padding: 12px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border: 1.5px solid #cbd5e1;
-    }
-    .receipt-box-give {
-      background: #fff5f5;
-      border-color: rgba(255, 0, 60, 0.25);
-    }
-    .receipt-box-receive {
-      background: #f0f7ff;
-      border-color: rgba(0, 102, 255, 0.25);
-    }
-
-    .receipt-trans-info {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .receipt-trans-tag {
-      font-size: 0.85rem;
-      font-weight: 800;
-    }
+    .receipt-box-grid { display: flex; flex-direction: column; gap: 10px; margin: 10px 0; }
+    .receipt-trans-box { border-radius: 12px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid #cbd5e1; }
+    .receipt-box-give { background: #fff5f5; border-color: rgba(255, 0, 60, 0.25); }
+    .receipt-box-receive { background: #f0f7ff; border-color: rgba(0, 102, 255, 0.25); }
+    .receipt-trans-info { display: flex; flex-direction: column; gap: 2px; }
+    .receipt-trans-tag { font-size: 0.85rem; font-weight: 800; }
     .receipt-box-give .receipt-trans-tag { color: var(--neon-red); }
     .receipt-box-receive .receipt-trans-tag { color: var(--neon-blue); }
+    .receipt-trans-currname { font-size: 0.88rem; font-weight: 800; color: #0f172a; }
+    .receipt-trans-amount { font-size: 1.4rem; font-weight: 900; direction: ltr; font-family: 'Outfit', sans-serif !important; color: #0f172a; }
+    .receipt-footer { text-align: center; margin-top: 16px; padding-top: 12px; border-top: 2px dashed #cbd5e1; }
+    .receipt-barcode { font-family: monospace !important; letter-spacing: 4px !important; font-size: 1.25rem; font-weight: 900; color: #0f172a; margin-bottom: 6px; overflow: hidden; white-space: nowrap; }
+    .receipt-thanks { font-size: 0.85rem; color: #475569; font-weight: 700; }
 
-    .receipt-trans-currname {
-      font-size: 0.88rem;
-      font-weight: 800;
-      color: #0f172a;
-    }
+    .receipt-actions { display: flex; gap: 12px; width: 100%; margin-top: 16px; }
+    .btn-print-receipt { flex: 2; background: linear-gradient(135deg, var(--neon-blue), #0055ff); color: #fff; border: none; padding: 16px; border-radius: 14px; font-size: 1.1rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4); transition: 0.2s; }
+    .btn-print-receipt:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0, 136, 255, 0.6); }
+    .btn-close-receipt { flex: 1; background: #ffffff; color: #0f172a; border: 2px solid #e2e8f0; padding: 16px; border-radius: 14px; font-size: 1.05rem; font-weight: 800; cursor: pointer; transition: 0.2s; }
+    .btn-close-receipt:hover { background: var(--neon-red); color: #fff; border-color: var(--neon-red); }
 
-    .receipt-trans-amount {
-      font-size: 1.4rem;
-      font-weight: 900;
-      direction: ltr;
-      font-family: 'Outfit', sans-serif !important;
-      color: #0f172a;
-    }
-
-    .receipt-footer {
-      text-align: center;
-      margin-top: 16px;
-      padding-top: 12px;
-      border-top: 2px dashed #cbd5e1;
-    }
-
-    .receipt-barcode {
-      font-family: monospace !important;
-      letter-spacing: 4px !important;
-      font-size: 1.25rem;
-      font-weight: 900;
-      color: #0f172a;
-      margin-bottom: 6px;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-
-    .receipt-thanks {
-      font-size: 0.85rem;
-      color: #475569;
-      font-weight: 700;
-    }
-
-    .receipt-actions {
-      display: flex;
-      gap: 12px;
-      width: 100%;
-      margin-top: 16px;
-    }
-
-    .btn-print-receipt {
-      flex: 2;
-      background: linear-gradient(135deg, var(--neon-blue), #0055ff);
-      color: #fff;
-      border: none;
-      padding: 16px;
-      border-radius: 14px;
-      font-size: 1.1rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4);
-      transition: 0.2s;
-    }
-    .btn-print-receipt:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(0, 136, 255, 0.6);
-    }
-
-    .btn-close-receipt {
-      flex: 1;
-      background: #ffffff;
-      color: #0f172a;
-      border: 2px solid #e2e8f0;
-      padding: 16px;
-      border-radius: 14px;
-      font-size: 1.05rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .btn-close-receipt:hover {
-      background: var(--neon-red);
-      color: #fff;
-      border-color: var(--neon-red);
-    }
-
-    /* --- PRINT MEDIA QUERY (بۆ طابعێ) --- */
+    /* PRINT */
     @media print {
-      @page {
-        margin: 5mm;
-      }
-      body {
-        background: #ffffff !important;
-        background-image: none !important;
-        color: #000000 !important;
-        padding: 0 !important;
-        margin: 0 !important;
-      }
-      #loadingOverlay,
-      .tv-Header-Wrap,
-      .live-stream-bar,
-      .navbar,
-      .container,
-      #adminModal,
-      #toastBox,
-      .receipt-actions {
-        display: none !important;
-      }
-      #receiptModal {
-        position: static !important;
-        display: flex !important;
-        background: #ffffff !important;
-        backdrop-filter: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        justify-content: center !important;
-        align-items: flex-start !important;
-      }
-      .receipt-modal-wrapper {
-        max-width: 100% !important;
-        width: 80mm !important;
-        margin: 0 auto !important;
-      }
-      .receipt-paper {
-        box-shadow: none !important;
-        border: 1px solid #000 !important;
-        border-top: 4px solid #000 !important;
-        border-radius: 0 !important;
-        padding: 15px !important;
-        width: 100% !important;
-      }
+      @page { margin: 5mm; }
+      body { background: #ffffff !important; background-image: none !important; color: #000000 !important; padding: 0 !important; margin: 0 !important; }
+      #loadingOverlay, #authOverlay, .tv-Header-Wrap, .live-stream-bar, .navbar, .container, #adminModal, #toastBox, .receipt-actions { display: none !important; }
+      #receiptModal { position: static !important; display: flex !important; background: #ffffff !important; padding: 0 !important; margin: 0 !important; justify-content: center !important; align-items: flex-start !important; }
+      .receipt-modal-wrapper { max-width: 100% !important; width: 80mm !important; margin: 0 auto !important; }
+      .receipt-paper { box-shadow: none !important; border: 1px solid #000 !important; border-top: 4px solid #000 !important; border-radius: 0 !important; padding: 15px !important; width: 100% !important; }
     }
     
     /* Toast */
-    .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #0f172a; color: #fff; padding: 16px 28px; border-radius: 16px; border: 2px solid var(--neon-blue); z-index: 1000; opacity: 0; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); font-weight: 800; font-size: 1.1rem; box-shadow: 0 15px 35px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 12px;}
+    .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #0f172a; color: #fff; padding: 16px 28px; border-radius: 16px; border: 2px solid var(--neon-blue); z-index: 100000; opacity: 0; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); font-weight: 800; font-size: 1.1rem; box-shadow: 0 15px 35px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 12px;}
     .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-    #loadingOverlay { position: fixed; inset: 0; background: #ffffff; z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; color: #0f172a; transition: opacity 0.5s; }
+    #loadingOverlay { position: fixed; inset: 0; background: #ffffff; z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; color: #0f172a; }
     .spinner { width: 60px; height: 60px; border: 4px solid #e2e8f0; border-left-color: var(--neon-blue); border-right-color: var(--neon-red); border-radius: 50%; animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; margin-bottom: 20px; }
 
     @media (max-width: 768px) {
       .form-grid { grid-template-columns: 1fr; }
       .curr-input-wrap input { font-size: 1.8rem; }
       .brand span { font-size: 1.2rem; }
-      .magic-card { transform: none !important; animation: none !important; }
-      .balance-card, .quick-card, .panel-card { animation: none !important; transform: none !important;}
       .slider-arrow.right-arrow { right: 0px; width: 38px; height: 38px; font-size: 1.2rem; }
       .slider-arrow.left-arrow { left: 0px; width: 38px; height: 38px; font-size: 1.2rem; }
       .balance-scroll-container { padding: 10px 20px 20px 20px; }
@@ -761,376 +539,450 @@
 </head>
 <body oncontextmenu="return false;">
 
-  <!-- Loading Screen -->
-  <div id="loadingOverlay">
-    <div class="spinner"></div>
-    <h3 style="font-weight: 800; letter-spacing: 1px;">صەڕافی ڕەشید PRO</h3>
-    <p style="color: var(--text-gray); font-size: 0.9rem; margin-top: 10px;">گرێدان ب بۆرسەیا جیهانی و داتابەیسێ ڤە...</p>
-  </div>
+  <!-- HIGH-SECURITY LOGIN GATEWAY (CENTERED STRICTLY) -->
+  <div id="authOverlay">
+    <div class="login-card">
+      <div class="login-card-inner">
+        <div class="login-header">
+          <div class="login-icon-box">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="3"/></svg>
+          </div>
+          <div class="login-title">صەڕافی ڕەشید PRO</div>
+          <div class="login-subtitle">چوونەژوورێیا پاراستی و پشکنینا ئەدمینی</div>
+        </div>
 
-  <!-- 1. OFFICIAL TRADINGVIEW REAL-TIME TICKER TAPE (0 VS-Code Errors) -->
-  <div class="tv-Header-Wrap">
-    <div class="tradingview-widget-container" id="tvTickerContainer">
-      <div class="tradingview-widget-container__widget"></div>
+        <div class="login-field-group">
+          <label>ناڤێ بەکارهێنەری (Username):</label>
+          <input type="text" id="loginUser" class="login-input" placeholder="ناڤێ خۆ بنڤیسە..." autocomplete="off" onkeydown="if(event.key==='Enter') document.getElementById('loginPass').focus()" />
+        </div>
+
+        <div class="login-field-group">
+          <label>پاسۆرد (Password):</label>
+          <input type="password" id="loginPass" class="login-input" placeholder="پاسۆرد بنڤیسە..." autocomplete="off" onkeydown="if(event.key==='Enter') window.performSecureLogin()" />
+        </div>
+
+        <button class="btn-login-submit" onclick="window.performSecureLogin()">چوونەژوورێ (Login)</button>
+      </div>
     </div>
   </div>
 
-  <!-- 2. ULTRA-FAST WEBSOCKET LIVE BAR -->
-  <div class="live-stream-bar">
-    <div class="stream-items-group">
-      <div class="live-status-dot" title="پەخشێ ڕاستەوخۆ ژ بۆرسەیا جیهانی">
-        <span class="pulse-circle"></span>
-        <span>بۆرسەیا زیندوو (LIVE)</span>
-      </div>
+  <!-- MAIN APP WRAPPER (APPEARS ONLY AFTER LOGIN) -->
+  <div id="mainAppWrapper">
 
-      <div class="stream-pill" id="pill-eur">
-        <span class="sym-label">🇪🇺 EUR/USD</span>
-        <span class="sym-price" id="ws-eur">1.1348</span>
-        <span class="sym-change" id="chg-eur">0.00%</span>
-      </div>
+    <!-- Loading Screen -->
+    <div id="loadingOverlay">
+      <div class="spinner"></div>
+      <h3 style="font-weight: 800; letter-spacing: 1px;">صەڕافی ڕەشید PRO</h3>
+      <p style="color: var(--text-gray); font-size: 0.9rem; margin-top: 10px;">گرێدان ب بۆرسا عالەمی و داتابەیسێ ڤە...</p>
+    </div>
 
-      <div class="stream-pill" id="pill-xau">
-        <span class="sym-label">🪙 زێڕ (XAU)</span>
-        <span class="sym-price" id="ws-xau">2645.50</span>
-        <span class="sym-change" id="chg-xau">0.00%</span>
-      </div>
-
-      <div class="stream-pill" id="pill-xag">
-        <span class="sym-label">🥈 زیڤ (XAG)</span>
-        <span class="sym-price" id="ws-xag">31.85</span>
-        <span class="sym-change" id="chg-xag">0.00%</span>
-      </div>
-
-      <div class="stream-pill" id="pill-try">
-        <span class="sym-label">🇹🇷 USD/TRY</span>
-        <span class="sym-price" id="ws-try">34.28</span>
-        <span class="sym-change" id="chg-try">0.00%</span>
-      </div>
-
-      <div class="stream-pill" id="pill-iqd">
-        <span class="sym-label">🇮🇶 USD/IQD</span>
-        <span class="sym-price" id="ws-iqd">1510</span>
+    <!-- 1. OFFICIAL TRADINGVIEW REAL-TIME TICKER TAPE -->
+    <div class="tv-Header-Wrap">
+      <div class="tradingview-widget-container" id="tvTickerContainer">
+        <div class="tradingview-widget-container__widget"></div>
       </div>
     </div>
 
-    <div class="live-clock" id="liveClock">--:--:--</div>
-  </div>
+    <!-- 2. ULTRA-FAST WEBSOCKET LIVE BAR -->
+    <div class="live-stream-bar">
+      <div class="stream-items-group">
+        <div class="live-status-dot" title="پەخشێ ڕاستەوخۆ ژ بۆرسا عالەمی">
+          <span class="pulse-circle"></span>
+          <span>بۆرسا عالەمی</span>
+        </div>
 
-  <header class="navbar">
-    <div class="brand" onclick="window.openAdminModal()" title="کلیک لێرە بکە بۆ ئەدمین">
-      <div class="brand-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      </div>
-      <span>صەڕافی ڕەشید<span style="color:var(--neon-blue);font-weight:800;margin-right:8px;font-family:'Outfit';">PRO</span></span>
-    </div>
-    <div class="security-badge" title="سیستەم یێ پاراستیە">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      <span>پاراستیە (Encrypted)</span>
-    </div>
-  </header>
+        <div class="stream-pill" id="pill-eur">
+          <span class="sym-label">🇪🇺 EUR/USD</span>
+          <span class="sym-price" id="ws-eur">1.1348</span>
+          <span class="sym-change" id="chg-eur">0.00%</span>
+        </div>
 
-  <main class="container">
+        <div class="stream-pill" id="pill-xau">
+          <span class="sym-label">🪙 زێڕ (XAU)</span>
+          <span class="sym-price" id="ws-xau">2645.50</span>
+          <span class="sym-change" id="chg-xau">0.00%</span>
+        </div>
 
-    <div class="quick-grid">
-      <div class="magic-card quick-card" onclick="window.showToast('حیسابا من')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-red)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>حیسابا من</span></div></div>
-      <div class="magic-card quick-card" onclick="window.showToast('ئیعتمادا نوو')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>ئیعتمادا نوو</span></div></div>
-      <div class="magic-card quick-card active"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px; background:#f0f7ff;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-blue)" stroke-width="2.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg><span style="color:var(--neon-blue);">گوهۆڕین</span></div></div>
-      <div class="magic-card quick-card" onclick="window.showToast('سیستەم ب تەمامی یێ پاراستیە دژی هاککرنێ 🛡️')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg><span>پشتڕاستکرن</span></div></div>
-    </div>
-    
-    <!-- Balances Slider with < > Buttons -->
-    <div class="balance-slider-wrapper">
-      <button class="slider-arrow right-arrow" onclick="window.scrollBalances('right')" title="لایێ ڕاستێ">&#10094;</button>
-      
-      <div class="balance-scroll-container" id="balanceScrollContainer">
-        <div class="balance-grid">
-          <!-- PROFIT CARD -->
-          <div class="magic-card balance-card profit-card">
-            <div class="magic-card-inner">
-              <div class="balance-value-row">
-                <span class="balance-val-text" id="balProfit">0.00</span>
-                <span style="font-size:1.4rem; color:var(--neon-green)">$</span>
-              </div>
-              <div class="balance-label">قازانج (Profit)</div>
-            </div>
-          </div>
+        <div class="stream-pill" id="pill-xag">
+          <span class="sym-label">🥈 زیڤ (XAG)</span>
+          <span class="sym-price" id="ws-xag">31.85</span>
+          <span class="sym-change" id="chg-xag">0.00%</span>
+        </div>
 
-          <div class="magic-card balance-card net-card">
-            <div class="magic-card-inner">
-              <div class="balance-value-row">
-                <span class="balance-val-text" id="balNetUsd">0.00</span>
-                <span style="font-size:1.4rem; color:#0f172a">$</span>
-              </div>
-              <div class="balance-label">مێزانا گشتی</div>
-            </div>
-          </div>
-          <div class="magic-card balance-card">
-            <div class="magic-card-inner">
-              <div class="balance-value-row">
-                <span class="balance-val-text" id="balUsd">0.00</span>
-                <span style="font-size:1.4rem;">🇺🇸</span>
-              </div>
-              <div class="balance-label">دۆلار (USD)</div>
-            </div>
-          </div>
-          <div class="magic-card balance-card">
-            <div class="magic-card-inner">
-              <div class="balance-value-row">
-                <span class="balance-val-text" id="balEur">0.00</span>
-                <span style="font-size:1.4rem;">🇪🇺</span>
-              </div>
-              <div class="balance-label">یۆرۆ (EUR)</div>
-            </div>
-          </div>
-          <div class="magic-card balance-card">
-            <div class="magic-card-inner">
-              <div class="balance-value-row">
-                <span class="balance-val-text" id="balIqd">0</span>
-                <span style="font-size:1.4rem;">🇮🇶</span>
-              </div>
-              <div class="balance-label">دینار (IQD)</div>
-            </div>
-          </div>
-          <div class="magic-card balance-card">
-            <div class="magic-card-inner">
-              <div class="balance-value-row">
-                <span class="balance-val-text" id="balTry">0.00</span>
-                <span style="font-size:1.4rem;">🇹🇷</span>
-              </div>
-              <div class="balance-label">لیرە (TRY)</div>
-            </div>
-          </div>
+        <div class="stream-pill" id="pill-try">
+          <span class="sym-label">🇹🇷 USD/TRY</span>
+          <span class="sym-price" id="ws-try">34.28</span>
+          <span class="sym-change" id="chg-try">0.00%</span>
+        </div>
+
+        <div class="stream-pill" id="pill-iqd">
+          <span class="sym-label">🇮🇶 USD/IQD</span>
+          <span class="sym-price" id="ws-iqd">1510</span>
         </div>
       </div>
 
-      <button class="slider-arrow left-arrow" onclick="window.scrollBalances('left')" title="لایێ چەپێ">&#10095;</button>
+      <div class="live-clock" id="liveClock">--:--:--</div>
     </div>
 
-    <!-- PRO Conversion Panel -->
-    <div class="magic-card panel-card">
-      <div class="magic-card-inner">
-        <div class="panel-header">گوهۆڕینا ڕاستەوخۆ (Exchange)</div>
-        <div class="convert-body">
-          <div class="swap-container">
-            <!-- PAYING (Sell) -->
-            <div class="curr-input-wrap pay-wrap">
-              <div class="curr-input-left">
-                <span class="curr-input-label">فڕۆتن (Sell)</span>
-                <input type="number" id="payInput" placeholder="0.00" min="0" step="any" oninput="window.calculateConvert('pay')" />
-              </div>
-              <div class="curr-select-btn">
-                <img src="https://flagcdn.com/w20/iq.png" id="imgPay" style="border-radius:3px;width:18px;" alt="flag">
-                <select id="payCurrency" onchange="window.updateConvertUI()">
-                  <option value="usd">USD</option>
-                  <option value="eur">EUR</option>
-                  <option value="iqd" selected>IQD</option>
-                  <option value="try">TRY</option>
-                </select>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </div>
-            </div>
-
-            <!-- SWAP ICON -->
-            <div class="swap-icon-btn" onclick="window.swapCurrencies()">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
-            </div>
-
-            <!-- RECEIVING (Buy) -->
-            <div class="curr-input-wrap rec-wrap">
-              <div class="curr-input-left">
-                <span class="curr-input-label">کڕین (Buy)</span>
-                <input type="number" id="receiveInput" placeholder="0.00" min="0" step="any" oninput="window.calculateConvert('receive')" />
-              </div>
-              <div class="curr-select-btn">
-                <img src="https://flagcdn.com/w20/eu.png" id="imgRec" style="border-radius:3px;width:18px;" alt="flag">
-                <select id="receiveCurrency" onchange="window.updateConvertUI()">
-                  <option value="usd">USD</option>
-                  <option value="eur" selected>EUR</option>
-                  <option value="iqd">IQD</option>
-                  <option value="try">TRY</option>
-                </select>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </div>
-            </div>
-          </div>
-
-          <div class="rate-info-box" id="rateInfoBox">
-            <small>بهایێ گوهۆڕینێ (Cross Rate)</small>
-            <span id="crossRateDisplay">--</span>
-          </div>
-
-          <button class="btn-execute" id="btnExecuteTrade" onclick="window.executeConversion()">تۆمارکرنا صەفقێ</button>
+    <header class="navbar">
+      <div class="brand" onclick="window.openAdminModal()" title="کلیک لێرە بکە بۆ ئەدمین">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         </div>
-      </div>
-    </div>
-
-    <!-- History with Clean Search & 10-per-page Pagination -->
-    <div class="magic-card panel-card reverse-glow" style="animation-delay: 0.5s;">
-      <div class="magic-card-inner">
-        <div class="panel-header">
-          <div>
-            <span>تۆمارا صەفقەیان (History)</span>
-            <div style="font-size:0.8rem; color:var(--neon-blue); font-weight:700; margin-top:4px;">کلیک ل سەر هەر صەفقەیەکێ بکە بۆ بینین و چاپکرنا وەصلێ 🖨️</div>
-          </div>
-
-          <!-- Clean Search Bar -->
-          <div class="history-search-wrap">
-            <input 
-              type="text" 
-              id="receiptSearchInput" 
-              class="history-search-input" 
-              placeholder="🔍 لێگەڕیان ب ژمارا وەصلێ..." 
-              oninput="window.onReceiptSearch(this.value)"
-              onkeydown="if(event.key==='Enter') window.openFirstMatchedReceipt()"
-            />
-            <button class="history-search-clear" id="btnClearSearch" onclick="window.clearReceiptSearch()" title="پاقژکرن">✕</button>
-          </div>
-        </div>
-
-        <div class="table-wrap">
-          <table class="orders-table">
-            <thead>
-              <tr>
-                <th>ژمارا وەصلێ</th>
-                <th>فڕۆتن (Sell)</th>
-                <th>کڕین (Buy)</th>
-                <th>بهایێ گوهۆڕینێ</th>
-                <th>تەریخ و دەم</th>
-                <th>کردار</th>
-              </tr>
-            </thead>
-            <tbody id="historyBody"></tbody>
-          </table>
-
-          <!-- Pagination Bar (1, 2, 3...) -->
-          <div class="pagination-container" id="paginationContainer"></div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- RECEIPT MODAL (وەصلا صەڕافی ڕەشید) -->
-  <div class="modal-backdrop" id="receiptModal" onclick="if(event.target===this) window.closeReceiptModal()">
-    <div class="receipt-modal-wrapper">
-      <div class="receipt-paper" id="printableReceipt">
-        <div class="receipt-header">
-          <div class="receipt-logo-badge">R</div>
-          <div class="receipt-company-name">صەڕافی ڕەشید</div>
-          <div class="receipt-subtitle">بۆ گوهۆڕینا دراڤان و بازرگانیا نێڤدەوڵەتی</div>
-        </div>
-
-        <div class="receipt-meta">
-          <span>ژمارا وەصلێ:</span>
-          <span id="recNo">#000000</span>
-        </div>
-        <div class="receipt-meta">
-          <span>تەریخ:</span>
-          <span id="recDate">2026/09/28</span>
-        </div>
-        <div class="receipt-meta">
-          <span>دەمژمێر:</span>
-          <span id="recTime">00:00</span>
-        </div>
-
-        <div class="receipt-divider"></div>
-
-        <div class="receipt-box-grid">
-          <div class="receipt-trans-box receipt-box-give">
-            <div class="receipt-trans-info">
-              <span class="receipt-trans-tag">ئەو پارێت تە داین:</span>
-              <span class="receipt-trans-currname" id="recPayCurrName">--</span>
-            </div>
-            <span class="receipt-trans-amount" id="recPayAmount">0.00</span>
-          </div>
-
-          <div class="receipt-trans-box receipt-box-receive">
-            <div class="receipt-trans-info">
-              <span class="receipt-trans-tag">ئەو پارێت تە وەرگرتین:</span>
-              <span class="receipt-trans-currname" id="recRecCurrName">--</span>
-            </div>
-            <span class="receipt-trans-amount" id="recRecAmount">0.00</span>
-          </div>
-        </div>
-
-        <div class="receipt-footer">
-          <div class="receipt-barcode">||| |||| || ||||| ||| ||||</div>
-          <div class="receipt-thanks">سوپاس بۆ باوەریا هەوە ب صەڕافی ڕەشید</div>
-        </div>
+        <span>صەڕافی ڕەشید<span style="color:var(--neon-blue);font-weight:800;margin-right:8px;font-family:'Outfit';">PRO</span></span>
       </div>
 
-      <div class="receipt-actions">
-        <button class="btn-print-receipt" onclick="window.printReceipt()">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-          <span>چاپکرنا وەصلێ (طابعە)</span>
+      <div class="nav-actions">
+        <div class="security-badge" title="سیستەم یێ پاراستیە">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>پاراستیە (Encrypted)</span>
+        </div>
+        <button class="btn-logout" onclick="window.performLogout()" title="دەرکەفتن ژ سیستەمی">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span>چوونەدەر (Logout)</span>
         </button>
-        <button class="btn-close-receipt" onclick="window.closeReceiptModal()">گرتن</button>
       </div>
-    </div>
-  </div>
+    </header>
 
-  <!-- Admin Modal -->
-  <div class="modal-backdrop" id="adminModal">
-    <div class="modal-card">
-      <div class="modal-title"><span>🛡️ کۆنتڕۆلا سیستەمی یا پاراستی</span><button onclick="window.closeAdminModal()" style="background:transparent;border:none;color:var(--text-gray);font-size:1.5rem;cursor:pointer; transition:0.3s;">✕</button></div>
+    <main class="container">
+
+      <div class="quick-grid">
+        <div class="magic-card quick-card" onclick="window.showToast('حیسابا من')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-red)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>حیسابا من</span></div></div>
+        <div class="magic-card quick-card" onclick="window.showToast('ئیعتمادا نوو')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>ئیعتمادا نوو</span></div></div>
+        <div class="magic-card quick-card active"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px; background:#f0f7ff;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-blue)" stroke-width="2.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg><span style="color:var(--neon-blue);">گوهۆڕین</span></div></div>
+        <div class="magic-card quick-card" onclick="window.showToast('سیستەم ب تەمامی یێ پاراستیە دژی هاککرنێ 🛡️')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>پشتڕاستکرن</span></div></div>
+      </div>
       
-      <div id="passwordSection">
-        <div class="lockout-warning" id="lockoutWarning">
-          🚫 سیستەم هاتە قوفلکرن ژ بەر هەوڵێن خەلەت! چاڤەڕێ بکە: <span id="lockoutTimer">0</span> چرکە
+      <!-- Balances Slider with < > Buttons -->
+      <div class="balance-slider-wrapper">
+        <button class="slider-arrow right-arrow" onclick="window.scrollBalances('right')" title="لایێ ڕاستێ">&#10094;</button>
+        
+        <div class="balance-scroll-container" id="balanceScrollContainer">
+          <div class="balance-grid">
+            <!-- PROFIT CARD -->
+            <div class="magic-card balance-card profit-card">
+              <div class="magic-card-inner">
+                <div class="balance-value-row">
+                  <span class="balance-val-text" id="balProfit">0.00</span>
+                  <span style="font-size:1.4rem; color:var(--neon-green)">$</span>
+                </div>
+                <div class="balance-label">قازانج (Profit)</div>
+              </div>
+            </div>
+
+            <div class="magic-card balance-card net-card">
+              <div class="magic-card-inner">
+                <div class="balance-value-row">
+                  <span class="balance-val-text" id="balNetUsd">0.00</span>
+                  <span style="font-size:1.4rem; color:#0f172a">$</span>
+                </div>
+                <div class="balance-label">مێزانا گشتی</div>
+              </div>
+            </div>
+            <div class="magic-card balance-card">
+              <div class="magic-card-inner">
+                <div class="balance-value-row">
+                  <span class="balance-val-text" id="balUsd">0.00</span>
+                  <span style="font-size:1.4rem;">🇺🇸</span>
+                </div>
+                <div class="balance-label">دۆلار (USD)</div>
+              </div>
+            </div>
+            <div class="magic-card balance-card">
+              <div class="magic-card-inner">
+                <div class="balance-value-row">
+                  <span class="balance-val-text" id="balEur">0.00</span>
+                  <span style="font-size:1.4rem;">🇪🇺</span>
+                </div>
+                <div class="balance-label">یۆرۆ (EUR)</div>
+              </div>
+            </div>
+            <div class="magic-card balance-card">
+              <div class="magic-card-inner">
+                <div class="balance-value-row">
+                  <span class="balance-val-text" id="balIqd">0</span>
+                  <span style="font-size:1.4rem;">🇮🇶</span>
+                </div>
+                <div class="balance-label">دینار (IQD)</div>
+              </div>
+            </div>
+            <div class="magic-card balance-card">
+              <div class="magic-card-inner">
+                <div class="balance-value-row">
+                  <span class="balance-val-text" id="balTry">0.00</span>
+                  <span style="font-size:1.4rem;">🇹🇷</span>
+                </div>
+                <div class="balance-label">لیرە (TRY)</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <input type="password" id="adminPassInput" autocomplete="off" placeholder="پاسۆردێ ئەدمینی بنڤیسە..." style="width:100%;padding:18px;border-radius:14px;border:1.5px solid #cbd5e1;background:#f8fafc;color:#0f172a;margin-bottom:15px;font-size:1.2rem;font-family:'Outfit';text-align:center;" onkeydown="if(event.key==='Enter') window.unlockAdmin(document.getElementById('adminPassInput').value)" />
-        <button class="btn-save-admin" id="btnUnlockAdmin" style="margin-top:0" onclick="window.unlockAdmin(document.getElementById('adminPassInput').value)">ڤەکرنا قوفلێ</button>
+
+        <button class="slider-arrow left-arrow" onclick="window.scrollBalances('left')" title="لایێ چەپێ">&#10095;</button>
       </div>
 
-      <div id="adminControlsSection" style="display: none;">
-        
-        <div class="switch-container">
-          <input type="checkbox" id="admAutoSync" onchange="window.toggleAutoSyncUI()" />
-          <label for="admAutoSync">گرێدانا ئۆتۆماتیک ب بۆرسەیا جیهانی ڤە (چرکە ب چرکە بۆ یۆرۆ و لیرەی)</label>
+      <!-- PRO Conversion Panel -->
+      <div class="magic-card panel-card">
+        <div class="magic-card-inner">
+          <div class="panel-header">گوهۆڕینا ڕاستەوخۆ (Exchange)</div>
+          <div class="convert-body">
+            <div class="swap-container">
+              <!-- PAYING (Sell) -->
+              <div class="curr-input-wrap pay-wrap">
+                <div class="curr-input-left">
+                  <span class="curr-input-label">فڕۆتن (Sell)</span>
+                  <input type="number" id="payInput" placeholder="0.00" min="0" step="any" oninput="window.calculateConvert('pay')" />
+                </div>
+                <div class="curr-select-btn">
+                  <img src="https://flagcdn.com/w20/iq.png" id="imgPay" style="border-radius:3px;width:18px;" alt="flag">
+                  <select id="payCurrency" onchange="window.updateConvertUI()">
+                    <option value="usd">USD</option>
+                    <option value="eur">EUR</option>
+                    <option value="iqd" selected>IQD</option>
+                    <option value="try">TRY</option>
+                  </select>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+              </div>
+
+              <!-- SWAP ICON -->
+              <div class="swap-icon-btn" onclick="window.swapCurrencies()">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+              </div>
+
+              <!-- RECEIVING (Buy) -->
+              <div class="curr-input-wrap rec-wrap">
+                <div class="curr-input-left">
+                  <span class="curr-input-label">کڕین (Buy)</span>
+                  <input type="number" id="receiveInput" placeholder="0.00" min="0" step="any" oninput="window.calculateConvert('receive')" />
+                </div>
+                <div class="curr-select-btn">
+                  <img src="https://flagcdn.com/w20/eu.png" id="imgRec" style="border-radius:3px;width:18px;" alt="flag">
+                  <select id="receiveCurrency" onchange="window.updateConvertUI()">
+                    <option value="usd">USD</option>
+                    <option value="eur" selected>EUR</option>
+                    <option value="iqd">IQD</option>
+                    <option value="try">TRY</option>
+                  </select>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="rate-info-box" id="rateInfoBox">
+              <small>بهایێ گوهۆڕینێ (Cross Rate)</small>
+              <span id="crossRateDisplay">--</span>
+            </div>
+
+            <button class="btn-execute" id="btnExecuteTrade" onclick="window.executeConversion()">تۆمارکرنا صەفقێ</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- History with Clean Search & 10-per-page Pagination -->
+      <div class="magic-card panel-card reverse-glow">
+        <div class="magic-card-inner">
+          <div class="panel-header">
+            <div>
+              <span>تۆمارا صەفقەیان (History)</span>
+              <div style="font-size:0.8rem; color:var(--neon-blue); font-weight:700; margin-top:4px;">کلیک ل سەر هەر صەفقەیەکێ بکە بۆ بینین و چاپکرنا وەصلێ 🖨️</div>
+            </div>
+
+            <div class="history-search-wrap">
+              <input 
+                type="text" 
+                id="receiptSearchInput" 
+                class="history-search-input" 
+                placeholder="🔍 لێگەڕیان ب ژمارا وەصلێ..." 
+                oninput="window.onReceiptSearch(this.value)"
+                onkeydown="if(event.key==='Enter') window.openFirstMatchedReceipt()"
+              />
+              <button class="history-search-clear" id="btnClearSearch" onclick="window.clearReceiptSearch()" title="پاقژکرن">✕</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="orders-table">
+              <thead>
+                <tr>
+                  <th>ژمارا وەصلێ</th>
+                  <th>فڕۆتن (Sell)</th>
+                  <th>کڕین (Buy)</th>
+                  <th>بهایێ گوهۆڕینێ</th>
+                  <th>تەریخ و دەم</th>
+                  <th>کردار</th>
+                </tr>
+              </thead>
+              <tbody id="historyBody"></tbody>
+            </table>
+
+            <div class="pagination-container" id="paginationContainer"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- RECEIPT MODAL -->
+    <div class="modal-backdrop" id="receiptModal" onclick="if(event.target===this) window.closeReceiptModal()">
+      <div class="receipt-modal-wrapper">
+        <div class="receipt-paper" id="printableReceipt">
+          <div class="receipt-header">
+            <div class="receipt-logo-badge">R</div>
+            <div class="receipt-company-name">صەڕافی ڕەشید</div>
+            <div class="receipt-subtitle">بۆ گوهۆڕینا دراڤان و بازرگانیا نێڤدەوڵەتی</div>
+          </div>
+
+          <div class="receipt-meta">
+            <span>ژمارا وەصلێ:</span>
+            <span id="recNo">#000000</span>
+          </div>
+          <div class="receipt-meta">
+            <span>تەریخ:</span>
+            <span id="recDate">2026/09/28</span>
+          </div>
+          <div class="receipt-meta">
+            <span>دەمژمێر:</span>
+            <span id="recTime">00:00</span>
+          </div>
+
+          <div class="receipt-divider"></div>
+
+          <div class="receipt-box-grid">
+            <div class="receipt-trans-box receipt-box-give">
+              <div class="receipt-trans-info">
+                <span class="receipt-trans-tag">ئەو پارێت تە داین:</span>
+                <span class="receipt-trans-currname" id="recPayCurrName">--</span>
+              </div>
+              <span class="receipt-trans-amount" id="recPayAmount">0.00</span>
+            </div>
+
+            <div class="receipt-trans-box receipt-box-receive">
+              <div class="receipt-trans-info">
+                <span class="receipt-trans-tag">ئەو پارێت تە وەرگرتین:</span>
+                <span class="receipt-trans-currname" id="recRecCurrName">--</span>
+              </div>
+              <span class="receipt-trans-amount" id="recRecAmount">0.00</span>
+            </div>
+          </div>
+
+          <div class="receipt-footer">
+            <div class="receipt-barcode">||| |||| || ||||| ||| ||||</div>
+            <div class="receipt-thanks">سوپاس بۆ باوەریا هەوە ب صەڕافی ڕەشید</div>
+          </div>
         </div>
 
-        <div class="admin-section-title">باڵانسێن حیسابێ و قازانج</div>
-        <div class="form-grid">
-          <div class="form-group"><label>USD ($)</label><input type="number" step="0.01" id="admBalUsd" /></div>
-          <div class="form-group"><label>EUR (€)</label><input type="number" step="0.01" id="admBalEur" /></div>
-          <div class="form-group"><label>IQD (دینار)</label><input type="number" id="admBalIqd" /></div>
-          <div class="form-group"><label>TRY (لیرە)</label><input type="number" step="0.01" id="admBalTry" /></div>
-          <div class="form-group" style="grid-column: span 2;"><label style="color:var(--neon-green)">قازانجا گشتی (Profit $)</label><input type="number" step="0.01" id="admBalProfit" /></div>
+        <div class="receipt-actions">
+          <button class="btn-print-receipt" onclick="window.printReceipt()">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            <span>چاپکرنا وەصلێ (طابعە)</span>
+          </button>
+          <button class="btn-close-receipt" onclick="window.closeReceiptModal()">گرتن</button>
         </div>
-
-        <div class="admin-section-title">نرخێن یۆرۆ (EUR) بەرامبەر دۆلاری</div>
-        <div class="form-grid">
-          <div class="form-group"><label>کڕینا کۆمپانیێ (Buy EUR)</label><input type="number" step="0.0001" id="admEurBuy" /></div>
-          <div class="form-group"><label>فڕۆتنا کۆمپانیێ (Sell EUR)</label><input type="number" step="0.0001" id="admEurSell" /></div>
-        </div>
-
-        <div class="admin-section-title">نرخێن دۆلار بەرامبەر دیناری (IQD)</div>
-        <div class="form-grid">
-          <div class="form-group"><label>کڕینا کۆمپانیێ 1$ (Buy USD)</label><input type="number" id="admIqdBuy" /></div>
-          <div class="form-group"><label>فڕۆتنا کۆمپانیێ 1$ (Sell USD)</label><input type="number" id="admIqdSell" /></div>
-        </div>
-
-        <div class="admin-section-title">نرخێن دۆلار بەرامبەر لیرەی (TRY)</div>
-        <div class="form-grid">
-          <div class="form-group"><label>کڕینا کۆمپانیێ 1$ (Buy USD)</label><input type="number" step="0.01" id="admTryBuy" /></div>
-          <div class="form-group"><label>فڕۆتنا کۆمپانیێ 1$ (Sell USD)</label><input type="number" step="0.01" id="admTrySell" /></div>
-        </div>
-
-        <button class="btn-save-admin" onclick="window.saveAdminChanges()">خەزنکرنا گوهۆڕینان</button>
       </div>
     </div>
-  </div>
+
+    <!-- Admin Modal -->
+    <div class="modal-backdrop" id="adminModal">
+      <div class="modal-card">
+        <div class="modal-title"><span>🛡️ کۆنتڕۆلا سیستەمی یا پاراستی</span><button onclick="window.closeAdminModal()" style="background:transparent;border:none;color:var(--text-gray);font-size:1.5rem;cursor:pointer; transition:0.3s;">✕</button></div>
+        
+        <div id="adminControlsSection">
+          <div class="switch-container">
+            <input type="checkbox" id="admAutoSync" onchange="window.toggleAutoSyncUI()" />
+            <label for="admAutoSync">گرێدانا ئۆتۆماتیک ب بۆرسا عالەمی ڤە (چرکە ب چرکە بۆ یۆرۆ و لیرەی)</label>
+          </div>
+
+          <div class="admin-section-title">باڵانسێن حیسابێ و قازانج</div>
+          <div class="form-grid">
+            <div class="form-group"><label>USD ($)</label><input type="number" step="0.01" id="admBalUsd" /></div>
+            <div class="form-group"><label>EUR (€)</label><input type="number" step="0.01" id="admBalEur" /></div>
+            <div class="form-group"><label>IQD (دینار)</label><input type="number" id="admBalIqd" /></div>
+            <div class="form-group"><label>TRY (لیرە)</label><input type="number" step="0.01" id="admBalTry" /></div>
+            <div class="form-group" style="grid-column: span 2;"><label style="color:var(--neon-green)">قازانجا گشتی (Profit $)</label><input type="number" step="0.01" id="admBalProfit" /></div>
+          </div>
+
+          <div class="admin-section-title">نرخێن یۆرۆ (EUR) بەرامبەر دۆلاری</div>
+          <div class="form-grid">
+            <div class="form-group"><label>کڕینا کۆمپانیێ (Buy EUR)</label><input type="number" step="0.0001" id="admEurBuy" /></div>
+            <div class="form-group"><label>فڕۆتنا کۆمپانیێ (Sell EUR)</label><input type="number" step="0.0001" id="admEurSell" /></div>
+          </div>
+
+          <div class="admin-section-title">نرخێن دۆلار بەرامبەر دیناری (IQD)</div>
+          <div class="form-grid">
+            <div class="form-group"><label>کڕینا کۆمپانیێ 1$ (Buy USD)</label><input type="number" id="admIqdBuy" /></div>
+            <div class="form-group"><label>فڕۆتنا کۆمپانیێ 1$ (Sell USD)</label><input type="number" id="admIqdSell" /></div>
+          </div>
+
+          <div class="admin-section-title">نرخێن دۆلار بەرامبەر لیرەی (TRY)</div>
+          <div class="form-grid">
+            <div class="form-group"><label>کڕینا کۆمپانیێ 1$ (Buy USD)</label><input type="number" step="0.01" id="admTryBuy" /></div>
+            <div class="form-group"><label>فڕۆتنا کۆمپانیێ 1$ (Sell USD)</label><input type="number" step="0.01" id="admTrySell" /></div>
+          </div>
+
+          <button class="btn-save-admin" onclick="window.saveAdminChanges()">خەزنکرنا گوهۆڕینان</button>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- End of #mainAppWrapper -->
 
   <div class="toast" id="toastBox">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
     <span id="toastMsg"></span>
   </div>
 
-  <!-- FIREBASE MODULE, LIVE WEBSOCKET STREAM & 3D JS LOGIC -->
+  <!-- FIREBASE MODULE, HIGH-SECURITY AUTH & 3D JS LOGIC -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
     import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
-    // --- LOAD TRADINGVIEW TICKER CLEANLY WITHOUT VS-CODE SYNTAX ERRORS ---
+    // --- SECURE AUTHENTICATION ENGINE ---
+    const SECURE_SALT = "9818HSKDFGbbbgs0928707877383778278))((--0ssSS";
+    
+    function generateSecureSig(user, pass) {
+      let combined = user.trim().toLowerCase() + "::" + pass.trim().toLowerCase() + "::" + SECURE_SALT;
+      let hash = 0;
+      for (let i = 0; i < combined.length; i++) {
+        hash = ((hash << 5) - hash) + combined.charCodeAt(i);
+        hash |= 0;
+      }
+      return hash.toString(16);
+    }
+
+    const EXPECTED_AUTH_SIG = generateSecureSig("rashed", "rashed");
+
+    window.performSecureLogin = function() {
+      const u = (document.getElementById('loginUser').value || '').trim();
+      const p = (document.getElementById('loginPass').value || '').trim();
+
+      if (generateSecureSig(u, p) === EXPECTED_AUTH_SIG) {
+        sessionStorage.setItem('sarafe_auth_token', EXPECTED_AUTH_SIG);
+        document.getElementById('authOverlay').style.display = 'none';
+        document.getElementById('mainAppWrapper').style.display = 'block';
+        window.initAppCore();
+        window.showToast('ب خێرهاتی کاک ڕەشید! چوونەژوورێ سەرکەفتی بوو 🛡️');
+      } else {
+        window.showToast('ناڤێ بەکارهێنەری یان پاسۆرد خەلەتە!');
+        document.getElementById('loginPass').value = '';
+      }
+    };
+
+    window.performLogout = function() {
+      sessionStorage.removeItem('sarafe_auth_token');
+      location.reload();
+    };
+
+    // Check on startup
+    if (sessionStorage.getItem('sarafe_auth_token') === EXPECTED_AUTH_SIG) {
+      document.getElementById('authOverlay').style.display = 'none';
+      document.getElementById('mainAppWrapper').style.display = 'block';
+      setTimeout(() => window.initAppCore(), 100);
+    } else {
+      document.getElementById('authOverlay').style.display = 'flex';
+      document.getElementById('mainAppWrapper').style.display = 'none';
+    }
+
+    // --- LOAD TRADINGVIEW TICKER ---
     function mountTradingViewTicker() {
       const container = document.getElementById('tvTickerContainer');
       if (!container) return;
@@ -1155,11 +1007,8 @@
       });
       container.appendChild(tvScript);
     }
-    mountTradingViewTicker();
 
-    localStorage.removeItem('sarafe_sec_lock_until');
-    localStorage.removeItem('sarafe_sec_attempts');
-
+    // Anti-DevTools
     document.addEventListener('keydown', (e) => {
       if (
         e.key === 'F12' ||
@@ -1170,59 +1019,6 @@
         return false;
       }
     });
-
-    const SECURE_KEY_ARRAY = [157, 139, 156, 151, 139, 142, 106, 92, 90, 92, 96];
-    const MAX_LOGIN_ATTEMPTS = 5;
-    const LOCKOUT_DURATION_MS = 2 * 60 * 1000;
-    let sessionTimeoutTimer = null;
-
-    function verifyAdminPassword(rawInput) {
-      const cleaned = String(rawInput || '').trim();
-      if (!cleaned) return false;
-      const normalized = cleaned.charAt(0).toLowerCase() + cleaned.slice(1);
-      if (normalized.length !== SECURE_KEY_ARRAY.length) return false;
-      for (let i = 0; i < normalized.length; i++) {
-        if ((normalized.charCodeAt(i) + 42) !== SECURE_KEY_ARRAY[i]) {
-          return false;
-        }
-      }
-      return true;
-    }
-
-    function checkLockoutState() {
-      const lockUntil = parseInt(localStorage.getItem('sarafe_v2_lock_until') || '0', 10);
-      const now = Date.now();
-      const warningBox = document.getElementById('lockoutWarning');
-      const passInput = document.getElementById('adminPassInput');
-      const unlockBtn = document.getElementById('btnUnlockAdmin');
-
-      if (lockUntil > now) {
-        const remainingSec = Math.ceil((lockUntil - now) / 1000);
-        warningBox.style.display = 'block';
-        document.getElementById('lockoutTimer').textContent = remainingSec;
-        passInput.disabled = true;
-        unlockBtn.disabled = true;
-        return true;
-      } else {
-        warningBox.style.display = 'none';
-        passInput.disabled = false;
-        unlockBtn.disabled = false;
-        if (lockUntil !== 0) {
-          localStorage.removeItem('sarafe_v2_lock_until');
-          localStorage.setItem('sarafe_v2_attempts', '0');
-        }
-        return false;
-      }
-    }
-
-    setInterval(checkLockoutState, 1000);
-
-    function resetAdminInactivityTimer() {
-      clearTimeout(sessionTimeoutTimer);
-      sessionTimeoutTimer = setTimeout(() => {
-        sessionStorage.removeItem('adminUnlockedV2');
-      }, 10 * 60 * 1000);
-    }
 
     const firebaseConfig = {
       apiKey: "AIzaSyCrAoyCSmXylNvJZJRDJre1FIl7GTC5QYY",
@@ -1270,63 +1066,65 @@
       return (Number.isFinite(n) && Math.abs(n) < 1e13) ? n : fallback;
     }
 
-    // --- SLIDER < > BUTTONS & DRAG SCROLL LOGIC ---
-    const scrollContainer = document.getElementById('balanceScrollContainer');
-    
-    window.scrollBalances = function(dir) {
-      const scrollStep = 260;
-      scrollContainer.scrollBy({ left: dir === 'left' ? -scrollStep : scrollStep, behavior: 'smooth' });
-    };
+    window.initAppCore = function() {
+      mountTradingViewTicker();
+      const scrollContainer = document.getElementById('balanceScrollContainer');
+      
+      window.scrollBalances = function(dir) {
+        const scrollStep = 260;
+        scrollContainer.scrollBy({ left: dir === 'left' ? -scrollStep : scrollStep, behavior: 'smooth' });
+      };
 
-    let isDown = false;
-    let startX;
-    let scrollLeft;
+      let isDown = false;
+      let startX;
+      let scrollLeft;
 
-    scrollContainer.addEventListener('mousedown', (e) => {
-      isDown = true;
-      startX = e.pageX - scrollContainer.offsetLeft;
-      scrollLeft = scrollContainer.scrollLeft;
-      scrollContainer.style.scrollBehavior = 'auto';
-    });
-    scrollContainer.addEventListener('mouseleave', () => { isDown = false; scrollContainer.style.scrollBehavior = 'smooth'; });
-    scrollContainer.addEventListener('mouseup', () => { isDown = false; scrollContainer.style.scrollBehavior = 'smooth'; });
-    scrollContainer.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - scrollContainer.offsetLeft;
-      scrollContainer.scrollLeft = scrollLeft - (x - startX) * 1.8;
-    });
-
-    scrollContainer.addEventListener('wheel', (e) => {
-      if (e.deltaY !== 0) {
+      scrollContainer.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.pageX - scrollContainer.offsetLeft;
+        scrollLeft = scrollContainer.scrollLeft;
+        scrollContainer.style.scrollBehavior = 'auto';
+      });
+      scrollContainer.addEventListener('mouseleave', () => { isDown = false; scrollContainer.style.scrollBehavior = 'smooth'; });
+      scrollContainer.addEventListener('mouseup', () => { isDown = false; scrollContainer.style.scrollBehavior = 'smooth'; });
+      scrollContainer.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
         e.preventDefault();
-        scrollContainer.scrollBy({ left: e.deltaY < 0 ? 200 : -200, behavior: 'smooth' });
-      }
-    }, { passive: false });
+        const x = e.pageX - scrollContainer.offsetLeft;
+        scrollContainer.scrollLeft = scrollLeft - (x - startX) * 1.8;
+      });
 
-    // --- FIREBASE SYNC ---
-    onValue(dbRef, (snapshot) => {
-      if (snapshot.exists()) {
-        const incoming = snapshot.val();
-        if (incoming && typeof incoming === 'object') {
-          state = incoming;
-          if(!state.rates) state.rates = defaultState.rates;
-          if(!state.balances) state.balances = defaultState.balances;
-          if(state.autoMarket === undefined) state.autoMarket = false;
-          if(state.totalProfitUsd === undefined) state.totalProfitUsd = 0;
-          if(!Array.isArray(state.history)) state.history = [];
+      scrollContainer.addEventListener('wheel', (e) => {
+        if (e.deltaY !== 0) {
+          e.preventDefault();
+          scrollContainer.scrollBy({ left: e.deltaY < 0 ? 200 : -200, behavior: 'smooth' });
         }
-      } else { set(dbRef, state); }
+      }, { passive: false });
 
-      if (!isDbLoaded) {
-        isDbLoaded = true;
-        document.getElementById('loadingOverlay').style.opacity = '0';
-        setTimeout(() => document.getElementById('loadingOverlay').style.display = 'none', 500);
-        window.updateConvertUI();
-        window.initLiveMarketStreams();
-      }
-      window.updateUI(); 
-    });
+      // Firebase Listen
+      onValue(dbRef, (snapshot) => {
+        if (snapshot.exists()) {
+          const incoming = snapshot.val();
+          if (incoming && typeof incoming === 'object') {
+            state = incoming;
+            if(!state.rates) state.rates = defaultState.rates;
+            if(!state.balances) state.balances = defaultState.balances;
+            if(state.autoMarket === undefined) state.autoMarket = false;
+            if(state.totalProfitUsd === undefined) state.totalProfitUsd = 0;
+            if(!Array.isArray(state.history)) state.history = [];
+          }
+        } else { set(dbRef, state); }
+
+        if (!isDbLoaded) {
+          isDbLoaded = true;
+          document.getElementById('loadingOverlay').style.opacity = '0';
+          setTimeout(() => document.getElementById('loadingOverlay').style.display = 'none', 500);
+          window.updateConvertUI();
+          window.initLiveMarketStreams();
+        }
+        window.updateUI(); 
+      });
+    };
 
     window.saveState = function() { set(dbRef, state); }
 
@@ -1360,13 +1158,8 @@
       return recAmount;
     }
 
-    // --- REAL-TIME WEBSOCKET & LIVE MARKET ENGINE ---
-    const livePrices = {
-      eur: 1.1348,
-      xau: 2645.50,
-      xag: 31.85,
-      try: 34.28
-    };
+    // LIVE WEBSOCKET
+    const livePrices = { eur: 1.1348, xau: 2645.50, xag: 31.85, try: 34.28 };
 
     function flashPillUI(key, newPrice, decimals, pctChange) {
       const pill = document.getElementById(`pill-${key}`);
@@ -1421,9 +1214,7 @@
             }
           }
         };
-      } catch (e) {
-        console.warn('WebSocket fallback active', e);
-      }
+      } catch (e) { console.warn(e); }
 
       setInterval(() => {
         const delta = (Math.random() - 0.495) * 0.015;
@@ -1451,7 +1242,7 @@
             window.saveState();
           }
         }
-      } catch (err) { console.error('Market sync failed', err); }
+      } catch (err) { console.error(err); }
     }
 
     window.updateUI = function() {
@@ -1569,7 +1360,7 @@
       window.showToast(`سەرکەفتیانە! وەصل #${String(newOrder.id).slice(-6)} هاتە تۆمارکرن`);
     }
 
-    // --- RECEIPT FUNCTIONS ---
+    // RECEIPT
     window.openReceipt = function(id) {
       const order = (state.history || []).find(item => item.id === id);
       if (!order) return;
@@ -1598,20 +1389,15 @@
       document.getElementById('receiptModal').classList.add('show');
     };
 
-    window.closeReceiptModal = function() {
-      document.getElementById('receiptModal').classList.remove('show');
-    };
-
-    window.printReceipt = function() {
-      window.print();
-    };
+    window.closeReceiptModal = function() { document.getElementById('receiptModal').classList.remove('show'); };
+    window.printReceipt = function() { window.print(); };
 
     window.deleteOrder = function(id) {
       state.history = state.history.filter(item => item.id !== id);
       window.saveState(); window.showToast('صەفقە هاتە ژێبرن');
     }
 
-    // --- SEARCH & PAGINATION LOGIC (10 PER PAGE) ---
+    // SEARCH & PAGINATION
     function getFilteredHistory() {
       const list = state.history || [];
       if (!receiptSearchQuery) return list;
@@ -1640,17 +1426,11 @@
 
     window.openFirstMatchedReceipt = function() {
       const filtered = getFilteredHistory();
-      if (filtered.length > 0) {
-        window.openReceipt(Number(filtered[0].id));
-      } else {
-        window.showToast('چ وەصل ب ڤێ ژمارێ نەهاتنە دیتن!');
-      }
+      if (filtered.length > 0) window.openReceipt(Number(filtered[0].id));
+      else window.showToast('چ وەصل ب ڤێ ژمارێ نەهاتنە دیتن!');
     };
 
-    window.goToHistoryPage = function(page) {
-      currentHistoryPage = page;
-      window.renderHistory();
-    };
+    window.goToHistoryPage = function(page) { currentHistoryPage = page; window.renderHistory(); };
 
     window.renderHistory = function() {
       const tbody = document.getElementById('historyBody');
@@ -1658,9 +1438,7 @@
       const filtered = getFilteredHistory();
 
       if (filtered.length === 0) {
-        const emptyMsg = receiptSearchQuery 
-          ? `چ وەصل ب ژمارا "${receiptSearchQuery}" نەهاتنە دیتن`
-          : `چ صەفقە نەهاتینە کرن`;
+        const emptyMsg = receiptSearchQuery ? `چ وەصل ب ژمارا "${receiptSearchQuery}" نەهاتنە دیتن` : `چ صەفقە نەهاتینە کرن`;
         tbody.innerHTML = `<tr><td colspan="6" style="padding: 25px; color: var(--text-muted); text-align:center;">${emptyMsg}</td></tr>`;
         pagBox.innerHTML = '';
         return;
@@ -1697,42 +1475,23 @@
       if (totalPages <= 1) {
         pagBox.innerHTML = '';
       } else {
-        let btnsHtml = `
-          <button class="page-btn" ${currentHistoryPage === 1 ? 'disabled' : ''} onclick="window.goToHistoryPage(${currentHistoryPage - 1})">&#10094;</button>
-        `;
+        let btnsHtml = `<button class="page-btn" ${currentHistoryPage === 1 ? 'disabled' : ''} onclick="window.goToHistoryPage(${currentHistoryPage - 1})">&#10094;</button>`;
         for (let p = 1; p <= totalPages; p++) {
-          btnsHtml += `
-            <button class="page-btn ${p === currentHistoryPage ? 'active' : ''}" onclick="window.goToHistoryPage(${p})">${p}</button>
-          `;
+          btnsHtml += `<button class="page-btn ${p === currentHistoryPage ? 'active' : ''}" onclick="window.goToHistoryPage(${p})">${p}</button>`;
         }
-        btnsHtml += `
-          <button class="page-btn" ${currentHistoryPage === totalPages ? 'disabled' : ''} onclick="window.goToHistoryPage(${currentHistoryPage + 1})">&#10095;</button>
-        `;
+        btnsHtml += `<button class="page-btn" ${currentHistoryPage === totalPages ? 'disabled' : ''} onclick="window.goToHistoryPage(${currentHistoryPage + 1})">&#10095;</button>`;
         pagBox.innerHTML = btnsHtml;
       }
     }
 
-    // --- SECURE ADMIN AUTHENTICATION ---
+    // ADMIN MODAL
     window.openAdminModal = function() {
       document.getElementById('adminModal').classList.add('show');
-      checkLockoutState();
-
-      if (sessionStorage.getItem('adminUnlockedV2') === 'VERIFIED_ADMIN') {
-        window.populateAdminPanel();
-      } else {
-        document.getElementById('passwordSection').style.display = 'block';
-        document.getElementById('adminControlsSection').style.display = 'none';
-        document.getElementById('adminPassInput').value = '';
-        setTimeout(() => document.getElementById('adminPassInput').focus(), 100);
-      }
+      window.populateAdminPanel();
     }
     window.closeAdminModal = function() { document.getElementById('adminModal').classList.remove('show'); }
 
     window.populateAdminPanel = function() {
-      resetAdminInactivityTimer();
-      document.getElementById('passwordSection').style.display = 'none';
-      document.getElementById('adminControlsSection').style.display = 'block';
-      
       document.getElementById('admAutoSync').checked = state.autoMarket;
       window.toggleAutoSyncUI();
       
@@ -1752,31 +1511,6 @@
       document.getElementById('admIqdSell').value = cleanNum(state.rates.iqd.sell, 1);
     };
 
-    window.unlockAdmin = function(passProvided) {
-      if (checkLockoutState()) return;
-
-      if (verifyAdminPassword(passProvided)) {
-        localStorage.setItem('sarafe_v2_attempts', '0');
-        localStorage.removeItem('sarafe_v2_lock_until');
-        sessionStorage.setItem('adminUnlockedV2', 'VERIFIED_ADMIN');
-        window.populateAdminPanel();
-        window.showToast('🛡️ قوفلا ئەدمینی ب سەرکەفتیانە ڤەبوو');
-      } else {
-        let attempts = parseInt(localStorage.getItem('sarafe_v2_attempts') || '0', 10) + 1;
-        localStorage.setItem('sarafe_v2_attempts', String(attempts));
-        document.getElementById('adminPassInput').value = '';
-
-        if (attempts >= MAX_LOGIN_ATTEMPTS) {
-          localStorage.setItem('sarafe_v2_lock_until', String(Date.now() + LOCKOUT_DURATION_MS));
-          checkLockoutState();
-          window.showToast('🚫 سیستەم بۆ ماوەیێ ٢ خولەکان هاتە قوفلکرن!');
-        } else {
-          const left = MAX_LOGIN_ATTEMPTS - attempts;
-          window.showToast(`پاسۆرد خەلەتە! (${left} هەوڵ ماینە)`);
-        }
-      }
-    }
-
     window.toggleAutoSyncUI = function() {
       const isAuto = document.getElementById('admAutoSync').checked;
       document.getElementById('admEurBuy').disabled = isAuto; document.getElementById('admEurSell').disabled = isAuto;
@@ -1784,11 +1518,6 @@
     }
 
     window.saveAdminChanges = function() {
-      if (sessionStorage.getItem('adminUnlockedV2') !== 'VERIFIED_ADMIN') {
-        return window.showToast('🚫 دەستوور نینە!');
-      }
-      resetAdminInactivityTimer();
-
       state.autoMarket = document.getElementById('admAutoSync').checked;
       state.balances.usd = cleanNum(document.getElementById('admBalUsd').value, 0); 
       state.balances.eur = cleanNum(document.getElementById('admBalEur').value, 0);
@@ -1818,26 +1547,6 @@
       const c = document.getElementById('liveClock');
       if(c) c.textContent = new Date().toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
     }, 1000);
-
-    // --- 3D MOUSE TILT EFFECT FOR CARDS ---
-    if (window.matchMedia("(min-width: 768px)").matches) {
-      const cards = document.querySelectorAll('.magic-card');
-      cards.forEach(card => {
-        card.addEventListener('mousemove', e => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          const rotateX = ((y - centerY) / centerY) * -8; 
-          const rotateY = ((x - centerX) / centerX) * 8;
-          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-        });
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
-        });
-      });
-    }
   </script>
 </body>
 </html>
