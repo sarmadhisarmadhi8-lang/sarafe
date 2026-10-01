@@ -7,7 +7,7 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <title>صەڕافی ڕەشید PRO | Secure Edition</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Outfit:wght@400;500;700;800&family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -213,16 +213,6 @@
 
     .container { max-width: 1080px; margin: 0 auto; padding: 25px 16px; }
 
-    /* QUICK ACTIONS */
-    .quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 15px; margin-bottom: 30px; }
-    .quick-card { border-radius: 18px; padding: 3px; cursor: pointer; text-align: center; animation: floatWave 4s ease-in-out infinite; }
-    .quick-card:nth-child(1) { animation-delay: 0.0s; } .quick-card:nth-child(2) { animation-delay: 0.2s; } .quick-card:nth-child(3) { animation-delay: 0.4s; } .quick-card:nth-child(4) { animation-delay: 0.6s; }
-    .quick-card .magic-card-inner { background: #ffffff; transition: 0.3s; border-radius: 15px; }
-    .quick-card:hover .magic-card-inner { background: #f0f7ff; }
-    .quick-card svg { width: 30px; height: 30px; }
-    .quick-card span { font-size: 0.95rem; font-weight: 800; color: #334155; transition: 0.3s;}
-    .quick-card:hover span { color: var(--neon-blue); }
-
     /* BALANCES SLIDER */
     .balance-slider-wrapper { position: relative; display: flex; align-items: center; margin-bottom: 25px; }
     .slider-arrow { position: absolute; top: 45%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; background: #ffffff; border: 2px solid var(--neon-blue); color: var(--neon-blue); font-family: 'Outfit', sans-serif !important; font-size: 1.6rem; font-weight: 800; cursor: pointer; z-index: 30; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(0, 102, 255, 0.2); user-select: none; }
@@ -237,7 +227,6 @@
     
     .balance-card { min-width: 215px; text-align: center; animation: floatWave 5s ease-in-out infinite; }
     .balance-card .magic-card-inner { padding: 25px 30px; background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); }
-    .balance-card:nth-child(1) { animation-delay: 0.0s; } .balance-card:nth-child(2) { animation-delay: 0.15s; } .balance-card:nth-child(3) { animation-delay: 0.3s; } .balance-card:nth-child(4) { animation-delay: 0.45s; } .balance-card:nth-child(5) { animation-delay: 0.6s; } .balance-card:nth-child(6) { animation-delay: 0.75s; }
     .balance-value-row { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px; direction: ltr; }
     .balance-val-text { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 800; color: #0f172a; }
     .balance-label { font-size: 0.95rem; color: #475569; font-weight: 800; text-transform: uppercase; letter-spacing: 1px !important; }
@@ -320,9 +309,73 @@
     .modal-title { font-size: 1.5rem; font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 18px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; color: #0f172a; }
     .admin-section-title { color: var(--neon-blue); font-size: 1rem; font-weight: 800; margin: 30px 0 15px; text-transform: uppercase; letter-spacing: 1px !important; border-bottom: 1px dashed #cbd5e1; padding-bottom: 8px;}
     
+    /* BALANCES GRID IN ADMIN (1 COLUMN ON MOBILE FOR PERFECT WIDTH) */
+    .balances-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    
+    @media (max-width: 600px) {
+      .balances-form-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+    
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-    .form-group label { display: block; font-size: 0.9rem; color: #475569; margin-bottom: 8px; font-weight: 700;}
-    .form-group input { width: 100%; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 14px; color: #0f172a; font-weight: 800; direction: ltr; font-family: 'Outfit'; font-size: 1.15rem; transition: 0.3s;}
+    .form-group label { display: block; font-size: 0.95rem; color: #334155; margin-bottom: 8px; font-weight: 800;}
+    
+    .input-with-calc {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+    
+    .calc-btn {
+      background: #f1f5f9;
+      color: #0f172a;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      width: 48px;
+      height: 48px;
+      font-size: 1.4rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    
+    .calc-btn:hover {
+      background: var(--neon-blue);
+      color: #fff;
+      border-color: var(--neon-blue);
+    }
+    
+    .calc-btn.minus:hover {
+      background: var(--neon-red);
+      border-color: var(--neon-red);
+    }
+    
+    .form-group input { 
+      flex: 1; 
+      min-width: 0;
+      width: 100%; 
+      background: #f8fafc; 
+      border: 1.5px solid #cbd5e1; 
+      border-radius: 12px; 
+      padding: 12px 14px; 
+      color: #0f172a; 
+      font-weight: 800; 
+      direction: ltr; 
+      font-family: 'Outfit'; 
+      font-size: 1.25rem; 
+      transition: 0.3s; 
+      text-align: center;
+    }
     .form-group input:focus { border-color: var(--neon-blue); background: #fff; box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.15); outline: none; }
     .form-group input:disabled { opacity: 0.4; cursor: not-allowed; }
     
@@ -389,6 +442,7 @@
       .slider-arrow.left-arrow { left: 0px; width: 38px; height: 38px; font-size: 1.2rem; }
       .balance-scroll-container { padding: 10px 20px 20px 20px; }
       .history-search-wrap { min-width: 100%; max-width: 100%; }
+      .calc-btn { width: 44px; height: 46px; font-size: 1.3rem; }
     }
   </style>
 </head>
@@ -424,24 +478,23 @@
     </div>
   </div>
 
-  <!-- MAIN APP WRAPPER (APPEARS ONLY AFTER LOGIN) -->
+  <!-- MAIN APP WRAPPER -->
   <div id="mainAppWrapper">
 
-    <!-- Loading Screen -->
     <div id="loadingOverlay">
       <div class="spinner"></div>
       <h3 style="font-weight: 800; letter-spacing: 1px;">صەڕافی ڕەشید PRO</h3>
       <p style="color: var(--text-gray); font-size: 0.9rem; margin-top: 10px;">گرێدان ب بۆرسا عالەمی و داتابەیسێ ڤە...</p>
     </div>
 
-    <!-- 1. OFFICIAL TRADINGVIEW REAL-TIME TICKER TAPE (بۆرسا جیهانی) -->
+    <!-- 1. OFFICIAL TRADINGVIEW REAL-TIME TICKER TAPE -->
     <div class="tv-Header-Wrap">
       <div class="tradingview-widget-container" id="tvTickerContainer">
         <div class="tradingview-widget-container__widget"></div>
       </div>
     </div>
 
-    <!-- 2. OUR OFFICE CUSTOM RATES & AYAR BAR (نرخێن مە - کڕین و فرۆشتن و عەیار) -->
+    <!-- 2. OUR OFFICE CUSTOM RATES & AYAR BAR -->
     <div class="live-stream-bar">
       <div class="stream-items-group">
         <div class="live-status-dot" onclick="window.openAdminModal()" title="کلیک بکە بۆ گۆڕینی عەیار و نرخەکانی کڕین و فرۆشتن">
@@ -449,7 +502,6 @@
           <span>نرخێن مە (کڕین / فڕۆتن)</span>
         </div>
 
-        <!-- EUR / USD Office Rate & Ayar -->
         <div class="office-rate-pill">
           <span class="sym-title">🇪🇺 یۆرۆ (EUR/USD):</span>
           <div class="rate-pair">
@@ -459,7 +511,6 @@
           <span class="ayar-badge" id="ayar-eur">عەیار: +0.0010</span>
         </div>
 
-        <!-- USD / IQD Office Rate & Ayar -->
         <div class="office-rate-pill">
           <span class="sym-title">🇮🇶 دینار (1$ IQD):</span>
           <div class="rate-pair">
@@ -469,7 +520,6 @@
           <span class="ayar-badge" id="ayar-iqd">عەیار: +200</span>
         </div>
 
-        <!-- USD / TRY Office Rate & Ayar -->
         <div class="office-rate-pill">
           <span class="sym-title">🇹🇷 لیرەی تورکی (1$ TRY):</span>
           <div class="rate-pair">
@@ -479,7 +529,6 @@
           <span class="ayar-badge" id="ayar-try">عەیار: +0.05</span>
         </div>
 
-        <!-- USD Base Reference (100$) -->
         <div class="office-rate-pill">
           <span class="sym-title">🇺🇸 دۆلار (100$):</span>
           <div class="rate-pair">
@@ -513,21 +562,13 @@
     </header>
 
     <main class="container">
-
-      <div class="quick-grid">
-        <div class="magic-card quick-card" onclick="window.showToast('حیسابا من')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-red)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>حیسابا من</span></div></div>
-        <div class="magic-card quick-card" onclick="window.showToast('ئیعتمادا نوو')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>ئیعتمادا نوو</span></div></div>
-        <div class="magic-card quick-card active"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px; background:#f0f7ff;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-blue)" stroke-width="2.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg><span style="color:var(--neon-blue);">گوهۆڕین</span></div></div>
-        <div class="magic-card quick-card" onclick="window.showToast('سیستەم ب تەمامی یێ پاراستیە دژی هاککرنێ 🛡️')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>پشتڕاستکرن</span></div></div>
-      </div>
       
-      <!-- Balances Slider with < > Buttons -->
+      <!-- Balances Slider -->
       <div class="balance-slider-wrapper">
         <button class="slider-arrow right-arrow" onclick="window.scrollBalances('right')" title="لایێ ڕاستێ">&#10094;</button>
         
         <div class="balance-scroll-container" id="balanceScrollContainer">
           <div class="balance-grid">
-            <!-- PROFIT CARD -->
             <div class="magic-card balance-card profit-card">
               <div class="magic-card-inner">
                 <div class="balance-value-row">
@@ -547,6 +588,7 @@
                 <div class="balance-label">مێزانا گشتی</div>
               </div>
             </div>
+            
             <div class="magic-card balance-card">
               <div class="magic-card-inner">
                 <div class="balance-value-row">
@@ -556,6 +598,7 @@
                 <div class="balance-label">دۆلار (USD)</div>
               </div>
             </div>
+            
             <div class="magic-card balance-card">
               <div class="magic-card-inner">
                 <div class="balance-value-row">
@@ -565,6 +608,7 @@
                 <div class="balance-label">یۆرۆ (EUR)</div>
               </div>
             </div>
+            
             <div class="magic-card balance-card">
               <div class="magic-card-inner">
                 <div class="balance-value-row">
@@ -574,6 +618,7 @@
                 <div class="balance-label">دینار (IQD)</div>
               </div>
             </div>
+            
             <div class="magic-card balance-card">
               <div class="magic-card-inner">
                 <div class="balance-value-row">
@@ -589,7 +634,7 @@
         <button class="slider-arrow left-arrow" onclick="window.scrollBalances('left')" title="لایێ چەپێ">&#10095;</button>
       </div>
 
-      <!-- PRO Conversion Panel -->
+      <!-- EXCHANGE PANEL -->
       <div class="magic-card panel-card">
         <div class="magic-card-inner">
           <div class="panel-header">گوهۆڕینا ڕاستەوخۆ (Exchange)</div>
@@ -647,7 +692,7 @@
         </div>
       </div>
 
-      <!-- History with Clean Search & 10-per-page Pagination -->
+      <!-- History -->
       <div class="magic-card panel-card reverse-glow">
         <div class="magic-card-inner">
           <div class="panel-header">
@@ -761,12 +806,51 @@
           </div>
 
           <div class="admin-section-title">باڵانسێن حیسابێ و قازانج</div>
-          <div class="form-grid">
-            <div class="form-group"><label>USD ($)</label><input type="number" step="0.01" id="admBalUsd" /></div>
-            <div class="form-group"><label>EUR (€)</label><input type="number" step="0.01" id="admBalEur" /></div>
-            <div class="form-group"><label>IQD (دینار)</label><input type="number" id="admBalIqd" /></div>
-            <div class="form-group"><label>TRY (لیرە)</label><input type="number" step="0.01" id="admBalTry" /></div>
-            <div class="form-group" style="grid-column: span 2;"><label style="color:var(--neon-green)">قازانجا گشتی (Profit $)</label><input type="number" step="0.01" id="admBalProfit" /></div>
+          <div class="balances-form-grid">
+            <div class="form-group">
+              <label>USD ($ دۆلار)</label>
+              <div class="input-with-calc">
+                <button class="calc-btn minus" onclick="window.adjustBalance('usd', -1)" title="کەمکردن">-</button>
+                <input type="number" step="any" id="admBalUsd" oninput="window.saveAdminChanges(true)" />
+                <button class="calc-btn" onclick="window.adjustBalance('usd', 1)" title="زیادکردن">+</button>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>EUR (€ یۆرۆ)</label>
+              <div class="input-with-calc">
+                <button class="calc-btn minus" onclick="window.adjustBalance('eur', -1)" title="کەمکردن">-</button>
+                <input type="number" step="any" id="admBalEur" oninput="window.saveAdminChanges(true)" />
+                <button class="calc-btn" onclick="window.adjustBalance('eur', 1)" title="زیادکردن">+</button>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>IQD (دینارێ عێراقی)</label>
+              <div class="input-with-calc">
+                <button class="calc-btn minus" onclick="window.adjustBalance('iqd', -1)" title="کەمکردن">-</button>
+                <input type="number" step="any" id="admBalIqd" oninput="window.saveAdminChanges(true)" />
+                <button class="calc-btn" onclick="window.adjustBalance('iqd', 1)" title="زیادکردن">+</button>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>TRY (لیرەیێ تورکی)</label>
+              <div class="input-with-calc">
+                <button class="calc-btn minus" onclick="window.adjustBalance('try', -1)" title="کەمکردن">-</button>
+                <input type="number" step="any" id="admBalTry" oninput="window.saveAdminChanges(true)" />
+                <button class="calc-btn" onclick="window.adjustBalance('try', 1)" title="زیادکردن">+</button>
+              </div>
+            </div>
+            
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label style="color:var(--neon-green)">قازانجا گشتی (Profit $)</label>
+              <div class="input-with-calc">
+                <button class="calc-btn minus" onclick="window.adjustBalance('profit', -1)" title="کەمکردن">-</button>
+                <input type="number" step="any" id="admBalProfit" oninput="window.saveAdminChanges(true)" />
+                <button class="calc-btn" onclick="window.adjustBalance('profit', 1)" title="زیادکردن">+</button>
+              </div>
+            </div>
           </div>
 
           <div class="admin-section-title">نرخێن یۆرۆ (EUR) بەرامبەر دۆلاری</div>
@@ -799,7 +883,7 @@
             <div class="form-group"><label>عەیاری فرۆشتن (+/- لەسەر بۆرسە)</label><input type="number" step="0.01" id="offTrySell" placeholder="نموونە: +0.05" /></div>
           </div>
 
-          <button class="btn-save-admin" onclick="window.saveAdminChanges()">خەزنکرنا گوهۆڕینان</button>
+          <button class="btn-save-admin" onclick="window.saveAdminChanges(false)">خەزنکرنا گوهۆڕینان</button>
         </div>
       </div>
     </div>
@@ -811,7 +895,6 @@
     <span id="toastMsg"></span>
   </div>
 
-  <!-- FIREBASE MODULE, HIGH-SECURITY AUTH & 3D JS LOGIC -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
     import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
@@ -957,7 +1040,7 @@
 
     function formatSignedOffset(val, decimals) {
       const n = cleanNum(val, 0);
-      const sign = n >= 0 ? '+' : '';
+      const sign = n > 0 ? '+' : '';
       return `${sign}${n.toFixed(decimals)}`;
     }
 
@@ -1225,13 +1308,14 @@
 
       if (payAmt <= 0 || recAmt <= 0) return window.showToast('تکایە بڕێکی دروست بنووسە');
 
-      const officeGivesUsdValue = payAmt * window.getUsdValueMid(payC);
-      const officeReceivesUsdValue = recAmt * window.getUsdValueMid(recC);
+      state.balances[payC] = cleanNum(state.balances[payC]) + payAmt;
+      state.balances[recC] = cleanNum(state.balances[recC]) - recAmt;
+
+      const officeGivesUsdValue = recAmt * window.getUsdValueMid(recC);
+      const officeReceivesUsdValue = payAmt * window.getUsdValueMid(payC);
       const tradeProfit = officeReceivesUsdValue - officeGivesUsdValue;
       
       state.totalProfitUsd = cleanNum(state.totalProfitUsd) + tradeProfit;
-      state.balances[payC] = cleanNum(state.balances[payC]) - payAmt;
-      state.balances[recC] = cleanNum(state.balances[recC]) + recAmt;
 
       const now = new Date();
       const dateStr = now.toLocaleDateString('en-GB');
@@ -1244,14 +1328,16 @@
         paid: `${window.f(payAmt, payC)} ${payC.toUpperCase()}`, 
         received: `${window.f(recAmt, recC)} ${recC.toUpperCase()}`, 
         rate: rateStr, 
-        date: dateStr,
+        date: dateStr, 
         time: timeStr 
       };
       state.history.unshift(newOrder);
       currentHistoryPage = 1;
 
       document.getElementById('payInput').value = ''; document.getElementById('receiveInput').value = '';
+      
       window.saveState(); 
+      window.updateUI();
       window.showToast(`سەرکەوتوو بوو! وەسڵی #${String(newOrder.id).slice(-6)} تۆمار کرا`);
     }
 
@@ -1353,8 +1439,8 @@
         return `
           <tr onclick="window.openReceipt(${safeId})" title="کلیک بکە بۆ بینین و چاپکردنی وەسڵ">
             <td><span class="receipt-id-pill">#${recShortNo}</span></td>
-            <td class="td-pay">- ${o.paid}</td>
-            <td class="td-rec">+ ${o.received}</td>
+            <td class="td-pay">+ ${o.paid}</td>
+            <td class="td-rec">- ${o.received}</td>
             <td style="direction:ltr; font-size:0.85rem; color:var(--text-gray)">${o.rate}</td>
             <td style="direction:ltr; font-size:0.85rem; color:var(--text-gray)">${dStr}</td>
             <td>
@@ -1379,23 +1465,50 @@
       }
     }
 
-    // ADMIN MODAL
+    // ADMIN MODAL & STEPPER
     window.openAdminModal = function() {
       document.getElementById('adminModal').classList.add('show');
       window.populateAdminPanel();
     }
     window.closeAdminModal = function() { document.getElementById('adminModal').classList.remove('show'); }
 
+    window.adjustBalance = function(currency, direction) {
+      let step = 1;
+      let elId = '';
+      
+      switch(currency) {
+        case 'usd': elId = 'admBalUsd'; step = 100; break;
+        case 'eur': elId = 'admBalEur'; step = 100; break;
+        case 'iqd': elId = 'admBalIqd'; step = 50000; break; 
+        case 'try': elId = 'admBalTry'; step = 1000; break;
+        case 'profit': elId = 'admBalProfit'; step = 50; break;
+      }
+
+      const el = document.getElementById(elId);
+      const currentVal = cleanNum(el.value, 0);
+      let newVal = currentVal + (step * direction);
+
+      if (currency === 'iqd') {
+        el.value = Math.round(newVal);
+      } else {
+        el.value = newVal.toFixed(2);
+      }
+      
+      window.saveAdminChanges(true);
+    }
+
     window.populateAdminPanel = function() {
       document.getElementById('admAutoSync').checked = state.autoMarket;
       window.toggleAutoSyncUI();
       
+      // Manual Balances
       document.getElementById('admBalUsd').value = cleanNum(state.balances.usd); 
       document.getElementById('admBalEur').value = cleanNum(state.balances.eur);
       document.getElementById('admBalIqd').value = cleanNum(state.balances.iqd); 
       document.getElementById('admBalTry').value = cleanNum(state.balances.try);
       document.getElementById('admBalProfit').value = cleanNum(state.totalProfitUsd);
       
+      // Manual Rates
       document.getElementById('admEurBuy').value = cleanNum(state.rates.eur.buy, 1); 
       document.getElementById('admEurSell').value = cleanNum(state.rates.eur.sell, 1);
       document.getElementById('admTryBuy').value = cleanNum(state.rates.try.buy, 1); 
@@ -1403,6 +1516,7 @@
       document.getElementById('admIqdBuy').value = cleanNum(state.rates.iqd.buy, 1);
       document.getElementById('admIqdSell').value = cleanNum(state.rates.iqd.sell, 1);
 
+      // Offsets
       document.getElementById('offEurBuy').value = cleanNum(state.offsets?.eur?.buy, -0.0010);
       document.getElementById('offEurSell').value = cleanNum(state.offsets?.eur?.sell, 0.0010);
       document.getElementById('offTryBuy').value = cleanNum(state.offsets?.try?.buy, -0.05);
@@ -1417,7 +1531,7 @@
       document.querySelectorAll('.auto-offsets').forEach(el => el.style.display = isAuto ? 'grid' : 'none');
     }
 
-    window.saveAdminChanges = function() {
+    window.saveAdminChanges = function(isSilent = false) {
       state.autoMarket = document.getElementById('admAutoSync').checked;
       
       state.balances.usd = cleanNum(document.getElementById('admBalUsd').value, 0); 
@@ -1443,7 +1557,13 @@
         state.rates.iqd.sell = cleanNum(document.getElementById('admIqdSell').value, 1);
       }
       
-      window.saveState(); window.closeAdminModal(); window.showToast('گۆڕانکارییەکان بە سەرکەوتوویی پاشەکەوت کران');
+      window.saveState(); 
+      window.updateUI();
+      
+      if (!isSilent) {
+        window.closeAdminModal(); 
+        window.showToast('گۆڕانکارییەکان بە سەرکەوتوویی پاشەکەوت کران');
+      }
       if (state.autoMarket) window.syncRealMarket();
     }
 
