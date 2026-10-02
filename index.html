@@ -7,7 +7,7 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <title>صەڕافی ڕەشید PRO | Secure Edition</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Outfit:wght@400;500;700;800&family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -54,81 +54,21 @@
       padding: 16px;
     }
 
-    .login-card {
-      width: 100%;
-      max-width: 380px;
-      background: #e2e8f0;
-      border-radius: 26px;
-      padding: 3px;
-      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .login-card::before {
-      content: ''; position: absolute;
-      width: 200%; height: 200%;
-      top: -50%; left: -50%;
-      background: conic-gradient(transparent, transparent, var(--neon-blue), #ffffff, var(--neon-red), transparent 30%);
-      animation: spin 4s linear infinite;
-      z-index: 1;
-    }
-
-    .login-card-inner {
-      background: #ffffff;
-      border-radius: 23px;
-      padding: 28px 24px;
-      position: relative;
-      z-index: 2;
-    }
-
+    .login-card { width: 100%; max-width: 380px; background: #e2e8f0; border-radius: 26px; padding: 3px; box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12); position: relative; overflow: hidden; }
+    .login-card::before { content: ''; position: absolute; width: 200%; height: 200%; top: -50%; left: -50%; background: conic-gradient(transparent, transparent, var(--neon-blue), #ffffff, var(--neon-red), transparent 30%); animation: spin 4s linear infinite; z-index: 1; }
+    .login-card-inner { background: #ffffff; border-radius: 23px; padding: 28px 24px; position: relative; z-index: 2; }
     .login-header { text-align: center; margin-bottom: 22px; }
-    .login-icon-box {
-      width: 58px; height: 58px;
-      background: linear-gradient(135deg, var(--neon-blue), var(--neon-red));
-      border-radius: 18px; display: inline-flex; align-items: center; justify-content: center;
-      box-shadow: 0 8px 20px rgba(0, 102, 255, 0.3); margin-bottom: 12px;
-    }
-
+    .login-icon-box { width: 58px; height: 58px; background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); border-radius: 18px; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(0, 102, 255, 0.3); margin-bottom: 12px; }
     .login-title { font-size: 1.55rem; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
     .login-subtitle { font-size: 0.85rem; color: var(--text-gray); font-weight: 700; }
-
     .login-field-group { margin-bottom: 16px; text-align: right; }
     .login-field-group label { display: block; font-size: 0.88rem; font-weight: 800; color: #334155; margin-bottom: 6px; }
-
-    .pass-input-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .login-input {
-      width: 100%; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 14px;
-      padding: 13px 42px 13px 16px; font-size: 1.05rem; font-weight: 800; color: #0f172a; outline: none;
-      direction: ltr; text-align: center; font-family: 'Outfit', sans-serif !important; transition: all 0.25s ease;
-    }
+    .pass-input-wrapper { position: relative; display: flex; align-items: center; }
+    .login-input { width: 100%; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 14px; padding: 13px 42px 13px 16px; font-size: 1.05rem; font-weight: 800; color: #0f172a; outline: none; direction: ltr; text-align: center; font-family: 'Outfit', sans-serif !important; transition: all 0.25s ease; }
     .login-input:focus { border-color: var(--neon-blue); background: #ffffff; box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.12); }
-
-    .toggle-pass-btn {
-      position: absolute;
-      right: 12px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      font-size: 1.15rem;
-      color: #64748b;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px;
-    }
+    .toggle-pass-btn { position: absolute; right: 12px; background: transparent; border: none; cursor: pointer; font-size: 1.15rem; color: #64748b; display: flex; align-items: center; justify-content: center; padding: 4px; }
     .toggle-pass-btn:hover { color: var(--neon-blue); }
-
-    .btn-login-submit {
-      width: 100%; background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); color: #fff;
-      border: none; padding: 15px; border-radius: 14px; font-size: 1.15rem; font-weight: 800;
-      cursor: pointer; box-shadow: 0 8px 25px rgba(0, 102, 255, 0.3); transition: all 0.25s ease; margin-top: 6px;
-    }
+    .btn-login-submit { width: 100%; background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); color: #fff; border: none; padding: 15px; border-radius: 14px; font-size: 1.15rem; font-weight: 800; cursor: pointer; box-shadow: 0 8px 25px rgba(0, 102, 255, 0.3); transition: all 0.25s ease; margin-top: 6px; }
     .btn-login-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255, 0, 60, 0.35); }
 
     /* --- MAIN APP WRAPPER --- */
@@ -138,80 +78,65 @@
     .tv-Header-Wrap { width: 100%; background: #0f172a; border-bottom: 2px solid rgba(0, 102, 255, 0.3); overflow: hidden; min-height: 46px; }
 
     /* --- OUR OFFICE CUSTOM RATES BAR --- */
-    .live-stream-bar {
-      background: #ffffff; border-bottom: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 20px; direction: rtl; overflow-x: auto; scrollbar-width: none; gap: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    }
+    .live-stream-bar { background: #ffffff; border-bottom: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; direction: rtl; overflow-x: auto; scrollbar-width: none; gap: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
     .live-stream-bar::-webkit-scrollbar { display: none; }
-
     .stream-items-group { display: flex; align-items: center; gap: 14px; min-width: max-content; }
-    
-    .office-rate-pill {
-      display: inline-flex; align-items: center; gap: 10px; background: #f8fafc; border: 1.5px solid #cbd5e1;
-      padding: 6px 14px; border-radius: 14px; font-size: 0.88rem; transition: all 0.25s ease;
-    }
-    .office-rate-pill:hover {
-      border-color: var(--neon-blue);
-      background: #f0f7ff;
-    }
-    .office-rate-pill .sym-title {
-      color: #0f172a; font-weight: 800; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px;
-    }
-    .office-rate-pill .rate-pair {
-      display: inline-flex; align-items: center; gap: 8px; direction: ltr; font-family: 'Outfit', monospace !important; font-weight: 800;
-    }
-    .rate-buy-tag {
-      color: var(--neon-green); background: rgba(0, 200, 83, 0.1); padding: 2px 8px; border-radius: 6px; font-size: 0.85rem;
-    }
-    .rate-sell-tag {
-      color: var(--neon-red); background: rgba(255, 0, 60, 0.1); padding: 2px 8px; border-radius: 6px; font-size: 0.85rem;
-    }
-    .ayar-badge {
-      background: #0f172a; color: #ffffff; font-family: 'Outfit', monospace !important;
-      font-size: 0.78rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; direction: ltr;
-    }
-    .ayar-badge.auto-on {
-      background: var(--neon-blue); color: #fff;
-    }
-
-    .live-status-dot {
-      display: inline-flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 800;
-      color: var(--neon-green); background: rgba(0, 200, 83, 0.12); border: 1.5px solid rgba(0, 200, 83, 0.35);
-      padding: 6px 14px; border-radius: 20px; white-space: nowrap; cursor: pointer;
-    }
+    .office-rate-pill { display: inline-flex; align-items: center; gap: 10px; background: #f8fafc; border: 1.5px solid #cbd5e1; padding: 6px 14px; border-radius: 14px; font-size: 0.88rem; transition: all 0.25s ease; }
+    .office-rate-pill:hover { border-color: var(--neon-blue); background: #f0f7ff; }
+    .office-rate-pill .sym-title { color: #0f172a; font-weight: 800; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px; }
+    .office-rate-pill .rate-pair { display: inline-flex; align-items: center; gap: 8px; direction: ltr; font-family: 'Outfit', monospace !important; font-weight: 800; }
+    .rate-buy-tag { color: var(--neon-green); background: rgba(0, 200, 83, 0.1); padding: 2px 8px; border-radius: 6px; font-size: 0.85rem; }
+    .rate-sell-tag { color: var(--neon-red); background: rgba(255, 0, 60, 0.1); padding: 2px 8px; border-radius: 6px; font-size: 0.85rem; }
+    .ayar-badge { background: #0f172a; color: #ffffff; font-family: 'Outfit', monospace !important; font-size: 0.78rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; direction: ltr; }
+    .ayar-badge.auto-on { background: var(--neon-blue); color: #fff; }
+    .live-status-dot { display: inline-flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 800; color: var(--neon-green); background: rgba(0, 200, 83, 0.12); border: 1.5px solid rgba(0, 200, 83, 0.35); padding: 6px 14px; border-radius: 20px; white-space: nowrap; cursor: pointer; }
     .pulse-circle { width: 9px; height: 9px; background: var(--neon-green); border-radius: 50%; animation: pulseAnim 1.2s infinite; }
-    @keyframes pulseAnim {
-      0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
-      70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(0, 200, 83, 0); }
-      100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0); }
-    }
+    @keyframes pulseAnim { 0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); } 70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(0, 200, 83, 0); } 100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0); } }
     .live-clock { color: var(--neon-blue); font-family: 'Outfit', monospace !important; font-weight: 800; font-size: 0.95rem; padding-right: 12px; border-right: 2px solid #e2e8f0; white-space: nowrap; direction: ltr; }
 
-    /* --- MAGIC ANIMATED NEON BORDERS ON WHITE --- */
-    .magic-card { position: relative; border-radius: 24px; padding: 3px; overflow: hidden; z-index: 1; box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08); background: #e2e8f0; }
-    .magic-card::before {
-      content: ''; position: absolute; width: 200%; height: 200%; top: -50%; left: -50%;
-      background: conic-gradient(transparent, transparent, var(--neon-blue), #ffffff, var(--neon-red), transparent 30%); animation: spin 4s linear infinite; z-index: -2;
-    }
-    .magic-card.reverse-glow::before {
-      background: conic-gradient(transparent, transparent, var(--neon-red), #ffffff, var(--neon-blue), transparent 30%); animation: spin 4s linear infinite reverse;
-    }
-    .magic-card-inner { background: #ffffff; border-radius: 21px; height: 100%; width: 100%; z-index: -1; }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-    @keyframes floatWave { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
-
-    /* NAVBAR */
+    /* --- SIDE MENU & NAVBAR --- */
     .navbar { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(20px); border-bottom: 1px solid #e2e8f0; padding: 15px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); }
     .brand { display: flex; align-items: center; gap: 12px; font-size: 1.6rem; font-weight: 800; color: #0f172a; cursor: pointer; user-select: none; }
     .brand:hover { color: var(--neon-blue); }
     .brand-icon { width: 45px; height: 45px; border-radius: 14px; background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0, 102, 255, 0.3); }
 
-    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .nav-actions { display: flex; align-items: center; gap: 14px; }
     .security-badge { display: flex; align-items: center; gap: 6px; background: rgba(0, 200, 83, 0.1); color: var(--neon-green); border: 1px solid rgba(0, 200, 83, 0.3); padding: 6px 14px; border-radius: 12px; font-size: 0.85rem; font-weight: 800; }
-    .btn-logout { background: rgba(255, 0, 60, 0.08); color: var(--neon-red); border: 1.5px solid rgba(255, 0, 60, 0.25); border-radius: 12px; padding: 6px 14px; font-size: 0.85rem; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: 0.2s; }
-    .btn-logout:hover { background: var(--neon-red); color: #fff; }
+    
+    .menu-btn { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 6px; color: #0f172a; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+    .menu-btn:hover { background: #f0f7ff; border-color: var(--neon-blue); color: var(--neon-blue); }
+
+    #sideMenuOverlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px); z-index: 99990; display: none; }
+    #sideMenu { position: fixed; top: 0; right: -300px; width: 280px; height: 100vh; background: #ffffff; z-index: 99999; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; }
+    #sideMenu.open { right: 0; }
+    .side-menu-header { padding: 22px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; }
+    .side-menu-header h3 { font-size: 1.25rem; font-weight: 800; color: #0f172a; }
+    .side-menu-header button { background: transparent; border: none; font-size: 1.6rem; color: #64748b; cursor: pointer; transition: 0.2s; }
+    .side-menu-header button:hover { color: var(--neon-red); }
+    .side-menu-links { display: flex; flex-direction: column; padding: 10px 0; }
+    .side-menu-links a { padding: 16px 24px; font-size: 1.1rem; font-weight: 800; color: #334155; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 12px; border-bottom: 1px dashed #e2e8f0; }
+    .side-menu-links a:hover { background: #f0f7ff; color: var(--neon-blue); padding-right: 32px; }
+
+    /* --- MAGIC ANIMATED NEON BORDERS ON WHITE --- */
+    .magic-card { position: relative; border-radius: 24px; padding: 3px; overflow: hidden; z-index: 1; box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08); background: #e2e8f0; }
+    .magic-card::before { content: ''; position: absolute; width: 200%; height: 200%; top: -50%; left: -50%; background: conic-gradient(transparent, transparent, var(--neon-blue), #ffffff, var(--neon-red), transparent 30%); animation: spin 4s linear infinite; z-index: -2; }
+    .magic-card.reverse-glow::before { background: conic-gradient(transparent, transparent, var(--neon-red), #ffffff, var(--neon-blue), transparent 30%); animation: spin 4s linear infinite reverse; }
+    .magic-card-inner { background: #ffffff; border-radius: 21px; height: 100%; width: 100%; z-index: -1; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    @keyframes floatWave { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
 
     .container { max-width: 1080px; margin: 0 auto; padding: 25px 16px; }
+
+    /* QUICK ACTIONS */
+    .quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 15px; margin-bottom: 30px; }
+    .quick-card { border-radius: 18px; padding: 3px; cursor: pointer; text-align: center; animation: floatWave 4s ease-in-out infinite; }
+    .quick-card:nth-child(1) { animation-delay: 0.0s; } .quick-card:nth-child(2) { animation-delay: 0.2s; } .quick-card:nth-child(3) { animation-delay: 0.4s; } .quick-card:nth-child(4) { animation-delay: 0.6s; }
+    .quick-card .magic-card-inner { background: #ffffff; transition: 0.3s; border-radius: 15px; }
+    .quick-card:hover .magic-card-inner { background: #f0f7ff; }
+    .quick-card svg { width: 30px; height: 30px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .quick-card:hover svg { transform: scale(1.2) translateZ(20px); }
+    .quick-card span { font-size: 0.95rem; font-weight: 800; color: #334155; transition: 0.3s;}
+    .quick-card:hover span { color: var(--neon-blue); }
 
     /* BALANCES SLIDER */
     .balance-slider-wrapper { position: relative; display: flex; align-items: center; margin-bottom: 25px; }
@@ -300,89 +225,37 @@
     .del-btn { background: rgba(255, 0, 60, 0.08); color: var(--neon-red); border: 1px solid rgba(255, 0, 60, 0.25); border-radius: 10px; padding: 8px 14px; cursor: pointer; transition: 0.3s; font-weight: 800;}
     .del-btn:hover { background: var(--neon-red); border-color: var(--neon-red); color: #fff; box-shadow: 0 5px 15px rgba(255,0,60,0.3); transform: scale(1.05); }
 
-    /* ADMIN MODAL */
+    /* ADMIN & REPORT MODAL */
     .modal-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 999; padding: 15px; }
     .modal-backdrop.show { display: flex; }
-    
     .modal-card { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 24px; width: 100%; max-width: 750px; padding: 35px; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 60px rgba(0,0,0,0.2); position: relative; color: #0f172a; }
-    
     .modal-title { font-size: 1.5rem; font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 18px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; color: #0f172a; }
+    
+    /* REPORT GRID */
+    .report-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+    @media(min-width: 600px) { .report-grid { grid-template-columns: 1fr 1fr 1fr; } }
+    .report-box { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 16px; padding: 24px 20px; text-align: center; }
+    .report-box h4 { font-size: 1.1rem; color: #475569; margin-bottom: 12px; font-weight: 800; }
+    .report-val { font-size: 2rem; font-weight: 900; color: var(--neon-green); font-family: 'Outfit', sans-serif !important; direction: ltr; }
+    .report-val.negative { color: var(--neon-red); }
+
     .admin-section-title { color: var(--neon-blue); font-size: 1rem; font-weight: 800; margin: 30px 0 15px; text-transform: uppercase; letter-spacing: 1px !important; border-bottom: 1px dashed #cbd5e1; padding-bottom: 8px;}
     
-    /* BALANCES GRID IN ADMIN (1 COLUMN ON MOBILE FOR PERFECT WIDTH) */
-    .balances-form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-    
-    @media (max-width: 600px) {
-      .balances-form-grid {
-        grid-template-columns: 1fr !important;
-      }
-    }
-    
+    .balances-form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    @media (max-width: 600px) { .balances-form-grid { grid-template-columns: 1fr !important; } }
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
     .form-group label { display: block; font-size: 0.95rem; color: #334155; margin-bottom: 8px; font-weight: 800;}
+    .input-with-calc { display: flex; align-items: center; gap: 6px; width: 100%; }
+    .calc-btn { background: #f1f5f9; color: #0f172a; border: 1.5px solid #cbd5e1; border-radius: 12px; width: 48px; height: 48px; font-size: 1.4rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; flex-shrink: 0; }
+    .calc-btn:hover { background: var(--neon-blue); color: #fff; border-color: var(--neon-blue); }
+    .calc-btn.minus:hover { background: var(--neon-red); border-color: var(--neon-red); }
     
-    .input-with-calc {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-    }
-    
-    .calc-btn {
-      background: #f1f5f9;
-      color: #0f172a;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 12px;
-      width: 48px;
-      height: 48px;
-      font-size: 1.4rem;
-      font-weight: 900;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-    }
-    
-    .calc-btn:hover {
-      background: var(--neon-blue);
-      color: #fff;
-      border-color: var(--neon-blue);
-    }
-    
-    .calc-btn.minus:hover {
-      background: var(--neon-red);
-      border-color: var(--neon-red);
-    }
-    
-    .form-group input { 
-      flex: 1; 
-      min-width: 0;
-      width: 100%; 
-      background: #f8fafc; 
-      border: 1.5px solid #cbd5e1; 
-      border-radius: 12px; 
-      padding: 12px 14px; 
-      color: #0f172a; 
-      font-weight: 800; 
-      direction: ltr; 
-      font-family: 'Outfit'; 
-      font-size: 1.25rem; 
-      transition: 0.3s; 
-      text-align: center;
-    }
+    .form-group input { flex: 1; min-width: 0; width: 100%; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 12px 14px; color: #0f172a; font-weight: 800; direction: ltr; font-family: 'Outfit'; font-size: 1.25rem; transition: 0.3s; text-align: center;}
     .form-group input:focus { border-color: var(--neon-blue); background: #fff; box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.15); outline: none; }
-    .form-group input:disabled { opacity: 0.4; cursor: not-allowed; }
     
     .switch-container { display: flex; align-items: center; gap: 12px; background: #f0f7ff; padding: 18px; border-radius: 14px; border: 1px solid rgba(0, 102, 255, 0.2); margin-bottom: 25px; transition: 0.3s;}
     .switch-container label { font-size: 1rem; font-weight: 800; color: #0f172a; cursor: pointer; }
     .switch-container input[type="checkbox"] { width: 22px; height: 22px; cursor: pointer; accent-color: var(--neon-blue); }
-
     .btn-save-admin { background: linear-gradient(135deg, var(--neon-blue), var(--neon-red)); color: #fff; border: none; padding: 18px 20px; border-radius: 14px; cursor: pointer; font-weight: 800; margin-top: 30px; width: 100%; font-size: 1.2rem; transition: 0.3s; box-shadow: 0 10px 25px rgba(0, 102, 255, 0.25);}
     .btn-save-admin:hover { box-shadow: 0 12px 30px rgba(255, 0, 60, 0.35); }
 
@@ -396,7 +269,6 @@
     .receipt-meta { display: flex; justify-content: space-between; font-size: 0.9rem; color: #334155; margin-bottom: 8px; font-weight: 700; }
     .receipt-meta span:last-child { direction: ltr; font-family: 'Outfit', monospace !important; }
     .receipt-divider { border-top: 2px dashed #cbd5e1; margin: 14px 0; }
-
     .receipt-box-grid { display: flex; flex-direction: column; gap: 10px; margin: 10px 0; }
     .receipt-trans-box { border-radius: 12px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid #cbd5e1; }
     .receipt-box-give { background: #fff5f5; border-color: rgba(255, 0, 60, 0.25); }
@@ -410,9 +282,8 @@
     .receipt-footer { text-align: center; margin-top: 16px; padding-top: 12px; border-top: 2px dashed #cbd5e1; }
     .receipt-barcode { font-family: monospace !important; letter-spacing: 4px !important; font-size: 1.25rem; font-weight: 900; color: #0f172a; margin-bottom: 6px; overflow: hidden; white-space: nowrap; }
     .receipt-thanks { font-size: 0.85rem; color: #475569; font-weight: 700; }
-
     .receipt-actions { display: flex; gap: 12px; width: 100%; margin-top: 16px; }
-    .btn-print-receipt { flex: 2; background: linear-gradient(135deg, var(--neon-blue), #0055ff); color: #fff; border: none; padding: 16px; border-radius: 14px; font-size: 1.1rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4); transition: 0.2s; }
+    .btn-print-receipt { flex: 2; background: linear-gradient(135deg, var(--neon-blue), #0055ff); color: #fff; border: none; padding: 16px; border-radius: 14px; font-size: 1.1rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 25px rgba(0, 136, 255, 0.4); transition: 0.2s; }
     .btn-print-receipt:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0, 136, 255, 0.6); }
     .btn-close-receipt { flex: 1; background: #ffffff; color: #0f172a; border: 2px solid #e2e8f0; padding: 16px; border-radius: 14px; font-size: 1.05rem; font-weight: 800; cursor: pointer; transition: 0.2s; }
     .btn-close-receipt:hover { background: var(--neon-red); color: #fff; border-color: var(--neon-red); }
@@ -421,7 +292,7 @@
     @media print {
       @page { margin: 5mm; }
       body { background: #ffffff !important; background-image: none !important; color: #000000 !important; padding: 0 !important; margin: 0 !important; }
-      #loadingOverlay, #authOverlay, .tv-Header-Wrap, .live-stream-bar, .navbar, .container, #adminModal, #toastBox, .receipt-actions { display: none !important; }
+      #loadingOverlay, #authOverlay, .tv-Header-Wrap, .live-stream-bar, .navbar, .container, #adminModal, #reportModal, #toastBox, .receipt-actions { display: none !important; }
       #receiptModal { position: static !important; display: flex !important; background: #ffffff !important; padding: 0 !important; margin: 0 !important; justify-content: center !important; align-items: flex-start !important; }
       .receipt-modal-wrapper { max-width: 100% !important; width: 80mm !important; margin: 0 auto !important; }
       .receipt-paper { box-shadow: none !important; border: 1px solid #000 !important; border-top: 4px solid #000 !important; border-radius: 0 !important; padding: 15px !important; width: 100% !important; }
@@ -541,8 +412,9 @@
       <div class="live-clock" id="liveClock">--:--:--</div>
     </div>
 
+    <!-- NAVBAR WITH REFRESH LOGO & HAMBURGER MENU -->
     <header class="navbar">
-      <div class="brand" onclick="window.openAdminModal()" title="کلیک لێرە بکە بۆ ئەدمین">
+      <div class="brand" onclick="location.reload()" title="ڕیفرێشکرنا ماڵپەڕی">
         <div class="brand-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         </div>
@@ -552,16 +424,43 @@
       <div class="nav-actions">
         <div class="security-badge" title="سیستەم پارێزراوە">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>پاراستیە (Encrypted)</span>
+          <span style="display:none;">پاراستیە</span>
         </div>
-        <button class="btn-logout" onclick="window.performLogout()" title="دەرچوون لە سیستەم">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-          <span>چوونەدەر (Logout)</span>
+        
+        <!-- Hamburger Menu Button -->
+        <button class="menu-btn" onclick="window.toggleMenu()" title="مێنویێ سەرەکی">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
         </button>
       </div>
     </header>
 
+    <!-- SIDEBAR MENU -->
+    <div id="sideMenuOverlay" onclick="window.toggleMenu()"></div>
+    <div id="sideMenu">
+      <div class="side-menu-header">
+        <h3>مێنویێ سەرەکی</h3>
+        <button onclick="window.toggleMenu()">✕</button>
+      </div>
+      <div class="side-menu-links">
+        <a onclick="location.reload()">🔄 ڕیفرێشکرنا ماڵپەڕی</a>
+        <a onclick="window.openAdminModal(); window.toggleMenu();">⚙️ کۆنتڕۆلا سیستەمی</a>
+        <a onclick="window.openReportModal(); window.toggleMenu();">📊 ڕاپۆرتا فەیدە و خوسارەت (قازانج)</a>
+        <a onclick="window.performLogout()" style="color: var(--neon-red); margin-top: 15px; border-top: 2px solid #f1f5f9;">🚪 چوونەدەر (Logout)</a>
+      </div>
+    </div>
+
     <main class="container">
+
+      <div class="quick-grid">
+        <div class="magic-card quick-card" onclick="window.showToast('حیسابا من')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-red)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>حیسابا من</span></div></div>
+        <div class="magic-card quick-card" onclick="window.showToast('ئیعتمادا نوو')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>ئیعتمادا نوو</span></div></div>
+        <div class="magic-card quick-card active"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px; background:#f0f7ff;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-blue)" stroke-width="2.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg><span style="color:var(--neon-blue);">گوهۆڕین</span></div></div>
+        <div class="magic-card quick-card" onclick="window.showToast('سیستەم ب تەمامی یێ پاراستیە دژی هاککرنێ 🛡️')"><div class="magic-card-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>پشتڕاستکرن</span></div></div>
+      </div>
       
       <!-- Balances Slider -->
       <div class="balance-slider-wrapper">
@@ -735,6 +634,34 @@
       </div>
     </main>
 
+    <!-- PROFIT/LOSS REPORT MODAL -->
+    <div class="modal-backdrop" id="reportModal" onclick="if(event.target===this) window.closeReportModal()">
+      <div class="modal-card" style="max-width: 800px;">
+        <div class="modal-title">
+          <span>📊 ڕاپۆرتا فەیدە و خوسارەت (قازانج)</span>
+          <button onclick="window.closeReportModal()" style="background:transparent;border:none;color:var(--text-gray);font-size:1.5rem;cursor:pointer; transition:0.3s;">✕</button>
+        </div>
+        
+        <div class="report-grid">
+          <div class="report-box">
+            <h4>ئەڤرۆ (ڕۆژانە)</h4>
+            <div class="report-val" id="repDaily">0.00$</div>
+          </div>
+          <div class="report-box">
+            <h4>ڤێ حەفتیێ (حەفتیانە)</h4>
+            <div class="report-val" id="repWeekly">0.00$</div>
+          </div>
+          <div class="report-box">
+            <h4>ڤێ هەیڤێ (هەیڤانە)</h4>
+            <div class="report-val" id="repMonthly">0.00$</div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 20px; font-size: 0.85rem; color: #64748b; font-weight: 700;">
+          * ئەڤ ڕاپۆرتە ل سەر بنەمایێ صەفقەیێن تۆمارکری یێن د ناڤ سیستەمی دا هاتیە هەژمارتن.
+        </div>
+      </div>
+    </div>
+
     <!-- RECEIPT MODAL -->
     <div class="modal-backdrop" id="receiptModal" onclick="if(event.target===this) window.closeReceiptModal()">
       <div class="receipt-modal-wrapper">
@@ -797,12 +724,12 @@
     <!-- Admin Modal -->
     <div class="modal-backdrop" id="adminModal">
       <div class="modal-card">
-        <div class="modal-title"><span>🛡️ کۆنتڕۆلا سیستەمی یا پاراستی</span><button onclick="window.closeAdminModal()" style="background:transparent;border:none;color:var(--text-gray);font-size:1.5rem;cursor:pointer; transition:0.3s;">✕</button></div>
+        <div class="modal-title"><span>🛡 کۆنتڕۆلا سیستەمی یا پاراستی</span><button onclick="window.closeAdminModal()" style="background:transparent;border:none;color:var(--text-gray);font-size:1.5rem;cursor:pointer; transition:0.3s;">✕</button></div>
         
         <div id="adminControlsSection">
           <div class="switch-container">
             <input type="checkbox" id="admAutoSync" onchange="window.toggleAutoSyncUI()" />
-            <label for="admAutoSync">گرێدانا ئۆتۆماتیک ب بۆرسەیا جیهانی ڤە (دیارکرنی عەیار -/+)</label>
+            <label for="admAutoSync">گرێدانا ئۆتۆماتیک ب بۆرسا عالەمی ڤە (دیارکرنا عەیارێ -/+)</label>
           </div>
 
           <div class="admin-section-title">باڵانسێن حیسابێ و قازانج</div>
@@ -811,7 +738,7 @@
               <label>USD ($ دۆلار)</label>
               <div class="input-with-calc">
                 <button class="calc-btn minus" onclick="window.adjustBalance('usd', -1)" title="کەمکردن">-</button>
-                <input type="number" step="any" id="admBalUsd" oninput="window.saveAdminChanges(true)" />
+                <input type="number" step="any" id="admBalUsd" onchange="window.updateBalanceManually('usd')" onblur="window.updateBalanceManually('usd')" />
                 <button class="calc-btn" onclick="window.adjustBalance('usd', 1)" title="زیادکردن">+</button>
               </div>
             </div>
@@ -820,7 +747,7 @@
               <label>EUR (€ یۆرۆ)</label>
               <div class="input-with-calc">
                 <button class="calc-btn minus" onclick="window.adjustBalance('eur', -1)" title="کەمکردن">-</button>
-                <input type="number" step="any" id="admBalEur" oninput="window.saveAdminChanges(true)" />
+                <input type="number" step="any" id="admBalEur" onchange="window.updateBalanceManually('eur')" onblur="window.updateBalanceManually('eur')" />
                 <button class="calc-btn" onclick="window.adjustBalance('eur', 1)" title="زیادکردن">+</button>
               </div>
             </div>
@@ -829,7 +756,7 @@
               <label>IQD (دینارێ عێراقی)</label>
               <div class="input-with-calc">
                 <button class="calc-btn minus" onclick="window.adjustBalance('iqd', -1)" title="کەمکردن">-</button>
-                <input type="number" step="any" id="admBalIqd" oninput="window.saveAdminChanges(true)" />
+                <input type="number" step="any" id="admBalIqd" onchange="window.updateBalanceManually('iqd')" onblur="window.updateBalanceManually('iqd')" />
                 <button class="calc-btn" onclick="window.adjustBalance('iqd', 1)" title="زیادکردن">+</button>
               </div>
             </div>
@@ -838,7 +765,7 @@
               <label>TRY (لیرەیێ تورکی)</label>
               <div class="input-with-calc">
                 <button class="calc-btn minus" onclick="window.adjustBalance('try', -1)" title="کەمکردن">-</button>
-                <input type="number" step="any" id="admBalTry" oninput="window.saveAdminChanges(true)" />
+                <input type="number" step="any" id="admBalTry" onchange="window.updateBalanceManually('try')" onblur="window.updateBalanceManually('try')" />
                 <button class="calc-btn" onclick="window.adjustBalance('try', 1)" title="زیادکردن">+</button>
               </div>
             </div>
@@ -847,7 +774,7 @@
               <label style="color:var(--neon-green)">قازانجا گشتی (Profit $)</label>
               <div class="input-with-calc">
                 <button class="calc-btn minus" onclick="window.adjustBalance('profit', -1)" title="کەمکردن">-</button>
-                <input type="number" step="any" id="admBalProfit" oninput="window.saveAdminChanges(true)" />
+                <input type="number" step="any" id="admBalProfit" onchange="window.updateBalanceManually('profit')" onblur="window.updateBalanceManually('profit')" />
                 <button class="calc-btn" onclick="window.adjustBalance('profit', 1)" title="زیادکردن">+</button>
               </div>
             </div>
@@ -949,6 +876,74 @@
     } else {
       document.getElementById('authOverlay').style.display = 'flex';
       document.getElementById('mainAppWrapper').style.display = 'none';
+    }
+
+    // --- SIDE MENU LOGIC ---
+    window.toggleMenu = function() {
+      const menu = document.getElementById('sideMenu');
+      const overlay = document.getElementById('sideMenuOverlay');
+      if(menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        overlay.style.display = 'none';
+      } else {
+        menu.classList.add('open');
+        overlay.style.display = 'block';
+      }
+    }
+
+    // --- REPORT MODAL LOGIC ---
+    function parseGbDate(dateStr) {
+      if(!dateStr) return new Date(0);
+      const parts = dateStr.split('/');
+      if(parts.length === 3) {
+        return new Date(parts[2], parts[1]-1, parts[0]);
+      }
+      return new Date(dateStr);
+    }
+
+    window.openReportModal = function() {
+      const hist = state.history || [];
+      let daily = 0, weekly = 0, monthly = 0;
+      
+      const now = new Date();
+      const todayStr = now.toLocaleDateString('en-GB');
+      const currMonth = now.getMonth();
+      const currYear = now.getFullYear();
+
+      hist.forEach(item => {
+        const p = item.profitUsd || 0;
+        if(p === 0) return;
+
+        if(item.date === todayStr) daily += p;
+        
+        const itemDate = parseGbDate(item.date);
+        
+        // Check weekly (last 7 days)
+        const diffTime = Math.abs(now - itemDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+        if(diffDays <= 7) weekly += p;
+
+        // Check monthly
+        if(itemDate.getMonth() === currMonth && itemDate.getFullYear() === currYear) monthly += p;
+      });
+
+      const fRep = (val) => {
+         const vNum = Number(val);
+         if (vNum === 0) return `0.00$`;
+         const sign = vNum > 0 ? '+' : '';
+         const cls = vNum < 0 ? 'negative' : '';
+         return `<span class="${cls}">${sign}${vNum.toFixed(2)}$</span>`;
+      };
+
+      document.getElementById('repDaily').innerHTML = fRep(daily);
+      document.getElementById('repWeekly').innerHTML = fRep(weekly);
+      document.getElementById('repMonthly').innerHTML = fRep(monthly);
+
+      document.getElementById('reportModal').classList.add('show');
+    }
+
+    window.closeReportModal = function() {
+      document.getElementById('reportModal').classList.remove('show');
     }
 
     function mountTradingViewTicker() {
@@ -1313,7 +1308,9 @@
 
       const officeGivesUsdValue = recAmt * window.getUsdValueMid(recC);
       const officeReceivesUsdValue = payAmt * window.getUsdValueMid(payC);
-      const tradeProfit = officeReceivesUsdValue - officeGivesUsdValue;
+      
+      // ABSOLUTE CALCULATION: Profit will ONLY be positive (gain), never negative (-)
+      const tradeProfit = Math.abs(officeReceivesUsdValue - officeGivesUsdValue);
       
       state.totalProfitUsd = cleanNum(state.totalProfitUsd) + tradeProfit;
 
@@ -1329,7 +1326,8 @@
         received: `${window.f(recAmt, recC)} ${recC.toUpperCase()}`, 
         rate: rateStr, 
         date: dateStr, 
-        time: timeStr 
+        time: timeStr,
+        profitUsd: tradeProfit
       };
       state.history.unshift(newOrder);
       currentHistoryPage = 1;
@@ -1472,6 +1470,38 @@
     }
     window.closeAdminModal = function() { document.getElementById('adminModal').classList.remove('show'); }
 
+    // This gets called both by the +/- buttons AND by typing manually
+    window.updateBalanceManually = function(currency) {
+      let elId = '';
+      switch(currency) {
+        case 'usd': elId = 'admBalUsd'; break;
+        case 'eur': elId = 'admBalEur'; break;
+        case 'iqd': elId = 'admBalIqd'; break; 
+        case 'try': elId = 'admBalTry'; break;
+        case 'profit': elId = 'admBalProfit'; break;
+      }
+      
+      const el = document.getElementById(elId);
+      let val = cleanNum(el.value, 0);
+
+      // Immediately sync it to state
+      if (currency === 'profit') {
+        state.totalProfitUsd = val;
+      } else {
+        state.balances[currency] = val;
+      }
+
+      // Re-format the input box so it looks clean
+      if (currency === 'iqd') {
+        el.value = Math.round(val);
+      } else {
+        el.value = val.toFixed(2);
+      }
+
+      window.saveState();
+      window.updateUI();
+    }
+
     window.adjustBalance = function(currency, direction) {
       let step = 1;
       let elId = '';
@@ -1488,13 +1518,8 @@
       const currentVal = cleanNum(el.value, 0);
       let newVal = currentVal + (step * direction);
 
-      if (currency === 'iqd') {
-        el.value = Math.round(newVal);
-      } else {
-        el.value = newVal.toFixed(2);
-      }
-      
-      window.saveAdminChanges(true);
+      el.value = newVal;
+      window.updateBalanceManually(currency); // Process exactly the same as a manual typed edit
     }
 
     window.populateAdminPanel = function() {
@@ -1502,11 +1527,11 @@
       window.toggleAutoSyncUI();
       
       // Manual Balances
-      document.getElementById('admBalUsd').value = cleanNum(state.balances.usd); 
-      document.getElementById('admBalEur').value = cleanNum(state.balances.eur);
-      document.getElementById('admBalIqd').value = cleanNum(state.balances.iqd); 
-      document.getElementById('admBalTry').value = cleanNum(state.balances.try);
-      document.getElementById('admBalProfit').value = cleanNum(state.totalProfitUsd);
+      document.getElementById('admBalUsd').value = cleanNum(state.balances.usd).toFixed(2); 
+      document.getElementById('admBalEur').value = cleanNum(state.balances.eur).toFixed(2);
+      document.getElementById('admBalIqd').value = Math.round(cleanNum(state.balances.iqd)); 
+      document.getElementById('admBalTry').value = cleanNum(state.balances.try).toFixed(2);
+      document.getElementById('admBalProfit').value = cleanNum(state.totalProfitUsd).toFixed(2);
       
       // Manual Rates
       document.getElementById('admEurBuy').value = cleanNum(state.rates.eur.buy, 1); 
