@@ -94,7 +94,15 @@
     @keyframes pulseAnim { 0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); } 70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(0, 200, 83, 0); } 100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0); } }
     .live-clock { color: var(--neon-blue); font-family: 'Outfit', monospace !important; font-weight: 800; font-size: 0.95rem; padding-right: 12px; border-right: 2px solid #e2e8f0; white-space: nowrap; direction: ltr; }
 
-    /* --- SIDE MENU & NAVBAR --- */
+    /* --- MAGIC ANIMATED NEON BORDERS ON WHITE --- */
+    .magic-card { position: relative; border-radius: 24px; padding: 3px; overflow: hidden; z-index: 1; box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08); background: #e2e8f0; }
+    .magic-card::before { content: ''; position: absolute; width: 200%; height: 200%; top: -50%; left: -50%; background: conic-gradient(transparent, transparent, var(--neon-blue), #ffffff, var(--neon-red), transparent 30%); animation: spin 4s linear infinite; z-index: -2; }
+    .magic-card.reverse-glow::before { background: conic-gradient(transparent, transparent, var(--neon-red), #ffffff, var(--neon-blue), transparent 30%); animation: spin 4s linear infinite reverse; }
+    .magic-card-inner { background: #ffffff; border-radius: 21px; height: 100%; width: 100%; z-index: -1; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    @keyframes floatWave { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+
+    /* NAVBAR */
     .navbar { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(20px); border-bottom: 1px solid #e2e8f0; padding: 15px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); }
     .brand { display: flex; align-items: center; gap: 12px; font-size: 1.6rem; font-weight: 800; color: #0f172a; cursor: pointer; user-select: none; }
     .brand:hover { color: var(--neon-blue); }
@@ -116,14 +124,6 @@
     .side-menu-links { display: flex; flex-direction: column; padding: 10px 0; }
     .side-menu-links a { padding: 16px 24px; font-size: 1.1rem; font-weight: 800; color: #334155; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 12px; border-bottom: 1px dashed #e2e8f0; }
     .side-menu-links a:hover { background: #f0f7ff; color: var(--neon-blue); padding-right: 32px; }
-
-    /* --- MAGIC ANIMATED NEON BORDERS ON WHITE --- */
-    .magic-card { position: relative; border-radius: 24px; padding: 3px; overflow: hidden; z-index: 1; box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08); background: #e2e8f0; }
-    .magic-card::before { content: ''; position: absolute; width: 200%; height: 200%; top: -50%; left: -50%; background: conic-gradient(transparent, transparent, var(--neon-blue), #ffffff, var(--neon-red), transparent 30%); animation: spin 4s linear infinite; z-index: -2; }
-    .magic-card.reverse-glow::before { background: conic-gradient(transparent, transparent, var(--neon-red), #ffffff, var(--neon-blue), transparent 30%); animation: spin 4s linear infinite reverse; }
-    .magic-card-inner { background: #ffffff; border-radius: 21px; height: 100%; width: 100%; z-index: -1; }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-    @keyframes floatWave { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
 
     .container { max-width: 1080px; margin: 0 auto; padding: 25px 16px; }
 
@@ -542,15 +542,15 @@
               <!-- PAYING (Sell) -->
               <div class="curr-input-wrap pay-wrap">
                 <div class="curr-input-left">
-                  <span class="curr-input-label">فڕۆتن (Sell)</span>
+                  <span class="curr-input-label">فڕۆتن (نووسینگە ددەت)</span>
                   <input type="number" id="payInput" placeholder="0.00" min="0" step="any" oninput="window.calculateConvert('pay')" />
                 </div>
                 <div class="curr-select-btn">
-                  <img src="https://flagcdn.com/w20/iq.png" id="imgPay" style="border-radius:3px;width:18px;" alt="flag">
+                  <img src="https://flagcdn.com/w20/us.png" id="imgPay" style="border-radius:3px;width:18px;" alt="flag">
                   <select id="payCurrency" onchange="window.updateConvertUI()">
-                    <option value="usd">USD</option>
+                    <option value="usd" selected>USD</option>
                     <option value="eur">EUR</option>
-                    <option value="iqd" selected>IQD</option>
+                    <option value="iqd">IQD</option>
                     <option value="try">TRY</option>
                   </select>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -565,7 +565,7 @@
               <!-- RECEIVING (Buy) -->
               <div class="curr-input-wrap rec-wrap">
                 <div class="curr-input-left">
-                  <span class="curr-input-label">کڕین (Buy)</span>
+                  <span class="curr-input-label">کڕین (نووسینگە وەردگریت)</span>
                   <input type="number" id="receiveInput" placeholder="0.00" min="0" step="any" oninput="window.calculateConvert('receive')" />
                 </div>
                 <div class="curr-select-btn">
@@ -618,8 +618,8 @@
               <thead>
                 <tr>
                   <th>ژمارا وەصلێ</th>
-                  <th>فڕۆتن (Sell)</th>
-                  <th>کڕین (Buy)</th>
+                  <th>دەرکەفتن (چوو)</th>
+                  <th>هاتنە ژوور (هات)</th>
                   <th>بهایێ گوهۆڕینێ</th>
                   <th>تەریخ و دەم</th>
                   <th>کردار</th>
@@ -638,7 +638,7 @@
     <div class="modal-backdrop" id="reportModal" onclick="if(event.target===this) window.closeReportModal()">
       <div class="modal-card" style="max-width: 800px;">
         <div class="modal-title">
-          <span>📊 ڕاپۆرتا فەیدە و خوسارەت (قازانج)</span>
+          <span>📊 ڕاپۆرتا فەیدەی (قازانج)</span>
           <button onclick="window.closeReportModal()" style="background:transparent;border:none;color:var(--text-gray);font-size:1.5rem;cursor:pointer; transition:0.3s;">✕</button>
         </div>
         
@@ -657,7 +657,7 @@
           </div>
         </div>
         <div style="text-align: center; margin-top: 20px; font-size: 0.85rem; color: #64748b; font-weight: 700;">
-          * ئەڤ ڕاپۆرتە ل سەر بنەمایێ صەفقەیێن تۆمارکری یێن د ناڤ سیستەمی دا هاتیە هەژمارتن.
+          * ئەڤ ڕاپۆرتە تەنێ قازانجا (فەیدەیێ) پاقژ یێ صەفقەیان نیشان ددەت.
         </div>
       </div>
     </div>
@@ -690,18 +690,18 @@
           <div class="receipt-box-grid">
             <div class="receipt-trans-box receipt-box-give">
               <div class="receipt-trans-info">
-                <span class="receipt-trans-tag">ئەو پارێت تە داین:</span>
-                <span class="receipt-trans-currname" id="recPayCurrName">--</span>
+                <span class="receipt-trans-tag">ئەو پارێت تە داین (نووسینگە وەردگریت):</span>
+                <span class="receipt-trans-currname" id="recRecCurrName">--</span>
               </div>
-              <span class="receipt-trans-amount" id="recPayAmount">0.00</span>
+              <span class="receipt-trans-amount" id="recRecAmount">0.00</span>
             </div>
 
             <div class="receipt-trans-box receipt-box-receive">
               <div class="receipt-trans-info">
-                <span class="receipt-trans-tag">ئەو پارێت تە وەرگرتین:</span>
-                <span class="receipt-trans-currname" id="recRecCurrName">--</span>
+                <span class="receipt-trans-tag">ئەو پارێت تە وەرگرتین (نووسینگە ددەت):</span>
+                <span class="receipt-trans-currname" id="recPayCurrName">--</span>
               </div>
-              <span class="receipt-trans-amount" id="recRecAmount">0.00</span>
+              <span class="receipt-trans-amount" id="recPayAmount">0.00</span>
             </div>
           </div>
 
@@ -931,8 +931,7 @@
          const vNum = Number(val);
          if (vNum === 0) return `0.00$`;
          const sign = vNum > 0 ? '+' : '';
-         const cls = vNum < 0 ? 'negative' : '';
-         return `<span class="${cls}">${sign}${vNum.toFixed(2)}$</span>`;
+         return `<span style="color:var(--neon-green)">${sign}${vNum.toFixed(2)}$</span>`;
       };
 
       document.getElementById('repDaily').innerHTML = fRep(daily);
@@ -1303,15 +1302,17 @@
 
       if (payAmt <= 0 || recAmt <= 0) return window.showToast('تکایە بڕێکی دروست بنووسە');
 
-      state.balances[payC] = cleanNum(state.balances[payC]) + payAmt;
-      state.balances[recC] = cleanNum(state.balances[recC]) - recAmt;
+      // 1. UPDATE OFFICE BALANCES
+      // The office GIVES payAmt of payC (so subtract)
+      // The office RECEIVES recAmt of recC (so add)
+      state.balances[payC] = cleanNum(state.balances[payC]) - payAmt;
+      state.balances[recC] = cleanNum(state.balances[recC]) + recAmt;
 
-      const officeGivesUsdValue = recAmt * window.getUsdValueMid(recC);
-      const officeReceivesUsdValue = payAmt * window.getUsdValueMid(payC);
+      // 2. ABSOLUTE PROFIT CALCULATION (GAIN ONLY)
+      const officeGivesUsdValue = payAmt * window.getUsdValueMid(payC);
+      const officeReceivesUsdValue = recAmt * window.getUsdValueMid(recC);
       
-      // ABSOLUTE CALCULATION: Profit will ONLY be positive (gain), never negative (-)
       const tradeProfit = Math.abs(officeReceivesUsdValue - officeGivesUsdValue);
-      
       state.totalProfitUsd = cleanNum(state.totalProfitUsd) + tradeProfit;
 
       const now = new Date();
@@ -1359,11 +1360,14 @@
       const recCode = (recParts[1] || 'EUR').toUpperCase();
       const recInfo = currencyDetailsMap[recCode] || { name: recCode, sym: recCode };
 
-      document.getElementById('recPayCurrName').textContent = payInfo.name;
-      document.getElementById('recPayAmount').textContent = `${payNum} ${payInfo.sym}`;
-
+      // In the modal:
+      // "What the customer paid" = recAmt from history
+      // "What the customer received" = payAmt from history
       document.getElementById('recRecCurrName').textContent = recInfo.name;
       document.getElementById('recRecAmount').textContent = `${recNum} ${recInfo.sym}`;
+
+      document.getElementById('recPayCurrName').textContent = payInfo.name;
+      document.getElementById('recPayAmount').textContent = `${payNum} ${payInfo.sym}`;
 
       document.getElementById('receiptModal').classList.add('show');
     };
@@ -1437,8 +1441,8 @@
         return `
           <tr onclick="window.openReceipt(${safeId})" title="کلیک بکە بۆ بینین و چاپکردنی وەسڵ">
             <td><span class="receipt-id-pill">#${recShortNo}</span></td>
-            <td class="td-pay">+ ${o.paid}</td>
-            <td class="td-rec">- ${o.received}</td>
+            <td class="td-pay">- ${o.paid}</td>
+            <td class="td-rec">+ ${o.received}</td>
             <td style="direction:ltr; font-size:0.85rem; color:var(--text-gray)">${o.rate}</td>
             <td style="direction:ltr; font-size:0.85rem; color:var(--text-gray)">${dStr}</td>
             <td>
